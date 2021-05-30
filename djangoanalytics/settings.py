@@ -118,10 +118,10 @@ DATABASES = {
             'options': '-c search_path=djangoanalytics'
         },
     },
-    # 'test_remote_db': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': BASE_DIR / 'test_remote_db.sqlite3',
-    # },
+    'test_remote_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'test_remote_db.sqlite3',
+    },
 }
 
 

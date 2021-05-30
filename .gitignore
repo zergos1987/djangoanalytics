@@ -3,7 +3,7 @@ __pycache
 *.env
 *.sqlite3
 virtual_enviroment/*
-!virtual_enviroment
+!virtual_enviroment/
 logs/django/*
-!logs/django
-!staticfiles
+!logs/django/
+!staticfiles/
