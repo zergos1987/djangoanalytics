@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", config('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", config('DEBUG', default=False, cast=bool))
-print(config('DEBUG', default=False, cast=bool), 'FFFFFFFFff', os.environ.get("DEBUG"), DEBUG)
+
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", config('ALLOWED_HOSTS')).split(",")
 
 
