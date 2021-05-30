@@ -1,1 +1,1 @@
-"djangoanalytics portal for data vizualization" 
+djangoanalytics portal for data vizualization
