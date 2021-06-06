@@ -388,6 +388,7 @@ svg {
     align-items: center;
     justify-content: center;
     outline: none;
+    margin-right: 8px;
 }
 
 .header-left-items .header-right-items button:hover, .header-left-items .header-right-items .item-group.active button {
