@@ -271,18 +271,19 @@
             </nav>
 
             <main class="main">
+                {% block zs_admin_breadcrumb%}
                 <div class="breadcrumb">
                     <ul>
-                        {% block zs_admin_breadcrumb %}
-                        <li><a href="#">Item 1</a></li>
+                        <li><a href="{% url 'index_app_zs_admin' %}">Главная</a></li>
+                        {% block zs_admin_breadcrumb_item %}
                         <li><a href="#">Item 1-2</a></li>
                         <li><a href="#">Item 1-2-1</a></li>
                         <li><a href="#">Item 1-2-1-1</a></li>
                         <li>Grid items</li>
-                        {% endblock zs_admin_breadcrumb %}
+                        {% endblock zs_admin_breadcrumb_item %}
                     </ul>
                 </div>  
-                
+                {% endblock zs_admin_breadcrumb %}
 
                 {% block zs_admin_content %}
                 <div class="grid-items">
