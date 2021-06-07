@@ -105,6 +105,13 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            # 'builtins': [
+            #     'custom_script_extensions.form_tags'
+            # ],
+            'libraries': {
+                'form_tags': 'custom_script_extensions.form_tags',
+                'template_filters': 'custom_script_extensions.template_filters',
+            },
         },
     },
 ]
