@@ -1046,6 +1046,12 @@ svg {
 		width: 100%;
 		margin-left: initial;
 	}
+    .container.active .main {
+        padding-left: 24px;
+    }
+    .container:not(.active) .main {
+        padding-left: 24px;
+    }
 }
 
 @media screen and (max-width: 576px) {
