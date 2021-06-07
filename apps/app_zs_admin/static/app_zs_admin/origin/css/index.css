@@ -214,9 +214,12 @@ svg {
 	display: grid;
 	grid-template-columns: minmax(72px, 72px) auto;
 	grid-template-rows: 56px auto;
-	grid-template-areas: "header header"
-						 "sidebar-left container";
+/*	grid-template-areas: "header header"
+						 "sidebar-left container";*/
+    grid-template-areas: "header header"
+                         "container container";
 	transition: all .3s ease;
+    background: #f9f9f9;
 }
 
 .container.active {
@@ -912,8 +915,14 @@ svg {
 	grid-area: container;
 	background: #f9f9f9;
     padding: 23px 24px 0px 24px;
+    transition: padding .5s;
 }
-
+.container:not(.active) .main {
+    padding-left: 95px;
+}
+.container.active .main {
+    padding-left: 265px;
+}
 .main .grid-items {
 	margin-top: 55px;
 	display: grid;
