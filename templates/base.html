@@ -21,8 +21,9 @@
         <link rel="canonical" href="https://wwww.{{ request.get_host }}/">
         <link rel="alternate" media="handheld" href="https://m.{{ request.get_host }}/">
         <link rel="alternate" media="only screen and (max-width: 640px)" href="https://m.{{ request.get_host }}/">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald&display=swap" rel="stylesheet">
+<!--         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> -->
+        <link href="{% static 'app_zs_admin/origin/res/font/google_robot_fonts.css' %}" rel="stylesheet">
+        <link href="{% static 'app_zs_admin/origin/res/font/google_opensans_oswald_fonts.css' %}" rel="stylesheet">
         {% block head_css %}
             <!-- BASE CSS -->
             <link href="{% static 'app_zs_admin/origin/css/index.css' %}" rel="stylesheet">
@@ -131,7 +132,7 @@
                                     <span>Настройки</span>
                                 </a>
                                 <div class="row divider"></div>
-                                <a href="#" class="row">
+                                <a href="{% url 'logout' %}" class="row">
                                     <svg viewBox="0 0 24 24">
                                         <g>
                                             <path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path>
@@ -227,7 +228,7 @@
                     <div class="items-frame">
                         <div class="items">
                             {% block sidebar_left_settings_item %}
-                            <a href="#" class="level-0"><div class="row"><i class="fas fa-folder"></i><span>Item #1</span></div></a>
+                            <a href="#" class="level-0"><div class="row"><i class="fas_localy"></i><span>Item #1</span></div></a>
                             <a href="#" class="level-1"><div class="row"><i class="fas fa-folder"></i><span>Item #2</span></div></a>
                             <a href="#" class="level-2"><div class="row"><i class="fas fa-folder"></i><span>Item #2-1</span></div></a>
                             <a href="#" class="level-2"><div class="row"><i class="fas fa-folder"></i><span>Item #2-2</span></div></a>
@@ -288,27 +289,23 @@
 
                 {% block zs_admin_content %}
                 <div class="grid-items">
-                    <div class="grid-row grid_filters"><img src="https://via.placeholder.com/500x281?text=grid_filters" alt=""></div>
-                    <div class="grid-row grid_bar_chart"><img src="https://via.placeholder.com/500x281?text=grid_bar_chart" alt=""></div>
-                    <div class="grid-row grid_pie_chart"><img src="https://via.placeholder.com/500x281?text=grid_pie_chart" alt=""></div>
-                    <div class="grid-row grid_pie_chart"><img src="https://via.placeholder.com/500x281?text=grid_pie_chart" alt=""></div>
-                    <div class="grid-row grid_table"><img src="https://via.placeholder.com/500x281?text=grid_table" alt=""></div>
-                    <div class="grid-row grid_text"><img src="https://via.placeholder.com/500x281?text=grid_text" alt=""></div>
-                    <div class="grid-row grid_text"><img src="https://via.placeholder.com/500x281?text=grid_text" alt=""></div>
-                    <div class="grid-row grid_text"><img src="https://via.placeholder.com/500x281?text=grid_text" alt=""></div>
-                    <div class="grid-row grid_line_chart"><img src="https://via.placeholder.com/500x281?text=grid_line_chart" alt=""></div>
-                    <div class="grid-row grid_line_chart"><img src="https://via.placeholder.com/500x281?text=grid_line_chart" alt=""></div>
-                    <div class="grid-row grid_pivot_table"><img src="https://via.placeholder.com/500x281?text=grid_pivot_table" alt=""></div>
-                    <div class="grid-row grid_pie_chart"><img src="https://via.placeholder.com/500x281?text=grid_pie_chart" alt=""></div>
-                    <div class="grid-row grid_pie_chart"><img src="https://via.placeholder.com/500x281?text=grid_pie_chart" alt=""></div>
+                    <div class="grid-row"><img src="https://via.placeholder.com/500x281?text=placeholder" alt="placeholder" onerror="this.src = '{% static 'app_zs_admin/origin/res/img/placeholder_500x281.png' %}';"></div>
+                    <div class="grid-row"><img src="https://via.placeholder.com/500x281?text=placeholder" alt="placeholder" onerror="this.src = '{% static 'app_zs_admin/origin/res/img/placeholder_500x281.png' %}';"></div>
+                    <div class="grid-row"><img src="https://via.placeholder.com/500x281?text=placeholder" alt="placeholder" onerror="this.src = '{% static 'app_zs_admin/origin/res/img/placeholder_500x281.png' %}';"></div>
+                    <div class="grid-row"><img src="https://via.placeholder.com/500x281?text=placeholder" alt="placeholder" onerror="this.src = '{% static 'app_zs_admin/origin/res/img/placeholder_500x281.png' %}';"></div>
+                    <div class="grid-row"><img src="https://via.placeholder.com/500x281?text=placeholder" alt="placeholder" onerror="this.src = '{% static 'app_zs_admin/origin/res/img/placeholder_500x281.png' %}';"></div>
+                    <div class="grid-row"><img src="https://via.placeholder.com/500x281?text=placeholder" alt="placeholder" onerror="this.src = '{% static 'app_zs_admin/origin/res/img/placeholder_500x281.png' %}';"></div>
+                    <div class="grid-row"><img src="https://via.placeholder.com/500x281?text=placeholder" alt="placeholder" onerror="this.src = '{% static 'app_zs_admin/origin/res/img/placeholder_500x281.png' %}';"></div>
+                    <div class="grid-row"><img src="https://via.placeholder.com/500x281?text=placeholder" alt="placeholder" onerror="this.src = '{% static 'app_zs_admin/origin/res/img/placeholder_500x281.png' %}';"></div>
+                    <div class="grid-row"><img src="https://via.placeholder.com/500x281?text=placeholder" alt="placeholder" onerror="this.src = '{% static 'app_zs_admin/origin/res/img/placeholder_500x281.png' %}';"></div>
+                    <div class="grid-row"><img src="https://via.placeholder.com/500x281?text=placeholder" alt="placeholder" onerror="this.src = '{% static 'app_zs_admin/origin/res/img/placeholder_500x281.png' %}';"></div>
+                    <div class="grid-row"><img src="https://via.placeholder.com/500x281?text=placeholder" alt="placeholder" onerror="this.src = '{% static 'app_zs_admin/origin/res/img/placeholder_500x281.png' %}';"></div>
+                    <div class="grid-row"><img src="https://via.placeholder.com/500x281?text=placeholder" alt="placeholder" onerror="this.src = '{% static 'app_zs_admin/origin/res/img/placeholder_500x281.png' %}';"></div>
+                    <div class="grid-row"><img src="https://via.placeholder.com/500x281?text=placeholder" alt="placeholder" onerror="this.src = '{% static 'app_zs_admin/origin/res/img/placeholder_500x281.png' %}';"></div>
                 </div>
                 {% endblock zs_admin_content %}
             </main>
         </div>
-        {% else %}
-            {% block registration %}
-            {% endblock registration %}
-        {% endif %}
             
         <script src="{% static 'app_zs_admin/vendor/jquery-3.5.1/jquery-3.5.1.js'%}"></script>
         {% block head_js %}
@@ -322,6 +319,12 @@
             {% block zs_admin_app_vendor_js %}
             {% endblock zs_admin_app_vendor_js %}
         {% endblock head_js %}
+
+        {% else %}
+            {% block registration %}
+            {% endblock registration %}
+        {% endif %}
+
     </body>
 
 </html>

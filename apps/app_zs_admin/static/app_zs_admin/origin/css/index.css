@@ -21,6 +21,11 @@ svg {
 
 
 /*UTILS CLASS ============================================================ */
+.placeholder {
+    background-image: url(/static/app_zs_admin/origin/res/img/placeholder_500x281.png);
+    background-size: 30px;
+    background-repeat: no-repeat;
+}
 .displayBlock {
     display: block;
 }
@@ -318,7 +323,7 @@ svg {
     height: 100%;
     display: flex;
     align-items: center;
-    /* margin-top: -3px; UPDATE 07062021 W*/
+    padding-bottom: 2px;
     padding-left: 5px;
 }
 
@@ -701,7 +706,10 @@ svg {
     height: fit-content;
     align-items: flex-start;
 }
-
+.container .sidebar-left a > div.row {
+    display: flex;
+    align-items: center;
+}
 .sidebar-left a {
 	display: flex;
 	align-items: center;
@@ -779,6 +787,17 @@ svg {
 	margin-right: 27px;
 	width: 20px;
 	text-align: center;
+}
+
+.sidebar-left .fas_localy {
+    background-image: url(/static/app_zs_admin/origin/res/img/folder-solid.svg);
+    background-repeat: no-repeat;
+    width: 16px;
+    height: 16px;
+    position: relative;
+    margin-right: 27px;
+    display: inline-block;
+    margin-left: 2px;
 }
 
 .sidebar-left .item-group .selected .row > i.fas, 
@@ -943,34 +962,6 @@ svg {
 
 .main .grid-items .grid-row img {
 	width: 100%;
-}
-
-.main .grid-items .grid-row.grid_filters {
-
-}
-
-.main .grid-items .grid-row.grid_table {
-
-}
-
-.main .grid-items .grid-row.grid_pivot_table {
-
-}
-
-.main .grid-items .grid-row.grid_bar_chart {
-
-}
-
-.main .grid-items .grid-row.grid_pie_chart {
-
-}
-
-.main .grid-items .grid-row.grid_line_chart {
-
-}
-
-.main .grid-items .grid-row.grid_text {
-
 }
 
 /* ---- ---- ---- Mediaqueries ---- ---- ---- */

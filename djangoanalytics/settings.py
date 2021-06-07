@@ -37,10 +37,10 @@ ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", config('ALLOWED_HOSTS')).split("
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'grappelli',
+    'django.contrib.admin',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
@@ -217,7 +217,7 @@ SESSION_COOKIE_AGE = INACTIVE_TIME   # change expired session
 SESSION_IDLE_TIMEOUT = INACTIVE_TIME  # logout
 
 #Grappeli admin front-face
-GRAPPELLI_ADMIN_TITLE = 'djangoAnalytics Admin'
+GRAPPELLI_ADMIN_TITLE = 'DjangoAnalytics Admin'
 GRAPPELLI_SWITCH_USER = True
 
 # LDAP authentification backend
@@ -236,8 +236,8 @@ LDAP_AUTH_USE_TLS = False
 
 # The LDAP search base for looking up users.
 LDAP_AUTH_SEARCH_BASE = f"dc={config('LDAP_SEARCH_BASE_dc1', default='')},\
-dc={config('LDAP_SEARCH_BASE_dc2', default='')},\
-dc={config('LDAP_SEARCH_BASE_dc3', default='')}"
+                        dc={config('LDAP_SEARCH_BASE_dc2', default='')},\
+                        dc={config('LDAP_SEARCH_BASE_dc3', default='')}"
 #LDAP_SEARCH_BASE_dc1 = www
 #LDAP_SEARCH_BASE_dc2 = domainName
 #LDAP_SEARCH_BASE_dc3 = ru

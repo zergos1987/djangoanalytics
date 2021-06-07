@@ -21,6 +21,11 @@ svg {
 
 
 /*UTILS CLASS ============================================================ */
+.placeholder {
+    background-image: url(/static/app_zs_admin/origin/res/img/placeholder_500x281.png);
+    background-size: 30px;
+    background-repeat: no-repeat;
+}
 .displayBlock {
     display: block;
 }
@@ -214,9 +219,12 @@ svg {
 	display: grid;
 	grid-template-columns: minmax(72px, 72px) auto;
 	grid-template-rows: 56px auto;
-	grid-template-areas: "header header"
-						 "sidebar-left container";
+/*	grid-template-areas: "header header"
+						 "sidebar-left container";*/
+    grid-template-areas: "header header"
+                         "container container";
 	transition: all .3s ease;
+    background: #f9f9f9;
 }
 
 .container.active {
@@ -315,7 +323,7 @@ svg {
     height: 100%;
     display: flex;
     align-items: center;
-    margin-top: -3px;
+    /* margin-top: -3px; UPDATE 07062021 W*/
     padding-left: 5px;
 }
 
@@ -664,7 +672,10 @@ svg {
     z-index: 1000;
 
     border-right: 1px solid #cdcdcd;
-    box-shadow: 0px 2px 3px rgb(0 0 0 / 20%);
+    /* box-shadow: 0px 2px 3px rgb(0 0 0 / 20%); UPDATE 07062021 W*/
+    box-shadow: 0px 3px 3px 0px rgb(0 0 0 / 20%);
+
+    transition: width 0.5s ease 0s;
 }
 
 .container.active .sidebar-left {
@@ -866,7 +877,12 @@ svg {
     background-color: #e5e5e5;
 }
 
+.container:not(.active) .sidebar-left .item-group > .items-frame {
+    display: none; /* UPDATE 07062021 W */
+}
+
 .container:not(.active) .sidebar-left .item-group.active > .items-frame {
+    display: block; /* UPDATE 07062021 W */
     position: fixed;
     height: auto;
     width: fit-content;
@@ -885,7 +901,8 @@ svg {
     display: flex;
     flex-direction: column;
     position: relative;
-    padding: 10px 15px 10px 0px;
+    padding: 10px 0px 10px 0px;
+    margin-right: 15px;
     width: 100%;
     height: calc(100% - 20px);
     max-height: inherit;
@@ -909,8 +926,14 @@ svg {
 	grid-area: container;
 	background: #f9f9f9;
     padding: 23px 24px 0px 24px;
+    transition: padding .5s;
 }
-
+.container:not(.active) .main {
+    padding-left: 95px;
+}
+.container.active .main {
+    padding-left: 265px;
+}
 .main .grid-items {
 	margin-top: 55px;
 	display: grid;
@@ -925,34 +948,6 @@ svg {
 
 .main .grid-items .grid-row img {
 	width: 100%;
-}
-
-.main .grid-items .grid-row.grid_filters {
-
-}
-
-.main .grid-items .grid-row.grid_table {
-
-}
-
-.main .grid-items .grid-row.grid_pivot_table {
-
-}
-
-.main .grid-items .grid-row.grid_bar_chart {
-
-}
-
-.main .grid-items .grid-row.grid_pie_chart {
-
-}
-
-.main .grid-items .grid-row.grid_line_chart {
-
-}
-
-.main .grid-items .grid-row.grid_text {
-
 }
 
 /* ---- ---- ---- Mediaqueries ---- ---- ---- */
@@ -974,7 +969,7 @@ svg {
 
 @media screen and (max-width: 768px) {
 	.container {
-		grid-template-rows: auto;
+	    /*grid-template-rows: auto; UPDATE 07062021 W*/
 	    grid-template-areas:
 	        "header header"
 	        "container container";
@@ -1034,6 +1029,12 @@ svg {
 		width: 100%;
 		margin-left: initial;
 	}
+    .container.active .main {
+        padding-left: 24px;
+    }
+    .container:not(.active) .main {
+        padding-left: 24px;
+    }
 }
 
 @media screen and (max-width: 576px) {
