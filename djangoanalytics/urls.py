@@ -20,7 +20,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('grappelli/', include('grappelli.urls')), # grappelli URLS
+    path('admin', admin.site.urls),
     path('', include('apps.app_zs_admin.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('os_dashboards/', include('apps.app_opensource_dashboards.urls')),
