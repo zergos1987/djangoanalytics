@@ -1,4 +1,9 @@
-from django.shortcuts import render, redirect
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect, reverse
+from custom_script_extensions.forms import SignUpForm
+from custom_script_extensions.form_tags import *
 
 
 
@@ -8,3 +13,20 @@ def index(request):
 	template = 'accounts/index.html'
 
 	return render(request, template)
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+            return redirect('login')
+    else:
+        form = SignUpForm()
+    return render(request, 'registration/signup.html', {'form': form})
+
+
+def signout(request):
+    logout(request)
+    return redirect(reverse('admin:index')) # or wherever you want
