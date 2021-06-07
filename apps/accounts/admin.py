@@ -12,7 +12,6 @@ from .models import (
 
 
 
-
 class AuditEntryResource(resources.ModelResource):
 
     class Meta:
@@ -29,7 +28,7 @@ class AuditEntryResource(resources.ModelResource):
             'os_family', 
             'os_version',)
 
-
+	
 class AuditEntryAdmin(ImportExportModelAdmin):
     list_display = [
     	'dt', 
