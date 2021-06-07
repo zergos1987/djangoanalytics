@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Вход</title>
+		<link rel="stylesheet" href="{% static 'registration/vendor/bootstrap/bootstrap.min.css' %}">
+		<link rel="stylesheet" href="{% static 'registration/origin/css/style.css' %}">
+		{% block stylesheet %}{% endblock %}
+	</head>
+	<body>
+
+		{% block body %}
+		<main>
+			<div class="container">
+				<h1 class="text-center logo my-4">
+				<a href="#"></a>
+				</h1>
+				{% block registration %}
+				{% endblock %}
+			<div>
+		</main>
+		{% endblock %}
+
+    <script src="{% static 'registration/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'registration/vendor/jquery/popper.min.js' %}"></script>
+    <script src="{% static 'registration/vendor/bootstrap/bootstrap.min.js' %}"></script>
+
+	</body>
+</html>
