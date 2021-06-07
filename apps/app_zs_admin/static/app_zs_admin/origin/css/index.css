@@ -992,7 +992,7 @@ svg {
 
 @media screen and (max-width: 768px) {
 	.container {
-		grid-template-rows: auto;
+	    /*grid-template-rows: auto; UPDATE 07062021 W*/
 	    grid-template-areas:
 	        "header header"
 	        "container container";
