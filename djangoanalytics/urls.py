@@ -25,6 +25,7 @@ from apps.accounts import views as accounts_views
 from django.shortcuts import redirect
 
 urlpatterns = [
+    url(r'^adminlogout/$', accounts_views.signout, name='signout'),
     path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('admin', admin.site.urls),
     path('', include('apps.app_zs_admin.urls')),
@@ -40,7 +41,6 @@ urlpatterns = [
 urlpatterns += [
     url(r'^accounts/signup/$', accounts_views.signup, name='signup'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
-    url(r'^logout_from_admin/$', accounts_views.signout, name='signout'),
     url(r'^reset/$', auth_views.PasswordResetView.as_view(
         template_name='registration/password_reset.html',
         email_template_name='registration/password_reset_email.html',
