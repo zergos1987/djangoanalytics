@@ -327,7 +327,7 @@ LOGGING = {
         "production_file": { 
             "level": "INFO", 
             "class": "logging.handlers.RotatingFileHandler", 
-            "filename": BASE_DIR / 'logs/django/production.txt',
+            "filename": BASE_DIR / 'logs/django/production.log',
             "maxBytes": 1024 * 1024 * 5,  # 5 MB 
             "backupCount": 1, 
             "formatter": "default", 
@@ -336,7 +336,7 @@ LOGGING = {
         "debug_file": { 
             "level": "DEBUG", 
             "class": "logging.handlers.RotatingFileHandler", 
-            "filename": BASE_DIR / 'logs/django/debug.txt',
+            "filename": BASE_DIR / 'logs/django/debug.log',
             "maxBytes": 1024 * 1024 * 5,  # 5 MB 
             "backupCount": 1, 
             "formatter": "default", 
@@ -344,7 +344,7 @@ LOGGING = {
         }, 
         "null": {
             "class": "logging.handlers.RotatingFileHandler", 
-            "filename": BASE_DIR / 'logs/django/all.txt',
+            "filename": BASE_DIR / 'logs/django/all.log',
             "maxBytes": 1024 * 1024 * 5,  # 5 MB 
             "backupCount": 1, 
             "formatter": "default", 
@@ -453,4 +453,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #initialize_base_content ##########################
-initialazie_base_content()
+#initialazie_base_content()
