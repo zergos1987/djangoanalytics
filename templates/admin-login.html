@@ -18,7 +18,7 @@
 
 <!-- CONTENT -->
 {% block content %}
-    <div class="g-d-c g-d-10 g-centered" style="position: fixed;height: 100%;width: calc(100% - 40px);display: flex;top: 0;justify-content: center;align-items: center;">
+    <div class="g-d-c g-d-10 g-centered" style="position: fixed;height: 100%;width: calc(100% - 40px);display: flex;top: 0;justify-content: center;align-items: center;z-index: -1;">
         <form action="{{ app_path }}" method="post" novalidate style="height: fit-content;width: 375px;padding-bottom: 70px;">{% csrf_token %}
             <fieldset class="grp-module grp-module-login" style="border-radius: 0 !important;background-color: transparent !important;margin: 0;">
                 <h1 style="padding: 0; border: 0; background-color: #fff;background-image: none; display: flex;justify-content: center;">
