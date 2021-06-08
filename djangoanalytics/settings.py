@@ -213,7 +213,7 @@ SESSION_COOKIE_AGE = INACTIVE_TIME   # change expired session
 SESSION_IDLE_TIMEOUT = INACTIVE_TIME  # logout
 
 #Grappeli admin front-face
-GRAPPELLI_ADMIN_TITLE = 'DjangoAnalytics Admin'
+GRAPPELLI_ADMIN_TITLE = 'Администрирование DjangoAnalytics'
 GRAPPELLI_SWITCH_USER = True
 
 # LDAP authentification backend
