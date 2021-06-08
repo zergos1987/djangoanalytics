@@ -2,7 +2,7 @@ cx-Oracle
 django-excel
 jsonfield
 mssql-django
-
+sqlanydb
 
 
 asgiref==3.3.4
