@@ -1,4 +1,9 @@
 cx-Oracle
+django-excel
+jsonfield
+mssql-django
+
+
 
 asgiref==3.3.4
 certifi==2021.5.30
