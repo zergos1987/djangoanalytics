@@ -74,10 +74,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
 ]
 
-MIDDLEWARE_CLASSES = [
-    'djangosite.apps.zs_dashboards.middleware.SessionIdleTimeout',
-]
-
 AUTHENTICATION_BACKENDS = [
     'django_python3_ldap.auth.LDAPBackend',
     'django.contrib.auth.backends.ModelBackend',
