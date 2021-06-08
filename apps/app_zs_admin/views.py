@@ -21,7 +21,7 @@ import os
 
 # Create your views here.
 @login_required
-#@user_group_access_check('app_zs_admin')
+@user_group_access_check('app_zs_admin')
 def index(request):
 
 	template = 'app_zs_admin/index.html'
