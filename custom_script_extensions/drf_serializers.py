@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.examples.models import (
+from apps.app_zs_examples.models import (
 	test_table_model, 
 	processing_module_pipeline_user_content_history)
 
