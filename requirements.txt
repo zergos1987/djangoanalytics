@@ -1,3 +1,5 @@
+find domain name cmd: nslookup -type=srv _ldap._tcp.DOMAINNAME
+
 cx-Oracle
 django-excel
 jsonfield
