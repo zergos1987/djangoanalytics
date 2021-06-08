@@ -1,3 +1,12 @@
+table-list from sqlite3
+import sqlite3
+con = sqlite3.connect(r'C:\Path\db.sqlite3')
+cursor = con.cursor()
+cursor.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name;")
+print(cursor.fetchall())
+con.close()
+
+
 find domain name cmd: 
 nslookup -type=srv _ldap._tcp.DOMAINNAME
 nslookup 
