@@ -1,4 +1,10 @@
-find domain name cmd: nslookup -type=srv _ldap._tcp.DOMAINNAME
+find domain name cmd: 
+nslookup -type=srv _ldap._tcp.DOMAINNAME
+nslookup 
+set types=all
+_ldap._tcp
+
+
 
 cx-Oracle
 django-excel
