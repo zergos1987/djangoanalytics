@@ -3,7 +3,7 @@ django-excel
 jsonfield
 mssql-django
 sqlanydb
-
+importlib-metadata
 
 asgiref==3.3.4
 certifi==2021.5.30
