@@ -453,4 +453,6 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #initialize_base_content ##########################
-#initialazie_base_content()
+if not os.getenv('initialazie_base_content'):
+    os.environ['initialazie_base_content'] = str(os.getpid())
+    initialazie_base_content()
