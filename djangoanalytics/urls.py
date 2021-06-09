@@ -13,6 +13,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import os
+#initialize_base_content ##########################
+if not os.getenv('initialazie_base_content'):
+    from custom_script_extensions.djangoanalytics_initialize import initialazie_base_content
+    os.environ['initialazie_base_content'] = str(os.getpid())
+    initialazie_base_content()
+    
+    
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
@@ -23,6 +31,7 @@ from django.contrib.auth import views as auth_views
 from apps.accounts import views as accounts_views
 
 from django.shortcuts import redirect
+
 
 urlpatterns = [
     url(r'^adminlogout/$', accounts_views.signout, name='signout'),
