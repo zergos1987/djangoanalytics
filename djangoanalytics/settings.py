@@ -15,7 +15,6 @@ from decouple import config
 import os
 
 import logging
-from custom_script_extensions.djangoanalytics_initialize import initialazie_base_content
 from logging.handlers import RotatingFileHandler
 from django.contrib.auth.signals import user_logged_in, user_logged_out, user_login_failed
 from django.dispatch import receiver
@@ -451,8 +450,3 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-#initialize_base_content ##########################
-if not os.getenv('initialazie_base_content'):
-    os.environ['initialazie_base_content'] = str(os.getpid())
-    initialazie_base_content()
