@@ -106,7 +106,11 @@ users = [
 			'roles': ['admin_ROLE'],
 		}
 	},{
-		'api_user': {
+		'TEST_USER_admin': {
+			'roles': ['admin_ROLE'],
+		}
+	},{
+		'TEST_USER_api_user': {
 			'roles': ['api_ROLE'],
 		}
 	},{
