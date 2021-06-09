@@ -1,40 +1,59 @@
 from django.core.management import call_command
 from django.db import connections
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User, Group, Permission, ContentType
 import logging
 
+
+
 logger = logging.getLogger(__name__)
+
+
 
 database_names = [
 	'default', 
 	'dash_sadko_postgres_db'
 ]
+group_permissions = [
+	{
+		'role_groups__id': 1,
+		'app_label': ['accounts', 'admin'],
+		'model': None,
+		'permissions': None,
+	},{
+		'role_groups__id': 1,
+		'app_label': ['auth', 'contenttypes', 'sessions'],
+		'model': None,
+		'permissions': ['Can view group', 'Can view permission', 'Can view user', 'Can view content type', 'Can view session'],
+	},
+]
 role_groups = [
-	{1: 'accounts'}, 
-	{2: 'app_opensource_dashboards'}, 
-	{3: 'app_opensource_surveys'},
-	{4: 'app_zs_admin'},
-	{5: 'app_zs_dashboards'},
-	{6: 'app_zs_examples'},
-	{7: 'database_oracle_sadko'},
-	{8: 'database_sqlite_test'},
-	{60001: 'app_zs_examples__genericTable__drf__get'},
-	{60002: 'app_zs_examples__genericTable__drf__post'},
-	{60003: 'app_zs_examples__genericTable__drf__put'},
-	{60004: 'app_zs_examples__genericTable__drf__delete'},
-	{60005: 'app_zs_examples__genericTable__drf__export'},
-	{60006: 'app_zs_examples__genericTable__drf__import'},
-	{60007: 'app_zs_examples__test_table_model__drf__get'},
-	{60008: 'app_zs_examples__test_table_model__drf__post'},
-	{60009: 'app_zs_examples__test_table_model__drf__put'},
-	{60010: 'app_zs_examples__test_table_model__drf__delete'},
-	{60011: 'app_zs_examples__test_table_model__drf__export'},
-	{60012: 'app_zs_examples__test_table_model__drf__import'},
+	{1: 'admin_permissions'}
+	{2: 'accounts'}, 
+	{3: 'app_opensource_dashboards'}, 
+	{4: 'app_opensource_surveys'},
+	{5: 'app_zs_admin'},
+	{6: 'app_zs_dashboards'},
+	{7: 'app_zs_examples'},
+	{8: 'database_oracle_sadko'},
+	{9: 'database_sqlite_test'},
+	{70001: 'app_zs_examples__genericTable__drf__get'},
+	{70002: 'app_zs_examples__genericTable__drf__post'},
+	{70003: 'app_zs_examples__genericTable__drf__put'},
+	{70004: 'app_zs_examples__genericTable__drf__delete'},
+	{70005: 'app_zs_examples__genericTable__drf__export'},
+	{70006: 'app_zs_examples__genericTable__drf__import'},
+	{70007: 'app_zs_examples__test_table_model__drf__get'},
+	{70008: 'app_zs_examples__test_table_model__drf__post'},
+	{70009: 'app_zs_examples__test_table_model__drf__put'},
+	{70010: 'app_zs_examples__test_table_model__drf__delete'},
+	{70011: 'app_zs_examples__test_table_model__drf__export'},
+	{70012: 'app_zs_examples__test_table_model__drf__import'},
 ]
 user_roles = [
 	{
 		'admin_ROLE': {
 			'user_groups': [
+				'admin_permissions_ROLE',
 				'api_ROLE', 
 				'staff_ROLE',
 				'accounts_ROLE',
@@ -59,43 +78,48 @@ user_roles = [
 			'is_staff': [True]
 		}
 	},{
-		'accounts_ROLE': {
+		'admin_permissions_ROLE': {
 			'user_groups': [1], 
 			'is_staff': [False]
 		}
 	},{
-		'app_opensource_dashboards_ROLE': {
+		'accounts_ROLE': {
 			'user_groups': [2], 
 			'is_staff': [False]
 		}
 	},{
-		'app_opensource_surveys_ROLE': {
+		'app_opensource_dashboards_ROLE': {
 			'user_groups': [3], 
 			'is_staff': [False]
 		}
 	},{
-		'app_zs_admin_ROLE': {
+		'app_opensource_surveys_ROLE': {
 			'user_groups': [4], 
 			'is_staff': [False]
 		}
 	},{
-		'app_zs_dashboards_ROLE': {
+		'app_zs_admin_ROLE': {
 			'user_groups': [5], 
 			'is_staff': [False]
 		}
 	},{
+		'app_zs_dashboards_ROLE': {
+			'user_groups': [6], 
+			'is_staff': [False]
+		}
+	},{
 		'app_zs_examples_ROLE': {
-			'user_groups': [6, 60001, 60002, 60003, 60004, 60005, 60006, 60007, 60008, 60009, 60009, 60010, 60011, 60012], 
+			'user_groups': [7, 70001, 70002, 70003, 70004, 70005, 70006, 70007, 70008, 70009, 70009, 70010, 70011, 70012], 
 			'is_staff': [False]
 		}
 	},{
 		'database_oracle_sadko_ROLE': {
-			'user_groups': [7], 
+			'user_groups': [8], 
 			'is_staff': [False]
 		}
 	},{
 		'database_sqlite_test_ROLE': {
-			'user_groups': [8], 
+			'user_groups': [9], 
 			'is_staff': [False]
 		}
 	},
@@ -181,6 +205,9 @@ def check_default_groups_exists_or_create():
 		if g_status is None: 
 			g_status = False
 			Group.objects.create(name=g)
+			#FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+			# for i in Permission:
+			# 	print(i.content_type.app_label, i.content_type.model, i.id, i.name)
 		else:
 			g_status = True
 		group_status.append({g:g_status})
