@@ -16,8 +16,8 @@ Including another URLconf
 import os
 #initialize_base_content ##########################
 if not os.getenv('initialazie_base_content'):
-    from custom_script_extensions.djangoanalytics_initialize import initialazie_base_content
     os.environ['initialazie_base_content'] = str(os.getpid())
+    from custom_script_extensions.djangoanalytics_initialize import initialazie_base_content
     initialazie_base_content()
     
     
