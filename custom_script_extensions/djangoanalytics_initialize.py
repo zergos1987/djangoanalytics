@@ -275,7 +275,7 @@ def create_default_user_roles_exists_or_create():
 	return created_users_and_roles
 
 
-def initialazie_base_content():
+def django_init_defaults():
 	# check if defaut database was load
 	init_django_commands()
 
