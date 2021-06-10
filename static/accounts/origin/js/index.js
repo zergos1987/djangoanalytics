@@ -1,1 +1,1 @@
-Скопировано файлов:         1.
+C:/Users/46305/Desktop/code/python/www/djangoanalytics/apps/accounts/static/accounts/origin/js/index.js

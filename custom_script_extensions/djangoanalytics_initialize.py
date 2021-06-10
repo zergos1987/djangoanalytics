@@ -27,7 +27,7 @@ group_permissions = [
 	},
 ]
 role_groups = [
-	{1: 'admin_permissions'}
+	{1: 'admin_permissions'},
 	{2: 'accounts'}, 
 	{3: 'app_opensource_dashboards'}, 
 	{4: 'app_opensource_surveys'},

@@ -808,18 +808,21 @@ svg {
 
 .sidebar-left .fa-localy.arrow:before {
     background-image: url(/static/app_zs_admin/origin/res/img/arrow.svg);
+    transform: rotate(90deg);
 }
 
 .sidebar-left .item-group .selected .row > i.fa-localy {
     filter: invert(17%) sepia(98%) saturate(7214%) hue-rotate(359deg) brightness(104%) contrast(115%);
 }
-
 .sidebar-left .item-group .selected .row > i.fas, 
 .sidebar-left .item-group .selected > svg {
 	color: #ff0000;
 	fill: #ff0000;
 }
-
+.sidebar-left .item-group .selected .row > i.fa-localy.arrow {  
+    transform: rotate(90deg);
+    transition: transform 0.35s 0.1s;
+}
 
 .sidebar-left > .item-group > .items-frame > .items > .level-2:not(.displayBlock), 
 .sidebar-left > .item-group > .items-frame > .items > .level-3:not(.displayBlock), 

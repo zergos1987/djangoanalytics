@@ -1,1 +1,1 @@
-Скопировано файлов:         1.
+C:/Users/46305/Desktop/code/python/www/djangoanalytics/apps/app_opensource_dashboards/static/app_opensource_dashboards/origin/js/index.js
