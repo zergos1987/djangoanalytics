@@ -26,16 +26,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-
 SECRET_KEY = os.environ.get("SECRET_KEY", config('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", config('DEBUG', default=False, cast=bool))
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", config('ALLOWED_HOSTS')).split(",")
 
+# django_load_once - events
+django_initialize_defaults = os.environ.get("django_initialize_defaults", config('django_initialize_defaults', default=False, cast=bool))
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
