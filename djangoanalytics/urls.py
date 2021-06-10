@@ -13,14 +13,6 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-import os
-#initialize_base_content ##########################
-if not os.getenv('initialazie_base_content'):
-    os.environ['initialazie_base_content'] = str(os.getpid())
-    from custom_script_extensions.djangoanalytics_initialize import initialazie_base_content
-    initialazie_base_content()
-    
-    
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include, url
@@ -31,6 +23,16 @@ from django.contrib.auth import views as auth_views
 from apps.accounts import views as accounts_views
 
 from django.shortcuts import redirect
+from djangoanalytics import settings as djangoanalytics_settings
+import os
+
+
+# django_load_once - events: Load default content structure and services commands ##########
+if not os.getenv('django_load_once'):
+    if djangoanalytics_settings.django_initialize_defaults:
+        from custom_script_extensions.djangoanalytics_initialize import django_init_defaults
+        django_init_defaults()
+    os.environ['django_load_once'] = str(os.getpid())
 
 
 urlpatterns = [
@@ -46,6 +48,7 @@ urlpatterns = [
     path('db_sadko/', include('apps.database_oracle_sadko.urls')),
     path('db_sqlite_test/', include('apps.database_sqlite_test.urls')),
 ]
+
 
 urlpatterns += [
     url(r'^accounts/signup/$', accounts_views.signup, name='signup'),
@@ -68,6 +71,7 @@ urlpatterns += [
           template_name='registration/password_change_done.html'),
         name='password_change_done'),
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
