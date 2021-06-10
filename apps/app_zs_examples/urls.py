@@ -8,7 +8,7 @@ from rest_framework import permissions
 from drf_yasg2.views import get_schema_view
 from drf_yasg2 import openapi
 
-
+app_name = 'app_zs_examples'
 
 router = routers.DefaultRouter()
 
