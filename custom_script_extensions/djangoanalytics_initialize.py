@@ -48,17 +48,17 @@ def create_default_users_groups_permissions():
 	def create_permissions(app, group, perm_type):
 		perms = None
 		group = Group.objects.get(name=group)
-		cts = ContentType.objects.filter(app_label=app).filter(~Q(model='app'))
+		cts = ContentType.objects.filter(app_label=app)
 		if perm_type == 'api':
-			perms = Permission.objects.filter(content_type__in=cts, name__contains=perm_type)
+			perms = Permission.objects.filter(content_type__in=cts, name__contains=perm_type) # add view
 		elif perm_type == 'viewer':
 			perms = Permission.objects.filter(content_type__in=cts, name__contains=perm_type[:-2])
 		elif perm_type == 'editor' and app in read_only_app:
 			perms = Permission.objects.filter(content_type__in=cts, name__contains='view')
 		elif perm_type == 'editor' and app in edit_only_app:
 			perms = Permission.objects.filter(Q(content_type__in=cts) & ~Q(name__contains='delete'))
-		else:
-			perms = Permission.objects.filter(content_type__in=cts)
+		elif perm_type == 'editor':
+			perms = Permission.objects.filter(content_type__in=cts).exclude((Q(content_type__model='app')) & ~Q(name='view_app'))
 		if perms:
 			group.permissions.add(*perms)
 		return group
