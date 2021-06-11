@@ -5,6 +5,14 @@ from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin
 from django.contrib.auth.models import Permission
+from django.contrib.sessions.models import Session
+
+from .models import (
+    app,
+	AuditEntry,
+    UserSession
+	)
+
 
 from .models import (
     app,
@@ -15,6 +23,17 @@ from .models import (
 
 # Register your models here.
 admin.site.register(Permission)
+
+class SessionAdmin(admin.ModelAdmin):
+    def _session_data(self, obj):
+        return obj #pprint.pformat(obj.get_decoded()).replace('\n', '<br>\n')
+    _session_data.allow_tags=True
+    list_display = ['session_key', '_session_data', 'expire_date']
+    readonly_fields = ['_session_data']
+    exclude = ['session_data']
+    date_hierarchy='expire_date'
+admin.site.register(Session, SessionAdmin)
+
 
 class appResource(resources.ModelResource):
 
