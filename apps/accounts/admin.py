@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin
+from django.contrib.auth.models import Permission
 
 from .models import (
     app,
@@ -13,6 +14,8 @@ from .models import (
 
 
 # Register your models here.
+admin.site.register(Permission)
+
 class appResource(resources.ModelResource):
 
     class Meta:
