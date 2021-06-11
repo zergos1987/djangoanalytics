@@ -130,7 +130,6 @@ def django_init_defaults():
 
 	is_dbs_available = check_dbs_available()
 	if [d for d in is_dbs_available if 'default' in d][0].get('default', False):
-	if [d for d in is_dbs_available if 'default' in d][0].get('default', False):
 		create_default_users_groups_permissions_status = create_default_users_groups_permissions()
 	# 	is_default_groups_exists_or_create = check_default_groups_exists_or_create()
 	# 	is_default_user_roles_exists_or_create = create_default_user_roles_exists_or_create()

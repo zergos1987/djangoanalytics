@@ -6,9 +6,34 @@ from import_export import resources
 from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin
 
 from .models import (
+    app,
 	AuditEntry,
     UserSession
 	)
+
+
+# Register your models here.
+class appResource(resources.ModelResource):
+
+    class Meta:
+        model = app
+        fields = (
+            'test_field',)
+
+
+class appAdmin(ImportExportModelAdmin):
+    list_display = [
+        'test_field',]
+
+    list_filter = (
+        'test_field',  #('dt', DateTimeRangeFilter)
+    )
+
+    class Media:
+        js = ('/static/admin/js/jquery.grp_timepicker.js', )
+
+    resource_class = appResource
+admin.site.register(app, appAdmin)
 
 
 
@@ -52,6 +77,8 @@ class AuditEntryAdmin(ImportExportModelAdmin):
     resource_class = AuditEntryResource
 admin.site.register(AuditEntry, AuditEntryAdmin)
 
+
+
 class CustomUserAdmin(UserAdmin):
     class Media:
         js = ['/apps/accounts/origin/js/custom_admin_script.js', '/static/admin/js/jquery.grp_timepicker.js']
@@ -62,8 +89,6 @@ class CustomUserAdmin(UserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUserAdmin)
-
-
 
 
 
@@ -88,5 +113,4 @@ class UserSessionAdmin(ImportExportModelAdmin):
         return False
 
     resource_class = UserSessionResource
-
 admin.site.register(UserSession, UserSessionAdmin)

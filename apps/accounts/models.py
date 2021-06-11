@@ -13,6 +13,18 @@ now = timezone.now()
 
 
 # Create your models here.
+class app(models.Model):
+    test_field = models.CharField(max_length=150)
+
+    class Meta:
+        # app_label helps django to recognize your db
+        app_label = 'accounts'
+
+    def __str__(self):
+        return self.test_field
+
+
+
 class AuditEntry(models.Model):
     action = models.CharField(max_length=64)
     dt = models.DateTimeField(null=True, blank=True)

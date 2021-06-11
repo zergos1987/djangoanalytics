@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 
-class database_oracle_sadko_test_table(models.Model):
+class app(models.Model):
     test_field = models.CharField(max_length=150)
 
     class Meta:

@@ -6,5 +6,5 @@ from django.urls import path
 app_name = 'database_oracle_sadko'
 
 urlpatterns = [
-    url(r'^$', views.index, name='index_database_oracle_sadko'),
+    url(r'^$', views.index, name='index'),
 ]

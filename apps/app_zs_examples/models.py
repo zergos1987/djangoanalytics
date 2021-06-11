@@ -3,7 +3,7 @@ from jsonfield import JSONField
 
 
 # Create your models here.
-class app_zs_examples_test_table(models.Model):
+class app(models.Model):
     test_field = models.CharField(max_length=150)
 
     class Meta:

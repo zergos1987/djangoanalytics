@@ -6,5 +6,5 @@ from django.urls import path
 app_name = 'database_sqlite_test'
 
 urlpatterns = [
-    url(r'^$', views.index, name='index_database_sqlite_test'),
+    url(r'^$', views.index, name='index'),
 ]

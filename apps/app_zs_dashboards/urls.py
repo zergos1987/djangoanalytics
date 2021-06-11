@@ -6,5 +6,5 @@ from django.urls import path
 app_name = 'app_zs_dashboards'
 
 urlpatterns = [
-    url(r'^$', views.index, name='index_app_zs_dashboards'),
+    url(r'^$', views.index, name='index'),
 ]

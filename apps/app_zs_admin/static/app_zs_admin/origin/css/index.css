@@ -706,6 +706,7 @@ svg {
     height: fit-content;
     align-items: flex-start;
 }
+
 .container .sidebar-left a > div.row {
     display: flex;
     align-items: center;

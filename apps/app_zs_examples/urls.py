@@ -58,7 +58,7 @@ api_urlpatterns = [
 ]
 
 urlpatterns = [
-    url(r'^$', views.index, name='index_app_zs_examples'),
+    url(r'^$', views.index, name='index'),
 	url(r'^test_upload_to_model/$', views.test_upload_to_model, name='test_upload_to_model'),
 	url(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
 	url(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

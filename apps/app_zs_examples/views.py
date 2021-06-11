@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, get_list_or_404, redirec
 from django.http import HttpResponse, FileResponse, Http404, HttpResponseRedirect, HttpResponseForbidden, HttpResponsePermanentRedirect
 from django.contrib.auth.models import User, Group
 from django.views.generic import UpdateView, ListView, TemplateView, RedirectView
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.apps import apps
@@ -64,8 +64,9 @@ from django.core.exceptions import ValidationError
 
 
 
+#@method_decorator([login_required, permission_required("app_zs_examples.can_view_app")], name="dispatch")
 @login_required
-@user_group_access_check('app_zs_examples')
+@permission_required('app_zs_examples.can_view_app')
 def index(request):
 
 	template = 'app_zs_examples/index.html'
@@ -78,6 +79,9 @@ def index(request):
 
 #CRUD DRF UTILS ======================================================================================================================
 # test upload files
+#@method_decorator([login_required, permission_required("app_zs_examples.can_view_app")], name="dispatch")
+@login_required
+@permission_required('app_zs_examples.can_view_app')
 def test_upload_to_model(request):
     return render(request, 'app_zs_examples/drf_test_upload_to_model/drf_test_upload_to_model_template.html')
 
@@ -165,7 +169,7 @@ class DjangoFilterDescriptionInspector(CoreAPICompatInspector):
 
 #CRUD DRF DYNAMIC ======================================================================================================================
 #CRUD DRF - READ ==================== DYNAMIC ORM  
-@method_decorator([login_required, user_group_access_check('app_zs_examples')], name='dispatch')
+@method_decorator([login_required, permission_required("app_zs_examples.can_view_app")], name="dispatch")
 class genericTable__RestApi__View(generics.ListAPIView):
     permission_classes = [IsAuthenticated, CheckGroupPermissions__dynamic__ORM]
     pagination_class = Searchpagination__5__
@@ -228,7 +232,7 @@ class genericTable__RestApi__View(generics.ListAPIView):
 
 
 #CRUD DRF - CREATE ==================== DYNAMIC ORM 
-@method_decorator([login_required, user_group_access_check('app_zs_examples')], name='dispatch')
+@method_decorator([login_required, permission_required("app_zs_examples.can_view_app")], name="dispatch")
 class genericTable__RestApi__Create(generics.CreateAPIView):
     permission_classes = [IsAuthenticated, CheckGroupPermissions__dynamic__ORM]
 
@@ -263,7 +267,7 @@ class genericTable__RestApi__Create(generics.CreateAPIView):
 
 
 #CRUD DRF - UPDATE ==================== DYNAMIC ORM 
-@method_decorator([login_required, user_group_access_check('app_zs_examples')], name='dispatch')
+@method_decorator([login_required, permission_required("app_zs_examples.can_view_app")], name="dispatch")
 class genericTable__RestApi__Update(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAuthenticated, CheckGroupPermissions__dynamic__ORM]
     lookup_field = 'id'
@@ -311,7 +315,7 @@ class genericTable__RestApi__Update(generics.RetrieveUpdateAPIView):
 
 
 #CRUD DRF - DELETE ==================== DYNAMIC ORM 
-@method_decorator([login_required, user_group_access_check('app_zs_examples')], name='dispatch')
+@method_decorator([login_required, permission_required("app_zs_examples.can_view_app")], name="dispatch")
 class genericTable__RestApi__Delete(generics.DestroyAPIView):
     permission_classes = [IsAuthenticated, CheckGroupPermissions__dynamic__ORM]
     lookup_field = 'id'
@@ -354,7 +358,7 @@ class genericTable__RestApi__Delete(generics.DestroyAPIView):
 
 
 #CRUD DRF - EXPORT XLS ==================== DYNAMIC ORM 
-@method_decorator([login_required, user_group_access_check('app_zs_examples')], name='dispatch')
+@method_decorator([login_required, permission_required("app_zs_examples.can_view_app")], name="dispatch")
 class genericTable__RestApi__export(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated, CheckGroupPermissions__dynamic__ORM]
     pagination_class = Searchpagination__5__
@@ -433,7 +437,7 @@ class genericTable__RestApi__export(generics.RetrieveAPIView):
 
 
 #CRUD DRF - IMPORT XLS ==================== DYNAMIC ORM 
-@method_decorator([login_required, user_group_access_check('app_zs_examples')], name='dispatch')
+@method_decorator([login_required, permission_required("app_zs_examples.can_view_app")], name="dispatch")
 class genericTable__RestApi__import(APIView):
     permission_classes = [IsAuthenticated, CheckGroupPermissions__dynamic__ORM]
     parser_classes = (MultiPartParser,FormParser,)
@@ -597,7 +601,7 @@ class genericTable__RestApi__import(APIView):
 
 #CRUD DRF ======================================================================================================================
 #CRUD DRF - READ ==================== ORM 
-@method_decorator([login_required, user_group_access_check('app_zs_examples')], name='dispatch')
+@method_decorator([login_required, permission_required("app_zs_examples.can_view_app")], name="dispatch")
 class test_table_model__RestApi__View(generics.ListAPIView):
     permission_classes = [IsAuthenticated, CheckGroupPermissions__ORM]
     serializer_class = test_table_model__Serializer
@@ -651,7 +655,7 @@ class test_table_model__RestApi__View(generics.ListAPIView):
 
 
 #CRUD DRF - CREATE ==================== ORM 
-@method_decorator([login_required, user_group_access_check('app_zs_examples')], name='dispatch')
+@method_decorator([login_required, permission_required("app_zs_examples.can_view_app")], name="dispatch")
 class test_table_model__RestApi__Create(generics.CreateAPIView):
     permission_classes = [IsAuthenticated, CheckGroupPermissions__ORM]
     serializer_class = test_table_model__Serializer
@@ -684,7 +688,7 @@ class test_table_model__RestApi__Create(generics.CreateAPIView):
 
 
 #CRUD DRF - UPDATE ==================== ORM 
-@method_decorator([login_required, user_group_access_check('app_zs_examples')], name='dispatch')
+@method_decorator([login_required, permission_required("app_zs_examples.can_view_app")], name="dispatch")
 class test_table_model__RestApi__Update(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAuthenticated, CheckGroupPermissions__ORM]
     serializer_class = test_table_model__Serializer
@@ -720,7 +724,7 @@ class test_table_model__RestApi__Update(generics.RetrieveUpdateAPIView):
 
 
 #CRUD DRF - DELETE ==================== ORM 
-@method_decorator([login_required, user_group_access_check('app_zs_examples')], name='dispatch')
+@method_decorator([login_required, permission_required("app_zs_examples.can_view_app")], name="dispatch")
 class test_table_model__RestApi__Delete(generics.DestroyAPIView):
     permission_classes = [IsAuthenticated, CheckGroupPermissions__ORM]
     serializer_class = test_table_model__Serializer
@@ -754,7 +758,7 @@ class test_table_model__RestApi__Delete(generics.DestroyAPIView):
 
 
 #CRUD DRF - EXPORT XLS ==================== ORM 
-@method_decorator([login_required, user_group_access_check('app_zs_examples')], name='dispatch')
+@method_decorator([login_required, permission_required("app_zs_examples.can_view_app")], name="dispatch")
 class test_table_model__RestApi__export(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated, CheckGroupPermissions__ORM]
     serializer_class = test_table_model__Serializer
@@ -823,7 +827,7 @@ class test_table_model__RestApi__export(generics.RetrieveAPIView):
 
 
 #CRUD DRF - IMPORT XLS ==================== ORM 
-@method_decorator([login_required, user_group_access_check('app_zs_examples')], name='dispatch')
+@method_decorator([login_required, permission_required("app_zs_examples.can_view_app")], name="dispatch")
 class test_table_model__RestApi__import(APIView):
     permission_classes = [IsAuthenticated, CheckGroupPermissions__ORM]
     serializer_class = test_table_model__Serializer

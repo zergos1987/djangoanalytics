@@ -4,7 +4,7 @@ from import_export import resources
 from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin
 
 from .models import (
-        app_zs_examples_test_table,
+        app,
         databaseConnections,
         test_table_model,
         processing_module_pipeline_user_content_history,
@@ -14,15 +14,15 @@ from .models import (
 
 
 # Register your models here.
-class app_zs_examples_test_tableResource(resources.ModelResource):
+class appResource(resources.ModelResource):
 
     class Meta:
-        model = app_zs_examples_test_table
+        model = app
         fields = (
             'test_field',)
 
 
-class app_zs_examples_test_tableAdmin(ImportExportModelAdmin):
+class appAdmin(ImportExportModelAdmin):
     list_display = [
         'test_field',]
 
@@ -33,8 +33,8 @@ class app_zs_examples_test_tableAdmin(ImportExportModelAdmin):
     class Media:
         js = ('/static/admin/js/jquery.grp_timepicker.js', )
 
-    resource_class = app_zs_examples_test_tableResource
-admin.site.register(app_zs_examples_test_table, app_zs_examples_test_tableAdmin)
+    resource_class = appResource
+admin.site.register(app, appAdmin)
 
 
 
