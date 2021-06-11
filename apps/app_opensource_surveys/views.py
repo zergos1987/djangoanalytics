@@ -19,9 +19,9 @@ import os
 
 
 # Create your views here.
-#@method_decorator([login_required, permission_required("app_opensource_surveys.can_view_app")], name="dispatch")
+#@method_decorator([login_required, permission_required("app_opensource_surveys.view_app")], name="dispatch")
 @login_required
-@permission_required('app_opensource_surveys.can_view_app')
+@permission_required('app_opensource_surveys.view_app')
 def index(request):
 
 	template = 'app_opensource_surveys/index.html'
