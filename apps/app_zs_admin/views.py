@@ -18,9 +18,9 @@ import os
 
 
 # Create your views here.
-#@method_decorator([login_required, permission_required("app_zs_admin.can_view_app")], name="dispatch")
+#@method_decorator([login_required, permission_required("app_zs_admin.view_app")], name="dispatch")
 @login_required
-@permission_required('app_zs_admin.can_view_app')
+@permission_required('app_zs_admin.view_app')
 def index(request):
 
 	template = 'app_zs_admin/index.html'
