@@ -58,7 +58,7 @@ def create_default_users_groups_permissions():
 		elif perm_type == 'editor' and app in edit_only_app:
 			perms = Permission.objects.filter(Q(content_type__in=cts) & ~Q(name__contains='delete'))
 		elif perm_type == 'editor':
-			perms = Permission.objects.filter(content_type__in=cts).exclude((Q(content_type__model='app')) & ~Q(name='view_app'))
+			perms = Permission.objects.filter(content_type__in=cts).exclude((Q(content_type__model='app')) & ~Q(codename='view_app'))
 		if perms:
 			group.permissions.add(*perms)
 		return group
