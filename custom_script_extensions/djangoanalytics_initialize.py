@@ -1,6 +1,7 @@
 from django.core.management import call_command
 from django.db import connections
 from django.contrib.auth.models import User, Group, Permission, ContentType
+from django.db.models import Q
 import logging
 
 
@@ -16,6 +17,8 @@ database_names = [
 
 default_admin = 'admin'
 default_app_label = 'app_zs_admin'
+read_only_app = ['app', 'accounts']
+edit_only_app = ['auth']
 users_default_password = '368696'
 
 default_staff_users = ['TEST_USER_admin_viewer', 'TEST_USER_admin_editor', 'TEST_USER_admin_api']
@@ -45,12 +48,16 @@ def create_default_users_groups_permissions():
 	def create_permissions(app, group, perm_type):
 		perms = None
 		group = Group.objects.get(name=group)
-		cts = ContentType.objects.filter(app_label=app)
+		cts = ContentType.objects.filter(app_label=app).filter(~Q(model='app'))
 		if perm_type == 'api':
 			perms = Permission.objects.filter(content_type__in=cts, name__contains=perm_type)
-		if perm_type == 'viewer':
+		elif perm_type == 'viewer':
 			perms = Permission.objects.filter(content_type__in=cts, name__contains=perm_type[:-2])
-		if perm_type == 'editor':
+		elif perm_type == 'editor' and app in read_only_app:
+			perms = Permission.objects.filter(content_type__in=cts, name__contains='view')
+		elif perm_type == 'editor' and app in edit_only_app:
+			perms = Permission.objects.filter(Q(content_type__in=cts) & ~Q(name__contains='delete'))
+		else:
 			perms = Permission.objects.filter(content_type__in=cts)
 		if perms:
 			group.permissions.add(*perms)
@@ -136,3 +143,5 @@ def django_init_defaults():
 
 	logger.debug(f'is_dbs_available: {is_dbs_available}')
 	logger.debug(f'create_default_users_groups_permissions: {create_default_users_groups_permissions_status}')
+
+
