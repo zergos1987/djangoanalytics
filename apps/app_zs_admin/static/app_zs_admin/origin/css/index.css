@@ -98,7 +98,7 @@ svg {
 
 .breadcrumb ul:hover {
     height: 100%;
-    padding: 15px 0px 15px 0px;
+    padding: 15px 0px 15px 3px;
     margin-top: -15px;
 }
 
@@ -114,28 +114,20 @@ svg {
     max-width: 160px;
     min-width: 70px;
     margin-left: -50px;
+    height: 15px;
     transition: all 0.5s;
 }
 
 .breadcrumb > ul > li:not(:last-child):before {
-/*	content: '>';
-    display: flex;
-    height: 100%;
-    align-items: center;
-    padding-left: 6px;*/
-
-	content: '';
-    width: 0.4em;
-    height: 0.4em;
-    border-right: 0.1em solid black;
-    border-top: 0.1em solid black;
-    transform: rotate(45deg);
-    margin-right: 0.5em;
+    content: '';
+    width: 0.7em;
+    height: 0.7em;
     position: absolute;
     display: flex;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 3px;
     margin-left: 5px;
+    background: no-repeat;
 }
 
 .breadcrumb > ul:hover > li:not(:last-child):before {
@@ -151,17 +143,14 @@ svg {
 .breadcrumb ul:hover > li:not(:last-child):after {
     content: "";
     position: absolute;
-    top: 10px;
-    right: 3px;
-    width: 0.4em;
-    height: 0.4em;
-    border-right: 0.1em solid black;
-    border-top: 0.1em solid black;
-    transform: rotate( 45deg );
+    top: 9px;
+    width: 0.7em;
+    height: 0.7em;
+    right: 4px;
 }
 
 .breadcrumb ul:hover > li:not(:last-child):hover:after {
-    right: 9px;
+    right: 5px;
 }
 
 .breadcrumb > ul > li  > a {
@@ -174,7 +163,7 @@ svg {
 }
 
 .breadcrumb > ul:hover > li  > a {
-	color: initial;
+    color: initial;
     margin-right: 3px;
 }
 
@@ -189,7 +178,7 @@ svg {
 .breadcrumb > ul > li:not(:last-child):hover {
     background-color: #9ffe84;
     border-radius: 25px;
-    margin: 0px 7px 0px 7px;
+    margin: 0px 7px 0px 0px;
     padding: 0px 7px 0px 7px;
     box-shadow: 0px 0px 4px 1px rgb(11 190 7);
 }
@@ -206,7 +195,9 @@ svg {
 }
 
 .breadcrumb > ul:hover > li {
-	margin-left: 0px;
+    margin-left: 0px;
+    padding-right: 7px;
+    height: 27px;
 }
 .breadcrumb > ul:hover > li:last-child {
 	align-items: flex-start;
@@ -749,14 +740,6 @@ svg {
     background: #f1f1f1f5;
 }
 
-.container:not(.active) .sidebar-left .item-group.active .items a:hover:before {
-	content: '\2192';
-	position: absolute;
-	margin-top: -2px;
-	left: 4px;
-	font-size: 18px;
-}
-
 .container:not(.active) .sidebar-left .item-group.active .items a.level-2:hover:before {
     left: 23px;
 }
@@ -807,7 +790,9 @@ svg {
     background-image: url(/static/app_zs_admin/origin/res/img/folder-solid.svg);
 }
 
-.sidebar-left .fa-localy.arrow:before {
+.sidebar-left .fa-localy.arrow:before, 
+.breadcrumb > ul > li:not(:last-child):before,
+.breadcrumb ul:hover > li:not(:last-child):after {
     background-image: url(/static/app_zs_admin/origin/res/img/arrow.svg);
     transform: rotate(90deg);
 }
@@ -964,7 +949,7 @@ svg {
     padding-left: 265px;
 }
 .main .grid-items {
-	margin-top: 55px;
+	margin-top: 35px;
 	display: grid;
 	grid-gap: 40px 16px;
 	grid-template-columns: repeat(4, 1fr);
