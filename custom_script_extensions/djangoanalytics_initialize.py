@@ -107,7 +107,7 @@ def create_default_users_groups_permissions():
 
 
 
-def init_django_commands():
+def initialize_managment_commands():
 	call_command('collectstatic', verbosity=0, interactive=False, link=True, clear=True)
 	# call_command('makemigrations', app_label='accounts', database='default')
 	# call_command('migrate', app_label='accounts', database='default')
@@ -131,17 +131,24 @@ def check_dbs_available():
 	return connection_status
 
 
-def django_init_defaults():
-	# check if defaut database was load
-	init_django_commands()
+def initialize(django_initialize_managment_commands=True, django_initialize_defaults=True):
+	if django_initialize_managment_commands: 
+		initialize_managment_commands()
+		logger.debug(f'initialize_managment_commands: done.')
 
-	is_dbs_available = check_dbs_available()
-	if [d for d in is_dbs_available if 'default' in d][0].get('default', False):
-		create_default_users_groups_permissions_status = create_default_users_groups_permissions()
-	# 	is_default_groups_exists_or_create = check_default_groups_exists_or_create()
-	# 	is_default_user_roles_exists_or_create = create_default_user_roles_exists_or_create()
+	if django_initialize_defaults:
+		# check if defaut database was load
+		is_dbs_available = check_dbs_available()
+		if [d for d in is_dbs_available if 'default' in d][0].get('default', False):
+			create_default_users_groups_permissions_status = create_default_users_groups_permissions()
+		# 	is_default_groups_exists_or_create = check_default_groups_exists_or_create()
+		# 	is_default_user_roles_exists_or_create = create_default_user_roles_exists_or_create()
 
-	logger.debug(f'is_dbs_available: {is_dbs_available}')
-	logger.debug(f'create_default_users_groups_permissions: {create_default_users_groups_permissions_status}')
+		logger.debug(f'is_dbs_available: {is_dbs_available}')
+		logger.debug(f'create_default_users_groups_permissions: {create_default_users_groups_permissions_status}')
+		logger.debug(f'django_initialize_defaults: done.')
+		
+	logger.debug(f'initialize: done.')
+
 
 
