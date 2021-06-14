@@ -15,6 +15,26 @@ database_names = [
 	'dash_sadko_postgres_db'
 ]
 
+custom_permissionns = [
+	{
+		'app': 'app_zs_examples', 
+		'permissions': [
+			'dynamicTable_api_drf_get',
+			'dynamicTable_api_drf_post',
+			'dynamicTable_api_drf_put',
+			'dynamicTable_api_drf_delete',
+			'dynamicTable_api_drf_import',
+			'dynamicTable_api_drf_export',
+			'test_table_model_api_drf_get',
+			'test_table_model_api_drf_post',
+			'test_table_model_api_drf_put',
+			'test_table_model_api_drf_delete',
+			'test_table_model_api_drf_import',
+			'test_table_model_api_drf_export',
+		]
+	},
+]
+
 default_admin = 'admin'
 default_app_label = 'app_zs_admin'
 read_only_app = ['app', 'accounts']
@@ -78,7 +98,15 @@ def create_default_users_groups_permissions():
 		if add_u_group: add_user_to_group(app_user, app_group)
 		#Create group permissions for user app
 		if create_p: create_permissions(app, app_group, user_type[1:])
-
+		
+		
+	#create custom permissions
+	for app_perms in custom_permissionns:
+		app = app_perms.get('app')
+		perms = app_perms.get('permissions')
+		content_type = ContentType.objects.get(app_label=app, model='app')
+		for p in perms:
+			obj, created = Permission.objects.get_or_create(codename=p, name=p, content_type=content_type)
 	#get distinct user apps
 	for i in Permission.objects.all():
 		app_label = i.content_type.app_label
