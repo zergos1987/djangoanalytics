@@ -131,10 +131,10 @@ def check_dbs_available():
 	return connection_status
 
 
-def initialize(django_initialize_managment_commands=True, django_initialize_defaults=True):
-	if django_initialize_managment_commands: 
-		initialize_managment_commands()
-		logger.debug(f'initialize_managment_commands: done.')
+def initialize(django_initialize_management_commands=True, django_initialize_defaults=True):
+	if django_initialize_management_commands: 
+		initialize_management_commands()
+		logger.debug(f'initialize_management_commands: done.')
 
 	if django_initialize_defaults:
 		# check if defaut database was load
