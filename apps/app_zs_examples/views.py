@@ -38,8 +38,6 @@ import xlrd
 # import pyexcel.ext.xlsx # in order to handle 'xlsx' format
 # import pyexcel.ext.ods # in order to handle 'ods' format
 
-
-from custom_script_extensions.drf_permissions import CheckGroupPermissions__dynamic__ORM, CheckGroupPermissions__ORM
 from custom_script_extensions.drf_serializers import (
 	Generic__Serializer,
 	test_table_model__Serializer, 
@@ -169,9 +167,9 @@ class DjangoFilterDescriptionInspector(CoreAPICompatInspector):
 
 #CRUD DRF DYNAMIC ======================================================================================================================
 #CRUD DRF - READ ==================== DYNAMIC ORM  
-@method_decorator([login_required, permission_required("app_zs_examples.view_app")], name="dispatch")
+@method_decorator([login_required, permission_required("app_zs_examples.view_app"), permission_required("app_zs_examples.dynamicTable_api_drf_get")], name="dispatch")
 class genericTable__RestApi__View(generics.ListAPIView):
-    permission_classes = [IsAuthenticated, CheckGroupPermissions__dynamic__ORM]
+    permission_classes = [IsAuthenticated]
     pagination_class = Searchpagination__5__
 
     filter_backends = (DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter,)
@@ -232,9 +230,9 @@ class genericTable__RestApi__View(generics.ListAPIView):
 
 
 #CRUD DRF - CREATE ==================== DYNAMIC ORM 
-@method_decorator([login_required, permission_required("app_zs_examples.view_app")], name="dispatch")
+@method_decorator([login_required, permission_required("app_zs_examples.view_app"), permission_required("app_zs_examples.dynamicTable_api_drf_post")], name="dispatch")
 class genericTable__RestApi__Create(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated, CheckGroupPermissions__dynamic__ORM]
+    permission_classes = [IsAuthenticated]
 
 
     def options(self, request, *args, **kwargs):
@@ -267,9 +265,9 @@ class genericTable__RestApi__Create(generics.CreateAPIView):
 
 
 #CRUD DRF - UPDATE ==================== DYNAMIC ORM 
-@method_decorator([login_required, permission_required("app_zs_examples.view_app")], name="dispatch")
+@method_decorator([login_required, permission_required("app_zs_examples.view_app"), permission_required("app_zs_examples.dynamicTable_api_drf_put")], name="dispatch")
 class genericTable__RestApi__Update(generics.RetrieveUpdateAPIView):
-    permission_classes = [IsAuthenticated, CheckGroupPermissions__dynamic__ORM]
+    permission_classes = [IsAuthenticated]
     lookup_field = 'id'
     lookup_url_kwarg = 'id'
 
@@ -315,9 +313,9 @@ class genericTable__RestApi__Update(generics.RetrieveUpdateAPIView):
 
 
 #CRUD DRF - DELETE ==================== DYNAMIC ORM 
-@method_decorator([login_required, permission_required("app_zs_examples.view_app")], name="dispatch")
+@method_decorator([login_required, permission_required("app_zs_examples.view_app"), permission_required("app_zs_examples.dynamicTable_api_drf_delete")], name="dispatch")
 class genericTable__RestApi__Delete(generics.DestroyAPIView):
-    permission_classes = [IsAuthenticated, CheckGroupPermissions__dynamic__ORM]
+    permission_classes = [IsAuthenticated]
     lookup_field = 'id'
     lookup_url_kwarg = 'id'
 
@@ -358,9 +356,9 @@ class genericTable__RestApi__Delete(generics.DestroyAPIView):
 
 
 #CRUD DRF - EXPORT XLS ==================== DYNAMIC ORM 
-@method_decorator([login_required, permission_required("app_zs_examples.view_app")], name="dispatch")
+@method_decorator([login_required, permission_required("app_zs_examples.view_app"), permission_required("app_zs_examples.dynamicTable_api_drf_export")], name="dispatch")
 class genericTable__RestApi__export(generics.RetrieveAPIView):
-    permission_classes = [IsAuthenticated, CheckGroupPermissions__dynamic__ORM]
+    permission_classes = [IsAuthenticated]
     pagination_class = Searchpagination__5__
 
     filter_backends = (DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter,)
@@ -437,9 +435,9 @@ class genericTable__RestApi__export(generics.RetrieveAPIView):
 
 
 #CRUD DRF - IMPORT XLS ==================== DYNAMIC ORM 
-@method_decorator([login_required, permission_required("app_zs_examples.view_app")], name="dispatch")
+@method_decorator([login_required, permission_required("app_zs_examples.view_app"), permission_required("app_zs_examples.dynamicTable_api_drf_import")], name="dispatch")
 class genericTable__RestApi__import(APIView):
-    permission_classes = [IsAuthenticated, CheckGroupPermissions__dynamic__ORM]
+    permission_classes = [IsAuthenticated]
     parser_classes = (MultiPartParser,FormParser,)
     #parser_classes = (MultiPartParser,FileUploadParser,)
     #parser_classes = [FileUploadParser]
@@ -601,9 +599,9 @@ class genericTable__RestApi__import(APIView):
 
 #CRUD DRF ======================================================================================================================
 #CRUD DRF - READ ==================== ORM 
-@method_decorator([login_required, permission_required("app_zs_examples.view_app")], name="dispatch")
+@method_decorator([login_required, permission_required("app_zs_examples.view_app"), permission_required("app_zs_examples.test_table_model_api_drf_get")], name="dispatch")
 class test_table_model__RestApi__View(generics.ListAPIView):
-    permission_classes = [IsAuthenticated, CheckGroupPermissions__ORM]
+    permission_classes = [IsAuthenticated]
     serializer_class = test_table_model__Serializer
     model = serializer_class.Meta.model
     pagination_class = Searchpagination__2__
@@ -655,9 +653,9 @@ class test_table_model__RestApi__View(generics.ListAPIView):
 
 
 #CRUD DRF - CREATE ==================== ORM 
-@method_decorator([login_required, permission_required("app_zs_examples.view_app")], name="dispatch")
+@method_decorator([login_required, permission_required("app_zs_examples.view_app"), permission_required("app_zs_examples.test_table_model_api_drf_post")], name="dispatch")
 class test_table_model__RestApi__Create(generics.CreateAPIView):
-    permission_classes = [IsAuthenticated, CheckGroupPermissions__ORM]
+    permission_classes = [IsAuthenticated]
     serializer_class = test_table_model__Serializer
     queryset = test_table_model.objects.all()
 
@@ -688,9 +686,9 @@ class test_table_model__RestApi__Create(generics.CreateAPIView):
 
 
 #CRUD DRF - UPDATE ==================== ORM 
-@method_decorator([login_required, permission_required("app_zs_examples.view_app")], name="dispatch")
+@method_decorator([login_required, permission_required("app_zs_examples.view_app"), permission_required("app_zs_examples.test_table_model_api_drf_put")], name="dispatch")
 class test_table_model__RestApi__Update(generics.RetrieveUpdateAPIView):
-    permission_classes = [IsAuthenticated, CheckGroupPermissions__ORM]
+    permission_classes = [IsAuthenticated]
     serializer_class = test_table_model__Serializer
     queryset = test_table_model.objects.all()
 
@@ -724,9 +722,9 @@ class test_table_model__RestApi__Update(generics.RetrieveUpdateAPIView):
 
 
 #CRUD DRF - DELETE ==================== ORM 
-@method_decorator([login_required, permission_required("app_zs_examples.view_app")], name="dispatch")
+@method_decorator([login_required, permission_required("app_zs_examples.view_app"), permission_required("app_zs_examples.test_table_model_api_drf_delete")], name="dispatch")
 class test_table_model__RestApi__Delete(generics.DestroyAPIView):
-    permission_classes = [IsAuthenticated, CheckGroupPermissions__ORM]
+    permission_classes = [IsAuthenticated]
     serializer_class = test_table_model__Serializer
     queryset = test_table_model.objects.all()
 
@@ -758,9 +756,9 @@ class test_table_model__RestApi__Delete(generics.DestroyAPIView):
 
 
 #CRUD DRF - EXPORT XLS ==================== ORM 
-@method_decorator([login_required, permission_required("app_zs_examples.view_app")], name="dispatch")
+@method_decorator([login_required, permission_required("app_zs_examples.view_app"), permission_required("app_zs_examples.test_table_model_api_drf_export")], name="dispatch")
 class test_table_model__RestApi__export(generics.RetrieveAPIView):
-    permission_classes = [IsAuthenticated, CheckGroupPermissions__ORM]
+    permission_classes = [IsAuthenticated]
     serializer_class = test_table_model__Serializer
     model = serializer_class.Meta.model
     pagination_class = Searchpagination__2__
@@ -827,9 +825,9 @@ class test_table_model__RestApi__export(generics.RetrieveAPIView):
 
 
 #CRUD DRF - IMPORT XLS ==================== ORM 
-@method_decorator([login_required, permission_required("app_zs_examples.view_app")], name="dispatch")
+@method_decorator([login_required, permission_required("app_zs_examples.view_app"), permission_required("app_zs_examples.test_table_model_api_drf_import")], name="dispatch")
 class test_table_model__RestApi__import(APIView):
-    permission_classes = [IsAuthenticated, CheckGroupPermissions__ORM]
+    permission_classes = [IsAuthenticated]
     serializer_class = test_table_model__Serializer
     queryset = test_table_model.objects.all()
     parser_classes = (MultiPartParser,FormParser,)
