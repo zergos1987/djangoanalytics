@@ -1,1 +1,62 @@
-{% extends "base.html" %}
+{% extends "app_zs_admin\base.html" %}
+{% load static %}
+
+
+
+
+<!-- doctype html lang -->
+{% block doctype_lang_text %}{{ block.super }}{% endblock doctype_lang_text %}
+<!-- end doctype html lang -->
+
+
+<!-- head -->
+{% block head_charset_text %}{{ block.super }}{% endblock head_charset_text %}
+{% block head_description_text %}{{ block.super }}{% endblock head_description_text %}
+{% block head_author_text %}{{ block.super }}{% endblock head_author_text %}
+{% block head_title_text %}{{ block.super }}{% endblock head_title_text %}
+{% block head_favicon_href_ico %}{{ block.super }}{% endblock head_favicon_href_ico %}
+{% block index_href_css %}{{ block.super }}{% endblock index_href_css %}
+<!-- css -->
+{% block head_css %}
+    <!-- APP CSS -->
+    {% block css %}
+    {% endblock css %}
+    <!-- APP VENDOR CSS -->
+    {% block vendor_css %}
+    {% endblock vendor_css %}
+{% endblock head_css %}
+<!-- css -->
+<!-- end head -->
+
+
+
+
+
+<!-- body -->
+	<!-- container display mode --> <!-- active -->  <!-- container-aside-left-disabled -->  <!-- container-header-disabled -->
+	{% block container_display_mode_classname %}active{% endblock container_display_mode_classname %}
+
+		<!-- container-header -->
+			<!-- header-section-left -->
+			{% block button_menu_aside_left %}{{ block.super }}{% endblock button_menu_aside_left %}
+			{% block brand_details %}{{ block.super }}{% endblock brand_details %}
+		
+			<!-- end header-section-left -->
+
+			<!-- header-section-center -->
+			<!-- end header-section-center -->
+
+			<!-- header-section-right -->
+			<!-- end header-section-right -->
+		<!-- end container-header -->
+
+		<!-- aside nav menu left -->
+		<!-- aside nav menu left -->
+
+		<!-- container-main content -->
+		<!-- container-main content -->
+
+		<!-- footer -->
+		<!-- footer -->
+	<!-- end container display mode --> 
+<!-- end body -->
