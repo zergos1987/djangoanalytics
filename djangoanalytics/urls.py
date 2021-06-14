@@ -29,9 +29,11 @@ import os
 
 # django_load_once - events: Load default content structure and services commands ##########
 if not os.getenv('django_load_once'):
-    if djangoanalytics_settings.django_initialize_defaults:
-        from custom_script_extensions.djangoanalytics_initialize import django_init_defaults
-        django_init_defaults()
+    if djangoanalytics_settings.django_initialize:
+        from custom_script_extensions.djangoanalytics_initialize import initialize
+        initialize(
+            djangoanalytics_settings.django_initialize_managment_commands, 
+            djangoanalytics_settings.django_initialize_defaults)
     os.environ['django_load_once'] = str(os.getpid())
 
 
