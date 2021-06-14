@@ -33,6 +33,8 @@ DEBUG = os.environ.get("DEBUG", config('DEBUG', default=False, cast=bool))
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", config('ALLOWED_HOSTS')).split(",")
 
 # django_load_once - events
+django_initialize = os.environ.get("django_initialize", config('django_initialize', default=False, cast=bool))
+django_initialize_management_commands = os.environ.get("django_initialize_management_commands", config('django_initialize_management_commands', default=False, cast=bool))
 django_initialize_defaults = os.environ.get("django_initialize_defaults", config('django_initialize_defaults', default=False, cast=bool))
 
 # Application definition
