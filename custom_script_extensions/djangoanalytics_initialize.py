@@ -32,7 +32,13 @@ custom_permissionns = [
 			'test_table_model_api_drf_import',
 			'test_table_model_api_drf_export',
 		]
-	},
+	}, {
+		'app': 'accounts',
+		'permissions': [
+			'can_ban_users',
+			'can_unban_users',
+		]
+	}
 ]
 
 default_admin = 'admin'
