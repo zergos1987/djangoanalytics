@@ -1,1 +1,1 @@
-Скопировано файлов:         1.
+console.log('database_sqlite_test app');
