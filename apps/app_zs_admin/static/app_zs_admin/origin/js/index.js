@@ -3,11 +3,12 @@ $(document).ready(function(){
 
 	// Burger-menu
 	const container = document.querySelector('#container');
-
-	document.querySelector('#button-menu').addEventListener('click', () => {
-		container.classList.toggle('active');
-		removeActiveClass('all');
-	});
+		if($('#button-menu').length > 0) {
+		document.querySelector('#button-menu').addEventListener('click', () => {
+			container.classList.toggle('active');
+			removeActiveClass('all');
+		});
+	}
 
 	const containerSize = () => {
 		if (window.innerWidth > 968) {
@@ -274,7 +275,7 @@ $(document).ready(function(){
 			}
 		}
 
-		if($(this).children().attr('id') === 'search-active') {
+		if($(this).children().attr('id') === 'search-extra-button') {
 			$('.container').addClass('active');
 			if($(this).parent().hasClass('active')) {
 				$('.header-section-center').toggleClass('active');

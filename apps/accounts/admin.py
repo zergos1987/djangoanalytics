@@ -102,9 +102,6 @@ class Permission_Resource(resources.ModelResource):
 
 
 class Permission_Admin(ImportExportModelAdmin):
-
-
-class Permission_Admin(ImportExportModelAdmin):
     def content_type_app_model_id(self, obj):
         return obj.content_type.app_label + ' | ' + obj.content_type.model + ' | ' + str(obj.content_type.id)
     content_type_app_model_id.short_description  = 'APP | Model | id'

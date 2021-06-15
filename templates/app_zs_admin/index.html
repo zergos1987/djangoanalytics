@@ -18,18 +18,15 @@
 {% block index_href_css %}{{ block.super }}{% endblock index_href_css %}
 <!-- css -->
 {% block head_css %}
+{% endblock head_css %}
     <!-- APP CSS -->
     {% block css %}
     {% endblock css %}
     <!-- APP VENDOR CSS -->
     {% block vendor_css %}
     {% endblock vendor_css %}
-{% endblock head_css %}
 <!-- css -->
 <!-- end head -->
-
-
-
 
 
 <!-- body -->
@@ -38,15 +35,30 @@
 
 		<!-- container-header -->
 			<!-- header-section-left -->
-			{% block button_menu_aside_left %}{{ block.super }}{% endblock button_menu_aside_left %}
-			{% block brand_details %}{{ block.super }}{% endblock brand_details %}
-		
+			{% block header_section_left %}{{ block.super }}{% endblock header_section_left %}
+				{% block button_menu_aside_left %}{{ block.super }}{% endblock button_menu_aside_left %}
+				
+				{% block brand_details %}{{ block.super }}{% endblock brand_details %}
+					{% block brand_details_logo_classname %}{{ block.super }}{% endblock brand_details_logo_classname %}
+					{% block brand_details_title %}{{ block.super }}{% endblock brand_details_title %}
 			<!-- end header-section-left -->
 
 			<!-- header-section-center -->
+			{% block header_section_center %}{{ block.super }}{% endblock header_section_center %}
 			<!-- end header-section-center -->
 
 			<!-- header-section-right -->
+			{% block header_section_right %}{{ block.super }}{% endblock header_section_right %}
+				{% block header_section_right_new_item_group %}{% endblock header_section_right_new_item_group %}
+
+				{% block header_section_right_search_extra_button %}{{ block.super }}{% endblock header_section_right_search_extra_button %}
+				
+				{% block header_section_right_notification %}{{ block.super }}{% endblock header_section_right_notification %}
+					{% block header_section_right_notification_row %}{{ block.super }}{% endblock header_section_right_notification_row %}
+
+				{% block header_section_right_user_settings %}{{ block.super }}{% endblock header_section_right_user_settings %}
+					{% block user_settings %}{{ block.super }}{% endblock user_settings %}
+                    {% block header_section_right_user_settings_new_item_group %}{% endblock header_section_right_user_settings_new_item_group %}
 			<!-- end header-section-right -->
 		<!-- end container-header -->
 

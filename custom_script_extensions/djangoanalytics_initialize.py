@@ -135,7 +135,7 @@ def create_default_users_groups_permissions():
 
 
 
-def initialize_managment_commands():
+def initialize_management_commands():
 	call_command('collectstatic', verbosity=0, interactive=False, link=True, clear=True)
 	# call_command('makemigrations', app_label='accounts', database='default')
 	# call_command('migrate', app_label='accounts', database='default')

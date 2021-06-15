@@ -25,13 +25,13 @@
         <link href="{% static 'app_zs_admin/origin/res/font/google_opensans_oswald_fonts.css' %}" rel="stylesheet">
         <link href="{% block index_href_css %}{% static 'app_zs_admin/origin/css/index.css' %}{% endblock index_href_css %}" rel="stylesheet">
         {% block head_css %}
+        {% endblock head_css %}
             <!-- APP CSS -->
             {% block css %}
             {% endblock css %}
             <!-- APP VENDOR CSS -->
             {% block vendor_css %}
             {% endblock vendor_css %}
-        {% endblock head_css %}
     </head>
 
     <body>
@@ -58,10 +58,10 @@
                 </div>
                 {% endblock header_section_left %}
 
+                {% block header_section_center %}
                 <div class="header-section-center">
-                {% block zs_admin_header_center_items_search_group %}
                     <input type="text" placeholder="Поиск на сайте...">
-                    <button type="submit" data-tooltip="search" data-tooltip-position="bottom">
+                    <button type="submit" data-tooltip="Поиск" data-tooltip-position="bottom">
                         <!-- <i class="fas fa-search"></i> -->
                         <svg viewBox="0 0 24 24">
                             <g>
@@ -69,14 +69,19 @@
                             </g>
                         </svg>
                     </button>
-                {% endblock zs_admin_header_center_items_search_group %}
                 </div>
+                {% endblock header_section_center %}
                 
+                {% block header_section_right %}
                 <div class="header-section-right">
-                    {% block zs_admin_header_right_items_search_group %}
+                    {% block header_section_right_new_item_group %}
+                    {% endblock header_section_right_new_item_group %}
+
+
+                    {% block header_section_right_search_extra_button %}
                     <div class="item-group">
                         <div class="items-header">
-                            <button id="search-active" style="display: none;" data-tooltip="search" data-tooltip-position="bottom">
+                            <button id="search-extra-button" style="display: none;" data-tooltip="Поиск" data-tooltip-position="bottom">
                                 <svg viewBox="0 0 24 24">
                                     <g>
                                         <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
@@ -85,12 +90,12 @@
                             </button>
                         </div>
                     </div>
-                    {% endblock zs_admin_header_right_items_search_group %}
+                    {% endblock header_section_right_search_extra_button %}
 
-                    {% block zs_admin_header_right_items_notification_group %}
+                    {% block header_section_right_notification %}
                     <div class="item-group">
                         <div class="items-header">
-                            <button id="notification" data-tooltip="notification" data-tooltip-position="bottom">
+                            <button id="notification" data-tooltip="Уведомления" data-tooltip-position="bottom">
                                 <svg viewBox="0 0 24 24">
                                     <g>
                                         <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"></path>
@@ -100,27 +105,25 @@
                         </div>
                         <div class="items-frame">
                             <div class="items">
-                                {% block zs_admin_header_right_items_notification_group_item %}
+                                {% block header_section_right_notification_row %}
                                 <div class="row">Text 1</div>
                                 <div class="row divider"></div>
                                 <div class="row">Text 2</div>
-                                {% endblock zs_admin_header_right_items_notification_group_item %}
+                                {% endblock header_section_right_notification_row %}
                             </div>
                         </div>
                     </div>
-                    {% endblock zs_admin_header_right_items_notification_group %}
+                    {% endblock header_section_right_notification %}
 
-                    {% block zs_admin_header_right_items_user_group %}
+                    {% block header_section_right_user_settings %}
                     <div class="item-group">
                         <div class="items-header">
-                            <button id="user" data-tooltip="user_settings" data-tooltip-position="bottom">
+                            <button id="user" data-tooltip="Настройки пользователя" data-tooltip-position="bottom">
                                 <div class="avatar"></div>
                             </button>
                         </div>
                         <div class="items-frame">
                             <div class="items">
-                                {% block zs_admin_header_right_items_user_group_item %}
-                                {% endblock zs_admin_header_right_items_user_group_item %}
                                 <div class="row header">
                                     <a class="row">
                                         {% if request.user.is_authenticated %}
@@ -138,6 +141,7 @@
                                         {% endif %}
                                     </a>
                                 </div>
+                                {% block user_settings %}
                                 <div class="row divider"></div>
                                 <a href="#" class="row">
                                     <svg viewBox="0 0 24 24">
@@ -148,6 +152,10 @@
                                     </svg>
                                     <span>Настройки</span>
                                 </a>
+                                {% endblock user_settings %}
+
+                                {% block header_section_right_user_settings_new_item_group %}
+                                {% endblock header_section_right_user_settings_new_item_group %}
                                 <div class="row divider"></div>
                                 {% if request.user.is_authenticated %}
                                 <a href="{% url 'logout' %}" class="row">
@@ -171,12 +179,12 @@
                             </div>
                         </div>
                     </div>
-                    {% endblock zs_admin_header_right_items_user_group %}
+                    {% endblock header_section_right_user_settings %}
 
                     {% block zs_admin_header_right_items_country_locale_group %}
                     <div class="item-group">
                         <div class="items-header">
-                            <button id="locale" data-tooltip="locale_settings" data-tooltip-position="bottom">
+                            <button id="locale" data-tooltip="Локализация" data-tooltip-position="bottom">
                                 <div class="selected country Russian_Federation"></div>
                             </button>
                         </div>
@@ -226,6 +234,7 @@
                     {% block zs_admin_header_right_items %}
                     {% endblock zs_admin_header_right_items %}
                 </div>
+                {% endblock header_section_right %}
             </header>
 
             <nav class="container-aside-left">

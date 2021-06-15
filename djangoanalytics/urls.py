@@ -32,7 +32,7 @@ if not os.getenv('django_load_once'):
     if djangoanalytics_settings.django_initialize:
         from custom_script_extensions.djangoanalytics_initialize import initialize
         initialize(
-            djangoanalytics_settings.django_initialize_managment_commands, 
+            djangoanalytics_settings.django_initialize_management_commands,
             djangoanalytics_settings.django_initialize_defaults)
     os.environ['django_load_once'] = str(os.getpid())
 

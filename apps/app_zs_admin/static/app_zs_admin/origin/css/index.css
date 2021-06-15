@@ -100,9 +100,9 @@ svg {
 }
 .breadcrumb ul {
     display: flex;
-    flex-direction: row;
+    flex-wrap: wrap;
     list-style-type: none;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     height: 28px;
     overflow: hidden;
 }
@@ -110,7 +110,7 @@ svg {
 .breadcrumb ul:hover {
     height: 100%;
     padding: 15px 0px 15px 3px;
-    margin-top: -15px;
+    margin-top: -21px;
 }
 
 
@@ -265,6 +265,7 @@ svg {
 	display: flex;
 	align-items: center;
     height: 40px;
+    min-width: 134px;
 }
 
 .container-header .header-section-left .button-menu {
@@ -314,6 +315,7 @@ svg {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-left: 4px;
 }
 
 .container-header .header-section-left .logo .brand-logo {
@@ -1095,7 +1097,7 @@ svg {
 		width: 100%;
 	}
 
-	#search-active {
+	#search-extra-button {
 		display: flex !important;
 	}
 
