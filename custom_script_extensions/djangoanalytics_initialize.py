@@ -43,14 +43,14 @@ custom_permissionns = [
 
 default_admin = 'admin'
 default_app_label = 'app_zs_admin'
-read_only_app = ['app', 'accounts']
-edit_only_app = ['auth', 'sessions']
+read_only_app = ['app', 'accounts', 'sessions']
+edit_only_app = ['auth']
 users_default_password = '368696'
 
 default_staff_users = ['TEST_USER_admin_viewer', 'TEST_USER_admin_editor', 'TEST_USER_admin_api']
 default_users = ['TEST_USER_application_viewer', 'TEST_USER_application_editor', 'TEST_USER_application_api']
 
-disintct_app_labels_staff = ['accounts', 'admin', 'auth', 'contenttypes', 'sessions']
+disintct_app_labels_staff = ['accounts', 'admin', 'auth', 'contenttypes']
 distinct_app_labels_users = [] 
 
 
