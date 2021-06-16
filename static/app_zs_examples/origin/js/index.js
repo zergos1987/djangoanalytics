@@ -1,1 +1,1 @@
-C:/Users/46305/Desktop/code/python/www/djangoanalytics/apps/app_zs_examples/static/app_zs_examples/origin/js/index.js
+console.log('app_zs_examples app');

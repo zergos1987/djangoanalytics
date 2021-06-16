@@ -1,1 +1,1 @@
-C:/Users/46305/Desktop/code/python/www/djangoanalytics/apps/database_sqlite_test/static/database_sqlite_test/origin/js/index.js
+console.log('database_sqlite_test app');

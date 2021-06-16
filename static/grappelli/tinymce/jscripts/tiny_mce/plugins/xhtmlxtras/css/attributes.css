@@ -1,1 +1,11 @@
-C:/Users/46305/Desktop/code/python/www/djangoanalytics/virtual_enviroment/lib/site-packages/grappelli/static/grappelli/tinymce/jscripts/tiny_mce/plugins/xhtmlxtras/css/attributes.css
+.panel_wrapper div.current {
+	height: 290px;
+}
+
+#id, #style, #title, #dir, #hreflang, #lang, #classlist, #tabindex, #accesskey {
+	width: 200px;
+}
+
+#events_panel input {
+	width: 200px;
+}

@@ -1,1 +1,8 @@
-C:/Users/46305/Desktop/code/python/www/djangoanalytics/apps/app_zs_admin/static/app_zs_admin/origin/res/img/arrow.svg
+<svg 
+	 aria-hidden="true" focusable="false" data-prefix="fas" data-icon="arrow" class="svg-inline--fa fa-arrow fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 55 55">
+<g>
+	<polygon style="fill:#00AD97;" points="48.242,35.122 45.414,37.95 24.828,17.364 4.242,37.95 1.414,35.122 24.828,11.707 	"/>
+	<path style="fill:#00AD97;" d="M45.414,39.363L24.828,18.778L4.242,39.363L0,35.121l24.828-24.828l24.828,24.828L45.414,39.363z
+		 M24.828,15.95l20.586,20.585l1.414-1.414l-22-22l-22,22l1.414,1.414L24.828,15.95z"/>
+</g>
+</svg>

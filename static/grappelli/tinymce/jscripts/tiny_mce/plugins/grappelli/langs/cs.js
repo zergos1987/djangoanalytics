@@ -1,1 +1,4 @@
-C:/Users/46305/Desktop/code/python/www/djangoanalytics/virtual_enviroment/lib/site-packages/grappelli/static/grappelli/tinymce/jscripts/tiny_mce/plugins/grappelli/langs/cs.js
+tinyMCE.addI18n("cs.grappelli",{
+grappelli_adv_desc:"Zobrazit/Skrýt pokročilé možnosti",
+grappelli_documentstructure_desc:"Zobrazit/Skrýt strukturu dokumentu",
+});

@@ -116,7 +116,7 @@
                     {% endblock header_section_right_notification %}
 
                     {% block header_section_right_user_settings %}
-                    <div class="item-group">
+                    <div class="item-group user_menu">
                         <div class="items-header">
                             <button id="user" data-tooltip="Настройки пользователя" data-tooltip-position="bottom">
                                 <div class="avatar"></div>
@@ -140,6 +140,55 @@
                                         <p class="user">Anonymouse</p>
                                         {% endif %}
                                     </a>
+                                    {% block header_section_right_user_settings_locale %}
+                                    <div class="item-group">
+                                        <div class="items-header">
+                                            <button id="locale" data-tooltip="Локализация" data-tooltip-position="bottom">
+                                                <div class="selected country Russian_Federation"></div>
+                                            </button>
+                                        </div>
+                                        <div class="items-frame">
+                                            <div class="items countries">
+                                                <div class="col">
+                                                    {% block zs_admin_header_right_items_country_locale_item %}
+                                                    <a href="#" class="row"><span class="country USA"></span>English (USA)</a>
+                                                    <a href="#" class="row"><span class="country UK"></span>English (UK)</a>
+                                                    <a href="#" class="row"><span class="country India"></span>English (India)</a>
+                                                    <a href="#" class="row"><span class="country Canada"></span>English (Canada)</a>
+                                                    <a href="#" class="row"><span class="country Australia"></span>English (Australia)</a>
+                                                    <a href="#" class="row"><span class="country Sweden"></span>Svenska</a>
+                                                    <a href="#" class="row"><span class="country Finland"></span>Suomi</a>
+                                                    <a href="#" class="row"><span class="country Israel"></span>עברית</</a>
+                                                    <a href="#" class="row"><span class="country Germany"></span>Deutsch</a>
+                                                    <a href="#" class="row"><span class="country Spain"></span>Español (España)</a>
+                                                    <a href="#" class="row"><span class="country Mexico"></span>Español (México)</a>
+                                                    <a href="#" class="row"><span class="country France"></span>Français</a>
+                                                    <a href="#" class="row"><span class="country Italy"></span>Italiano</a>
+                                                    <a href="#" class="row"><span class="country Netherlands"></span>Nederlands</a>
+                                                    <a href="#" class="row"><span class="country Portugal"></span>Português (Portugal)</a>
+                                                    <a href="#" class="row"><span class="country Poland"></span>Polski</a>
+                                                    <a href="#" class="row"><span class="country Brazil"></span>Português (Brasil)</a>
+                                                    <a href="#" class="row"><span class="country Turkey"></span>Türkçe</a>
+                                                    <a href="#" class="row"><span class="country Saudi_Arabia"></span>‏العربية‏</a>
+                                                    <a href="#" class="row"><span class="country Greece"></span>Ελληνικά</a>
+                                                    <a href="#" class="row"><span class="country South_Africa"></span>English (South Africa)</a>
+                                                    <a href="#" class="row"><span class="country Philippines"></span>English (Philippines)</a>
+                                                    <a href="#" class="row"><span class="country Nigeria"></span>English (Nigeria)</a>
+                                                    <a href="#" class="row"><span class="country Japan"></span>日本語</a>
+                                                    <a href="#" class="row"><span class="country South_Korea"></span>한국어</a>
+                                                    <a href="#" class="row"><span class="country China"></span>简体中文</a>
+                                                    <a href="#" class="row"><span class="country Hong_Kong"></span>繁體中文</a>
+                                                    <a href="#" class="row"><span class="country Indonesia"></span>Bahasa Indonesia</a>
+                                                    <a href="#" class="row"><span class="country Malaysia"></span>Bahasa Melayu</a>
+                                                    <a href="#" class="row"><span class="country Thailand"></span>ไทย</a>
+                                                    <a href="#" class="row"><span class="country Vietnam"></span>Tiếng Việt</a>
+                                                    <a href="#" class="row"><span class="country India"></span>हिंदी</a>
+                                                    {% endblock zs_admin_header_right_items_country_locale_item %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endblock header_section_right_user_settings_locale %}
                                 </div>
                                 {% block user_settings %}
                                 <div class="row divider"></div>
@@ -181,55 +230,7 @@
                     </div>
                     {% endblock header_section_right_user_settings %}
 
-                    {% block zs_admin_header_right_items_country_locale_group %}
-                    <div class="item-group">
-                        <div class="items-header">
-                            <button id="locale" data-tooltip="Локализация" data-tooltip-position="bottom">
-                                <div class="selected country Russian_Federation"></div>
-                            </button>
-                        </div>
-                        <div class="items-frame">
-                            <div class="items countries">
-                                <div class="col">
-                                    {% block zs_admin_header_right_items_country_locale_item %}
-                                    <a href="#" class="row"><span class="country USA"></span>English (USA)</a>
-                                    <a href="#" class="row"><span class="country UK"></span>English (UK)</a>
-                                    <a href="#" class="row"><span class="country India"></span>English (India)</a>
-                                    <a href="#" class="row"><span class="country Canada"></span>English (Canada)</a>
-                                    <a href="#" class="row"><span class="country Australia"></span>English (Australia)</a>
-                                    <a href="#" class="row"><span class="country Sweden"></span>Svenska</a>
-                                    <a href="#" class="row"><span class="country Finland"></span>Suomi</a>
-                                    <a href="#" class="row"><span class="country Israel"></span>עברית</</a>
-                                    <a href="#" class="row"><span class="country Germany"></span>Deutsch</a>
-                                    <a href="#" class="row"><span class="country Spain"></span>Español (España)</a>
-                                    <a href="#" class="row"><span class="country Mexico"></span>Español (México)</a>
-                                    <a href="#" class="row"><span class="country France"></span>Français</a>
-                                    <a href="#" class="row"><span class="country Italy"></span>Italiano</a>
-                                    <a href="#" class="row"><span class="country Netherlands"></span>Nederlands</a>
-                                    <a href="#" class="row"><span class="country Portugal"></span>Português (Portugal)</a>
-                                    <a href="#" class="row"><span class="country Poland"></span>Polski</a>
-                                    <a href="#" class="row"><span class="country Brazil"></span>Português (Brasil)</a>
-                                    <a href="#" class="row"><span class="country Turkey"></span>Türkçe</a>
-                                    <a href="#" class="row"><span class="country Saudi_Arabia"></span>‏العربية‏</a>
-                                    <a href="#" class="row"><span class="country Greece"></span>Ελληνικά</a>
-                                    <a href="#" class="row"><span class="country South_Africa"></span>English (South Africa)</a>
-                                    <a href="#" class="row"><span class="country Philippines"></span>English (Philippines)</a>
-                                    <a href="#" class="row"><span class="country Nigeria"></span>English (Nigeria)</a>
-                                    <a href="#" class="row"><span class="country Japan"></span>日本語</a>
-                                    <a href="#" class="row"><span class="country South_Korea"></span>한국어</a>
-                                    <a href="#" class="row"><span class="country China"></span>简体中文</a>
-                                    <a href="#" class="row"><span class="country Hong_Kong"></span>繁體中文</a>
-                                    <a href="#" class="row"><span class="country Indonesia"></span>Bahasa Indonesia</a>
-                                    <a href="#" class="row"><span class="country Malaysia"></span>Bahasa Melayu</a>
-                                    <a href="#" class="row"><span class="country Thailand"></span>ไทย</a>
-                                    <a href="#" class="row"><span class="country Vietnam"></span>Tiếng Việt</a>
-                                    <a href="#" class="row"><span class="country India"></span>हिंदी</a>
-                                    {% endblock zs_admin_header_right_items_country_locale_item %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% endblock zs_admin_header_right_items_country_locale_group %}
+                    
 
                     {% block zs_admin_header_right_items %}
                     {% endblock zs_admin_header_right_items %}

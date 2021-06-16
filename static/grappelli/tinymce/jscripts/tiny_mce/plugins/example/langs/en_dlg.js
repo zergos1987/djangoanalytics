@@ -1,1 +1,3 @@
-C:/Users/46305/Desktop/code/python/www/djangoanalytics/virtual_enviroment/lib/site-packages/grappelli/static/grappelli/tinymce/jscripts/tiny_mce/plugins/example/langs/en_dlg.js
+tinyMCE.addI18n('en.example_dlg',{
+	title : 'This is just a example title'
+});

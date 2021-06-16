@@ -1,1 +1,4 @@
-C:/Users/46305/Desktop/code/python/www/djangoanalytics/virtual_enviroment/lib/site-packages/grappelli/static/grappelli/tinymce/jscripts/tiny_mce/plugins/grappelli/langs/pl.js
+tinyMCE.addI18n("pl.grappelli",{
+grappelli_adv_desc:"Pokaż/Ukryj zaawansowane menu",
+grappelli_documentstructure_desc:"Pokaż/Ukryj strukturę dokumentu"
+});

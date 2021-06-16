@@ -1,1 +1,1 @@
-C:/Users/46305/Desktop/code/python/www/djangoanalytics/apps/database_oracle_sadko/static/database_oracle_sadko/origin/js/index.js
+console.log('database_oracle_sadko app');

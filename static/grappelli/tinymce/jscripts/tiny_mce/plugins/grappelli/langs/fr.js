@@ -1,1 +1,4 @@
-C:/Users/46305/Desktop/code/python/www/djangoanalytics/virtual_enviroment/lib/site-packages/grappelli/static/grappelli/tinymce/jscripts/tiny_mce/plugins/grappelli/langs/fr.js
+tinyMCE.addI18n("fr.grappelli",{
+grappelli_adv_desc:"Basculer le menu avancé",
+grappelli_documentstructure_desc:"Basculé la structure de document",
+});
