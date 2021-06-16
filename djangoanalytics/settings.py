@@ -412,9 +412,8 @@ def user_login_failed_callback(sender, credentials, **kwargs):
 # Email backend
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'        
         
-        
-        
-        
+#DJANGO-ADMIN-IMPORT-EXPORT     
+IMPORT_EXPORT_USE_TRANSACTIONS = True   
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
