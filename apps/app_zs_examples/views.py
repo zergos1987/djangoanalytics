@@ -24,7 +24,6 @@ from rest_framework import generics
 from rest_framework.permissions import IsAdminUser
 from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from drf_yasg2.utils import swagger_auto_schema
 from drf_yasg2 import openapi
