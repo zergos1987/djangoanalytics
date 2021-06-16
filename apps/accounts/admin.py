@@ -9,7 +9,7 @@ from django.contrib.auth.models import User, Group, Permission, ContentType
 from django.contrib.sessions.models import Session
 from django.utils.translation import ugettext_lazy as _
 from django.core import serializers
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse, Http404, HttpResponseRedirect, HttpResponseForbidden, HttpResponsePermanentRedirect
 
 from .models import (
     app,
@@ -34,11 +34,10 @@ class app_Resource(resources.ModelResource):
 
 
 class app_Admin(ImportExportModelAdmin):
+    
+    list_per_page = 15
     list_display = ['id']
     list_filter = ('id', )
-
-    def has_add_permission(self, request, obj=None):
-        return False
 
     resource_class = app_Resource
 
@@ -55,12 +54,10 @@ class Group_Resource(resources.ModelResource):
 
 class Group_Admin(ImportExportModelAdmin):
     
+    list_per_page = 15
     list_display = ['id', 'name']
     list_filter = ('id', 'name',)
     search_fields = ['name',]
-
-    def has_add_permission(self, request, obj=None):
-        return False
 
     resource_class = Group_Resource
 
@@ -77,6 +74,9 @@ class Permission_Resource(resources.ModelResource):
 
 
 class Permission_Admin(ImportExportModelAdmin):
+    
+    list_per_page = 15
+
     def content_type_app_model_id(self, obj):
         return obj.content_type.app_label + ' | ' + obj.content_type.model + ' | ' + str(obj.content_type.id)
     content_type_app_model_id.short_description  = 'APP | Model | id'
@@ -85,8 +85,19 @@ class Permission_Admin(ImportExportModelAdmin):
     list_filter = ('id', 'content_type', 'name', 'codename', )
     search_fields = ['name', 'codename', 'content_type__app_label', 'content_type__model']
 
-    def has_add_permission(self, request, obj=None):
-        return False
+    def has_import_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+
+    def has_export_permission(self, request, obj=None):
+        return True
+        # if request.user.is_superuser:
+        #     return True
+        # else:
+        #     return False
 
     resource_class = Permission_Resource
 
@@ -105,6 +116,7 @@ class CustomUser_Admin(ImportExportModelAdmin, UserAdmin):
 
     model = User
 
+    list_per_page = 15
     list_display = ['id', 'username', 'email',  'last_login', 'is_active']
     list_filter = ('is_active', 'is_staff', 'is_superuser', 'groups', )
     ordering = ('username',)
@@ -213,6 +225,19 @@ class CustomUser_Admin(ImportExportModelAdmin, UserAdmin):
         #return request.user.has_perm('%s.%s' % (opts.app_label, codename))
         return request.user.has_perm("accounts.can_unban_users")
 
+    def has_import_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+            
+    def has_export_permission(self, request, obj=None):
+        return True
+        # if request.user.is_superuser:
+        #     return True
+        # else:
+        #     return False
+
     class Media:
         js = ('accounts/origin/js/index.js',)  
         css = {'all': ('accounts/origin/css/index.css',)}
@@ -233,16 +258,69 @@ class Session_Resource(resources.ModelResource):
 
 class Session_Admin(ImportExportModelAdmin):
     
+    list_per_page = 15
+    model = Session
+
     list_display = ['session_key', 'expire_date']
     list_filter = ('session_key', 'expire_date', )
-    exclude = ['session_data']
-    date_hierarchy='expire_date'
+    ordering = ('expire_date',)
+    date_hierarchy = 'expire_date'
 
-    def has_add_permission(self, request, obj=None):
-        return False
+    search_fields = ['session_key', 'expire_date',]
+
+    staff_self_fieldsets = (
+        (None, {'fields': ('session_key', 'expire_date',)}),
+    )
+
+    staff_other_fieldsets = (
+        (None, {'fields': ('session_key', 'expire_date',)}),
+    )
+
+    staff_self_readonly_fields = ('session_key', 'expire_date', )
+
+    def change_view(self, request, object_id, form_url='', extra_context=None, *args, **kwargs):
+        # for non-superuser
+        if not request.user.is_superuser:
+            try:
+                if int(object_id) != request.user.id:
+                    self.readonly_fields = User._meta.get_all_field_names()
+                    self.fieldsets = self.staff_other_fieldsets
+                else:
+                    self.readonly_fields = self.staff_self_readonly_fields
+                    self.fieldsets = self.staff_self_fieldsets
+
+                response = super(Session_Admin, self).change_view(request, object_id, form_url, extra_context, *args, **kwargs)
+            except:
+                pass
+                #logger.error('Admin change view error. Returned all readonly fields')
+
+                self.fieldsets = self.staff_other_fieldsets
+                self.readonly_fields = ('session_key', 'expire_date', )
+                response = super(Session_Admin, self).change_view(request, object_id, form_url, extra_context, *args, **kwargs)
+            finally:
+                # Reset fieldsets to its original value
+                self.fieldsets = Session_Admin.fieldsets
+                self.readonly_fields = Session_Admin.readonly_fields
+            return response
+        else:
+            return super(Session_Admin, self).change_view(request, object_id, form_url, extra_context, *args, **kwargs)
+
+
+    def has_import_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+
+    def has_export_permission(self, request, obj=None):
+        return True
+        # if request.user.is_superuser:
+        #     return True
+        # else:
+        #     return False
 
     resource_class = Session_Resource
-
 admin.site.register(Session, Session_Admin)
 
 
@@ -255,12 +333,11 @@ class UserSession_Resource(resources.ModelResource):
 
 
 class UserSession_Admin(ImportExportModelAdmin):
+    
+    list_per_page = 15
     list_display = ['user', 'session', 'created_at', 'remove_session']
     list_filter = ('user', 'session', 'created_at',)
     #search_fields = ['user', 'session', 'created_at',]
-
-    def has_add_permission(self, request, obj=None):
-        return False
 
     resource_class = UserSession_Resource
 
@@ -286,6 +363,8 @@ class AuditEntry_Resource(resources.ModelResource):
 
 
 class AuditEntry_Admin(ImportExportModelAdmin):
+    
+    list_per_page = 15
     list_display = [
         'dt', 
         'action', 
@@ -299,9 +378,6 @@ class AuditEntry_Admin(ImportExportModelAdmin):
         'os_version',]
     list_filter = ('dt', 'action', 'request_method', 'request_method',)
     search_fields = ['action', 'request_method', 'username', 'ip', 'device', 'browser_family', 'browser_version', 'os_family', 'os_version',]
-
-    def has_add_permission(self, request, obj=None):
-        return False
 
     resource_class = AuditEntry_Resource
 
