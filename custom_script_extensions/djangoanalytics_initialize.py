@@ -162,9 +162,9 @@ def create_default_users_groups_permissions():
 		if 'viewer' in group_name:
 			add_permission_to_group(group_name, app_name, ['view_'])
 		elif 'editor' in group_name:
-			add_permission_to_group(group_name, app_name, ['add_', 'change_'])
+			add_permission_to_group(group_name, app_name, ['change_'])
 		elif 'creator' in group_name:
-			add_permission_to_group(group_name, app_name, ['delete_'])
+			add_permission_to_group(group_name, app_name, ['delete_', 'add_'])
 		elif 'api' in group_name:
 			add_permission_to_group(group_name, app_name, ['api_'])
 		# else:
