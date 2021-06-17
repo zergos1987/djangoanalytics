@@ -2,7 +2,7 @@ from django.contrib import admin, messages
 from django.utils.translation import ngettext
 from django.contrib.auth import get_permission_codename
 from django.contrib.auth.admin import UserAdmin
-from rangefilter.filter import DateRangeFilter, DateTimeRangeFilter
+from rangefilter.filters import DateRangeFilter, DateTimeRangeFilter
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin
 from django.contrib.auth.models import User, Group, Permission, ContentType
@@ -118,7 +118,10 @@ class CustomUser_Admin(ImportExportModelAdmin, UserAdmin):
 
     list_per_page = 15
     list_display = ['id', 'username', 'email',  'last_login', 'is_active']
-    list_filter = ('is_active', 'is_staff', 'is_superuser', 'groups', )
+    list_filter = (
+        #('date_joined', DateRangeFilter), 
+        'is_active', 'is_staff', 'is_superuser', 'groups', 'date_joined',
+    )
     ordering = ('username',)
     date_hierarchy = 'date_joined'
     search_fields = ['username', 'first_name', 'last_name', 'email', 'last_login',]
