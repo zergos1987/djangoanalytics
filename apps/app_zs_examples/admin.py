@@ -2,6 +2,7 @@ from json import dumps
 from django.contrib import admin
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin
+from rangefilter.filters import DateRangeFilter, DateTimeRangeFilter
 
 from .models import (
         app,
@@ -69,11 +70,11 @@ class test_table_modelAdmin(ImportExportModelAdmin):
         'test_field', 'datetime_start_field', 'datetime_end_field', 'boolean_field', 'integer_field', 'integer_choice_field']
 
     list_filter = (
-        'test_field', 'datetime_start_field', 'datetime_end_field', 'boolean_field', 'integer_field', 'integer_choice_field',  #('dt', DateTimeRangeFilter)
+        ('datetime_start_field', DateRangeFilter), 'test_field', 'datetime_end_field', 'boolean_field', 'integer_field', 'integer_choice_field',  #('dt', DateTimeRangeFilter)
     )
 
     class Media:
-        js = ('/static/admin/js/jquery.grp_timepicker.js', )
+        js = ('accounts/origin/js/jquery.grp_timepicker.js', )  
 
 
     resource_class = test_table_modelResource
