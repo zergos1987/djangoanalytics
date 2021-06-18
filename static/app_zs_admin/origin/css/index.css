@@ -412,7 +412,8 @@ svg {
     margin-right: 8px;
 }
 
-.container-header .header-section-right button:hover, .container-header .header-section-right .item-group.active button {
+.container-header .header-section-right button:hover, 
+.container-header .header-section-right .item-group:not(.user_menu).active button {
 	background: #e7e7e7;
 }
 
@@ -621,6 +622,30 @@ svg {
     box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.05);
 }
 
+
+.header-section-right .row.header > .item-group {
+    width: fit-content;
+    height: fit-content;
+}
+
+.header-section-right .row > .item-group > .items-frame {
+    width: 55px;
+    height: 45px;
+}
+
+.header-section-right .row > .item-group .items.countries {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s;
+}
+
+.header-section-right .row > .item-group:hover .items.countries {
+    opacity: 1;
+    visibility: visible;
+    margin-right: 18px;
+    margin-top: 45px;
+}
+
 .header-section-right .item-group.active .items.countries {
     flex-direction: row;
 }
@@ -636,12 +661,12 @@ svg {
 
 .header-section-right .item-group.active .items:not(.countries) .row {
     display: flex;
-    align-items: center;
     padding-left: 12px;
+    align-items: center;
 }
 
 .header-section-right .item-group.active .items:not(.countries) .row.header {
-
+    align-items: unset;
 }
 
 .header-section-right .item-group.active .items:not(.countries) .row.header > .row {
@@ -660,7 +685,7 @@ svg {
     padding-top: 7px;
 }
 
-.header-section-right .item-group.active .items:not(.countries) .row span {
+.header-section-right > .item-group.active > .items-frame > .items:not(.countries) > .row > span {
     padding-left: 8px;
     width: calc(100% - 24px);
 }
@@ -692,11 +717,11 @@ svg {
     margin: 9px 0;
 }
 
-.header-section-right .item-group.user_menu > .item-frame > .row {
+.header-section-right .item-group.user_menu > .items-frame > .items {
     overflow: unset !important;
 }
 
-.header-section-right .item-group.user_menu > .item-frame > .row > .item-group {
+.header-section-right .item-group.user_menu > .items-frame > .items > .item-group {
     position: absolute;
     right: 0;
 }

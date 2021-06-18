@@ -777,11 +777,11 @@ svg {
     transition: all 0.5s ease 0s;
 }
 
-.container .container-aside-left a:not(.items-header, .level-2, .level-3, .level-4) {
+.container .container-aside-left a:not(.items-header, .level-2, .level-3, .level-4, .level-5) {
 	display: none;
 }
 
-.container.active .container-aside-left a:not(.items-header, .level-2, .level-3, .level-4) {
+.container.active .container-aside-left a:not(.items-header, .level-2, .level-3, .level-4, .level-5) {
 	display: flex;
     flex-direction: column;
     height: fit-content;
@@ -790,7 +790,7 @@ svg {
 
 .container .container-aside-left a > div.row {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .container.container-aside-left-disabled .container-aside-left {
@@ -812,6 +812,7 @@ svg {
     color: #000;
     width: auto;
     min-width: fit-content;
+    font-size: 0.8rem;
 }
 
 .container-aside-left .items > a > .item-group {
@@ -855,13 +856,17 @@ svg {
     left: 76px;
 }
 
+.container:not(.active) .container-aside-left .item-group.active .items a.level-5:hover:before {
+    left: 106px;
+}
+
 .container-aside-left a.active {
 	background: #e5e5e5;
 	font-weight: bold;
 }
 
 .container-aside-left a:not(.items-header) span {
-    font-size: 0.9rem;
+    font-size: inherit;
     font-weight: 500;
 
     width: inherit;
@@ -877,10 +882,11 @@ svg {
     align-items: center;
     display: flex;
     padding-left: 2px;
+    max-height: inherit;
 }
 
 .container-aside-left .fas.arrow {
-    transition: all 0.45s;
+    transition: transform 0.45s;
 }
 
 .container-aside-left .fa-localy:before {
@@ -919,17 +925,52 @@ svg {
 .container-aside-left > .item-group > .items-frame > .items > .level-2:not(.displayBlock), 
 .container-aside-left > .item-group > .items-frame > .items > .level-3:not(.displayBlock), 
 .container-aside-left > .item-group > .items-frame > .items > .level-4:not(.displayBlock),
+.container-aside-left > .item-group > .items-frame > .items > .level-5:not(.displayBlock),
 .container:not(.active) .item-group:not(.active) .items > .level-2,
 .container:not(.active) .item-group:not(.active) .items > .level-3,
-.container:not(.active) .item-group:not(.active) .items > .level-4  {
-    display: none;
+.container:not(.active) .item-group:not(.active) .items > .level-4, 
+.container:not(.active) .item-group:not(.active) .items > .level-5 {
+    visibility: hidden;
+    opacity: 0;
+    height: 0%;
+    max-height: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    font-size: 0.8rem;
+    transition: height 0.45s, max-height 0.45s, padding-top 0.45s, padding-bottom 0.45s;
 }
+.container-aside-left > .item-group > .items-frame > .items > .level-2.displayBlock, 
+.container-aside-left > .item-group > .items-frame > .items > .level-3.displayBlock, 
+.container-aside-left > .item-group > .items-frame > .items > .level-4.displayBlock,
+.container-aside-left > .item-group > .items-frame > .items > .level-5.displayBlock,
+.container.active .item-group.active .items > .level-2,
+.container.active .item-group.active .items > .level-3,
+.container.active .item-group.active .items > .level-4, 
+.container.active .item-group.active .items > .level-5  {
+    visibility: visible;
+    opacity: 1;
+    height: 100%;
+    max-height: 200px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 0.8rem;
+    transition: all 0.45s;
+}
+
 .container-aside-left > .item-group > .items-frame > .items > .level-2 {
     padding-left: 45px;
 }
 
 .container-aside-left > .item-group > .items-frame > .items > .level-3 {
     padding-left: 70px;
+}
+
+.container-aside-left > .item-group > .items-frame > .items > .level-4 {
+    padding-left: 95px;
+}
+
+.container-aside-left > .item-group > .items-frame > .items > .level-5 {
+    padding-left: 120px;
 }
 
 .container .container-aside-left a.items-header {
@@ -1044,7 +1085,7 @@ svg {
     width: 16px;
 }
 
-.container:not(.active) .container-aside-left .item-group.active > .items-frame > .items a:not(.level-2, .level-3, .level-4) {
+.container:not(.active) .container-aside-left .item-group.active > .items-frame > .items a:not(.level-2, .level-3, .level-4, .level-5) {
 	display: flex;
 }
 
