@@ -10,6 +10,8 @@ from django.contrib.sessions.models import Session
 from django.utils.translation import ugettext_lazy as _
 from django.core import serializers
 from django.http import HttpResponse, FileResponse, Http404, HttpResponseRedirect, HttpResponseForbidden, HttpResponsePermanentRedirect
+from django.db.models import Q
+import logging
 
 from .models import (
     app,
@@ -17,6 +19,7 @@ from .models import (
     UserSession
 	)
 
+logger = logging.getLogger(__name__)
 
 # Register your models here.
 print('User', [field.name for field in User._meta.get_fields()])
@@ -38,6 +41,19 @@ class app_Admin(ImportExportModelAdmin):
     list_per_page = 15
     list_display = ['id']
     list_filter = ('id', )
+    
+    def has_import_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_export_permission(self, request, obj=None):
+        return True
+        # if request.user.is_superuser:
+        #     return True
+        # else:
+        #     return False
 
     resource_class = app_Resource
 
@@ -58,6 +74,38 @@ class Group_Admin(ImportExportModelAdmin):
     list_display = ['id', 'name']
     list_filter = ('id', 'name',)
     search_fields = ['name',]
+    ordering = ('name',)
+
+    def has_import_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_export_permission(self, request, obj=None):
+        return True
+        # if request.user.is_superuser:
+        #     return True
+        # else:
+        #     return False
+
+    def has_add_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
 
     resource_class = Group_Resource
 
@@ -80,6 +128,7 @@ class Permission_Admin(ImportExportModelAdmin):
     def content_type_app_model_id(self, obj):
         return obj.content_type.app_label + ' | ' + obj.content_type.model + ' | ' + str(obj.content_type.id)
     content_type_app_model_id.short_description  = 'APP | Model | id'
+    content_type_app_model_id.admin_order_field = 'id'
 
     list_display = ('id', 'content_type_app_model_id', 'name', 'codename', )
     list_filter = ('id', 'content_type', 'name', 'codename', )
@@ -91,13 +140,30 @@ class Permission_Admin(ImportExportModelAdmin):
         else:
             return False
 
-
     def has_export_permission(self, request, obj=None):
         return True
         # if request.user.is_superuser:
         #     return True
         # else:
         #     return False
+
+    def has_add_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
 
     resource_class = Permission_Resource
 
@@ -122,10 +188,17 @@ class CustomUser_Admin(ImportExportModelAdmin, UserAdmin):
         #('date_joined', DateRangeFilter), 
         'is_active', 'is_staff', 'is_superuser', 'groups', 'date_joined',
     )
-    ordering = ('username',)
+    ordering = ('-date_joined', 'username',)
     date_hierarchy = 'date_joined'
     search_fields = ['username', 'first_name', 'last_name', 'email', 'last_login',]
     actions = ['ban_users', 'remove_ban', 'export_as_json']
+
+    staff_userEditor_fieldsets = (
+        (None, {'fields': ('username', 'password')}),
+        (_('Personal info'), {'fields': ('first_name', 'last_name', 'email', )}),
+        (_('Permissions'), {'fields': ('is_active', 'groups', )}),
+        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+    )
 
     staff_self_fieldsets = (
         (None, {'fields': ('username', 'password')}),
@@ -143,12 +216,30 @@ class CustomUser_Admin(ImportExportModelAdmin, UserAdmin):
 
     staff_self_readonly_fields = ('username', 'last_login', 'date_joined')
 
+    def render_change_form(self, request, context, *args, **kwargs):
+        if not request.user.is_superuser:
+            if len(context['adminform'].form.fields) > 0:
+                if context['adminform'].form.fields.get('groups', None):
+                    remove_list_from_results = ['admin_viewer_group', 'admin_editor_group', 'admin_creator_group', 'admin_api_group']
+                    queryset_ids = Group.objects.values_list('id', flat=True).exclude(~Q(name__in=remove_list_from_results))
+                    queryset_ids = [int(ids) for ids in queryset_ids]
+                    context['adminform'].form.fields['groups'].queryset = Group.objects.exclude(id__in=queryset_ids)
+        return super(CustomUser_Admin, self).render_change_form(request, context, args, kwargs)
+
     def change_view(self, request, object_id, form_url='', extra_context=None, *args, **kwargs):
         # for non-superuser
         if not request.user.is_superuser:
             try:
-                if int(object_id) != request.user.id:
-                    self.readonly_fields = User._meta.get_all_field_names()
+                opts = self.opts
+                codename = get_permission_codename('change', opts)
+                edited_user = User.objects.filter(id=object_id).first()
+                # User who have change perm can change non-staff Users and not self
+                if request.user.has_perm("%s.%s" % (opts.app_label, codename)) and edited_user.id != request.user.id and not (edited_user.is_staff or edited_user.is_superuser):
+                    self.readonly_fields = self.staff_self_readonly_fields
+                    self.fieldsets = self.staff_userEditor_fieldsets
+
+                elif int(object_id) != request.user.id:
+                    self.readonly_fields = User._meta.NOT_get_fields() #get_fields()
                     self.fieldsets = self.staff_other_fieldsets
                 else:
                     self.readonly_fields = self.staff_self_readonly_fields
@@ -157,7 +248,7 @@ class CustomUser_Admin(ImportExportModelAdmin, UserAdmin):
                 response = super(CustomUser_Admin, self).change_view(request, object_id, form_url, extra_context, *args, **kwargs)
             except:
                 pass
-                #logger.error('Admin change view error. Returned all readonly fields')
+                logger.error('Admin change view error. Returned all readonly fields')
 
                 self.fieldsets = self.staff_other_fieldsets
                 self.readonly_fields = ('first_name', 'last_name', 'email', 'username', 'password', 'last_login', 'date_joined')
@@ -212,14 +303,12 @@ class CustomUser_Admin(ImportExportModelAdmin, UserAdmin):
         return response
     export_as_json.short_description = 'Экспорт в JSON URL'
 
-
     def has_can_ban_users_permission(self, request):
         """Does the user have the publish permission?"""
         opts = self.opts
         codename = get_permission_codename('can_ban_users', opts)
         #return request.user.has_perm('%s.%s' % (opts.app_label, codename))
         return request.user.has_perm("accounts.can_ban_users")
-
 
     def has_can_unban_users_permission(self, request):
         """Does the user have the publish permission?"""
@@ -241,8 +330,30 @@ class CustomUser_Admin(ImportExportModelAdmin, UserAdmin):
         # else:
         #     return False
 
+    # def has_add_permission(self, request, obj=None):
+    #     if request.user.is_superuser:
+    #         return True
+    #     else:
+    #         return False
+
+    def has_change_permission(self, request, obj=None):
+        return True
+        # opts = self.opts
+        # codename1 = get_permission_codename('add', opts)
+        # codename2 = get_permission_codename('change', opts)
+        # if request.user.is_superuser:
+        #     return True
+        # else:
+        #     return request.user.has_perm("%s.%s" % (opts.app_label, codename1)) or request.user.has_perm("%s.%s" % (opts.app_label, codename2))
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
     class Media:
-        js = ('accounts/origin/js/index.js',)  
+        js = ('accounts/origin/js/index.js', )  
         css = {'all': ('accounts/origin/css/index.css',)}
 
     resource_class = CustomUser_Resource
@@ -257,7 +368,6 @@ class Session_Resource(resources.ModelResource):
     class Meta:
         model = Session
         fields = ('session_key', 'expire_date', )
-
 
 class Session_Admin(ImportExportModelAdmin):
     
@@ -315,7 +425,6 @@ class Session_Admin(ImportExportModelAdmin):
         else:
             return False
 
-
     def has_export_permission(self, request, obj=None):
         return True
         # if request.user.is_superuser:
@@ -323,8 +432,28 @@ class Session_Admin(ImportExportModelAdmin):
         # else:
         #     return False
 
+    def has_add_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
     resource_class = Session_Resource
+
 admin.site.register(Session, Session_Admin)
+
 
 
 
@@ -334,17 +463,47 @@ class UserSession_Resource(resources.ModelResource):
         model = UserSession
         fields = ('user', 'session',)
 
-
 class UserSession_Admin(ImportExportModelAdmin):
-    
     list_per_page = 15
     list_display = ['user', 'session', 'created_at', 'remove_session']
     list_filter = ('user', 'session', 'created_at',)
     #search_fields = ['user', 'session', 'created_at',]
+    
+    def has_import_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
 
+    def has_export_permission(self, request, obj=None):
+        return True
+        # if request.user.is_superuser:
+        #     return True
+        # else:
+        #     return False
+
+    def has_add_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+            
     resource_class = UserSession_Resource
 
 admin.site.register(UserSession, UserSession_Admin)
+
 
 
 
@@ -364,9 +523,7 @@ class AuditEntry_Resource(resources.ModelResource):
             'os_family', 
             'os_version',)
 
-
 class AuditEntry_Admin(ImportExportModelAdmin):
-    
     list_per_page = 15
     list_display = [
         'dt', 
@@ -381,6 +538,37 @@ class AuditEntry_Admin(ImportExportModelAdmin):
         'os_version',]
     list_filter = ('dt', 'action', 'request_method', 'request_method',)
     search_fields = ['action', 'request_method', 'username', 'ip', 'device', 'browser_family', 'browser_version', 'os_family', 'os_version',]
+    
+    def has_import_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_export_permission(self, request, obj=None):
+        return True
+        # if request.user.is_superuser:
+        #     return True
+        # else:
+        #     return False
+
+    def has_add_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
 
     resource_class = AuditEntry_Resource
 
