@@ -60,15 +60,26 @@
 					{% block user_settings %}{{ block.super }}{% endblock user_settings %}
                     {% block header_section_right_user_settings_new_item_group %}{% endblock header_section_right_user_settings_new_item_group %}
 			<!-- end header-section-right -->
+
+			<!-- container-aside-left -->
+			{% block container_aside_left %}{{ block.super }}{% endblock container_aside_left %}
+				{% block container_aside_left_settings_menu %}{{ block.super }}{% endblock container_aside_left_settings_menu %}
+				{% block container_aside_left_content_menu %}{{ block.super }}{% endblock container_aside_left_content_menu %}
+                {% block container_aside_left_extra_block %}{% endblock container_aside_left_extra_block %}
+			<!-- end container-aside-left -->
+
+			<!-- container-main -->
+			{% block container_main %}{{ block.super }}{% endblock container_main %}
+				 {% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}
+				 	{% block breadcrumb_items %}{{ block.super }}{% endblock breadcrumb_items %}
+
+				{% block container_main_content %}{{ block.super }}{% endblock container_main_content %}
+			<!-- end container-main -->
+
+			<!-- container-footer -->
+			<!-- container-footer -->
+
 		<!-- end container-header -->
 
-		<!-- aside nav menu left -->
-		<!-- aside nav menu left -->
-
-		<!-- container-main content -->
-		<!-- container-main content -->
-
-		<!-- footer -->
-		<!-- footer -->
 	<!-- end container display mode --> 
 <!-- end body -->
