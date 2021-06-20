@@ -1249,11 +1249,37 @@ svg {
     }
 
     #app > .grid2-items-columns > .grid2-row {
+        display: flex;
+        flex-direction: column;
+        position: relative;
         width: 100%;
-        display: block;
+        height: 100%;
     }
-    #app > .grid2-items-columns > .grid2-row img {
+    #app > .grid2-items-columns > .grid2-row > img {
         width: 100%;
+        background-color: #dfdfdf;
+    }
+    #app > .grid2-items-columns > .grid2-row > img.aspect-ratio {
+        min-width: 500px;
+        aspect-ratio: 25 / 11;
+        min-height: 281px;
+    }
+    #app > .grid2-items-columns > .grid2-row > .content-block {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #e6e6e6;
+    }
+    #app > .grid2-items-columns > .grid2-row > .content-block:empty:before {
+        content: 'placeholder';
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        font-size: 1.7em;
+        color: #aaa;
     }
 /* ---- ---- ---- Mediaqueries ---- ---- ---- */
 @media screen and (max-width: 1200px) {
