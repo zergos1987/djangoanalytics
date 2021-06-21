@@ -185,8 +185,8 @@ class CustomUser_Admin(ImportExportModelAdmin, UserAdmin):
     list_per_page = 15
     list_display = ['id', 'username', 'email',  'last_login', 'is_active']
     list_filter = (
-        #('date_joined', DateRangeFilter), 
-        'is_active', 'is_staff', 'is_superuser', 'groups', 'date_joined',
+        ('date_joined', DateRangeFilter), 
+        'is_active', 'is_staff', 'is_superuser', 'groups',
     )
     ordering = ('-date_joined', 'username',)
     date_hierarchy = 'date_joined'
@@ -375,7 +375,7 @@ class Session_Admin(ImportExportModelAdmin):
     model = Session
 
     list_display = ['session_key', 'expire_date']
-    list_filter = ('session_key', 'expire_date', )
+    list_filter = ('session_key', ('expire_date', DateRangeFilter), )
     ordering = ('expire_date',)
     date_hierarchy = 'expire_date'
 
@@ -466,7 +466,7 @@ class UserSession_Resource(resources.ModelResource):
 class UserSession_Admin(ImportExportModelAdmin):
     list_per_page = 15
     list_display = ['user', 'session', 'created_at', 'remove_session']
-    list_filter = ('user', 'session', 'created_at',)
+    list_filter = ('user', 'session', ('created_at', DateRangeFilter),)
     #search_fields = ['user', 'session', 'created_at',]
     
     def has_import_permission(self, request, obj=None):
