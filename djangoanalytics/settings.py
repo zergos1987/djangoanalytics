@@ -233,9 +233,7 @@ LDAP_AUTH_URL = config('LDAP_URL', default='') #LDAP_URL = ldap://domainName-som
 LDAP_AUTH_USE_TLS = False
 
 # The LDAP search base for looking up users.
-LDAP_AUTH_SEARCH_BASE = f"dc={config('LDAP_SEARCH_BASE_dc1', default='')},\
-                        dc={config('LDAP_SEARCH_BASE_dc2', default='')},\
-                        dc={config('LDAP_SEARCH_BASE_dc3', default='')}"
+LDAP_AUTH_SEARCH_BASE = f"dc={config('LDAP_SEARCH_BASE_dc1', default='')},dc={config('LDAP_SEARCH_BASE_dc2', default='')},dc={config('LDAP_SEARCH_BASE_dc3', default='')}"
 #LDAP_SEARCH_BASE_dc1 = www
 #LDAP_SEARCH_BASE_dc2 = domainName
 #LDAP_SEARCH_BASE_dc3 = ru
