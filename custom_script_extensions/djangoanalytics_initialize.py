@@ -224,7 +224,7 @@ def check_dbs_available():
 def initialize(django_initialize_management_commands=True, django_initialize_defaults=True):
 	if django_initialize_management_commands: 
 		initialize_management_commands()
-		logger.debug(f'initialize_management_commands: done.')
+		logger.info(f'initialize_management_commands: done.')
 
 	if django_initialize_defaults:
 		# check if defaut database was load
@@ -234,11 +234,11 @@ def initialize(django_initialize_management_commands=True, django_initialize_def
 		# 	is_default_groups_exists_or_create = check_default_groups_exists_or_create()
 		# 	is_default_user_roles_exists_or_create = create_default_user_roles_exists_or_create()
 
-		logger.debug(f'is_dbs_available: {is_dbs_available}')
-		logger.debug(f'create_default_users_groups_permissions: {create_default_users_groups_permissions_status}')
-		logger.debug(f'django_initialize_defaults: done.')
+		logger.info(f'is_dbs_available: {is_dbs_available}')
+		logger.info(f'create_default_users_groups_permissions: {create_default_users_groups_permissions_status}')
+		logger.info(f'django_initialize_defaults: done.')
 		
-	logger.debug(f'initialize: done.')
+	logger.info(f'initialize: done.')
 
 
 
