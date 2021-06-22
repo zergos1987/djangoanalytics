@@ -22,14 +22,6 @@ from .models import (
 logger = logging.getLogger(__name__)
 
 # Register your models here.
-print('User', [field.name for field in User._meta.get_fields()])
-print('Session', [field.name for field in Session._meta.get_fields()])
-print('Group', [field.name for field in Group._meta.get_fields()])
-print('Permission', [field.name for field in Permission._meta.get_fields()])
-print('UserSession', [field.name for field in UserSession._meta.get_fields()])
-
-
-
 class app_Resource(resources.ModelResource):
     class Meta:
         model = app
