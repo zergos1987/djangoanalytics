@@ -19,6 +19,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 body::-webkit-scrollbar {
     width: 14px;
+    height: 14px;
 }
 a {
 	text-decoration: none;
@@ -94,10 +95,14 @@ svg {
 /*breadcrumb*/
 .breadcrumb {
     display: flex;
-    position: absolute;
+    position: relative;
     width: auto;
-    margin-right: 24px;
+    margin-top: -20px;
+    padding: 20px 0px 20px 0px;
+    max-height: 55px;
+    width: fit-content;
 }
+
 .breadcrumb ul {
     display: flex;
     flex-wrap: wrap;
@@ -107,15 +112,17 @@ svg {
     overflow: hidden;
 }
 
-.breadcrumb ul:hover {
+.breadcrumb ul {
     height: 100%;
-    padding: 15px 0px 15px 3px;
-    margin-top: -21px;
 }
 
-
+.breadcrumb:hover ul {
+    padding-left: 3px;
+}
 
 .breadcrumb > ul > li {
+    display: flex;
+    align-content: center;
     position: relative;
     float: left;
     background-color: #f9f9f9;
@@ -141,45 +148,55 @@ svg {
     background: no-repeat;
 }
 
-.breadcrumb > ul:hover > li:not(:last-child):before {
+.breadcrumb:hover > ul > li:not(:last-child):before {
 	display: none;
 }
 
-.breadcrumb > ul:hover li {
+.breadcrumb:hover > ul li {
     min-width: initial;
     width: fit-content;
     box-shadow: inset 0px -1px 0px 0px rgb(0 0 0 / 22%);
 }
 
-.breadcrumb ul:hover > li:not(:last-child):after {
+.breadcrumb:hover ul > li:not(:last-child):after {
     content: "";
     position: absolute;
-    top: 9px;
+    top: 10px;
     width: 0.7em;
     height: 0.7em;
-    right: 4px;
+    right: 7px;
 }
 
-.breadcrumb ul:hover > li:not(:last-child):hover:after {
-    right: 5px;
+.breadcrumb:hover ul > li:not(:last-child):hover:after {
+    content: "";
+    right: 11px;
 }
 
 .breadcrumb > ul > li  > a {
-    display: block;
-    padding: 5.2px 10px 5.2px 4px;
+    display: flex;
+    align-items: center;
+    padding: 4px 16px 4px 0px;
+    margin: 3px 0px 3px 0px;
     text-decoration: none;
     color: #444;
     font-weight: 300;
     color: transparent;
+    transition: padding 0.5s, margin 0.5s, background-color 0.5s;
 }
 
-.breadcrumb > ul:hover > li  > a {
+.breadcrumb:hover > ul > li:hover  > a {
+    padding: 4px 20px 4px 10px;
+}
+
+.breadcrumb:hover > ul > li  > a {
     color: initial;
-    margin-right: 3px;
+    margin-right: 4px;
 }
 
-.breadcrumb > ul:hover > li:last-child {
-    padding: 5.2px 1px 5.2px 4px;
+.breadcrumb:hover > ul > li:hover  > a {
+    background-color: #9ffe84;
+    box-shadow: 0px 0px 4px 1px rgb(11 190 7);
+    border-radius: 25px;
 }
 
 .breadcrumb > ul > li:first-child {
@@ -187,11 +204,6 @@ svg {
 }
 
 .breadcrumb > ul > li:not(:last-child):hover {
-    background-color: #9ffe84;
-    border-radius: 25px;
-    margin: 0px 7px 0px 0px;
-    padding: 0px 7px 0px 7px;
-    box-shadow: 0px 0px 4px 1px rgb(11 190 7);
 }
 
 .breadcrumb > ul > li:last-child {
@@ -200,18 +212,20 @@ svg {
     max-width: initial;
 	color: #000;
     font-weight: bold;
-    padding: 5.2px 8px;
+    padding: 0px 8px;
     align-items: center;
     display: flex;
 }
 
-.breadcrumb > ul:hover > li {
+.breadcrumb:hover > ul > li {
     margin-left: 0px;
-    padding-right: 7px;
     height: 27px;
 }
-.breadcrumb > ul:hover > li:last-child {
-	align-items: flex-start;
+.breadcrumb:hover > ul > li:last-child {
+    padding: 0px 3px 0px 0px;
+}
+.breadcrumb > ul > li:only-child {
+    display: none;
 }
 /*CONTAINER =================================================================== */
 .container {
@@ -249,9 +263,9 @@ svg {
 	justify-content: space-between;
 	grid-gap: 20px;
 	grid-template-areas: "logo-block search-block icons-block";
-
-    position: sticky;
-    top: 0;
+    position: fixed;
+    height: 56px;
+    width: 100%;
     background: #fff;
     z-index: 1000;
 }
@@ -270,11 +284,14 @@ svg {
 
 .container-header .header-section-left .button-menu {
 	border: none;
-	background: none;
+	background: transparent;
 	cursor: pointer;
 	font-size: 18px;
 	border-radius: 100px;
 	width: 40px;
+    height: 40px;
+    min-width: 40px;
+    min-height: 40px;
 	height: 100%;
 	margin-right: 13px;
 
@@ -285,17 +302,71 @@ svg {
 
     fill: #616161;
     outline: none;
+
+    transition: background 0.5s;
 }
 
 .container-header .header-section-left .button-menu svg {
 	pointer-events: none;
 	display: block;
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
+}
+
+/*burger menu*/
+.button-menu .ham {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 400ms;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.container:not(.active) .button-menu .hamRotate {
+    transform: rotate(45deg);
+}
+
+.container:not(.active) .button-menu .hamRotate180 {
+    transform: rotate(180deg);
+}
+
+.button-menu .line {
+    fill:none;
+    transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
+    stroke: #616161;
+    stroke-width: 5.5;
+    stroke-linecap:round;
+}
+
+.button-menu .ham6 .top {
+    stroke-dasharray: 40 172;
+}
+
+.button-menu .ham6 .middle {
+    stroke-dasharray: 40 111;
+}
+
+.button-menu .ham6 .bottom {
+    stroke-dasharray: 40 172;
+}
+
+.container:not(.active) .button-menu .ham6 .top {
+    stroke-dashoffset: -132px;
+}
+
+.container:not(.active) .button-menu .ham6 .middle {
+    stroke-dashoffset: -71px;
+}
+
+.container:not(.active) .button-menu .ham6 .bottom {
+    stroke-dashoffset: -132px;
 }
 
 .container-header .header-section-left .button-menu:hover {
 	background: #E7E7E7;
+    transition: background 0.5s;
 }
 
 .container-header .header-section-left .logo .fas {
@@ -396,7 +467,7 @@ svg {
 }
 
 .container-header .header-section-right button {
-    background: none;
+    background: transparent;
     border: none;
     width: 40px;
     height: 40px;
@@ -410,11 +481,14 @@ svg {
     justify-content: center;
     outline: none;
     margin-right: 8px;
+
+    transition: background 0.5s;
 }
 
 .container-header .header-section-right button:hover, 
 .container-header .header-section-right .item-group:not(.user_menu).active button {
 	background: #e7e7e7;
+    transition: background 0.5s;
 }
 
 .container-header .header-section-right button svg {
@@ -731,9 +805,9 @@ svg {
     grid-area: container-aside-left;
     background: #fff;
     overflow: auto;
-    height: calc(100% - 56px);
+    height: calc(100% - 55px);
     position: fixed;
-    top: 56px;
+    top: 55px;
     z-index: 1000;
 
     border-right: 1px solid #cdcdcd;
@@ -755,6 +829,7 @@ svg {
 
 .container-aside-left::-webkit-scrollbar {
     width: 11px;
+    height: 11px;
 }
 
 .container.active .container-aside-left {
@@ -905,7 +980,7 @@ svg {
 
 .container-aside-left .fa-localy.arrow:before, 
 .breadcrumb > ul > li:not(:last-child):before,
-.breadcrumb ul:hover > li:not(:last-child):after {
+.breadcrumb:hover ul > li:not(:last-child):after {
     background-image: url(/static/app_zs_admin/origin/res/img/arrow.svg);
     transform: rotate(90deg);
 }
@@ -922,6 +997,17 @@ svg {
     transform: rotate(90deg);
 }
 
+.container:hover > .container-aside-left > .item-group > .items-frame > .items > .level-2:not(.displayBlock), 
+.container:hover > .container-aside-left > .item-group > .items-frame > .items > .level-3:not(.displayBlock), 
+.container:hover > .container-aside-left > .item-group > .items-frame > .items > .level-4:not(.displayBlock),
+.container:hover > .container-aside-left > .item-group > .items-frame > .items > .level-5:not(.displayBlock),
+.container:not(.active):hover .item-group:not(.active) .items > .level-2,
+.container:not(.active):hover .item-group:not(.active) .items > .level-3,
+.container:not(.active):hover .item-group:not(.active) .items > .level-4, 
+.container:not(.active):hover .item-group:not(.active) .items > .level-5 {
+    transition: opacity 0.45s, color 0.45s, height 0.45s, max-height 0.45s, padding-top 0.45s, padding-bottom 0.45s;
+}
+
 .container-aside-left > .item-group > .items-frame > .items > .level-2:not(.displayBlock), 
 .container-aside-left > .item-group > .items-frame > .items > .level-3:not(.displayBlock), 
 .container-aside-left > .item-group > .items-frame > .items > .level-4:not(.displayBlock),
@@ -930,15 +1016,15 @@ svg {
 .container:not(.active) .item-group:not(.active) .items > .level-3,
 .container:not(.active) .item-group:not(.active) .items > .level-4, 
 .container:not(.active) .item-group:not(.active) .items > .level-5 {
-    /*visibility: hidden;*/
     opacity: 0;
     height: 0%;
+    color: transparent;
     max-height: 0px;
     padding-top: 0px;
     padding-bottom: 0px;
     font-size: 0.8rem;
-    transition: opacity 0.45s, height 0.45s, max-height 0.45s, padding-top 0.45s, padding-bottom 0.45s;
 }
+
 .container-aside-left > .item-group > .items-frame > .items > .level-2.displayBlock, 
 .container-aside-left > .item-group > .items-frame > .items > .level-3.displayBlock, 
 .container-aside-left > .item-group > .items-frame > .items > .level-4.displayBlock,
@@ -947,14 +1033,13 @@ svg {
 .container.active .item-group.active .items > .level-3,
 .container.active .item-group.active .items > .level-4, 
 .container.active .item-group.active .items > .level-5  {
-    /*visibility: visible;*/
     opacity: 1;
     height: 100%;
     max-height: 200px;
     padding-top: 10px;
     padding-bottom: 10px;
     font-size: 0.8rem;
-    transition: opacity 0.45s, height 0.45s, max-height 0.45s, padding-top 0.45s, padding-bottom 0.45s;
+    transition: opacity 0.45s, color 0.45s, height 0.45s, max-height 0.45s, padding-top 0.45s, padding-bottom 0.45s;
 }
 
 .container-aside-left > .item-group > .items-frame > .items > .level-2 {
@@ -1083,6 +1168,7 @@ svg {
 
 .container:not(.active) .container-aside-left .item-group.active > .items-frame > .items::-webkit-scrollbar {
     width: 16px;
+    height: 16px;
 }
 
 .container:not(.active) .container-aside-left .item-group.active > .items-frame > .items a:not(.level-2, .level-3, .level-4, .level-5) {
@@ -1101,7 +1187,7 @@ svg {
 .container-main {
 	grid-area: container;
 	background: #f9f9f9;
-    padding: 23px 24px 0px 24px;
+    padding: 24px 20px 20px 24px;
     transition: padding .5s;
 }
 .container:not(.active) .container-main {
@@ -1113,25 +1199,91 @@ svg {
 .container.container-aside-left-disabled .container-main {
     padding-left: 25px;
 }
-.container-main .grid-items {
-	margin-top: 36px;
+
+.container-main .grid-items-columns {
 	display: grid;
 	grid-gap: 40px 16px;
 	grid-template-columns: repeat(4, 1fr);
 }
 
-.container-main .grid-items .grid-row {
+.container-main .grid-items-columns .grid-row {
 	width: 100%;
 	display: block;
 }
 
-.container-main .grid-items .grid-row img {
+.container-main .grid-items-columns .grid-row img {
 	width: 100%;
 }
+    /* ---- ---- ---- app ---- ---- ---- */
+    #app {
+        max-width: 1600px;
+        margin: 0 auto;
+    }
 
+    #app > .grid2-items-columns {
+        display: grid;
+        grid-gap: 40px 16px;
+    }
+
+    #app > .grid2-items-columns.col1 {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    #app > .grid2-items-columns.col2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    #app > .grid2-items-columns.col3 {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    #app > .grid2-items-columns.col4 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    #app > .grid2-items-columns.col5 {
+        grid-template-columns: repeat(5, 1fr);
+    }
+    #app > .grid2-items-columns.col6 {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    #app > .grid2-items-columns:not(:last-child) {
+        padding-bottom: 20px;
+    }
+
+    #app > .grid2-items-columns > .grid2-row {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+    #app > .grid2-items-columns > .grid2-row > img {
+        width: 100%;
+        background-color: #dfdfdf;
+    }
+    #app > .grid2-items-columns > .grid2-row > img.aspect-ratio {
+        min-width: 500px;
+        aspect-ratio: 25 / 11;
+        min-height: 281px;
+    }
+    #app > .grid2-items-columns > .grid2-row > .content-block {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #e6e6e6;
+    }
+    #app > .grid2-items-columns > .grid2-row > .content-block:empty:before {
+        content: 'placeholder';
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        font-size: 1.7em;
+        color: #aaa;
+    }
 /* ---- ---- ---- Mediaqueries ---- ---- ---- */
 @media screen and (max-width: 1200px) {
-	.container-main .grid-items {
+	.container-main .grid-items-columns {
 		grid-template-columns: repeat(3, 1fr);
 	}
 
@@ -1141,7 +1293,7 @@ svg {
 }
 
 @media screen and (max-width: 992px) {
-	.container-main .grid-items {
+	.container-main .grid-items-columns {
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
@@ -1179,7 +1331,7 @@ svg {
 		position: absolute;
 		width: calc(100% - 32px);
 		grid-area: none;
-		margin-top: 117px;
+		margin-top: 115px;
 		margin-left: 15px;
 		padding: 30px 15px 30px 15px;
 		background-color: #ffffff;
@@ -1217,7 +1369,7 @@ svg {
 }
 
 @media screen and (max-width: 576px) {
-	.container-main .grid-items {
+	.container-main .grid-items-columns {
 		grid-template-columns: 1fr;
 	}
 }
@@ -1230,6 +1382,8 @@ svg {
 /*BODY =================================================================== */
 /*TOOLTIP ================================================================ */
 [data-tooltip]:before { 
+    display: flex;
+    margin-top: 115px;
     visibility: hidden;           
     position : fixed;
     content : attr(data-tooltip);
@@ -1244,9 +1398,10 @@ svg {
     -ms-transition: visibility 0s, opacity 0.6s ease;
     -o-transition: visibility 0s, opacity 0.6s ease;
     transition:  visibility 0s, opacity 0.6s ease-out;
+    transition: visibility 0.6s, opacity 0.6s ease-out;
 }
 
-.top[data-tooltip]:hover:before {
+/*.top[data-tooltip]:hover:before {
     top: -64px;
 }
 .bottom[data-tooltip]:hover:before {
@@ -1260,7 +1415,7 @@ svg {
 }
 .right[data-tooltip]:hover:before {
     margin-left: -135px;
-}
+}*/
 
 [data-tooltip]:hover:before {        
     opacity : 0.75;
@@ -1273,4 +1428,22 @@ svg {
 /*MODAL MENU ============================================================= */
 /*MEDIA ================================================================== */
 
+
+/*MEDIA iphone 5 */
+/*MEDIA end iphone 5 */
+
+/*MEDIA iphone 5 landscape */
+/*MEDIA end iphone 5 landscape */
+
+/*MEDIA iphone X */
+/*MEDIA end iphone X */
+
+/*MEDIA iphone landscape*/
+/*MEDIA end iphone landscape*/
+
+/*MEDIA Ipad */
+/*MEDIA end Ipad */
+
+/*MEDIA Ipad landscape*/
+/*MEDIA end Ipad landscape*/
 
