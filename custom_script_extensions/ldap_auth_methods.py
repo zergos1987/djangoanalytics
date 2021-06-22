@@ -128,3 +128,38 @@ def ldap_check_user_exists_in_group(conn=None, ldap_user_login=None, ldap_search
     #         i.memberOF.values[0]))
 # conn.unbind()
 # check if user exists in group
+
+
+
+
+
+# from django_python3_ldap.utils import format_search_filters
+# def custom_format_search_filters(ldap_fields):
+#     # Add in simple filters.
+#     ldap_fields["memberOf"] = "foo"
+#     # Call the base format callable.
+#     search_filters = format_search_filters(ldap_fields)
+#     # Advanced: apply custom LDAP filter logic.
+#     search_filters.append("(|(memberOf=groupA)(memberOf=GroupB))")
+#     # All done!
+#     return search_filters
+
+
+from django_python3_ldap.utils import clean_user_data
+
+def custom_clean_user_data(ldap_data):
+    model_data = clean_user_data(ldap_data)
+
+    print(model_data)
+
+    enabled_values = ['512', '544', '66048', '66080']
+    try:
+        if model_data['is_active'] in enabled_values:
+            model_data['is_active'] = True
+        else:
+            model_data['is_active'] = False
+    except KeyError:
+        model_data['is_active'] = False
+
+
+    return model_data
