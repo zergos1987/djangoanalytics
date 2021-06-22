@@ -257,7 +257,8 @@ LDAP_AUTH_USER_LOOKUP_FIELDS = ("username",)
 # Path to a callable that takes a dict of {model_field_name: value},
 # returning a dict of clean model data.
 # Use this to customize how data loaded from LDAP is saved to the User model.
-LDAP_AUTH_CLEAN_USER_DATA = "django_python3_ldap.utils.clean_user_data"
+#LDAP_AUTH_CLEAN_USER_DATA = "django_python3_ldap.utils.clean_user_data"
+LDAP_AUTH_CLEAN_USER_DATA = "custom_script_extensions.ldap_auth_methods.custom_clean_user_data"
 
 # Path to a callable that takes a user model and a dict of {ldap_field_name: [value]},
 # and saves any additional user relationships based on the LDAP data.
@@ -269,6 +270,7 @@ LDAP_AUTH_SYNC_USER_RELATIONS = "django_python3_ldap.utils.sync_user_relations"
 # returning a list of [ldap_search_filter]. The search filters will then be AND'd
 # together when creating the final search filter.
 LDAP_AUTH_FORMAT_SEARCH_FILTERS = "django_python3_ldap.utils.format_search_filters"
+#LDAP_AUTH_FORMAT_SEARCH_FILTERS = "custom_script_extensions.ldap_auth_methods.custom_format_search_filters"
 
 # Path to a callable that takes a dict of {model_field_name: value}, and returns
 # a string of the username to bind to the LDAP server.
