@@ -323,61 +323,135 @@ LOGGING = {
             "filters": ["require_debug_true"],
             "class": "logging.StreamHandler",
             "formatter": "default_short",
-        },        
-        "production_file": { 
+        }, 
+        "production_info": { 
             "level": "INFO", 
             "class": "logging.handlers.RotatingFileHandler", 
-            "filename": BASE_DIR / 'logs/django/production.log',
+            "filename": BASE_DIR / 'logs/django/production_info.log',
             "maxBytes": 1024 * 1024 * 5,  # 5 MB 
-            "backupCount": 1, 
+            "backupCount": 3, 
             "formatter": "default", 
             "filters": ["require_debug_false"], 
-        }, 
-        "debug_file": { 
+        },         
+        "production_warning": { 
+            "level": "WARNING", 
+            "class": "logging.handlers.RotatingFileHandler", 
+            "filename": BASE_DIR / 'logs/django/production_info.log',
+            "maxBytes": 1024 * 1024 * 5,  # 5 MB 
+            "backupCount": 3, 
+            "formatter": "default", 
+            "filters": ["require_debug_false"], 
+        },         
+        "production_error": { 
+            "level": "ERROR", 
+            "class": "logging.handlers.RotatingFileHandler", 
+            "filename": BASE_DIR / 'logs/django/production_erros.log',
+            "maxBytes": 1024 * 1024 * 5,  # 5 MB 
+            "backupCount": 3, 
+            "formatter": "default", 
+            "filters": ["require_debug_false"], 
+        },         
+        "production_critical": { 
+            "level": "CRITICAL", 
+            "class": "logging.handlers.RotatingFileHandler", 
+            "filename": BASE_DIR / 'logs/django/production_erros.log',
+            "maxBytes": 1024 * 1024 * 5,  # 5 MB 
+            "backupCount": 3, 
+            "formatter": "default", 
+            "filters": ["require_debug_false"], 
+        },   
+        "dev_debug": { 
             "level": "DEBUG", 
             "class": "logging.handlers.RotatingFileHandler", 
-            "filename": BASE_DIR / 'logs/django/debug.log',
+            "filename": BASE_DIR / 'logs/django/dev_debug.log',
             "maxBytes": 1024 * 1024 * 5,  # 5 MB 
             "backupCount": 1, 
             "formatter": "default", 
             "filters": ["require_debug_true"], 
-        }, 
-        "null": {
+        },   
+        "dev_info": { 
+            "level": "INFO", 
             "class": "logging.handlers.RotatingFileHandler", 
-            "filename": BASE_DIR / 'logs/django/all.log',
+            "filename": BASE_DIR / 'logs/django/dev_info.log',
             "maxBytes": 1024 * 1024 * 5,  # 5 MB 
             "backupCount": 1, 
             "formatter": "default", 
-        }        
+            "filters": ["require_debug_true"], 
+        },         
+        "dev_warning": { 
+            "level": "WARNING", 
+            "class": "logging.handlers.RotatingFileHandler", 
+            "filename": BASE_DIR / 'logs/django/dev_info.log',
+            "maxBytes": 1024 * 1024 * 5,  # 5 MB 
+            "backupCount": 1, 
+            "formatter": "default", 
+            "filters": ["require_debug_true"], 
+        },        
+        "dev_error": { 
+            "level": "ERROR", 
+            "class": "logging.handlers.RotatingFileHandler", 
+            "filename": BASE_DIR / 'logs/django/dev_erros.log',
+            "maxBytes": 1024 * 1024 * 5,  # 5 MB 
+            "backupCount": 1, 
+            "formatter": "default", 
+            "filters": ["require_debug_true"], 
+        },         
+        "dev_critical": { 
+            "level": "CRITICAL", 
+            "class": "logging.handlers.RotatingFileHandler", 
+            "filename": BASE_DIR / 'logs/django/dev_erros.log',
+            "maxBytes": 1024 * 1024 * 5,  # 5 MB 
+            "backupCount": 1,
+            "formatter": "default", 
+            "filters": ["require_debug_true"], 
+        },        
     },
     "loggers": {
         "django.request": { 
-            "handlers": ["mail_admins", "console"], 
-            "level": "ERROR", 
+            "handlers": [
+                "dev_info", "dev_warning", "dev_error", "dev_critical", 
+                "production_info", "production_warning", "production_error", "production_critical"
+            ],
             "propagate": True, 
-        }, 
+        },  
         "django": { 
-            "handlers": ["null", ], 
+            "handlers": [
+                "dev_info", "dev_warning", "dev_error", "dev_critical", 
+                "production_warning", "production_error", "production_critical"
+            ],
             "propagate": False,
         }, 
         "py.warnings": { 
-            "handlers": ["null", ],
+            "handlers": ["dev_warning", "production_warning", ],
             "propagate": False, 
         },
         "django.security.DisallowedHost": {
-            "handlers": ["null", ],
+            "handlers": [
+                "dev_info", "dev_warning", "dev_error", "dev_critical", 
+                "production_info", "production_warning", "production_error", "production_critical"
+            ],
             "propagate": False,
         },        
         "django_python3_ldap": {
-            "handlers": ["null", ],
+            "handlers": [
+                "dev_info", "dev_warning", "dev_error", "dev_critical", 
+                "production_info", "production_warning", "production_error", "production_critical"
+            ],
             "propagate": True,
         },        
+        "custom_script_extensions": {
+            "handlers": [
+                "dev_info", "dev_warning", "dev_error", "dev_critical", 
+                "production_info", "production_warning", "production_error", "production_critical"
+            ],
+            "propagate": True,
+        },         
         "": {
-            "handlers": ["console", "production_file", "debug_file"],
+            "handlers": ["console", "dev_debug"],
             "level": "DEBUG",
         }, 
     }
-}
+}    
 
 log = logging.getLogger("AUTH")
 
