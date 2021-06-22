@@ -247,6 +247,7 @@ LDAP_AUTH_USER_FIELDS = {
     "first_name": "givenName",
     "last_name": "sn",
     "email": "mail",
+    'is_active': 'userAccountControl',
 }    
 LDAP_AUTH_OBJECT_CLASS = "user"
 
