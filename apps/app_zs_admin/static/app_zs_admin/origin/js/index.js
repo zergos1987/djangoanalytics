@@ -131,6 +131,7 @@ $(document).ready(function(){
 						break
 					}
 				}
+				if(closest_lvl_1 === 0) {closest_lvl_1 = _$this}
 				if(_$this.parent().find('.level-1.tl54321').length > 0) {
 					if(closest_lvl_1.index() !== _$this.parent().find('.level-1.tl54321').index()) {
 						_$this.parent().find('.level-5.arrow-selected, .level-5.tl54321').removeClass(['arrow-selected', 'tl54321', 'displayBlock']);
