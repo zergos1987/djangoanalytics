@@ -1207,7 +1207,7 @@ svg {
 
     #app > .grid-items-columns {
         display: grid;
-        grid-gap: 2vmin 2vmin;
+        grid-gap: 2vmin 1.5vmin;
         grid-auto-flow: column;
     }
 
