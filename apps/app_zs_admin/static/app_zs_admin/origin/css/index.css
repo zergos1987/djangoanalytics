@@ -741,6 +741,7 @@ svg {
 
 .header-section-right .item-group.active .items:not(.countries) .row.header {
     align-items: unset;
+    justify-content: space-between;
 }
 
 .header-section-right .item-group.active .items:not(.countries) .row.header > .row {
