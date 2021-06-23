@@ -242,6 +242,7 @@ svg {
                          "container container";
 	transition: all .3s ease;
     background: #f9f9f9;
+    box-shadow: 0px 0px 3px 0px rgb(0 0 0 / 20%);
 }
 
 .container.container-aside-left-disabled.container-header-disabled {
@@ -255,7 +256,6 @@ svg {
 
 .container.fixed {
     max-width: 1200px;
-    box-shadow: 0px 0px 3px 0px rgb(0 0 0 / 20%);
 }
 
 /* ---- ---- ---- CONTAINER HEADER ---- ---- ---- */
@@ -1198,7 +1198,6 @@ svg {
     background: #f9f9f9;
     padding: 24px 20px 20px 24px;
     transition: padding .5s;
-    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.2);
 }
 .container:not(.active) .container-main {
     padding-left: 95px;
