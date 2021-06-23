@@ -266,6 +266,7 @@ svg {
     position: fixed;
     height: 56px;
     width: 100%;
+    max-width: inherit;
     background: #fff;
     z-index: 1000;
 }
