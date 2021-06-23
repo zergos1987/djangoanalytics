@@ -897,7 +897,7 @@ svg {
 .container-aside-left a {
 	display: flex;
 	align-items: center;
-    padding: 10px 27px 10px 24px;
+        padding: 10px 27px 10px 26px;
     color: #000;
     width: auto;
     min-width: fit-content;
@@ -1075,7 +1075,7 @@ svg {
 .container .container-aside-left a.items-header {
     color: #606060;
     display: flex;
-    padding: 8px 22px 8px 25px;
+    padding: 8px 22px 8px 27px;
     font-weight: 600;
     text-transform: uppercase;
     font-size: 1.4vmin;
@@ -1122,7 +1122,7 @@ svg {
     padding: 8px 22px 8px 20px;
 }
 .container.active .container-aside-left .item-group:first-of-type svg {
-    margin: 0 24px 0 2px;
+    margin: 0 24px 0 4px;
 }
 .container.active .container-aside-left .item-group:first-of-type span {
     font-size: 0.9rem;
