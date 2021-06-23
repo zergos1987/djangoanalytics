@@ -248,7 +248,14 @@ LDAP_AUTH_USER_FIELDS = {
     "last_name": "sn",
     "email": "mail",
     'is_active': 'userAccountControl',
-}    
+    # 'full_name': 'displayName',
+    # 'department': 'department',
+    # 'center': 'division',
+    # 'position': 'title',
+    # 'name': 'sn',
+    # 'last_name': 'givenName',
+    # 'ldap_groups': 'memberOf',
+}   
 LDAP_AUTH_OBJECT_CLASS = "user"
 
 # A tuple of django model fields used to uniquely identify a user.
