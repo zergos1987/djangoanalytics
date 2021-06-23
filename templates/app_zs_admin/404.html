@@ -15,12 +15,11 @@
 {% block head_author_text %}{{ block.super }}{% endblock head_author_text %}
 {% block head_title_text %}{{ block.super }}{% endblock head_title_text %}
 {% block head_favicon_href_ico %}{{ block.super }}{% endblock head_favicon_href_ico %}
+{% block index_href_css %}{{ block.super }}{% endblock index_href_css %}
 <!-- css -->
 {% block head_css %}{{ block.super }}{% endblock head_css %}
     <!-- APP CSS -->
-    {% block css %}{{ block.super }}
-	<link href="{% static 'app_zs_admin/origin/css/index.css' %}" rel="stylesheet">
-	{% endblock css %}
+    {% block css %}{{ block.super }}{% endblock css %}
     <!-- APP VENDOR CSS -->
     {% block vendor_css %}{{ block.super }}{% endblock vendor_css %}
 <!-- css -->
@@ -69,7 +68,7 @@
 			<!-- container-main -->
 			{% block container_main %}{{ block.super }}{% endblock container_main %}
 				 {% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}
-				 	{% block breadcrumb_items %}{{ block.super }}{% endblock breadcrumb_items %}
+				 	{% block breadcrumb_items %}{% endblock breadcrumb_items %}
 
 				{% block container_main_content %}
 				<div class="wrapper">	
@@ -89,9 +88,8 @@
     {% block head_js %}{{ block.super }}{% endblock head_js %}
         <!-- BASE JS -->
         <!-- APP JS -->
-        {% block js %}{{ block.super }}
-        <script src="{% static 'app_zs_admin/origin/js/index.js'%}"></script>
-        {% endblock js %}
+        {% block js %}{{ block.super }}{% endblock js %}
+        <script src="{% static 'app_zs_admin/origin/js/404.js'%}"></script>
         <!-- APP VENDOR JS -->
         {% block vendor_js %}{{ block.super }}{% endblock vendor_js %}
     <!-- end block JS --> 

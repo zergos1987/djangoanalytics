@@ -23,7 +23,7 @@
         <!-- BASE CSS -->
         <link href="{% static 'app_zs_admin/origin/res/font/google_robot_fonts.css' %}" rel="stylesheet">
         <link href="{% static 'app_zs_admin/origin/res/font/google_opensans_oswald_fonts.css' %}" rel="stylesheet">
-        <link href="{% block index_href_css %}{% static 'app_zs_admin/origin/css/index.css' %}{% endblock index_href_css %}" rel="stylesheet">
+        <link href="{% static 'app_zs_admin/origin/css/base.css' %}" rel="stylesheet">
         {% block head_css %}
         {% endblock head_css %}
             <!-- APP CSS -->
@@ -347,8 +347,8 @@
                 </div>  
                 {% endblock breadcrumb %}
 
-                {% block container_main_content %}
                 <div class="app" id="app">
+                {% block container_main_content %}
                     <div class="grid-items-columns">
                         <div class="grid-row">
                             <img class="aspect-ratio" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="alt="placeholder via aspect-ratio" style="aspect-ratio: 25 / 8">
@@ -393,9 +393,9 @@
                             <div class="content-block"></div>
                         </div>
                     </div>
+                {% endblock container_main_content %}
                 </div>
                 
-                {% endblock container_main_content %}
 
                 {% endblock container_main %}
             </main>
@@ -405,7 +405,7 @@
         {% block head_js %}
             <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
             <!-- BASE JS -->
-            <script src="{% static 'app_zs_admin/origin/js/index.js'%}"></script>
+            <script src="{% static 'app_zs_admin/origin/js/base.js'%}"></script>
             <!-- APP JS -->
             {% block js %}
             {% endblock js %}
