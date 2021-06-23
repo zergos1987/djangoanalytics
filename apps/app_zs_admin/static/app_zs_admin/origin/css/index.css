@@ -1255,11 +1255,13 @@ svg {
         position: relative;
         width: 100%;
         height: 100%;
+        border-radius: 12px;
     }
     #app > .grid-items-columns > .grid-row > img {
         width: 100%;
         height: 100%;
         background-color: #dfdfdf;
+	border-radius: inherit;	    
     }
     @supports (aspect-ratio: 1 / 1) {
         #app > .grid-items-columns > .grid-row > img.aspect-ratio.type1 {
@@ -1291,6 +1293,7 @@ svg {
         width: 100%;
         height: 100%;
         background-color: #e6e6e6;
+	border-radius: inherit;
     }
     #app > .grid-items-columns > .grid-row > .content-block:empty:before {
         content: 'placeholder';
