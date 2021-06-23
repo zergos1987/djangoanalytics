@@ -1359,9 +1359,9 @@ svg {
 /*TOOLTIP ================================================================ */
 [data-tooltip]:before { 
     display: flex;
-    margin-top: 115px;
     visibility: hidden;           
     position : fixed;
+    top: 65px;	
     content : attr(data-tooltip);
     opacity: 0;
     background-color: #616161;
