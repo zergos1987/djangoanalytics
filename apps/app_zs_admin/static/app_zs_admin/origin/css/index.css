@@ -944,10 +944,10 @@ svg {
 }
 
 .container:not(.active) .container-aside-left .item-group.active .items a:hover:after {
-    content: '';
+	content: '';
     position: absolute;
-    height: 100%;
-    right: 1.5px;
+    height: calc(100% - 2px);
+    right: 2px;
     width: 0px;
     outline: 2px solid #ff6060;
 }
