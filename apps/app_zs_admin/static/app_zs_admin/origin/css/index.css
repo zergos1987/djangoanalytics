@@ -807,7 +807,7 @@ svg {
     overflow: auto;
     height: calc(100% - 55px);
     position: fixed;
-    top: 55px;
+    top: 56px;
     z-index: 1000;
 
     border-right: 1px solid #cdcdcd;
