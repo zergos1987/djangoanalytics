@@ -83,16 +83,70 @@ role_groups = [
 default_users = ['admin', 'TEST_USER']
 default_password = '368696'
 
+
+
+
+#create user if not exists
+def get_or_create_user(u, is_staff=False):
+	obj, created = User.objects.get_or_create(username=u)
+	if created:
+		obj.set_password(default_password)
+		obj.is_staff = is_staff
+		obj.save()
+	print('STATUS. create user if not exists:', created, obj)
+
+
+#create permissions if not exists
+def get_or_create_permission(codename, name, content_type):
+	obj, created = Permission.objects.get_or_create(codename=codename, name=name, content_type=content_type)
+	print('STATUS. create permissions if not exists:', created, obj)
+
+
+#create groups if not exists
+def get_or_create_groups(g):
+	obj, created = Group.objects.get_or_create(name=g)
+	print('STATUS. create groups if not exists:', created, obj)
+
+
+#add permissions to groups if not exists
+def add_permission_to_group(group_name, app_name, perm_type):
+	g = Group.objects.get(name=group_name)
+	cts_list = []
+	if type(app_name).__name__ == 'list':
+		for app in app_name:
+			cts_list.append(ContentType.objects.filter(app_label=app))
+	if type(app_name).__name__ == 'str':
+		cts_list.append(ContentType.objects.filter(app_label=app_name))
+
+	for cts in cts_list:
+		for p_type in perm_type:
+			p = Permission.objects.filter(content_type__in=cts, codename__contains=p_type)
+			if p: 
+				g.permissions.add(*p)
+			print('STATUS. add permissions to groups if not exists:', len(p))
+
+
+#add groups to users if not exists
+def add_groups_to_users(username, groupname):
+	group = Group.objects.get(name=groupname)
+	user = User.objects.get(username=username)
+	user.groups.add(group) 
+	user.save()
+	#print('STATUS. add groups to users if not exists:', user, group)
+
+
+#update user groups
+def update_user_groups(username, update_group_list, filter_contains):
+    user = User.objects.get(username=username)
+    user_groups = user.groups.filter(name__contains=filter_contains)
+    for g in list(user_groups):
+        if g.name not in update_group_list:
+            user.groups.remove(g)
+
+
+
 def create_default_users_groups_permissions():
 	#create user if not exists
-	def get_or_create_user(u, is_staff=False):
-		obj, created = User.objects.get_or_create(username=u)
-		if created:
-			obj.set_password(default_password)
-			obj.is_staff = is_staff
-			obj.save()
-		print('STATUS. create user if not exists:', created, obj)
-
 	for u in default_users:
 		is_staff = False
 		if u == 'admin': get_or_create_user(u=u, is_staff=True)
@@ -108,10 +162,6 @@ def create_default_users_groups_permissions():
 
 
 	#create permissions if not exists
-	def get_or_create_permission(codename, name, content_type):
-		obj, created = Permission.objects.get_or_create(codename=codename, name=name, content_type=content_type)
-		print('STATUS. create permissions if not exists:', created, obj)
-
 	for p_data in custom_permissionns:
 		app = p_data.get('app')
 		model = p_data.get('model')
@@ -119,13 +169,9 @@ def create_default_users_groups_permissions():
 		content_type = ContentType.objects.get(app_label=app, model=model)
 		for p in permission_list:
 			get_or_create_permission(codename=p, name=p, content_type=content_type)
-
+	
 
 	#create groups if not exists
-	def get_or_create_groups(g):
-		obj, created = Group.objects.get_or_create(name=g)
-		print('STATUS. create groups if not exists:', created, obj)
-
 	for g in role_groups:
 		if 'Application' in g:
 			for a in app_list:
@@ -135,22 +181,6 @@ def create_default_users_groups_permissions():
 
 
 	#add permissions to groups if not exists
-	def add_permission_to_group(group_name, app_name, perm_type):
-		g = Group.objects.get(name=group_name)
-		cts_list = []
-		if type(app_name).__name__ == 'list':
-			for app in app_name:
-				cts_list.append(ContentType.objects.filter(app_label=app))
-		if type(app_name).__name__ == 'str':
-			cts_list.append(ContentType.objects.filter(app_label=app_name))
-
-		for cts in cts_list:
-			for p_type in perm_type:
-				p = Permission.objects.filter(content_type__in=cts, codename__contains=p_type)
-				if p: 
-					g.permissions.add(*p)
-				print('STATUS. add permissions to groups if not exists:', len(p))
-
 	actual_g_list = Group.objects.all()
 	for g in actual_g_list:
 		#print('1========', g.name)
@@ -173,15 +203,6 @@ def create_default_users_groups_permissions():
 		# 	add_permission_to_group(group_name, app_name, 'nnnn')
 
 
-	#add groups to users if not exists
-	def add_groups_to_users(username, groupname):
-		group = Group.objects.get(name=groupname)
-		user = User.objects.get(username=username)
-		user.groups.add(group) 
-		user.save()
-		#print('STATUS. add groups to users if not exists:', user, group)
-
-
 	conditions = reduce(operator.or_, [Q(**{"username__contains": user}) for user in default_users])
 	actual_u_list = User.objects.filter(conditions)
 	for u in actual_u_list:
@@ -193,9 +214,11 @@ def create_default_users_groups_permissions():
 			if 'editor' in groupname or 'creator' in groupname or 'api' in groupname:
 				groupname = groupname.replace('editor', 'viewer').replace('creator', 'viewer').replace('api', 'viewer')
 				add_groups_to_users(username, groupname)
-			
+
 
 	return 'Done.'
+
+
 
 
 
@@ -241,6 +264,3 @@ def initialize(django_initialize_management_commands=True, django_initialize_def
 		logger.info(f'django_initialize_defaults: done.')
 		
 	logger.info(f'initialize: done.')
-
-
-
