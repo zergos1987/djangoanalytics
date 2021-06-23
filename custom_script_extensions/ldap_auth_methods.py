@@ -3,10 +3,54 @@ import logging
 import sys
 import os
 
+from django_python3_ldap.utils import sync_user_relations
+from django_python3_ldap.utils import clean_user_data
+from custom_script_extensions.djangoanalytics_initialize import get_or_create_groups, add_groups_to_users, update_user_groups
 
 
 logger = logging.getLogger(__name__)
 
+# if user auth via LDAP - check status and update connection
+# from custom_script_extensions.ldap_auth_methods import ldap_open_connetion, ldap_check_user_is_active, ldap_check_user_exists_in_group
+
+# auth_ldap_user = 'username'
+# user_requeired_ldap_groups = [
+#     'group1',
+#     'group2',
+#     'group3'
+# ]
+# ldap_server = 'ldap_server'
+# ldap_domain = 'domain'
+# ldap_dc1 = 'domain_1'
+# ldap_dc2 = 'domain_2'
+# ldap_dc3 = 'domain_3'
+# ldap_user = 'username'
+# ldap_password = 'password'
+
+
+# users = ['user1', 'user2', 'user3']
+# users = ['user1']
+
+# conn = ldap_open_connetion(ldap_server=ldap_server, ldap_domain=ldap_domain, ldap_user=ldap_user, ldap_password=ldap_password)
+# for u in users:
+#     auth_ldap_user = u
+#     result = ldap_check_user_is_active(
+#         conn=conn, 
+#         ldap_user_login=auth_ldap_user, 
+#         ldap_dc1=ldap_dc1, 
+#         ldap_dc2=ldap_dc2, 
+#         ldap_dc3=ldap_dc3)
+#     #print('ldap_check_user_is_active:', 'auth_ldap_user', auth_ldap_user, 'result', result)
+#     if result:
+#         for group in user_requeired_ldap_groups:
+#             result = ldap_check_user_exists_in_group(
+#                 conn=conn, 
+#                 ldap_user_login=auth_ldap_user, 
+#                 ldap_search_group=group, 
+#                 ldap_dc1=ldap_dc1, 
+#                 ldap_dc2=ldap_dc2, 
+#                 ldap_dc3=ldap_dc3)
+#             #print('ldap_check_user_exists_in_group:', 'auth_ldap_user', auth_ldap_user, 'group', group, 'result', result)
 
 
 
@@ -26,10 +70,10 @@ def ldap_check_user_is_active(conn=None, ldap_user_login=None, ldap_dc1=None, ld
     status = False
 
     if type(conn).__name__ != 'Connection': 
-        logger.info(f'ldap_check_user_is_active: connection fail {type(conn).__name__ }.')
+        logger.error(f'ldap_check_user_is_active: connection fail {type(conn).__name__ }.')
         return status
     if ldap_user_login is None or ldap_dc1 is None or ldap_dc2 is None or ldap_dc3 is None: 
-        logger.info(f'ldap_check_user_is_active: params fail.')
+        logger.error(f'ldap_check_user_is_active: params fail.')
         return status 
 
     conn.bind()
@@ -55,10 +99,10 @@ def ldap_check_user_exists_in_group(conn=None, ldap_user_login=None, ldap_search
     status = False
 
     if type(conn).__name__ != 'Connection': 
-        logger.info(f'ldap_check_user_exists_in_group: connection fail {type(conn).__name__ }.')
+        logger.error(f'ldap_check_user_exists_in_group: connection fail {type(conn).__name__ }.')
         return status
     if ldap_user_login is None or ldap_search_group is None or ldap_dc1 is None or ldap_dc2 is None or ldap_dc3 is None: 
-        logger.info(f'ldap_check_user_exists_in_group: params fail.')
+        logger.error(f'ldap_check_user_exists_in_group: params fail.')
         return status 
 
     conn.bind()
@@ -78,6 +122,7 @@ def ldap_check_user_exists_in_group(conn=None, ldap_user_login=None, ldap_search
         conn.unbind()
         logger.info(f'ldap_check_user_exists_in_group: auth_ldap_user {ldap_user_login}, group {ldap_search_group}, result {status}')
     return status
+
 
 
 # from ldap3 import Server, Connection, ALL, SUBTREE, LEVEL
@@ -133,24 +178,24 @@ def ldap_check_user_exists_in_group(conn=None, ldap_user_login=None, ldap_search
 
 
 
-# from django_python3_ldap.utils import format_search_filters
-# def custom_format_search_filters(ldap_fields):
-#     # Add in simple filters.
-#     ldap_fields["memberOf"] = "foo"
-#     # Call the base format callable.
-#     search_filters = format_search_filters(ldap_fields)
-#     # Advanced: apply custom LDAP filter logic.
-#     search_filters.append("(|(memberOf=groupA)(memberOf=GroupB))")
-#     # All done!
-#     return search_filters
+def custom_sync_user_relations(user, data):
 
+    ldap_groups = list(data.get('memberOf', ()))
+    clean_ldap_groups = []
+    for group in ldap_groups:
+        if '_Groups' in group:
+            g = group[3:group.find(',')]
+            g = 'LDAP_' + g
+            clean_ldap_groups.append(g)
+            get_or_create_groups(g)
+            add_groups_to_users(user, g)
+    update_user_groups(user, clean_ldap_groups, 'LDAP')
 
-from django_python3_ldap.utils import clean_user_data
+    return user, data
+
 
 def custom_clean_user_data(ldap_data):
     model_data = clean_user_data(ldap_data)
-
-    print(model_data)
 
     enabled_values = ['512', '544', '66048', '66080']
     try:
@@ -163,3 +208,7 @@ def custom_clean_user_data(ldap_data):
 
 
     return model_data
+
+
+
+
