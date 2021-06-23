@@ -30,7 +30,7 @@
 
 
 <!-- body -->
-	<!-- container display mode --> <!-- active -->  <!-- container-aside-left-disabled -->  <!-- container-header-disabled -->
+	<!-- container display mode --> <!-- active --> <!-- fixed --> <!-- container-aside-left-disabled -->  <!-- container-header-disabled -->
 	{% block container_display_mode_classname %}active{% endblock container_display_mode_classname %}
 
 		<!-- container-header -->
@@ -64,7 +64,7 @@
 			<!-- container-aside-left -->
 			{% block container_aside_left %}{{ block.super }}{% endblock container_aside_left %}
 				{% block container_aside_left_settings_menu %}{{ block.super }}{% endblock container_aside_left_settings_menu %}
-				{% block container_aside_left_content_menu %}{{ block.super }}{% endblock container_aside_left_content_menu %}
+				{% block container_aside_left_dashboards_menu %}{{ block.super }}{% endblock container_aside_left_dashboards_menu %}
                 {% block container_aside_left_extra_block %}{% endblock container_aside_left_extra_block %}
 			<!-- end container-aside-left -->
 

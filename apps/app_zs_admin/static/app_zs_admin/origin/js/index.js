@@ -125,12 +125,13 @@ $(document).ready(function(){
 				let closest_lvl_3 = 0;
 				let closest_lvl_4 = 0;
 				let closest_lvl_5 = 0;
-				for (let i = _$this.index(); i > 0; i--) { 
+				for (let i = _$this.index(); i > -1; i--) { 
 					if(_$this.parent().find('a').eq(i).hasClass('level-1')) {closest_lvl_1 = _$this.parent().find('a').eq(i);}
 					if(closest_lvl_1 != 0) { 
 						break
 					}
 				}
+	
 				if(_$this.parent().find('.level-1.tl54321').length > 0) {
 					if(closest_lvl_1.index() !== _$this.parent().find('.level-1.tl54321').index()) {
 						_$this.parent().find('.level-5.arrow-selected, .level-5.tl54321').removeClass(['arrow-selected', 'tl54321', 'displayBlock']);

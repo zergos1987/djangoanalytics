@@ -248,7 +248,14 @@ LDAP_AUTH_USER_FIELDS = {
     "last_name": "sn",
     "email": "mail",
     'is_active': 'userAccountControl',
-}    
+    # 'full_name': 'displayName',
+    # 'department': 'department',
+    # 'center': 'division',
+    # 'position': 'title',
+    # 'name': 'sn',
+    # 'last_name': 'givenName',
+    # 'ldap_groups': 'memberOf',
+}   
 LDAP_AUTH_OBJECT_CLASS = "user"
 
 # A tuple of django model fields used to uniquely identify a user.
@@ -264,7 +271,8 @@ LDAP_AUTH_CLEAN_USER_DATA = "custom_script_extensions.ldap_auth_methods.custom_c
 # and saves any additional user relationships based on the LDAP data.
 # Use this to customize how data loaded from LDAP is saved to User model relations.
 # For customizing non-related User model fields, use LDAP_AUTH_CLEAN_USER_DATA.
-LDAP_AUTH_SYNC_USER_RELATIONS = "django_python3_ldap.utils.sync_user_relations"
+#LDAP_AUTH_SYNC_USER_RELATIONS = "django_python3_ldap.utils.sync_user_relations"
+LDAP_AUTH_SYNC_USER_RELATIONS = "custom_script_extensions.ldap_auth_methods.custom_sync_user_relations"
 
 # Path to a callable that takes a dict of {ldap_field_name: value},
 # returning a list of [ldap_search_filter]. The search filters will then be AND'd
