@@ -1247,15 +1247,6 @@ svg {
         height: 100%;
         background-color: #dfdfdf;
     }
-    #app > .grid-items-columns > .grid-row > img.aspect-ratio.type1 {
-        aspect-ratio: 25 / 8;
-    }
-    #app > .grid-items-columns > .grid-row > img.aspect-ratio.type2 {
-        aspect-ratio: 25 / 13;
-    }
-    #app > .grid-items-columns > .grid-row > img.aspect-ratio.type3 {
-        aspect-ratio: 15 / 20;
-    }
     #app > .grid-items-columns > .grid-row > .content-block {
         position: absolute;
         width: 100%;
