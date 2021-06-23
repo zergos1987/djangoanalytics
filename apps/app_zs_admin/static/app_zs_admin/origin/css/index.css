@@ -895,26 +895,36 @@ svg {
 }
 
 .container-aside-left a {
-	display: flex;
-	align-items: center;
-        padding: 10px 27px 10px 26px;
+    display: flex;
+    align-items: center;
+    padding: 10px 27px 10px 26px;
     color: #000;
     width: auto;
     min-width: fit-content;
     font-size: 0.8rem;
+    position: relative;
 }
 
 .container-aside-left .items > a > .item-group {
-	visibility: hidden;
-	height: 0;
+    visibility: hidden;
+    height: 0;
 }
 .container-aside-left .items > a.selected > .item-group {
-	visibility: visible;
+    visibility: visible;
     height: 100%;
 }
 
 .container-aside-left a:hover {
 	background: #e5e5e5;
+}
+
+.container-aside-left a.items-header:hover:after {
+    content: '';
+    position: absolute;
+    height: 55px;
+    right: 1.5px;
+    width: 0px;
+    outline: 2px solid #ff6060;
 }
 
 .container.active .container-aside-left a.items-header:hover {
@@ -931,6 +941,15 @@ svg {
 
 .container:not(.active) .container-aside-left .item-group.active .items a:hover {
     background: #f1f1f1f5;
+}
+
+.container:not(.active) .container-aside-left .item-group.active .items a:hover:after {
+    content: '';
+    position: absolute;
+    height: 100%;
+    right: 1.5px;
+    width: 0px;
+    outline: 2px solid #ff6060;
 }
 
 .container:not(.active) .container-aside-left .item-group.active .items a.level-2:hover:before {
