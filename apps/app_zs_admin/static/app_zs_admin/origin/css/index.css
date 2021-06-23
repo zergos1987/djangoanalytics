@@ -1145,7 +1145,7 @@ svg {
     margin: 0 24px 0 4px;
 }
 .container.active .container-aside-left .item-group:first-of-type span {
-    font-size: 0.9rem;
+    font-size: 1.25em;
     font-weight: 500;
     width: inherit;
     overflow: hidden;
