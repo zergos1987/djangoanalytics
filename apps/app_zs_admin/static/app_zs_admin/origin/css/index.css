@@ -252,6 +252,10 @@ svg {
     grid-template-columns: minmax(240px, 15%) auto;
 }
 
+.container.fixed {
+    max-width: 1200px;
+}
+
 /* ---- ---- ---- CONTAINER HEADER ---- ---- ---- */
 .container-header {
 	grid-area: header;
