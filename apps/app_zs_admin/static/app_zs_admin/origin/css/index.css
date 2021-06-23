@@ -7,6 +7,7 @@
 
 body {
 	font-family: Roboto, Arial, sans-serif;
+	background-color: rgb(0 0 0 / 22%);
 }
 body::-webkit-scrollbar-thumb {
     background-color: #cacaca;
@@ -714,6 +715,8 @@ svg {
 }
 
 .header-section-right .row > .item-group .items.countries {
+    position: absolute;
+    right: 0;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s;
@@ -724,8 +727,6 @@ svg {
     visibility: visible;
     margin-right: 18px;
     margin-top: 45px;
-    position: absolute;
-    right: 0;
 }
 
 .header-section-right .item-group.active .items.countries {
