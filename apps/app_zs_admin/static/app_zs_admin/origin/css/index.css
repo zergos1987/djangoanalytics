@@ -1264,7 +1264,7 @@ svg {
     @supports not (aspect-ratio: 1 / 1) {
         #app > .grid-items-columns > .grid-row > img.aspect-ratio.type1 {
             height: 0;
-            padding-top: 56.25%;
+            padding-top: 30%;
         }
         #app > .grid-items-columns > .grid-row > img.aspect-ratio.type2 {
             height: 0;
