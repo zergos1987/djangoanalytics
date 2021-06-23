@@ -1118,6 +1118,9 @@ svg {
 .container.active .container-aside-left .item-group:first-of-type {
 	margin-top: 8px;
 }
+.container.active .container-aside-left .item-group:first-of-type > .items-header {
+    padding: 8px 22px 8px 20px;
+}
 .container.active .container-aside-left .item-group:first-of-type svg {
     margin: 0 24px 0 2px;
 }
