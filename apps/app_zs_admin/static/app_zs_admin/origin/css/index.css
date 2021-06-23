@@ -918,7 +918,7 @@ svg {
 	background: #e5e5e5;
 }
 
-.container-aside-left a.items-header:hover:after {
+.container:not(.active) .container-aside-left a.items-header:hover:after {
     content: '';
     position: absolute;
     height: 55px;
