@@ -262,7 +262,7 @@ svg {
 .container-header {
 	grid-area: header;
 	padding: 0 16px 0 16px;
-    	box-shadow: -1px 1px 3px rgb(0 0 0 / 20%);
+    	box-shadow: 1px 1px 3px 0px rgb(0 0 0 / 20%);
 	display: grid;
 	grid-template-columns: auto 1fr auto;
 	align-items: center;
@@ -1195,10 +1195,11 @@ svg {
 
 /* ---- ---- ---- container-main ---- ---- ---- */
 .container-main {
-	grid-area: container;
-	background: #f9f9f9;
+    grid-area: container;
+    background: #f9f9f9;
     padding: 24px 20px 20px 24px;
     transition: padding .5s;
+    box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, 0.2);
 }
 .container:not(.active) .container-main {
     padding-left: 95px;
