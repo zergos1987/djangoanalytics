@@ -105,7 +105,7 @@ svg {
     width: auto;
     margin-top: -20px;
     padding: 20px 0px 20px 0px;
-    max-height: 55px;
+    /*max-height: 55px;*/
     width: fit-content;
 }
 
@@ -406,7 +406,6 @@ svg {
 	height: 30px;
 	border-radius: 100%;
 	background-color: #ebeaef;
-	background-image: url(/static/app_zs_admin/origin/res/img/logo.png);
 	background-size: 30px;
 	background-repeat: no-repeat;
 }
@@ -432,7 +431,9 @@ svg {
 }
 
 .container-header .header-section-center input {
-	min-width: 60%;
+	min-width: 165px;
+	max-width: 400px;
+	width: 100%;
 	padding: 0 10px;
 	height: 30px;
 	line-height: 30px;
@@ -1233,6 +1234,8 @@ svg {
 /* ---- ---- ---- container-main ---- ---- ---- */
 .container-main {
     grid-area: container;
+    display: flex;
+    flex-direction: column;
     background: #f9f9f9;
     padding: 24px 20px 20px 24px;
     transition: padding .5s;
@@ -1249,6 +1252,8 @@ svg {
     /* ---- ---- ---- app ---- ---- ---- */
     #app {
         max-width: 1600px;
+        height: 100%;
+        width: 100%;
         margin: 0 auto;
     }
 
@@ -1341,10 +1346,6 @@ svg {
     }
 /* ---- ---- ---- Mediaqueries ---- ---- ---- */
 @media screen and (max-width: 1200px) {
-
-	.container-header .header-section-center input {
-		min-width: 70%;
-	}
 }
 
 @media screen and (max-width: 768px) {
@@ -1366,6 +1367,7 @@ svg {
 	}
 
 	.container-header .header-section-center input {
+		max-width: 100%;
 		min-width: auto;
 		width: 100%;
 	}

@@ -405,7 +405,6 @@ svg {
 	width: 30px;
 	height: 30px;
 	border-radius: 100%;
-	background-color: #ebeaef;
 	background-size: 30px;
 	background-repeat: no-repeat;
 }
@@ -439,7 +438,7 @@ svg {
 	line-height: 30px;
 	border: 1px solid #ccc;
 	border-radius: 2px 0 0 2px;
-	font-size: 0.9em;
+	font-size: 0.8em;
     outline: none;
 }
 .container-header .header-section-center input:focus {
@@ -1224,8 +1223,13 @@ svg {
 }
 
 .container:not(.active) .container-aside-left .item-group.active > .items-frame > .items a:first-child {
-	margin-top: 0;
+    margin-top: 15px;
 }
+
+.container:not(.active) .container-aside-left .item-group.active > .items-frame > .items a:last-child {
+    margin-bottom: 15px;
+}
+
 
 .container:not(.active) .container-aside-left .item-group.active > .items-frame > .items a i {
 	margin: 0 10px 0 0px;
