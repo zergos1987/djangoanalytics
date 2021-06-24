@@ -14,7 +14,7 @@
 {% block head_description_text %}{{ block.super }}{% endblock head_description_text %}
 {% block head_author_text %}{{ block.super }}{% endblock head_author_text %}
 {% block head_title_text %}{{ block.super }}{% endblock head_title_text %}
-{% block head_favicon_href_ico %}{{ block.super }}{% endblock head_favicon_href_ico %}
+{% block head_favicon_href_ico %}{{ app_settings.app_brand_ico }}{% endblock head_favicon_href_ico %}
 <!-- css -->
 {% block head_css %}{{ block.super }}{% endblock head_css %}
     <!-- APP CSS -->
@@ -38,7 +38,7 @@
 				
 				{% block brand_details %}{{ block.super }}{% endblock brand_details %}
 					{% block brand_details_logo_classname %}{{ block.super }}{% endblock brand_details_logo_classname %}
-					{% block brand_details_title %}{{ block.super }}{% endblock brand_details_title %}
+					{% block brand_details_title %}{{ app_settings.app_brand_name }}{% endblock brand_details_title %}
 			<!-- end header-section-left -->
 
 			<!-- header-section-center -->
