@@ -12,15 +12,15 @@ class appResource(resources.ModelResource):
     class Meta:
         model = app
         fields = (
-            'test_field',)
+            'app_brand_name','app_brand_color', 'app_brand_ico', 'app_brand_logo', 'is_actual',)
 
 
 class appAdmin(ImportExportModelAdmin):
     list_display = [
-    	'test_field',]
+    	'app_brand_name', 'app_brand_color', 'app_brand_ico', 'app_brand_logo', 'is_actual']
 
     list_filter = (
-        'test_field',  #('dt', DateTimeRangeFilter)
+        'app_brand_name', 'is_actual',  #('dt', DateTimeRangeFilter)
     )
     
     def has_import_permission(self, request, obj=None):
