@@ -1,3 +1,9 @@
+django_colorfield-0.4.1-py3-none-any
+Pillow-8.2.0-cp37-cp37m-win32
+
+
+
+
 asgiref==3.3.4
 certifi==2021.5.30
 chardet==4.0.0
