@@ -1346,10 +1346,6 @@ svg {
     }
 /* ---- ---- ---- Mediaqueries ---- ---- ---- */
 @media screen and (max-width: 1200px) {
-
-	.container-header .header-section-center input {
-		min-width: 70%;
-	}
 }
 
 @media screen and (max-width: 768px) {
