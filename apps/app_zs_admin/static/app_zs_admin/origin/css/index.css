@@ -12,6 +12,15 @@
     align-items: center;
 }
 
+#app .main_text_header { 
+    padding-bottom: 50px;
+    font-size: 1.7vmin;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+    color: rgba(0,0,0,0.6);
+    text-shadow: 2px 2px 3px rgba(255,255,255,0.1);
+}
+
 #app .main_theme {
     background-image: url(/static/app_zs_admin/origin/res/img/main_theme.jpg);
     background-size: contain;
