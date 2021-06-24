@@ -432,7 +432,9 @@ svg {
 }
 
 .container-header .header-section-center input {
-	min-width: 60%;
+	min-width: 165px;
+	max-width: 400px;
+	width: 100%;
 	padding: 0 10px;
 	height: 30px;
 	line-height: 30px;
