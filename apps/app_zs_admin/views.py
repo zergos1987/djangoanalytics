@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test, per
 from django.utils.decorators import method_decorator
 from django.http import HttpResponse, FileResponse, Http404, HttpResponseRedirect, HttpResponseForbidden, HttpResponsePermanentRedirect
 
+
 from .models import app
 
 
@@ -12,8 +13,11 @@ from .models import app
 @login_required
 @permission_required('app_zs_admin.view_app')
 def index(request):
-
 	app_settings = app.objects.filter(is_actual=True).first()
-	template = 'app_zs_admin/index.html'
+	
+	template = 'app_zs_admin/index.html' 
+	context = {
+		'app_settings': app_settings
+	}
 
-	return render(request, template, app_settings)
+	return render(request, template, context)
