@@ -1,6 +1,31 @@
 django_colorfield-0.4.1-py3-none-any
 Pillow-8.2.0-cp37-cp37m-win32
 
+[
+    {
+        "doctype_lang_text": "ru",
+        "head_charset_text": "charset=utf-8",
+        "head_description_text": "",
+        "head_author_text": "",
+        "container_display_mode_classname": "active fixed",
+        "header_section_left": "Enable",
+        "button_menu_aside_left": "Enable",
+        "brand_details": "Enable",
+        "header_section_center": "Enable",
+        "header_section_right": "Enable",
+        "header_section_right_new_item_group": [],
+        "header_section_right_search_extra_button": "Enable",
+        "header_section_right_notification": "Enable",
+        "header_section_right_notification_row": [],
+        "header_section_right_user_settings": "Enable",
+        "header_section_right_user_settings_menu": "Enable",
+        "header_section_right_user_settings_new_item_group": [],
+        "container_aside_left": "Enable",
+        "container_aside_left_settings_menu": "Enable",
+        "container_aside_left_dashboards_menu": "Enable",
+        "container_aside_left_new_block": []
+    }
+]
 
 
 
