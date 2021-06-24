@@ -1,5 +1,6 @@
 {% extends "app_zs_admin\base.html" %}
 {% load static %}
+{% load l10n %}
 
 
 
@@ -38,7 +39,7 @@
 				
 				{% block brand_details %}{{ block.super }}{% endblock brand_details %}
 					{% block brand_details_logo_url %}media/{{ app_settings.app_brand_logo }}{% endblock brand_details_logo_url %}
-						{% block brand_details_logo_zoom %}{{ app_settings.app_brand_logo_zoom }}{% endblock brand_details_logo_zoom %}
+						{% block brand_details_logo_zoom %}{{ app_settings.app_brand_logo_zoom|unlocalize }}{% endblock brand_details_logo_zoom %}
 					{% block brand_details_title %}{{ app_settings.app_brand_name }}{% endblock brand_details_title %}
 						{% block brand_details_title_color %}{{ app_settings.app_brand_color }}{% endblock brand_details_title_color %}
 			<!-- end header-section-left -->
