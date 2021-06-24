@@ -57,7 +57,7 @@
                     {% endblock button_menu_aside_left %}
                     {% block brand_details %}
                     <a href="/" class="logo" title="zs_admin">
-                        <i class="{% block brand_details_logo_classname %}brand-logo{% endblock brand_details_logo_classname %}"></i>
+                        <img src="{% block brand_details_logo_url %}/static/app_zs_admin/origin/res/img/logo.png{% endblock brand_details_logo_url %}" class="brand-logo">
                         <span>{% block brand_details_title %}DjangoAnalytics{% endblock brand_details_title %}</span>
                     </a>
                     {% endblock brand_details %}
