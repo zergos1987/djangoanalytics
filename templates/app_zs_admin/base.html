@@ -156,7 +156,6 @@
                                         <div class="items-frame">
                                             <div class="items countries">
                                                 <div class="col">
-                                                    {% block zs_admin_header_right_items_country_locale_item %}
                                                     <a href="#" class="row"><span class="country USA"></span>English (USA)</a>
                                                     <a href="#" class="row"><span class="country UK"></span>English (UK)</a>
                                                     <a href="#" class="row"><span class="country India"></span>English (India)</a>
@@ -189,7 +188,8 @@
                                                     <a href="#" class="row"><span class="country Thailand"></span>ไทย</a>
                                                     <a href="#" class="row"><span class="country Vietnam"></span>Tiếng Việt</a>
                                                     <a href="#" class="row"><span class="country India"></span>हिंदी</a>
-                                                    {% endblock zs_admin_header_right_items_country_locale_item %}
+                                                    {% block zs_admin_header_right_items_country_locale_new_item %}
+                                                    {% endblock zs_admin_header_right_items_country_locale_new_item %}
                                                 </div>
                                             </div>
                                         </div>
