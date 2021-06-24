@@ -1,6 +1,7 @@
 from django.db import models
 from colorfield.fields import ColorField
 from jsonfield import JSONField
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 # Create your models here.
 
@@ -9,6 +10,7 @@ class app(models.Model):
 	app_brand_color = ColorField(default='#333')
 	app_brand_ico = models.ImageField(upload_to='img', null=True)
 	app_brand_logo = models.ImageField(upload_to='img', null=True)
+	app_brand_logo_zoom = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(3.0)], default=1)
 	app_breadcrumb_active = models.CharField(max_length=400, default='', blank=True)
 	app_settings = JSONField(default=list, null=True, blank=True)
 	is_actual = models.BooleanField(default=False)
