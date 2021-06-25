@@ -16,19 +16,17 @@
     font-size: 2vh;
     letter-spacing: 0.5px;
     font-weight: bold;
-    color: #cacaca;
+    color: #ffffffe0;
     position: absolute;
     margin-top: -6vh;
     text-align: center;
-    text-shadow: 2px 2px 2px #6a6a6a, -2px -2px 2px #6a6a6a, 2px -2px 2px #6a6a6a, -2px 2px 2px #6a6a6a, 4px 4px 4px #6a6a6a, -4px -4px 4px #6a6a6a, 4px -4px 4px #6a6a6a, -4px 4px 4px #6a6a6a;
-    font-weight: bold;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently
-                          supported by Chrome, Edge, Opera and Firefox */
+    text-shadow: 2px 2px 2px #c7c7c7, -2px -2px 2px #c7c7c7, 2px -2px 2px #c7c7c7, -2px 2px 2px #c7c7c7, 4px 4px 4px #c7c7c7, -4px -4px 4px #c7c7c7, 4px -4px 4px #c7c7c7, -4px 4px 4px #c7c7c7;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #app .main_theme {
