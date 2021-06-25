@@ -1232,7 +1232,8 @@ svg {
     height: calc(100% - 20px);
     max-height: inherit;
     box-shadow: inset 10px 10px 15px -10px #c3c3c3, inset -10px -10px 15px -10px #f9f9f9;
-    margin: 0 15px;
+    margin: 5px;
+    border-radius: 5px;
     width: inherit;
     overflow: auto;
 }
