@@ -16,10 +16,12 @@
     font-size: 2vh;
     letter-spacing: 0.5px;
     font-weight: bold;
-    color: #333;
+    color: #d2d2d2;
     position: absolute;
     margin-top: -6vh;
     text-align: center;
+    text-shadow: 2px 2px 2px black, -2px -2px 2px black, 2px -2px 2px black, -2px 2px 2px black, 4px 4px 4px black, -4px -4px 4px black, 4px -4px 4px black, -4px 4px 4px black;
+    font-weight: bold;
 }
 
 #app .main_theme {
