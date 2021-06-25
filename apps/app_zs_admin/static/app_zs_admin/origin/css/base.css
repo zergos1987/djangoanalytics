@@ -335,6 +335,7 @@ svg {
 }
 
 .container-header .header-section-right button:hover:active,
+.container-header .header-section-right > .item-group.active > .items-header > button,
 .container-header .header-section-left .button-menu:hover:active svg {
     border-radius: 150px;
     background: #ffffff;
