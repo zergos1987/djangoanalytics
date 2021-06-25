@@ -520,7 +520,7 @@ svg {
 
 .container-header .header-section-right button:hover, 
 .container-header .header-section-right .item-group:not(.user_menu).active button {
-	background: #e7e7e7;
+	/*background: #e7e7e7;*/
     transition: background 0.5s;
 }
 
