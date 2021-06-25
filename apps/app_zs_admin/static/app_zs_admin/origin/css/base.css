@@ -319,10 +319,18 @@ svg {
 }
 
 .container-header .header-section-left .button-menu svg {
-	pointer-events: none;
-	display: block;
+    pointer-events: none;
+    display: block;
     width: 32px;
     height: 32px;
+}
+
+.container-header .header-section-left .button-menu:hover svg {
+    border-radius: 150px;
+    background: linear-gradient(145deg, #e6e6e6, #ffffff);
+    box-shadow:  5px 5px 5px #dedede,
+                 -5px -5px 5px #ffffff;
+    transition: background 0.5s, box-shadow 1.5s;
 }
 
 /*burger menu*/
