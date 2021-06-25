@@ -1193,6 +1193,7 @@ svg {
     padding-top: 3px;
     color: #606060;
     font-size: 1.2em;
+    background: transparent;
 }
 
 .container:not(.active) .container-aside-left .item-group.active > .items-frame > .items-header {
