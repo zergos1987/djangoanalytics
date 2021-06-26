@@ -13,12 +13,20 @@
 }
 
 #app .main_text_header { 
-    font-size: 1.5vh;
+    font-size: 4vmin;
     letter-spacing: 0.5px;
     font-weight: bold;
-    color: #333;
+    color: #ffffffe0;
     position: absolute;
     margin-top: -6vh;
+    text-align: center;
+    text-shadow: 2px 2px 2px #c7c7c7, -2px -2px 2px #c7c7c7, 2px -2px 2px #c7c7c7, -2px 2px 2px #c7c7c7, 4px 4px 4px #c7c7c7, -4px -4px 4px #c7c7c7, 4px -4px 4px #c7c7c7, -4px 4px 4px #c7c7c7;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 #app .main_theme {
@@ -32,4 +40,19 @@
     max-height: 700px;
     justify-content: center;
     display: flex;
+}
+.shadows {
+    position: relative;
+    text-transform: uppercase;
+    text-shadow: -15px 5px 20px #ced0d3;
+    color: white;
+    letter-spacing: -0.05em;
+    font-family: 'Anton', Arial, sans-serif;
+    user-select: none;
+    text-transform: uppercase;
+    font-size: 150px;
+    transition: all 0.25s ease-out;
+}
+.shadows:hover {
+    text-shadow: -16px 6px 15px #ced0d3;
 }

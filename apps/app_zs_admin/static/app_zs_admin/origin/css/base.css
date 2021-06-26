@@ -1150,6 +1150,7 @@ svg {
 }
 
 .container.active .container-aside-left .item-group > .items-header > span {
+    background-color: #fff;
     z-index: 30;
     padding: 0 10px 0 10px;
     margin-left: -10px;
