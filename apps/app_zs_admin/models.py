@@ -1,9 +1,146 @@
 from django.db import models
+from django.db.models import IntegerField
 from colorfield.fields import ColorField
 from jsonfield import JSONField
 from django.core.validators import MinValueValidator, MaxValueValidator
 
+
+
 # Create your models here.
+
+
+
+class container_display_mode(models.Model):
+	name = models.CharField(max_length=400)
+	description = models.TextField(blank=True, null=True)
+
+	class Meta:
+		# app_label helps django to recognize your db
+		app_label = 'app_zs_admin'
+
+	def __str__(self):
+		return self.name
+
+
+
+class html_lang_code(models.Model):
+	name = models.CharField(max_length=400)
+	description = models.TextField(blank=True, null=True)
+
+	class Meta:
+		# app_label helps django to recognize your db
+		app_label = 'app_zs_admin'
+
+	def __str__(self):
+		return self.name
+
+
+
+class meta_charset_code(models.Model):
+	name = models.CharField(max_length=400)
+	description = models.TextField(blank=True, null=True)
+
+	class Meta:
+		# app_label helps django to recognize your db
+		app_label = 'app_zs_admin'
+
+	def __str__(self):
+		return self.name
+
+
+
+class meta_author_description(models.Model):
+	author_name = models.CharField(max_length=400)
+	description = models.TextField(blank=True, null=True)
+
+	class Meta:
+		# app_label helps django to recognize your db
+		app_label = 'app_zs_admin'
+
+	def __str__(self):
+		return self.author_name + ' | ' + self.description
+
+
+
+class user_settings_locale_includes(models.Model):
+	name = models.CharField(max_length=100)
+	label_text = models.CharField(max_length=100)
+	name_order_by = IntegerField(default=1, validators=[MinValueValidator(0), MaxValueValidator(230)])
+	is_actual = models.BooleanField(default=True)
+	href = models.CharField(max_length=800, blank=True, null=True, default="#")
+
+	class Meta:
+		# app_label helps django to recognize your db
+		app_label = 'app_zs_admin'
+		ordering = ('name_order_by', )
+		unique_together = ('name', 'name_order_by', )
+
+	def __str__(self):
+		return (
+			self.name + ' | ' + 
+			str(self.name_order_by) + ' | ' + 
+			str(self.is_actual) + ' | ' +
+			self.label_text)
+
+
+menu_level_choices = (
+	("level-0", "level-0"),
+	("level-1", "level-1"),
+	("level-2", "level-2"),
+	("level-3", "level-3"),
+	("level-4", "level-4"),
+	("level-5", "level-5"),
+)
+menu_icon_type_choices = (
+	("folder", "folder"),
+	("arrow", "arrow"),
+)
+class settings_menu_includes(models.Model):
+	name = models.CharField(max_length=200)
+	parent_name = models.CharField(max_length=200) 
+	menu_level = models.CharField(max_length=15, choices=menu_level_choices, default='level-0')
+	menu_icon_type = models.CharField(max_length=15, choices=menu_icon_type_choices, default='arrow')
+	name_order_by = IntegerField(default=1, choices=[(i, i) for i in range(1, 16)])
+	parent_name_order_by = IntegerField(default=1, choices=[(i, i) for i in range(1, 16)])
+	is_actual = models.BooleanField(default=True)
+	href = models.CharField(max_length=800, blank=True, null=True, default="#")
+
+	class Meta:
+		# app_label helps django to recognize your db
+		app_label = 'app_zs_admin'
+		ordering = ('name_order_by', 'parent_name_order_by',)
+		unique_together = ('name', 'parent_name', 'name_order_by', 'parent_name_order_by',)
+	
+	def save(self, *args, **kwargs):
+		if self.name == self.parent_name:
+			if self.is_actual:
+				try:
+					settings_menu_includes.objects.filter(
+						name_order_by=self.name_order_by, 
+						is_actual=False).exclude(id=self.id).update(is_actual=True)
+				except Exception as e:
+					pass
+			else:
+				try:
+					settings_menu_includes.objects.filter(
+						name_order_by=self.name_order_by, 
+						is_actual=True).exclude(id=self.id).update(is_actual=False)
+				except Exception as e:
+					pass
+
+		super(settings_menu_includes, self).save(*args, **kwargs)
+
+	def __str__(self):
+		return (
+			self.name + ' | ' + 
+			self.parent_name + ' | ' + 
+			self.menu_level + ' | ' + 
+			self.menu_icon_type + ' | ' +
+			str(self.is_actual) + ' | ' +
+			str(self.name_order_by) + ' | ' + 
+			str(self.parent_name_order_by))
+
+
 
 class app(models.Model):
 	app_brand_name = models.CharField(max_length=400, default='DjangoAnalytics')
@@ -12,6 +149,25 @@ class app(models.Model):
 	app_brand_logo = models.ImageField(upload_to='img', null=True)
 	app_brand_logo_zoom = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(3.0)], default=1)
 	app_breadcrumb_active = models.CharField(max_length=400, default='', blank=True)
+	app_settings_container_display_mode = models.ManyToManyField(container_display_mode)
+	app_settings_html_lang_code = models.ForeignKey(html_lang_code, on_delete=models.CASCADE, unique=False, null=True, blank=True)
+	app_settings_meta_charset_code = models.ForeignKey(meta_charset_code, on_delete=models.CASCADE, null=True, blank=True)
+	app_settings_meta_author_description = models.ForeignKey(meta_author_description, on_delete=models.CASCADE, null=True, blank=True)
+	app_settings_header_section_left_enable = models.BooleanField(default=True)
+	app_settings_header_section_left_button_menu_enable = models.BooleanField(default=True)
+	app_settings_header_section_left_brand_details_enable = models.BooleanField(default=True)
+	app_settings_header_section_center_enable = models.BooleanField(default=True)
+	app_settings_header_section_right_enable = models.BooleanField(default=True)
+	app_settings_header_section_right_search_extra_button_enable = models.BooleanField(default=True)
+	app_settings_header_section_right_notification_enable = models.BooleanField(default=True)
+	app_settings_header_section_right_user_settings_enable = models.BooleanField(default=True)
+	app_settings_header_section_right_user_settings_locale_enable = models.BooleanField(default=True)
+	app_settings_header_section_right_user_settings_locale_includes = models.ManyToManyField(user_settings_locale_includes, blank=True,  limit_choices_to = {'is_actual': True})
+	app_settings_header_section_right_user_settings_menu_enable = models.BooleanField(default=True)
+	app_settings_container_aside_left_enable = models.BooleanField(default=True)
+	app_settings_container_aside_left_settings_menu_enable = models.BooleanField(default=True)
+	app_settings_container_aside_left_settings_menu_items_includes = models.ManyToManyField(settings_menu_includes, blank=True,  limit_choices_to = {'is_actual': True})
+	app_settings_container_aside_left_dashboards_menu_enable = models.BooleanField(default=True)
 	app_settings = JSONField(default=list, null=True, blank=True)
 	is_actual = models.BooleanField(default=False)
 
@@ -23,7 +179,7 @@ class app(models.Model):
 	def save(self, *args, **kwargs):
 		if self.is_actual:
 			try:
-				x = app.objects.filter(is_actual=True).exclude(id=self.id).update(is_actual=False)
+				app.objects.filter(is_actual=True).exclude(id=self.id).update(is_actual=False)
 			except Exception as e:
 				pass
 		super(app, self).save(*args, **kwargs)

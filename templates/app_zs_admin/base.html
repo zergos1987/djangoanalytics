@@ -1,21 +1,19 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="{% block doctype_lang_text %}ru{% endblock doctype_lang_text %}">
+<html lang="{% block html_lang_text %}ru{% endblock html_lang_text %}">
 
     <head>
-        {% block head_charset %}
-        <meta http-equiv="Content-Type" content="text/html; {% block head_charset_text %}charset=utf-8{% endblock head_charset_text %}" />
-        {% endblock head_charset %}
+        <meta http-equiv="Content-Type" content="text/html; charset={% block head_meta_charset_text %}utf-8{% endblock head_meta_charset_text %}"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta http-equiv="pragma" content="no-cache" />
-        {% block head_meta_viewport %}
+        {% block head_meta_viewport_block %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {% endblock head_meta_viewport %}
+        {% endblock head_meta_viewport_block %}
         <meta http-equiv="X-UA-Compatible" content="ie-edge">
-        <meta name="description" content="{% block head_description_text %}ZSAdmin main page{% endblock head_description_text %}">
-        <meta name="author" content="{% block head_author_text %}ZSVasily{% endblock head_author_text %}">
+        <meta name="description" content="{% block head_meta_description_text %}ZSAdmin main page{% endblock head_meta_description_text %}">
+        <meta name="author" content="{% block head_meta_author_text %}ZSVasily{% endblock head_meta_author_text %}">
         <title>{% block head_title_text %}Django ZS Admin{% endblock head_title_text %}</title>
-        <link rel="shortcut icon" href="{% block head_favicon_href_ico %}{% static 'app_zs_admin/origin/res/img/favicon.ico' %}{% endblock head_favicon_href_ico %}" type="image/x-icon">
+        <link rel="shortcut icon" href="{% block head_link_favicon_href %}{% static 'app_zs_admin/origin/res/img/favicon.ico' %}{% endblock head_link_favicon_href %}" type="image/x-icon">
         <link rel="canonical" href="https://wwww.{{ request.get_host }}/">
         <link rel="alternate" media="handheld" href="https://m.{{ request.get_host }}/">
         <link rel="alternate" media="only screen and (max-width: 640px)" href="https://m.{{ request.get_host }}/">
@@ -40,7 +38,7 @@
                 <span class="border-shadow bottom header"></span>
                 {% block header_section_left %}
                 <div class="header-section-left">
-                    {% block button_menu_aside_left %}
+                    {% block header_section_left_button_menu %}
                     <button id="button-menu" class="button-menu">
                         <svg class="ham ham6" viewBox="0 0 100 100" width="80">
                           <path
@@ -54,13 +52,13 @@
                                 d="m 69.575405,67.073826 h -40 c -13.100415,0 -14.380204,-31.80258 -6.899646,-33.421777 24.612039,-5.327373 -9.016154,52.337577 12.75751,30.563913 l 28.284272,-28.284272" />
                         </svg>
                     </button>
-                    {% endblock button_menu_aside_left %}
-                    {% block brand_details %}
+                    {% endblock header_section_left_button_menu %}
+                    {% block header_section_left_brand_details %}
                     <a href="/" class="logo" title="zs_admin">
-                        <img src="{% block brand_details_logo_url %}/static/app_zs_admin/origin/res/img/logo.png{% endblock brand_details_logo_url %}" class="brand-logo" style="zoom: {% block brand_details_logo_zoom %}1{% endblock brand_details_logo_zoom %}">
-                        <span style="color:{% block brand_details_title_color %}#333{% endblock brand_details_title_color %}">{% block brand_details_title %}DjangoAnalytics{% endblock brand_details_title %}</span>
+                        <img src="{% block brand_details_logo_url %}/static/app_zs_admin/origin/res/img/logo.png{% endblock brand_details_logo_url %}" class="brand-logo" style="zoom: {% block header_section_left_brand_details_logo_zoom %}1{% endblock header_section_left_brand_details_logo_zoom %}">
+                        <span style="color:{% block header_section_left_brand_details_title_color %}#333{% endblock header_section_left_brand_details_title_color %}">{% block header_section_left_brand_details_title %}DjangoAnalytics{% endblock header_section_left_brand_details_title %}</span>
                     </a>
-                    {% endblock brand_details %}
+                    {% endblock header_section_left_brand_details %}
                 </div>
                 {% endblock header_section_left %}
 
@@ -80,10 +78,6 @@
                 
                 {% block header_section_right %}
                 <div class="header-section-right">
-                    {% block header_section_right_new_item_group %}
-                    {% endblock header_section_right_new_item_group %}
-
-
                     {% block header_section_right_search_extra_button %}
                     <div class="item-group">
                         <div class="items-header">
@@ -111,11 +105,9 @@
                         </div>
                         <div class="items-frame">
                             <div class="items">
-                                {% block header_section_right_notification_row %}
                                 <div class="row">Text 1</div>
                                 <div class="row divider"></div>
                                 <div class="row">Text 2</div>
-                                {% endblock header_section_right_notification_row %}
                             </div>
                         </div>
                     </div>
@@ -146,7 +138,6 @@
                                         <p class="user">Anonymouse</p>
                                         {% endif %}
                                     </a>
-                                    {% block header_section_right_user_settings_locale %}
                                     <div class="item-group">
                                         <div class="items-header">
                                             <button id="locale" data-tooltip="Локализация" data-tooltip-position="bottom">
@@ -154,6 +145,7 @@
                                             </button>
                                         </div>
                                         <div class="items-frame">
+                                            {% block header_section_right_user_settings_locale %}
                                             <div class="items countries">
                                                 <div class="col">
                                                     <a href="#" class="row"><span class="country USA"></span>English (USA)</a>
@@ -188,13 +180,11 @@
                                                     <a href="#" class="row"><span class="country Thailand"></span>ไทย</a>
                                                     <a href="#" class="row"><span class="country Vietnam"></span>Tiếng Việt</a>
                                                     <a href="#" class="row"><span class="country India"></span>हिंदी</a>
-                                                    {% block zs_admin_header_right_items_country_locale_new_item %}
-                                                    {% endblock zs_admin_header_right_items_country_locale_new_item %}
                                                 </div>
                                             </div>
+                                            {% endblock header_section_right_user_settings_locale %}
                                         </div>
                                     </div>
-                                    {% endblock header_section_right_user_settings_locale %}
                                 </div>
                                 {% block header_section_right_user_settings_menu %}
                                 <div class="row divider"></div>
@@ -209,8 +199,6 @@
                                 </a>
                                 {% endblock header_section_right_user_settings_menu %}
 
-                                {% block header_section_right_user_settings_new_item_group %}
-                                {% endblock header_section_right_user_settings_new_item_group %}
                                 <div class="row divider"></div>
                                 {% if request.user.is_authenticated %}
                                 <a href="{% url 'logout' %}" class="row">
@@ -323,10 +311,6 @@
                     </div>
                 </div>
                 {% endblock container_aside_left_dashboards_menu %}
-
-                {% block container_aside_left_new_block %}
-                <div class="divider"></div>
-                {% endblock container_aside_left_new_block %}
 
                 {% endblock container_aside_left %}
             </nav>

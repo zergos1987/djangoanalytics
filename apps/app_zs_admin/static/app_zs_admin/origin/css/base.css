@@ -3,6 +3,11 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+
+    -webkit-user-select: none; /* Safari */        
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
 }
 
 body {
@@ -53,13 +58,21 @@ svg {
 .border-shadow.bottom {
 	border-bottom: 1px solid #cdcdcd;
     /*box-shadow: 0 6px 6px -6px #c4c4c4;*/
+    transition: all 0.5s;
 }
+
 .container .border-shadow.bottom.header {
     width: calc(100% - 72px);
     margin-left: 72px;
     height: 20px;
     margin-top: 37px;
 }
+
+.container.container-aside-left-disabled .border-shadow.bottom.header {
+    width: 100%;
+    margin-left: 0;
+}
+
 .container.active .border-shadow.bottom.header {
     width: calc(100% - 240px);
     margin-left: 240px;
@@ -516,13 +529,13 @@ svg {
     outline: none;
     margin-right: 8px;
 
-    transition: background 0.5s;
+    transition: all 0.5s;
 }
 
 .container-header .header-section-right button:hover, 
 .container-header .header-section-right .item-group:not(.user_menu).active button {
 	/*background: #e7e7e7;*/
-    transition: background 0.5s;
+    transition: all 0.5s;
 }
 
 .container-header .header-section-right button svg {
@@ -730,6 +743,10 @@ svg {
     box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.05);
 }
 
+.header-section-right .item-group.active .items.countries {
+    overflow: unset;
+}
+
 
 .header-section-right .row.header > .item-group {
     width: fit-content;
@@ -761,12 +778,39 @@ svg {
 }
 
 .header-section-right .item-group .items > .col  {
-    width: 280px;
-    height: 312px;
+    width: 100%;
+    height: 100%;
+    max-width: 280px;
+    max-height: 312px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     flex-wrap: wrap;
-    padding: 4px 10px;
+    padding: 4px 20px;
+}
+
+.header-section-right .item-group .items.countries > .col {
+    overflow: auto;
+}
+
+.header-section-right .item-group .items.countries > .col::-webkit-scrollbar-thumb {
+    background-color: #cacacade;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    background-clip: padding-box; 
+}
+
+.header-section-right .item-group .items.countries > .col::-webkit-scrollbar-thumb:hover {
+    background-color: #a4a4a4; 
+}
+
+.header-section-right .item-group .items.countries > .col::-webkit-scrollbar {
+    display: none;
+    width: 11px;
+    height: 11px;
+}
+
+.header-section-right .item-group .items.countries > .col:hover::-webkit-scrollbar {
+    display: block;
 }
 
 .header-section-right .item-group.active .items:not(.countries) .row {
@@ -806,7 +850,7 @@ svg {
     align-items: center;
     font-size: 0.8em;
     color: -webkit-link;
-    width: 50%;
+    width: 100%;
     padding: 1.5px 0px;
 }
 
@@ -1305,7 +1349,7 @@ svg {
 
     #app > .grid-items-columns {
         display: grid;
-        grid-gap: 2vmin 1.5vmin;
+        grid-gap: 2vmin 3.5vmin;
         grid-auto-flow: column;
     }
 
@@ -1330,7 +1374,7 @@ svg {
     }
 
     #app > .grid-items-columns:not(:last-child) {
-        padding-bottom: 1.3vmax;
+        padding-bottom: 2.5vmax;
     }
 
     #app > .grid-items-columns > .grid-row {
@@ -1339,13 +1383,13 @@ svg {
         position: relative;
         width: 100%;
         height: 100%;
-        border-radius: 12px;
+        border-radius: 15px;
     }
     #app > .grid-items-columns > .grid-row > img {
         width: 100%;
         height: 100%;
         background-color: #dfdfdf;
-	border-radius: inherit;	    
+        border-radius: inherit;	    
     }
     @supports (aspect-ratio: 1 / 1) {
         #app > .grid-items-columns > .grid-row > img.aspect-ratio.type1 {
@@ -1377,7 +1421,10 @@ svg {
         width: 100%;
         height: 100%;
         background-color: #e6e6e6;
-	border-radius: inherit;
+        border-radius: inherit;
+        background: #f0f0f0;
+        box-shadow: 5px 5px 5px #dedede, -5px -5px 5px #ffffff;
+        transition: background 1s, box-shadow 1s;
     }
     #app > .grid-items-columns > .grid-row > .content-block:empty:before {
         content: 'placeholder';
@@ -1443,6 +1490,7 @@ svg {
 
 	.header-section-center.active {
 		display: flex !important;
+        box-shadow: 0 20px 18px rgb(41 39 89 / 25%);
 	}
 
 	.container.active .container-aside-left {
