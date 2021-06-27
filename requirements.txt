@@ -1,34 +1,3 @@
-django_colorfield-0.4.1-py3-none-any
-Pillow-8.2.0-cp37-cp37m-win32
-
-[
-    {
-        "doctype_lang_text": "ru",
-        "head_charset_text": "charset=utf-8",
-        "head_description_text": "",
-        "head_author_text": "",
-        "container_display_mode_classname": "active fixed",
-        "header_section_left": "Enable",
-        "button_menu_aside_left": "Enable",
-        "brand_details": "Enable",
-        "header_section_center": "Enable",
-        "header_section_right": "Enable",
-        "header_section_right_new_item_group": [],
-        "header_section_right_search_extra_button": "Enable",
-        "header_section_right_notification": "Enable",
-        "header_section_right_notification_row": [],
-        "header_section_right_user_settings": "Enable",
-        "header_section_right_user_settings_menu": "Enable",
-        "header_section_right_user_settings_new_item_group": [],
-        "container_aside_left": "Enable",
-        "container_aside_left_settings_menu": "Enable",
-        "container_aside_left_dashboards_menu": "Enable",
-        "container_aside_left_new_block": []
-    }
-]
-
-
-
 asgiref==3.3.4
 certifi==2021.5.30
 chardet==4.0.0
@@ -39,6 +8,7 @@ defusedxml==0.7.1
 diff-match-patch==20200713
 Django==3.2.3
 django-admin-rangefilter==0.8.1
+django-colorfield==0.4.1
 django-crispy-forms==1.11.2
 django-csp==3.7
 django-excel==0.0.10
@@ -68,6 +38,7 @@ odfpy==1.4.1
 openpyxl==3.0.7
 packaging==20.9
 pandas==1.2.4
+Pillow==8.2.0
 psycopg2==2.8.6
 pyasn1==0.4.8
 pyexcel==0.6.6
