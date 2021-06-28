@@ -747,15 +747,17 @@ svg {
     overflow: unset;
 }
 
-
 .header-section-right .row.header > .item-group {
-    width: fit-content;
-    height: fit-content;
+    width: 36px;
+    height: 23px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .header-section-right .row > .item-group > .items-frame {
-    width: 55px;
-    height: 45px;
+    width: 35px;
+    height: 25px;
 }
 
 .header-section-right .row > .item-group .items.countries {
