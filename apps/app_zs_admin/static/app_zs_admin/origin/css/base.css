@@ -776,7 +776,6 @@ svg {
 .header-section-right .row > .item-group:hover .items.countries {
     opacity: 1;
     visibility: visible;
-    margin-right: 7px;
     margin-top: 30px;
 }
 
