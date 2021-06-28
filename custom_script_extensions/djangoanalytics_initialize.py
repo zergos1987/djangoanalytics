@@ -223,11 +223,15 @@ def create_default_users_groups_permissions():
 
 
 def initialize_management_commands():
-	call_command('collectstatic', verbosity=0, interactive=False, link=False, clear=True)
-	# call_command('makemigrations', app_label='accounts', database='default')
-	# call_command('migrate', app_label='accounts', database='default')
-	call_command('makemigrations')
-	call_command('migrate')
+	project_path = os.getcwd()
+	# with open(project_path + '\\logs/django\\initialize_management_commands_check.log', 'w') as f:
+	# 	call_command('check', verbosity=1, stdout=f)
+	with open(project_path + '\\logs/django\\initialize_management_commands_collectstatic.log', 'w') as f:
+		call_command('collectstatic', verbosity=1, interactive=False, link=False, clear=True, stdout=f)
+	with open(project_path + '\\logs/django\\initialize_management_commands_makemigrations.log', 'w') as f:
+		call_command('makemigrations', verbosity=1, stdout=f)
+	with open(project_path + '\\logs/django\\initialize_management_commands_migrate.log', 'w') as f:
+		call_command('migrate', verbosity=1, stdout=f)
 
 
 def check_dbs_available():
