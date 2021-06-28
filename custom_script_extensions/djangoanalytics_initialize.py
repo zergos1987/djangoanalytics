@@ -232,6 +232,7 @@ def initialize_management_commands():
 		call_command('makemigrations', verbosity=1, stdout=f)
 	with open(project_path + '\\logs/django\\initialize_management_commands_migrate.log', 'w') as f:
 		call_command('migrate', verbosity=1, stdout=f)
+	#python manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('admin', 'admin@example.com', 'adminpass')"
 
 
 def check_dbs_available():
