@@ -532,6 +532,12 @@ svg {
     transition: all 0.5s;
 }
 
+.container-header .header-section-right button#locale {
+    padding: 0;
+    width: 25px;
+    height: 25px;
+}
+
 .container-header .header-section-right button:hover, 
 .container-header .header-section-right .item-group:not(.user_menu).active button {
 	/*background: #e7e7e7;*/
@@ -748,11 +754,10 @@ svg {
 }
 
 .header-section-right .row.header > .item-group {
-    width: 36px;
-    height: 23px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 45px;
+    height: 30px;
+    padding-right: 10px;
+    padding-top: 10px;
 }
 
 .header-section-right .row > .item-group > .items-frame {
@@ -771,8 +776,8 @@ svg {
 .header-section-right .row > .item-group:hover .items.countries {
     opacity: 1;
     visibility: visible;
-    margin-right: 18px;
-    margin-top: 45px;
+    margin-right: 7px;
+    margin-top: 30px;
 }
 
 .header-section-right .item-group.active .items.countries {
