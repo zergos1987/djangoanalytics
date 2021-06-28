@@ -775,6 +775,7 @@ svg {
 
 .header-section-right .item-group.active .items.countries {
     flex-direction: row;
+    height: auto;
 }
 
 .header-section-right .item-group .items > .col  {
