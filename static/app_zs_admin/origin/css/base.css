@@ -532,6 +532,12 @@ svg {
     transition: all 0.5s;
 }
 
+.container-header .header-section-right button#locale {
+    padding: 0;
+    width: 25px;
+    height: 25px;
+}
+
 .container-header .header-section-right button:hover, 
 .container-header .header-section-right .item-group:not(.user_menu).active button {
 	/*background: #e7e7e7;*/
@@ -747,15 +753,16 @@ svg {
     overflow: unset;
 }
 
-
 .header-section-right .row.header > .item-group {
-    width: fit-content;
-    height: fit-content;
+    width: 45px;
+    height: 30px;
+    padding-right: 10px;
+    padding-top: 2px;
 }
 
 .header-section-right .row > .item-group > .items-frame {
-    width: 55px;
-    height: 45px;
+    width: 35px;
+    height: 25px;
 }
 
 .header-section-right .row > .item-group .items.countries {
@@ -764,17 +771,17 @@ svg {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s;
+    margin-top: 30px;
 }
 
 .header-section-right .row > .item-group:hover .items.countries {
     opacity: 1;
     visibility: visible;
-    margin-right: 18px;
-    margin-top: 45px;
 }
 
 .header-section-right .item-group.active .items.countries {
     flex-direction: row;
+    height: auto;
 }
 
 .header-section-right .item-group .items > .col  {
@@ -976,6 +983,7 @@ svg {
     min-width: fit-content;
     font-size: 0.8rem;
     position: relative;
+    cursor: pointer;
 }
 
 .container-aside-left .items > a > .item-group {

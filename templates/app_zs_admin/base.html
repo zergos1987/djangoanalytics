@@ -10,9 +10,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         {% endblock head_meta_viewport_block %}
         <meta http-equiv="X-UA-Compatible" content="ie-edge">
-        <meta name="description" content="{% block head_meta_description_text %}Djangoanalytics main page{% endblock head_meta_description_text %}">
-        <meta name="author" content="{% block head_meta_author_text %}ZS.Vasily{% endblock head_meta_author_text %}">
-        <title>{% block head_title_text %}Djangoanalytics main page{% endblock head_title_text %}</title>
+        <meta name="description" content="{% block head_meta_description_text %}ZSAdmin main page{% endblock head_meta_description_text %}">
+        <meta name="author" content="{% block head_meta_author_text %}ZSVasily{% endblock head_meta_author_text %}">
+        <title>{% block head_title_text %}Django ZS Admin{% endblock head_title_text %}</title>
         <link rel="shortcut icon" href="{% block head_link_favicon_href %}{% static 'app_zs_admin/origin/res/img/favicon.ico' %}{% endblock head_link_favicon_href %}" type="image/x-icon">
         <link rel="canonical" href="https://wwww.{{ request.get_host }}/">
         <link rel="alternate" media="handheld" href="https://m.{{ request.get_host }}/">
@@ -255,6 +255,7 @@
                     </a>
                     <div class="items-frame">
                         <div class="items">
+                            {% block container_aside_left_settings_menu_items %}
                             <a href="#" class="level-1"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>Приложения</span></div></a>
                             <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>accounts</span></div></a>
                             <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>app_opensource_dashboards</span></div></a>
@@ -272,6 +273,7 @@
                             <a href="#" class="level-3"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>ZS</span></div></a>
                             <a href="#" class="level-4"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>создание</span></div></a>
                             <a href="#" class="level-4"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>изменение</span></div></a>
+                            {% endblock container_aside_left_settings_menu_items %}
                         </div>
                     </div>
                 </div>
@@ -291,6 +293,7 @@
                     </a>
                     <div class="items-frame">
                         <div class="items">
+                            {% block container_aside_left_dashboards_menu_items %}
                             <a href="#" class="level-1"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>Департамент #1</span></div></a>
                             <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #1</span></div></a>
                             <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #2</span></div></a>
@@ -307,6 +310,7 @@
                             <a href="#" class="level-1"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>ФИО #3</span></div></a>
                             <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #1</span></div></a>
                             <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #2</span></div></a>
+                            {% endblock container_aside_left_dashboards_menu_items %}
                         </div>
                     </div>
                 </div>

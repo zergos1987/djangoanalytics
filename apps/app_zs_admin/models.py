@@ -95,7 +95,7 @@ menu_icon_type_choices = (
 	("folder", "folder"),
 	("arrow", "arrow"),
 )
-class settings_menu_includes(models.Model):
+class aside_left_menu_includes(models.Model):
 	name = models.CharField(max_length=200)
 	parent_name = models.CharField(max_length=200) 
 	menu_level = models.CharField(max_length=15, choices=menu_level_choices, default='level-0')
@@ -115,20 +115,20 @@ class settings_menu_includes(models.Model):
 		if self.name == self.parent_name:
 			if self.is_actual:
 				try:
-					settings_menu_includes.objects.filter(
+					aside_left_menu_includes.objects.filter(
 						name_order_by=self.name_order_by, 
 						is_actual=False).exclude(id=self.id).update(is_actual=True)
 				except Exception as e:
 					pass
 			else:
 				try:
-					settings_menu_includes.objects.filter(
+					aside_left_menu_includes.objects.filter(
 						name_order_by=self.name_order_by, 
 						is_actual=True).exclude(id=self.id).update(is_actual=False)
 				except Exception as e:
 					pass
 
-		super(settings_menu_includes, self).save(*args, **kwargs)
+		super(aside_left_menu_includes, self).save(*args, **kwargs)
 
 	def __str__(self):
 		return (
@@ -166,8 +166,9 @@ class app(models.Model):
 	app_settings_header_section_right_user_settings_menu_enable = models.BooleanField(default=True)
 	app_settings_container_aside_left_enable = models.BooleanField(default=True)
 	app_settings_container_aside_left_settings_menu_enable = models.BooleanField(default=True)
-	app_settings_container_aside_left_settings_menu_items_includes = models.ManyToManyField(settings_menu_includes, blank=True,  limit_choices_to = {'is_actual': True})
+	app_settings_container_aside_left_settings_menu_items_includes = models.ManyToManyField(aside_left_menu_includes, related_name='settings_menu', blank=True,  limit_choices_to = {'is_actual': True})
 	app_settings_container_aside_left_dashboards_menu_enable = models.BooleanField(default=True)
+	app_settings_container_aside_left_dashboards_menu_items_includes = models.ManyToManyField(aside_left_menu_includes, related_name='dashboards_menu', blank=True,  limit_choices_to = {'is_actual': True})
 	app_settings = JSONField(default=list, null=True, blank=True)
 	is_actual = models.BooleanField(default=False)
 

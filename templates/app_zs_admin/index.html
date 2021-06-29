@@ -94,19 +94,28 @@
 			<!-- container-aside-left -->
 			{% block container_aside_left %}{% if app_settings.app_settings_container_aside_left_enable %}{{ block.super }}{% endif %}{% endblock container_aside_left %}
 
+
 				{% block container_aside_left_settings_menu %}{% if app_settings.app_settings_container_aside_left_settings_menu_enable %}{{ block.super }}{% endif %}{% endblock container_aside_left_settings_menu %}
 
-					{% block container_aside_left_dashboards_menu_items %}
+					{% block container_aside_left_settings_menu_items %}
 				        {% if app_settings.app_settings_container_aside_left_settings_menu_items_includes.all %}
-				        	{% include "app_zs_admin/include/container_aside_left_settings_menu_items_includes.html" with dashboards_menu_items=app_settings.app_settings_container_aside_left_settings_menu_items_includes.all %}
+				        	{% include "app_zs_admin/include/container_aside_left_menu_items_includes.html" with menu_items=app_settings.app_settings_container_aside_left_settings_menu_items_includes.all %}
+				        {% else %}
+				        	{{ block.super }}
+				        {% endif %}
+			        {% endblock container_aside_left_settings_menu_items %}
+
+
+				{% block container_aside_left_dashboards_menu %}{% if app_settings.app_settings_container_aside_left_dashboards_menu_enable %}{{ block.super }}{% endif %}{% endblock container_aside_left_dashboards_menu %}
+
+					{% block container_aside_left_dashboards_menu_items %}
+				        {% if app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}
+				        	{% include "app_zs_admin/include/container_aside_left_menu_items_includes.html" with menu_items=app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}
 				        {% else %}
 				        	{{ block.super }}
 				        {% endif %}
 			        {% endblock container_aside_left_dashboards_menu_items %}
 
-
-
-				{% block container_aside_left_dashboards_menu %}{% if app_settings.app_settings_container_aside_left_dashboards_menu_enable %}{{ block.super }}{% endif %}{% endblock container_aside_left_dashboards_menu %}
 			<!-- end container-aside-left -->
 
 			<!-- container-main -->
@@ -115,6 +124,7 @@
 				 	{% block breadcrumb_items %}{% endblock breadcrumb_items %}
 
 				{% block container_main_content %}
+
 				<div class="wrapper">	
 					<div class="main_text_header">Аналитика и Дашборды</div>
 					<div class="main_theme">

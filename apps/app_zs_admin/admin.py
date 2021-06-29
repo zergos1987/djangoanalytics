@@ -9,7 +9,7 @@ from .models import (
         meta_charset_code,
         meta_author_description,
         user_settings_locale_includes,
-        settings_menu_includes,
+        aside_left_menu_includes,
 	)
 
 # Register your models here.
@@ -224,13 +224,13 @@ admin.site.register(user_settings_locale_includes, user_settings_locale_includes
 
 
 
-class settings_menu_includesResource(resources.ModelResource):
+class aside_left_menu_includesResource(resources.ModelResource):
     class Meta:
-        model = user_settings_locale_includes
+        model = aside_left_menu_includes
         fields = (
             'name', 'parent_name', 'menu_level', 'menu_icon_type', 'name_order_by', 'parent_name_order_by', 'is_actual',  'href',  ) 
 
-class settings_menu_includesAdmin(ImportExportModelAdmin):
+class aside_left_menu_includesAdmin(ImportExportModelAdmin):
     list_display = [
         'name', 'parent_name', 'menu_level', 'menu_icon_type', 'name_order_by', 'parent_name_order_by', 'is_actual',  'href']
 
@@ -254,5 +254,5 @@ class settings_menu_includesAdmin(ImportExportModelAdmin):
     class Media:
         js = ('/static/admin/js/jquery.grp_timepicker.js', )
 
-    resource_class = settings_menu_includesResource
-admin.site.register(settings_menu_includes, settings_menu_includesAdmin)
+    resource_class = aside_left_menu_includesResource
+admin.site.register(aside_left_menu_includes, aside_left_menu_includesAdmin)

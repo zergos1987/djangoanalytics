@@ -757,7 +757,7 @@ svg {
     width: 45px;
     height: 30px;
     padding-right: 10px;
-    padding-top: 10px;
+    padding-top: 2px;
 }
 
 .header-section-right .row > .item-group > .items-frame {
@@ -771,12 +771,12 @@ svg {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s;
+    margin-top: 30px;
 }
 
 .header-section-right .row > .item-group:hover .items.countries {
     opacity: 1;
     visibility: visible;
-    margin-top: 30px;
 }
 
 .header-section-right .item-group.active .items.countries {
@@ -983,6 +983,7 @@ svg {
     min-width: fit-content;
     font-size: 0.8rem;
     position: relative;
+    cursor: pointer;
 }
 
 .container-aside-left .items > a > .item-group {
