@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User, Group
 from django.db.models import IntegerField
 from colorfield.fields import ColorField
 from jsonfield import JSONField
@@ -95,6 +96,12 @@ menu_icon_type_choices = (
 	("folder", "folder"),
 	("arrow", "arrow"),
 )
+app_name_list = (
+	("os_dashboards", "os_dashboards"),
+	("zs_dashboards", "zs_dashboards"),
+	("zs_examples", "zs_examples"),
+)
+
 class aside_left_menu_includes(models.Model):
 	name = models.CharField(max_length=200)
 	parent_name = models.CharField(max_length=200) 
@@ -102,6 +109,9 @@ class aside_left_menu_includes(models.Model):
 	menu_icon_type = models.CharField(max_length=15, choices=menu_icon_type_choices, default='arrow')
 	name_order_by = IntegerField(default=1, choices=[(i, i) for i in range(1, 16)])
 	parent_name_order_by = IntegerField(default=1, choices=[(i, i) for i in range(1, 16)])
+	url_access_via_groups = models.ManyToManyField(Group, blank=True)
+	url_access_via_users = models.ManyToManyField(User, blank=True)
+	render_app_name  = models.CharField(max_length=15, choices=app_name_list, null=True, blank=True) 
 	is_actual = models.BooleanField(default=True)
 	href = models.CharField(max_length=800, blank=True, null=True, default="#")
 
@@ -112,6 +122,9 @@ class aside_left_menu_includes(models.Model):
 		unique_together = ('name', 'parent_name', 'name_order_by', 'parent_name_order_by',)
 	
 	def save(self, *args, **kwargs):
+		if self.menu_icon_type == 'arrow' and self.href != '#':
+			self.href = '#'
+			
 		if self.name == self.parent_name:
 			if self.is_actual:
 				try:
@@ -136,6 +149,7 @@ class aside_left_menu_includes(models.Model):
 			self.parent_name + ' | ' + 
 			self.menu_level + ' | ' + 
 			self.menu_icon_type + ' | ' +
+			str(self.render_app_name) + ' | ' +
 			str(self.is_actual) + ' | ' +
 			str(self.name_order_by) + ' | ' + 
 			str(self.parent_name_order_by))
