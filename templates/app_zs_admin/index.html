@@ -21,7 +21,7 @@
 	
 	{% block head_title_text %}{% if app_settings.app_brand_name %}{{ app_settings.app_brand_name }}{% else %}{{ block.super }}{% endif %}{% endblock head_title_text %}
 	
-	{% block head_link_favicon_href %}{% if app_settings.app_brand_ico %}media/{{ app_settings.app_brand_ico }}{% else %}{{ block.super }}{% endif %}{% endblock head_link_favicon_href %}
+	{% block head_link_favicon_href %}{% if app_settings.app_brand_ico %}/media/{{ app_settings.app_brand_ico }}{% else %}{{ block.super }}{% endif %}{% endblock head_link_favicon_href %}
 	<!-- css -->
 	{% block head_css %}{{ block.super }}{% endblock head_css %}
 	    <!-- APP CSS -->
@@ -55,7 +55,7 @@
 				
 				{% block header_section_left_brand_details %}{% if app_settings.app_settings_header_section_left_brand_details_enable %}{{ block.super }}{% endif %}{% endblock header_section_left_brand_details %}
 					
-					{% block brand_details_logo_url %}{% if app_settings.app_brand_logo %}media/{{ app_settings.app_brand_logo }}{% else %}{{ block.super }}{% endif %}{% endblock brand_details_logo_url %}
+					{% block brand_details_logo_url %}{% if app_settings.app_brand_logo %}/media/{{ app_settings.app_brand_logo }}{% else %}{{ block.super }}{% endif %}{% endblock brand_details_logo_url %}
 						
 						{% block header_section_left_brand_details_logo_zoom %}{% if app_settings.app_brand_logo_zoom %}{{ app_settings.app_brand_logo_zoom|unlocalize }}{% else %}{{ block.super }}{% endif %}{% endblock header_section_left_brand_details_logo_zoom %}
 					
@@ -93,7 +93,8 @@
 
 			<!-- container-aside-left -->
 			{% block container_aside_left %}{% if app_settings.app_settings_container_aside_left_enable %}{{ block.super }}{% endif %}{% endblock container_aside_left %}
-
+			
+			{% block main_site_page %}{% if app_settings.app_settings_container_aside_left_main_site_page %}/{{app_settings.app_settings_container_aside_left_main_site_page}}/{% else %}{{ block.super }}{% endif %}{% endblock main_site_page %}
 
 				{% block container_aside_left_settings_menu %}{% if app_settings.app_settings_container_aside_left_settings_menu_enable %}{{ block.super }}{% endif %}{% endblock container_aside_left_settings_menu %}
 

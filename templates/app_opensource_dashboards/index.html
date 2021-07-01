@@ -94,6 +94,8 @@
 
 			<!-- container-aside-left -->
 			{% block container_aside_left %}{% if app_settings.app_settings_container_aside_left_enable %}{{ block.super }}{% endif %}{% endblock container_aside_left %}
+			
+			{% block main_site_page %}{% if app_settings.app_settings_container_aside_left_main_site_page %}/{{app_settings.app_settings_container_aside_left_main_site_page}}/{% else %}{{ block.super }}{% endif %}{% endblock main_site_page %}
 
 
 				{% block container_aside_left_settings_menu %}{% if app_settings.app_settings_container_aside_left_settings_menu_enable %}{{ block.super }}{% endif %}{% endblock container_aside_left_settings_menu %}

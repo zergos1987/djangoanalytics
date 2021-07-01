@@ -37,6 +37,12 @@ if not os.getenv('django_load_once'):
     os.environ['django_load_once'] = str(os.getpid())
 
 
+handler400 = 'apps.app_zs_admin.views.handler400'
+handler403 = 'apps.app_zs_admin.views.handler403'
+handler404 = 'apps.app_zs_admin.views.handler404'
+handler500 = 'apps.app_zs_admin.views.handler500'
+
+
 urlpatterns = [
     url(r'^adminlogout/$', accounts_views.signout, name='signout'),
     path('grappelli/', include('grappelli.urls')), # grappelli URLS
@@ -78,3 +84,10 @@ urlpatterns += [
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+elif getattr(settings, 'USE_DEBUG_STATIC_IN_PROD', False):
+    settings.DEBUG = True
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(
+        settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    settings.DEBUG = False

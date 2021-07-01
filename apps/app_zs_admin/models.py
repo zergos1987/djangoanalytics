@@ -97,11 +97,11 @@ menu_icon_type_choices = (
 	("arrow", "arrow"),
 )
 app_name_list = (
+	("zs_admin", "zs_admin"),
 	("os_dashboards", "os_dashboards"),
 	("zs_dashboards", "zs_dashboards"),
 	("zs_examples", "zs_examples"),
 )
-
 class aside_left_menu_includes(models.Model):
 	name = models.CharField(max_length=200)
 	parent_name = models.CharField(max_length=200) 
@@ -111,7 +111,7 @@ class aside_left_menu_includes(models.Model):
 	parent_name_order_by = IntegerField(default=1, choices=[(i, i) for i in range(1, 16)])
 	url_access_via_groups = models.ManyToManyField(Group, blank=True)
 	url_access_via_users = models.ManyToManyField(User, blank=True)
-	render_app_name  = models.CharField(max_length=15, choices=app_name_list, null=True, blank=True) 
+	render_app_name  = models.CharField(max_length=70, choices=app_name_list, null=True, blank=True) 
 	is_actual = models.BooleanField(default=True)
 	href = models.CharField(max_length=800, blank=True, null=True, default="#")
 
@@ -156,6 +156,17 @@ class aside_left_menu_includes(models.Model):
 
 
 
+
+app_name_list = (
+	("zs_admin", "zs_admin"),
+	("accounts", "accounts"),
+	("os_dashboards", "os_dashboards"),
+	("os_surveys", "os_surveys"),
+	("zs_dashboards", "zs_dashboards"),
+	("zs_examples", "zs_examples"),
+	("db_sadko", "db_sadko"),
+	("db_sqlite_test", "db_sqlite_test"),
+)
 class app(models.Model):
 	app_brand_name = models.CharField(max_length=400, default='DjangoAnalytics')
 	app_brand_color = ColorField(default='#333')
@@ -179,6 +190,7 @@ class app(models.Model):
 	app_settings_header_section_right_user_settings_locale_includes = models.ManyToManyField(user_settings_locale_includes, blank=True,  limit_choices_to = {'is_actual': True})
 	app_settings_header_section_right_user_settings_menu_enable = models.BooleanField(default=True)
 	app_settings_container_aside_left_enable = models.BooleanField(default=True)
+	app_settings_container_aside_left_main_site_page = models.CharField(max_length=70, choices=app_name_list, null=True, blank=True) 
 	app_settings_container_aside_left_settings_menu_enable = models.BooleanField(default=True)
 	app_settings_container_aside_left_settings_menu_items_includes = models.ManyToManyField(aside_left_menu_includes, related_name='settings_menu', blank=True,  limit_choices_to = {'is_actual': True})
 	app_settings_container_aside_left_dashboards_menu_enable = models.BooleanField(default=True)

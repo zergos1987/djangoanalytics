@@ -530,6 +530,8 @@ STATICFILES_DIRS = [
     BASE_DIR / 'staticfiles',
 ]
 
+USE_DEBUG_STATIC_IN_PROD = os.environ.get("USE_DEBUG_STATIC_IN_PROD", config('USE_DEBUG_STATIC_IN_PROD', default=False, cast=bool))
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
