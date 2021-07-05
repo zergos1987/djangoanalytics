@@ -25,6 +25,37 @@ class app(models.Model):
 
 
 
+class user_extra_details(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    full_name = models.CharField(max_length=300, blank=True, null=True)
+    department = models.CharField(max_length=800, blank=True, null=True)
+    center = models.CharField(max_length=800, blank=True, null=True)
+    position = models.CharField(max_length=800, blank=True, null=True)
+    name = models.CharField(max_length=300, blank=True, null=True)
+    last_name = models.CharField(max_length=300, blank=True, null=True)
+    ldap_groups = models.CharField(max_length=30, blank=True, null=True)
+
+    class Meta:
+        # app_label helps django to recognize your db
+        app_label = 'accounts'
+
+    def save(self, *args, **kwargs):
+        print('1111', self.user.username)
+        super(Model, self).save(*args, **kwargs)
+
+        
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        user_extra_details.objects.create(user=instance)
+
+
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    instance.profile.save()
+
+
+
 class AuditEntry(models.Model):
     action = models.CharField(max_length=64)
     dt = models.DateTimeField(null=True, blank=True)
@@ -37,6 +68,9 @@ class AuditEntry(models.Model):
     os_family = models.CharField(max_length=100, null=True)
     os_version = models.CharField(max_length=100, null=True)
 
+    class Meta:
+        # app_label helps django to recognize your db
+        app_label = 'accounts'
 
     def __unicode__(self):
         return '{0} - {1} - {2} - {3} - {4} - {5} - {6} - {7} - {8} - {9}'.format(
@@ -67,6 +101,9 @@ class UserSession(models.Model):
     remove_session = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
 
+    class Meta:
+        # app_label helps django to recognize your db
+        app_label = 'accounts'
 
     def __str__(self):
         return '{0} - {1} - {2} - {3}'.format(
