@@ -1122,6 +1122,7 @@ svg {
 .container:not(.active) .item-group:not(.active) .items > .level-5 .fa-localy:before {
     width: 0px;
     height: 0px;
+    transition: width 0.45s, height 0.45s;
 }
 
 .container:hover > .container-aside-left > .item-group > .items-frame > .items > .level-2:not(.displayBlock), 
@@ -1605,4 +1606,3 @@ svg {
 
 /*MEDIA Ipad landscape*/
 /*MEDIA end Ipad landscape*/
-

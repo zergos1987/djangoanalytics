@@ -1122,6 +1122,7 @@ svg {
 .container:not(.active) .item-group:not(.active) .items > .level-5 .fa-localy:before {
     width: 0px;
     height: 0px;
+    transition: width 0.45s, height 0.45s;
 }
 
 .container:hover > .container-aside-left > .item-group > .items-frame > .items > .level-2:not(.displayBlock), 
@@ -1132,7 +1133,7 @@ svg {
 .container:not(.active):hover .item-group:not(.active) .items > .level-3,
 .container:not(.active):hover .item-group:not(.active) .items > .level-4, 
 .container:not(.active):hover .item-group:not(.active) .items > .level-5 {
-    transition: opacity 0.45s, color 0.45s, height 0.45s, max-height 0.45s, padding-top 0.45s, padding-bottom 0.45s;
+    transition: opacity 0.45s, color 0.45s, height 0.45s, max-height 0.45s, padding-top 0.45s, padding-bottom 0.45s, font-size 0.45s;
 }
 
 .container-aside-left > .item-group > .items-frame > .items > .level-2:not(.displayBlock), 
@@ -1149,7 +1150,6 @@ svg {
     max-height: 0px;
     padding-top: 0px;
     padding-bottom: 0px;
-    /*font-size: 0.8rem;*/
     font-size: 0rem;
 }
 
@@ -1605,4 +1605,3 @@ svg {
 
 /*MEDIA Ipad landscape*/
 /*MEDIA end Ipad landscape*/
-

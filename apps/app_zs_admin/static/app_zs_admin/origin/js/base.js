@@ -345,5 +345,4 @@ $(document).ready(function(){
 	    }
 
 	});
-
 });

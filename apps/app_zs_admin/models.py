@@ -191,6 +191,7 @@ class app(models.Model):
 	app_settings_header_section_right_user_settings_menu_enable = models.BooleanField(default=True)
 	app_settings_container_aside_left_enable = models.BooleanField(default=True)
 	app_settings_container_aside_left_main_site_page = models.CharField(max_length=70, choices=app_name_list, null=True, blank=True) 
+	app_zs_admin_start_page = models.CharField(max_length=70, choices=app_name_list, null=True, blank=False, default='zs_admin') 
 	app_settings_container_aside_left_settings_menu_enable = models.BooleanField(default=True)
 	app_settings_container_aside_left_settings_menu_items_includes = models.ManyToManyField(aside_left_menu_includes, related_name='settings_menu', blank=True,  limit_choices_to = {'is_actual': True})
 	app_settings_container_aside_left_dashboards_menu_enable = models.BooleanField(default=True)
@@ -199,7 +200,6 @@ class app(models.Model):
 	is_actual = models.BooleanField(default=False)
 
 	class Meta:
-		# app_label helps django to recognize your db
 		app_label = 'app_zs_admin'
 		unique_together = ('app_brand_name', 'app_brand_ico', 'app_brand_logo', 'app_breadcrumb_active')
 
