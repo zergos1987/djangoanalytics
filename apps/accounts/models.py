@@ -25,6 +25,15 @@ class app(models.Model):
 
 
 
+# RelatedObjectDoesNotExist at /adminlogin/
+# User has no user_extra_details.
+# $ python manage.py shell
+# > from django.contrib.auth.models import User
+# > from apps.accounts.models import user_extra_details
+# > users = User.objects.filter(user_extra_details=None)
+# > for user in users:
+# >     user_extra_details.objects.create(user=user)
+
 class user_extra_details(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=300, blank=True, null=True)
@@ -39,20 +48,19 @@ class user_extra_details(models.Model):
         # app_label helps django to recognize your db
         app_label = 'accounts'
 
-    def save(self, *args, **kwargs):
-        print('1111', self.user.username)
-        super(Model, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     print('1111', self.user.username)
+    #     super(user_extra_details, self).save(*args, **kwargs)
 
-        
 @receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
+def create_user_extra_details(sender, instance, created, **kwargs):
     if created:
         user_extra_details.objects.create(user=instance)
 
 
 @receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+def save_user_extra_details(sender, instance, **kwargs):
+    instance.user_extra_details.save()
 
 
 
