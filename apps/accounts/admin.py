@@ -16,7 +16,8 @@ import logging
 from .models import (
     app,
 	AuditEntry,
-    UserSession
+    UserSession,
+    user_extra_details
 	)
 
 logger = logging.getLogger(__name__)
@@ -352,6 +353,57 @@ class CustomUser_Admin(ImportExportModelAdmin, UserAdmin):
 
 admin.site.unregister(User)
 admin.site.register(User, CustomUser_Admin)
+
+
+
+
+
+class user_extra_details_Resource(resources.ModelResource):
+    class Meta:
+        model = user_extra_details
+        fields = ('user', 'full_name', 'department', 
+            'center', 'position', 'name', 'last_name', 'ldap_groups', 'ldap_is_active',)
+
+class user_extra_details_Admin(ImportExportModelAdmin):
+    list_per_page = 15
+    list_display = ['user', 'full_name', 'department', 'center', 'position', 'name', 'last_name', 'ldap_groups', 'ldap_is_active']
+    list_filter = ('department', 'center', 'position', 'ldap_is_active',)
+    search_fields = ['user',  'full_name', 'department', 'center', 'position']
+    
+    def has_import_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_export_permission(self, request, obj=None):
+        return True
+        # if request.user.is_superuser:
+        #     return True
+        # else:
+        #     return False
+
+    def has_add_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_change_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_delete_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+            
+    resource_class = user_extra_details_Resource
+
+admin.site.register(user_extra_details, user_extra_details_Admin)
 
 
 
