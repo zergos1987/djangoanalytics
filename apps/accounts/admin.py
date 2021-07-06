@@ -362,11 +362,11 @@ class user_extra_details_Resource(resources.ModelResource):
     class Meta:
         model = user_extra_details
         fields = ('user', 'full_name', 'department', 
-            'center', 'position', 'name', 'last_name', 'ldap_groups', 'ldap_is_active',)
+            'center', 'position', 'name', 'last_name', 'ldap_is_active',)
 
 class user_extra_details_Admin(ImportExportModelAdmin):
     list_per_page = 15
-    list_display = ['user', 'full_name', 'department', 'center', 'position', 'name', 'last_name', 'ldap_groups', 'ldap_is_active']
+    list_display = ['user', 'full_name', 'department', 'center', 'position', 'name', 'last_name', 'ldap_is_active']
     list_filter = ('department', 'center', 'position', 'ldap_is_active',)
     search_fields = ['user',  'full_name', 'department', 'center', 'position']
     
