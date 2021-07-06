@@ -164,6 +164,10 @@ def update_user_extra_data(username, extra_data):
 	#u.ldap_groups = get_update_value('ldap_groups')
 	u.ldap_is_active = get_update_value('ldap_is_active')
 	u.save()
+	
+	if u.ldap_is_active == False:
+		u.is_active = False
+		u.save()
 
 
 
