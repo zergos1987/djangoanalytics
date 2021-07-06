@@ -4,10 +4,10 @@ from django.contrib.auth.models import User
 from django.contrib.sessions.models import Session
 from django.contrib.auth.signals import user_logged_in, user_logged_out, user_login_failed
 from django.dispatch import receiver
+from django.db.models.signals import post_save
 from django.utils import timezone
 from django.utils.timezone import now
 from user_agents import parse
-from django.db.models.signals import post_save
 
 now = timezone.now()
 
@@ -24,7 +24,6 @@ class app(models.Model):
         return self.test_field
 
 
-
 # RelatedObjectDoesNotExist at /adminlogin/
 # User has no user_extra_details.
 # $ python manage.py shell
@@ -35,7 +34,7 @@ class app(models.Model):
 # >     user_extra_details.objects.create(user=user)
 
 class user_extra_details(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user_extra_details")
     full_name = models.CharField(max_length=300, blank=True, null=True)
     department = models.CharField(max_length=800, blank=True, null=True)
     center = models.CharField(max_length=800, blank=True, null=True)
@@ -43,24 +42,47 @@ class user_extra_details(models.Model):
     name = models.CharField(max_length=300, blank=True, null=True)
     last_name = models.CharField(max_length=300, blank=True, null=True)
     ldap_groups = models.CharField(max_length=30, blank=True, null=True)
+    ldap_is_active = models.BooleanField(default=False)
+
 
     class Meta:
         # app_label helps django to recognize your db
         app_label = 'accounts'
 
-    # def save(self, *args, **kwargs):
-    #     print('1111', self.user.username)
-    #     super(user_extra_details, self).save(*args, **kwargs)
+    __init_full_name = None
+    __init_department = None
+    __init_center = None
+    __init_position = None
 
-@receiver(post_save, sender=User)
-def create_user_extra_details(sender, instance, created, **kwargs):
-    if created:
-        user_extra_details.objects.create(user=instance)
+    def __init__(self, *args, **kwargs):
+        super(user_extra_details, self).__init__(*args, **kwargs)
+        self.__init_full_name = self.full_name
+        self.__init_department = self.department
+        self.__init_center = self.center
+        self.__init_position = self.position
+
+    def save(self, force_insert=False, force_update=False, *args, **kwargs):
+        if self.full_name != self.__init_full_name or \
+            self.department != self.__init_department or \
+            self.center != self.__init_center or \
+            self.position != self.__init_position:
+
+        super(user_extra_details, self).save(force_insert, force_update, *args, **kwargs)
+        self.__init_full_name = self.full_name
+        self.__init_department = self.department
+        self.__init_center = self.center
+        self.__init_position = self.position
 
 
-@receiver(post_save, sender=User)
-def save_user_extra_details(sender, instance, **kwargs):
-    instance.user_extra_details.save()
+# @receiver(post_save, sender=User)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         user_extra_details.objects.create(user=instance)
+
+
+# @receiver(post_save, sender=User)
+# def save_user_profile(sender, instance, **kwargs):
+#     instance.user_extra_details.save()
 
 
 
