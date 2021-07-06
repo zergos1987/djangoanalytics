@@ -200,7 +200,6 @@ def custom_sync_user_relations(user, data):
         {'position': data.get('title', None)},
         {'name': data.get('sn', None)},
         {'last_name': data.get('givenName', None)},
-        {'ldap_groups': ldap_groups},
         {'ldap_is_active': ldap_is_active}
     ]
     update_user_extra_data(user, extra_data)
