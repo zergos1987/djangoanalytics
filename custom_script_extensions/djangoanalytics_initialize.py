@@ -161,7 +161,6 @@ def update_user_extra_data(username, extra_data):
 	u.position = get_update_value('position')
 	u.name = get_update_value('name')
 	u.last_name = get_update_value('last_name')
-	#u.ldap_groups = get_update_value('ldap_groups')
 	u.ldap_is_active = get_update_value('ldap_is_active')
 	u.save()
 	
