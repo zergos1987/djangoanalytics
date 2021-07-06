@@ -41,7 +41,6 @@ class user_extra_details(models.Model):
     position = models.CharField(max_length=800, blank=True, null=True)
     name = models.CharField(max_length=300, blank=True, null=True)
     last_name = models.CharField(max_length=300, blank=True, null=True)
-    ldap_groups = models.CharField(max_length=30, blank=True, null=True)
     ldap_is_active = models.BooleanField(default=False)
 
 
