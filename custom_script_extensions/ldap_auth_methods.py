@@ -5,7 +5,7 @@ import os
 
 from django_python3_ldap.utils import sync_user_relations
 from django_python3_ldap.utils import clean_user_data
-from custom_script_extensions.djangoanalytics_initialize import get_or_create_groups, add_groups_to_users, update_user_groups
+from custom_script_extensions.djangoanalytics_initialize import get_or_create_groups, add_groups_to_users, update_user_groups, update_user_extra_data
 
 
 logger = logging.getLogger(__name__)
@@ -177,8 +177,10 @@ def ldap_check_user_exists_in_group(conn=None, ldap_user_login=None, ldap_search
 
 
 
-
 def custom_sync_user_relations(user, data):
+    ldap_is_active = False
+    if data.get('userAccountControl', None)[0] in ['512', '544', '66048', '66080']:
+        ldap_is_active = True
 
     ldap_groups = list(data.get('memberOf', ()))
     clean_ldap_groups = []
@@ -191,20 +193,32 @@ def custom_sync_user_relations(user, data):
             add_groups_to_users(user, g)
     update_user_groups(user, clean_ldap_groups, 'LDAP')
 
+    extra_data = [
+        {'full_name': data.get('displayName', None)},
+        {'department': data.get('department', None)},
+        {'center': data.get('division', None)},
+        {'position': data.get('title', None)},
+        {'name': data.get('sn', None)},
+        {'last_name': data.get('givenName', None)},
+        {'ldap_groups': ldap_groups},
+        {'ldap_is_active': ldap_is_active}
+    ]
+    update_user_extra_data(user, extra_data)
+
     return user, data
 
 
 def custom_clean_user_data(ldap_data):
     model_data = clean_user_data(ldap_data)
 
-    enabled_values = ['512', '544', '66048', '66080']
-    try:
-        if model_data['is_active'] in enabled_values:
-            model_data['is_active'] = True
-        else:
-            model_data['is_active'] = False
-    except KeyError:
-        model_data['is_active'] = False
+    # enabled_values = ['512', '544', '66048', '66080']
+    # try:
+    #     if model_data['is_active'] in enabled_values:
+    #         model_data['is_active'] = True
+    #     else:
+    #         model_data['is_active'] = False
+    # except KeyError:
+    #     model_data['is_active'] = False
 
 
     return model_data
