@@ -1,12 +1,14 @@
 from django.core.management import call_command
 from django.db import connections
 from django.contrib.auth.models import User, Group, Permission, ContentType
+from apps.accounts.models import user_extra_details
 from django.db.models import Q
 import operator
 from functools import reduce
 import logging
 import sys
 import os
+
 
 
 
@@ -142,6 +144,26 @@ def update_user_groups(username, update_group_list, filter_contains):
     for g in list(user_groups):
         if g.name not in update_group_list:
             user.groups.remove(g)
+
+
+#update user extra data
+def update_user_extra_data(username, extra_data):
+	def get_update_value(search_field):
+		v = [i for i in extra_data if search_field in i][0].get(search_field, None)#[0]
+		if type(v).__name__ != 'bool': v = v[0]
+		return v
+
+	user = User.objects.get(username=username)
+	u, created = user_extra_details.objects.get_or_create(user=user)
+	u.full_name = get_update_value('full_name')
+	u.department = get_update_value('department')
+	u.center = get_update_value('center')
+	u.position = get_update_value('position')
+	u.name = get_update_value('name')
+	u.last_name = get_update_value('last_name')
+	#u.ldap_groups = get_update_value('ldap_groups')
+	u.ldap_is_active = get_update_value('ldap_is_active')
+	u.save()
 
 
 
