@@ -66,6 +66,7 @@ class user_extra_details(models.Model):
             self.department != self.__init_department or \
             self.center != self.__init_center or \
             self.position != self.__init_position:
+            pass
 
         super(user_extra_details, self).save(force_insert, force_update, *args, **kwargs)
         self.__init_full_name = self.full_name
@@ -76,14 +77,12 @@ class user_extra_details(models.Model):
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
-    if not created and not sender.__name__ == 'User':
-        user_extra_details.objects.create(user=instance)
-    elif created:
-        user_extra_details.objects.create(user=instance)
+    user_extra_details.objects.get_or_create(user=instance)
 
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.user_extra_details.save()
+# @receiver(post_save, sender=User)
+# def save_user_profile(sender, instance, **kwargs):
+#     instance.user_extra_details.save()
+#     print(instance.user_extra_details.full_name)
 
 
 
