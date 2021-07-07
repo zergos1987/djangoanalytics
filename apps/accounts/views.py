@@ -23,8 +23,11 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
+            user.refresh_from_db()
+            #user.user_extra_details.email_signup_confirmed = True
+            user.save()
             auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            return redirect('login')
+            return redirect('/')
     else:
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
