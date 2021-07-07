@@ -65,6 +65,7 @@ class user_extra_details(models.Model):
             self.department != self.__init_department or \
             self.center != self.__init_center or \
             self.position != self.__init_position:
+                pass
 
         super(user_extra_details, self).save(force_insert, force_update, *args, **kwargs)
         self.__init_full_name = self.full_name

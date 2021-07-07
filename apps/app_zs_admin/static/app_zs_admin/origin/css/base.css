@@ -576,7 +576,7 @@ svg {
     zoom: 1;
 }
 
-.Russian_Federation {
+.Russia {
     background-position: -17px -1003px;
 }
 
@@ -1082,8 +1082,8 @@ svg {
 .container-aside-left .fa-localy:before {
     content: "";
     background-repeat: no-repeat;
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
     position: relative;
     display: inline-block;
     filter: invert(37%) sepia(6%) saturate(7%) hue-rotate(357deg) brightness(95%) contrast(89%);
@@ -1330,7 +1330,7 @@ svg {
 }
 
 .container:not(.active) .container-aside-left .item-group.active > .items-frame > .items a:first-child {
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .container:not(.active) .container-aside-left .item-group.active > .items-frame > .items a:last-child {

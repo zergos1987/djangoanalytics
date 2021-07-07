@@ -1,6 +1,6 @@
 {% spaceless %}
 {% for item in menu_items %}
-<a {% if item.href == '#' %}{% else %}href="{{ request.scheme }}://{{ request.META.HTTP_HOST }}/{{item.render_app_name}}/render_view/{{item.id}}/"{% endif %} class="{{item.menu_level}}"><div class="row"><i class="fas fa-folder fa-localy {{item.menu_icon_type}}"></i><span>{{item.parent_name}}</span></div></a>
+<a {% if item.href == '#' %}{% else %}href="
+{% if item.render_app_name == None %}{{item.href}}{% else %}/{{item.render_app_name}}/render_view/{{item.id}}/{% endif %}"{% endif %} class="{{item.menu_level}}"><div class="row"><i class="fas fa-folder fa-localy {{item.menu_icon_type}}"></i><span>{{item.parent_name}}</span></div></a>
 {% endfor %}
 {% endspaceless %}
-
