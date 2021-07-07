@@ -6,6 +6,7 @@ from custom_script_extensions.forms import SignUpForm
 from custom_script_extensions.form_tags import *
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from django.utils.decorators import method_decorator
+from apps.accounts.models import user_extra_details
 
 # Create your views here.
 #@method_decorator([login_required, permission_required("accounts.view_app")], name="dispatch")
@@ -23,8 +24,12 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
+            user_details = user_extra_details.objects.filter(user__username=user.username).first()
+            user_details.email_signup_confirmed = True
+            user_details.save()
+            user.save()
             auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            return redirect('login')
+            return redirect('/')
     else:
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})

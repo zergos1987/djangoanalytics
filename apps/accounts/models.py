@@ -12,6 +12,7 @@ from user_agents import parse
 now = timezone.now()
 
 
+
 # Create your models here.
 class app(models.Model):
     test_field = models.CharField(max_length=150)
@@ -41,8 +42,8 @@ class user_extra_details(models.Model):
     position = models.CharField(max_length=800, blank=True, null=True)
     name = models.CharField(max_length=300, blank=True, null=True)
     last_name = models.CharField(max_length=300, blank=True, null=True)
+    email_signup_confirmed = models.BooleanField(default=False)
     ldap_is_active = models.BooleanField(default=False)
-
 
     class Meta:
         # app_label helps django to recognize your db
@@ -65,7 +66,7 @@ class user_extra_details(models.Model):
             self.department != self.__init_department or \
             self.center != self.__init_center or \
             self.position != self.__init_position:
-                pass
+            pass
 
         super(user_extra_details, self).save(force_insert, force_update, *args, **kwargs)
         self.__init_full_name = self.full_name
@@ -74,15 +75,15 @@ class user_extra_details(models.Model):
         self.__init_position = self.position
 
 
-# @receiver(post_save, sender=User)
-# def create_user_profile(sender, instance, created, **kwargs):
-#     if created:
-#         user_extra_details.objects.create(user=instance)
-
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    user_extra_details.objects.get_or_create(user=instance)
 
 # @receiver(post_save, sender=User)
 # def save_user_profile(sender, instance, **kwargs):
 #     instance.user_extra_details.save()
+#     print(instance.user_extra_details.full_name)
+
 
 
 

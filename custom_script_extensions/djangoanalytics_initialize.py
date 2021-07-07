@@ -148,13 +148,13 @@ def update_user_groups(username, update_group_list, filter_contains):
 
 #update user extra data
 def update_user_extra_data(username, extra_data):
+
 	def get_update_value(search_field):
 		v = [i for i in extra_data if search_field in i][0].get(search_field, None)#[0]
 		if type(v).__name__ != 'bool': v = v[0]
 		return v
 
-	user = User.objects.get(username=username)
-	u, created = user_extra_details.objects.get_or_create(user=user)
+	u = user_extra_details.objects.filter(user__username=username).first()
 	u.full_name = get_update_value('full_name')
 	u.department = get_update_value('department')
 	u.center = get_update_value('center')
@@ -162,11 +162,11 @@ def update_user_extra_data(username, extra_data):
 	u.name = get_update_value('name')
 	u.last_name = get_update_value('last_name')
 	u.ldap_is_active = get_update_value('ldap_is_active')
-	u.save()
-	
+
 	if u.ldap_is_active == False:
 		u.is_active = False
-		u.save()
+
+	u.save()
 
 
 
