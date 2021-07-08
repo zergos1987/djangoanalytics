@@ -1,117 +1,80 @@
 {% extends "registration\base.html" %}
 
-{% block registration %}
 
-<div class="row justify-content-center align-items-center">
-  <div class="col-lg-4 col-md-6 col-sm-8">
-    <div class="card">
-      <div class="card-body">
+{% block login %}
+<form class="form" method="post" action="">
+  {% csrf_token %}
 
-        <form method="post" action="{% url 'login' %}">
-          {% csrf_token %}
-
-          <div class="form-group">
-            {{ form.username.label_tag }}
-            <div class="input-group mb-2">
-              <span class="input-group-addon">
-                <i class="">
-                  <img draggable="false" src="/static/registration/origin/res/log.png">
-                </i>
-              </span>
-              <input class="form-control" type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
-            </div>
-          </div>
-
-          <div class="form-group">
-            {{ form.password.label_tag }}
-            <div class="input-group mb-2">
-              <span class="input-group-addon">
-                <i class="">
-                  <img draggable="false" src="/static/registration/origin/res/psw.png">
-                </i>
-              </span>
-              <input class="form-control" type="password" name="password" autocomplete="current-password" required="" id="id_password">
-            </div>
-          </div>
-
-          <input type="submit" value="Вход" class="btn btn-primary btn-block"/>
-          <input type="hidden" name="next" value="{{ next }}" />
-        </form>
-
-      </div>
-        <div class="card-footer text-muted text-center">
-          <small>Новый пользователь?
-            <a href="{% url 'signup' %}">Регистрация</a>
-          </small>
-      </div>
+  <div class="header">
+    <div class="brand-block">
+        {% block header_section_left_brand_details %}
+        <a href="/" class="logo" title="zs_admin">
+            <img src="{% block brand_details_logo_url %}/static/app_zs_admin/origin/res/img/logo.png{% endblock brand_details_logo_url %}" class="brand-logo" style="zoom: {% block header_section_left_brand_details_logo_zoom %}1{% endblock header_section_left_brand_details_logo_zoom %}">
+            <span style="color:{% block header_section_left_brand_details_title_color %}#333{% endblock header_section_left_brand_details_title_color %}">{% block header_section_left_brand_details_title %}DjangoAnalytics{% endblock header_section_left_brand_details_title %}</span>
+        </a>
+        {% endblock header_section_left_brand_details %}
     </div>
-    <div class="text-center py-2 text-white d-flex flex-column ">
+    <div class="login-header">Вход</div>
+  </div>
 
-      {% if form.errors %}
-        <p>Имя пользователя или пароль некорректны. Пожалуйста, попробуйте еще раз.</p>
-        {# Assumes you setup the password_reset view in your URLconf #}
-        <small>
-          <a href="{% url 'password_reset' %}" class="mod1 text-important">Забыли пароль?</a>
-        </small>
-      {% else %}
-      {% endif %}
-
+  {% if user.is_authenticated %}
+  <div class="form-controls">
+    <div class="form_notification active">
+      <div class="message-text info bgblue">У вашей учётной записи отстуствую права доступа к данной странице: {{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ next }}</div>
     </div>
   </div>
-</div>
-
-
-
-
-
-{% if 1 == 2 %}
-
-{% if user.is_authenticated %}
-  <p>logged in as {{ user }}</p>
-  <p><a href="{% url 'logout' %}?next=/accounts/login">logout</a></p>
-{% else %}
-  <p>Welcome, new user. Please log in:</p>
-{% endif %}
-
-
-
-{% if form.errors %}
-  <p>Your username and password didn't match. Please try again.</p>
-  {# Assumes you setup the password_reset view in your URLconf #}
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-{% endif %}
-
-{% if next %}
-  {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
+  <button type="submit" class="submit" value="Выйти"><a href="{% url 'logout' %}">выйти?</a></button>
   {% else %}
-    <p>Please login to see this page.</p>
+  <div class="input-container">
+    <input id="username" class="input" type="text" name="username" autocomplete="username" autocapitalize="none" placeholder=" " required />
+    <div class="cut"></div>
+    <label for="username" class="placeholder">Логин</label>
+  </div>
+  <div class="input-container">
+    <input id="password" class="input" type="password" name="password" autocomplete="current-password" placeholder=" " required/>
+    <div class="cut"></div>
+    <label for="password" class="placeholder">Пароль</label>
+  </div>
+
+  <div class="form-controls">
+    <div class="form_notification {% if form.errors or next and not user.is_authenticated %}active{% endif %}">
+        {% spaceless %}
+        {% if form.errors %}
+        <div class="message-text">
+          {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+              {{error}}
+            {% endfor %}
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if next %}
+        <div class="message-text info">
+          {% if user.is_authenticated %}
+            <p>У вашей учётной записи отстуствую права доступа к данной странице.
+          please login with an account that has access.</p>
+          {% else %}
+            <div>Необходимо выполнить авторизацию, чтобы увидеть эту странцу: <div>{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ next }}</div></div>
+          {% endif %}
+        </div>
+        {% endif %}
+        {% endspaceless %}
+    </div>
+
+    <button type="submit" class="submit" value="Вход">войти</button>
+
+    <small class="password_reset">
+      <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+    </small>
+    
+    <small class="signup">
+      <div>Ещё нет аккаунта?</div>
+      <a href="{% url 'signup' %}"><div>Зарегистрируйтесь</div></a>
+    </small>
+
+    <input type="hidden" name="next" value="{{ next }}" />
+  </div>
   {% endif %}
-{% endif %}
-
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-<table>
-  <tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-  </tr>
-
-  <tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-  </tr>
-</table>
-
-<input type="submit" value="login" />
-<input type="hidden" name="next" value="{{ next }}" />
 </form>
-
-{% endif %}
-
-
-
-
-
 {% endblock %}
