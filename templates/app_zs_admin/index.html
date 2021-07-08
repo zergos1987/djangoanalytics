@@ -121,8 +121,14 @@
 
 			<!-- container-main -->
 			{% block container_main %}{{ block.super }}{% endblock container_main %}
-			
-				 {% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}
+
+				{% block container_main_bg_color %}
+					{% if app_settings.app_settings_container_main_bg_color_enable %}
+						style="background-color: {{app_settings.app_settings_container_main_bg_color}}"
+			        {% endif %}
+				{% endblock container_main_bg_color %}
+
+				{% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}
 				 	{% block breadcrumb_items %}{% endblock breadcrumb_items %}
 
 				{% block container_main_content %}
