@@ -49,6 +49,7 @@ urlpatterns = [
     path('admin', admin.site.urls),
     path('', include('apps.app_zs_admin.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('apps.accounts.urls')),
     path('os_dashboards/', include('apps.app_opensource_dashboards.urls')),
     path('os_surveys/', include('apps.app_opensource_surveys.urls')),
     path('zs_dashboards/', include('apps.app_zs_dashboards.urls')),
