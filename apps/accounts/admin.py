@@ -13,7 +13,6 @@ from django.http import HttpResponse, FileResponse, Http404, HttpResponseRedirec
 from django.db.models import Q
 import logging
 
-
 from .models import (
     app,
 	AuditEntry,
@@ -405,6 +404,7 @@ class user_extra_details_Admin(ImportExportModelAdmin):
     resource_class = user_extra_details_Resource
 
 admin.site.register(user_extra_details, user_extra_details_Admin)
+
 
 
 
