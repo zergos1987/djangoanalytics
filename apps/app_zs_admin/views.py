@@ -14,8 +14,8 @@ from .models import app
 @permission_required('app_zs_admin.view_app')
 def index(request):
 	app_settings = app.objects.filter(is_actual=True).first()
-	if 'zs_admin' != app_settings.app_zs_admin_start_page:
-		return HttpResponseRedirect(f'/{app_settings.app_zs_admin_start_page}/')
+	if 'zs_admin' != app_settings.app_start_page:
+		return HttpResponseRedirect(f'/{app_settings.app_start_page}/')
 	context = {
 		'app_settings': app_settings
 	}
