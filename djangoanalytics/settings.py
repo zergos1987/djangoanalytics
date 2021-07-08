@@ -248,7 +248,7 @@ LDAP_AUTH_USER_FIELDS = {
     "first_name": "givenName",
     "last_name": "sn",
     "email": "mail",
-    'is_active': 'userAccountControl',
+    # 'is_active': 'userAccountControl',
     # 'full_name': 'displayName',
     # 'department': 'department',
     # 'center': 'division',
