@@ -1,30 +1,39 @@
+{% extends "app_zs_admin\base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>Вход</title>
-		<link rel="stylesheet" href="{% static 'registration/vendor/bootstrap/bootstrap.min.css' %}">
-		<link rel="stylesheet" href="{% static 'registration/origin/css/style.css' %}">
-		{% block stylesheet %}{% endblock %}
-	</head>
-	<body>
+{% load l10n %}
 
-		{% block body %}
-		<main>
-			<div class="container">
-				<h1 class="text-center logo my-4">
-				<a href="#"></a>
-				</h1>
-				{% block registration %}
-				{% endblock %}
-			<div>
-		</main>
+
+
+<!-- APP CSS -->
+{% block css %}
+<link href="{% static 'accounts/origin/css/registration_base.css' %}" rel="stylesheet">
+{% endblock css %}
+<!-- APP VENDOR CSS -->
+{% block vendor_css %}
+{% endblock vendor_css %}
+
+{% block container_main_bg_color %}
+style="background-color: transparent;"
+{% endblock container_main_bg_color %}
+
+{% block container_main_content %}
+<div class="registration-container">
+	<div class="wrapper">
+		{% block signup %}
 		{% endblock %}
 
-    <script src="{% static 'registration/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
-    <script src="{% static 'registration/vendor/jquery/popper.min.js' %}"></script>
-    <script src="{% static 'registration/vendor/bootstrap/bootstrap.min.js' %}"></script>
+		{% block login %}
+		{% endblock %}
 
-	</body>
-</html>
+		{% block password_reset %}
+		{% endblock %}
+	</div>
+</div>
+{% endblock container_main_content %}
+<!-- APP JS -->
+{% block js %}
+<script src="{% static 'accounts/origin/js/registration_base.js'%}"></script>
+{% endblock js %}
+<!-- APP VENDOR JS -->
+{% block vendor_js %}
+{% endblock vendor_js %}
