@@ -44,17 +44,14 @@ svg {
 
 
 /*UTILS CLASS ============================================================ */
-.placeholder {
-    background-image: url(/static/app_zs_admin/origin/res/img/placeholder_500x281.png);
-    background-size: 30px;
-    background-repeat: no-repeat;
-}
 .displayBlock {
     display: block;
 }
+
 .border-shadow {
 	position: absolute;
 }
+
 .border-shadow.bottom {
 	border-bottom: 1px solid #cdcdcd;
     /*box-shadow: 0 6px 6px -6px #c4c4c4;*/
