@@ -33,20 +33,14 @@ def render_view(request, id):
 	user_selected_content = aside_left_menu_includes.objects.get(id=id)
 
 	required_user_check = user_selected_content.url_access_via_users.all()
-	required_user_check_count = len(required_user_check)
 	required_groups_check = user_selected_content.url_access_via_groups.all()
-	required_groups_check_count = len(required_groups_check)
 
 	user_matches = [val for val in required_user_check if val.username in [request.user.username]]
 	groups_matches = [val for val in required_groups_check if val in request.user.groups.all()]
 
-	if len(user_matches) == 1 and required_user_check_count > 0: content_access = False
-	if len(groups_matches) != required_groups_check_count: content_access = False
+	if len(user_matches) == 0 and len(required_user_check) > 0: content_access = False
+	if len(groups_matches) != len(required_groups_check): content_access = False
 
-
-
-	print(content_access, 'FFFFFFFF', required_groups_check, required_user_check)
-	print(content_access, 'YYYYYYYY', groups_matches, user_matches)
 
 	app_settings = app.objects.filter(is_actual=True).first()
 	app_opensource_dashboards_settings = ''
