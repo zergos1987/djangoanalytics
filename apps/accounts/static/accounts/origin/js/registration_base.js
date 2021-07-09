@@ -1,3 +1,5 @@
+
+// registration background theme
 var nodesjs = new NodesJs({
     id: 'nodes',
     width: window.innerWidth,
@@ -13,3 +15,8 @@ var nodesjs = new NodesJs({
     number: window.hasOwnProperty('orientation') ? 30: 100,
     speed: 20
 });
+
+window.onresize = function () {
+    nodesjs.setWidth(window.innerWidth);
+    nodesjs.setHeight(window.innerHeight);
+};

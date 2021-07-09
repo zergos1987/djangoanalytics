@@ -2,38 +2,93 @@
 {% load static %}
 {% load l10n %}
 
+<!-- head -->
+	{% block head_meta_description_text %}authentification page{% endblock head_meta_description_text %}
+	
+	{% block head_title_text %}authentification page{% endblock head_title_text %}
+	
+	{% block head_link_favicon_href %}/media/img/GPB_favicon.ico{% endblock head_link_favicon_href %}
+	<!-- css -->
+		<!-- APP CSS -->
+		{% block css %}
+		<link href="{% static 'accounts/origin/css/registration_base.css' %}" rel="stylesheet">
+		{% endblock css %}
+		<!-- APP VENDOR CSS -->
+		{% block vendor_css %}
+		{% endblock vendor_css %}
+	<!-- css -->
+<!-- end head -->
 
+<!-- body -->
+	<!-- container display mode --> <!-- active --> <!-- fixed --> <!-- container-aside-left-disabled -->  <!-- container-header-disabled -->
+	{% block container_display_mode_classname %}container-aside-left-disabled container-header-disabled{% endblock container_display_mode_classname %}
 
-<!-- APP CSS -->
-{% block css %}
-<link href="{% static 'accounts/origin/css/registration_base.css' %}" rel="stylesheet">
-{% endblock css %}
-<!-- APP VENDOR CSS -->
-{% block vendor_css %}
-{% endblock vendor_css %}
+		<!-- container-header -->
+			<!-- header-section-left -->
+			{% block header_section_left %}{% endblock header_section_left %}
+			<!-- end header-section-left -->
 
-{% block container_main_bg_color %}
-style="background-color: transparent;"
-{% endblock container_main_bg_color %}
+			<!-- header-section-center -->
+			{% block header_section_center %}{% endblock header_section_center %}
+			<!-- end header-section-center -->
 
-{% block container_main_content %}
-<div class="registration-container">
-	<div class="wrapper">
-		{% block signup %}
-		{% endblock %}
+			<!-- header-section-right -->
+			{% block header_section_right %}{% endblock header_section_right %}
+			<!-- end header-section-right -->
 
-		{% block login %}
-		{% endblock %}
+			<!-- container-aside-left -->
+			{% block container_aside_left %}{% endblock container_aside_left %}
+			<!-- end container-aside-left -->
 
-		{% block password_reset %}
-		{% endblock %}
-	</div>
-</div>
-{% endblock container_main_content %}
+			<!-- container-main -->
+			{% block container_main %}{{ block.super }}{% endblock container_main %}
+
+				{% block container_main_bg_color %}
+				style="background-color: #fff;"
+				{% endblock container_main_bg_color %}
+
+				{% block breadcrumb %}{% endblock breadcrumb %}
+
+				{% block container_main_content %}
+				<div style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;align-items: center;justify-content: center;display: flex;">
+				    <canvas id="nodes"></canvas>
+				</div>
+				<div class="registration-container">
+					<div class="wrapper">
+						{% block signup %}
+						{% endblock %}
+
+						{% block login %}
+						{% endblock %}
+
+						{% block password_reset %}
+						{% endblock %}
+					</div>
+				</div>
+				{% endblock container_main_content %}
+			<!-- end container-main -->
+
+			<!-- container-footer -->
+			<!-- container-footer -->
+
+		<!-- end container-header -->
+
+	<!-- end container display mode --> 
+
+	<!-- block JS --> 
+    {% block head_js %}{{ block.super }}{% endblock head_js %}
+        <!-- BASE JS -->
+        <!-- APP JS -->
+		{% block js %}
+		<script src="{% static 'accounts/vendor/registration_background/js/nodes.js'%}"></script>
+		<script src="{% static 'accounts/origin/js/registration_base.js'%}"></script>
+		{% endblock js %}
+        <!-- APP VENDOR JS -->
+		{% block vendor_js %}
+		{% endblock vendor_js %}
+    <!-- end block JS --> 
+<!-- end body -->
 <!-- APP JS -->
-{% block js %}
-<script src="{% static 'accounts/origin/js/registration_base.js'%}"></script>
-{% endblock js %}
+
 <!-- APP VENDOR JS -->
-{% block vendor_js %}
-{% endblock vendor_js %}
+

@@ -44,7 +44,7 @@ handler500 = 'apps.app_zs_admin.views.handler500'
 
 
 urlpatterns = [
-    url(r'^adminlogout/$', accounts_views.signout, name='signout'),
+    url(r'^adminlogout/$', accounts_views.admin_site_logout, name='admin_site_logout'),
     path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('admin', admin.site.urls),
     path('', include('apps.app_zs_admin.urls')),

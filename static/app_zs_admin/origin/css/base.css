@@ -44,17 +44,14 @@ svg {
 
 
 /*UTILS CLASS ============================================================ */
-.placeholder {
-    background-image: url(/static/app_zs_admin/origin/res/img/placeholder_500x281.png);
-    background-size: 30px;
-    background-repeat: no-repeat;
-}
 .displayBlock {
     display: block;
 }
+
 .border-shadow {
 	position: absolute;
 }
+
 .border-shadow.bottom {
 	border-bottom: 1px solid #cdcdcd;
     /*box-shadow: 0 6px 6px -6px #c4c4c4;*/
@@ -576,7 +573,7 @@ svg {
     zoom: 1;
 }
 
-.Russian_Federation {
+.Russia {
     background-position: -17px -1003px;
 }
 
@@ -1082,8 +1079,8 @@ svg {
 .container-aside-left .fa-localy:before {
     content: "";
     background-repeat: no-repeat;
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
     position: relative;
     display: inline-block;
     filter: invert(37%) sepia(6%) saturate(7%) hue-rotate(357deg) brightness(95%) contrast(89%);
@@ -1330,7 +1327,7 @@ svg {
 }
 
 .container:not(.active) .container-aside-left .item-group.active > .items-frame > .items a:first-child {
-    margin-top: 15px;
+    margin-top: 20px;
 }
 
 .container:not(.active) .container-aside-left .item-group.active > .items-frame > .items a:last-child {

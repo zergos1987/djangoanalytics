@@ -89,6 +89,6 @@ def activate(request, uidb64, token):
 
 
 
-def signout(request):
+def admin_site_logout(request):
     logout(request)
     return redirect(reverse('admin:index')) # or wherever you want

@@ -1,21 +1,21 @@
 /*< -- -- -- base -- -- -->*/
 .registration-container {
-	background-color: transparent;
-	height: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	overflow: auto;
+    background-color: transparent;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .registration-container .wrapper {
-    width: 280px;
+    width: 315px;
     height: fit-content;
     min-width: 280px;
     min-height: 340px;
-    max-height: 450px;
-    /*background-color: rgb(0 0 0 / 7%);*/
     border-radius: 12px;
+    padding: 20px;
+    overflow: auto;
+    z-index: 1;
 }
 
 
@@ -132,10 +132,11 @@
 }
 
 .registration-container .input_help_info:hover {
-	border-radius: 8px 0px 8px 8px;
+    border-radius: 8px 0px 8px 8px;
     height: fit-content;
     max-height: 125px;
-    width: 100px;
+    width: 100%;
+    max-width: 150px;
     overflow: auto;
     z-index: 100;
     color: #fff;
@@ -216,7 +217,7 @@
     color: #eee;
     cursor: pointer;
     font-size: 12px;
-    min-height: 35px;
+    line-height: 35px;
     outline: 0;
 	width: 105%;
     padding: 0;
@@ -346,7 +347,7 @@
 
 .registration-container .message-text div > div {
 	padding-top: 5px;
-	color: #5654ff;
+    color: #1000ff;
 	text-decoration: underline;
 }
 

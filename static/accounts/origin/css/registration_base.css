@@ -1,3 +1,456 @@
-body {
+/*< -- -- -- base -- -- -->*/
+.registration-container {
+    background-color: transparent;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.registration-container .wrapper {
+    width: 315px;
+    height: fit-content;
+    min-width: 280px;
+    min-height: 340px;
+    border-radius: 12px;
+    padding: 20px;
+    overflow: auto;
+}
+
+
+/*< -- -- -- login form -- -- -->*/
+.registration-container .form {
 	background-color: #fff;
+	border-radius: inherit;
+	box-sizing: border-box;
+	height: 100%;
+	padding: 22px 22px 12px 22px;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0px 6px 15px 0px rgba(0, 0, 0, 0.25);
+}
+
+.registration-container .header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+	padding-bottom: 30px;
+}
+
+.registration-container .header .logo {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 20px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.registration-container .header .logo .brand-logo {
+	width: 45px;
+    height: 45px;
+    border-radius: 100%;
+    background-size: 45px;
+    background-repeat: no-repeat;
+    box-shadow: 0px 2px 6px 1px rgba(0, 0, 0, 0.25);
+}
+
+.registration-container .header .logo span {
+	font-family: "Oswald", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 0px 0px 2px 10px;
+    text-shadow: 0 2px 0 white;
+}
+
+.registration-container .header .login-header {
+    margin-top: 35px;
+    align-self: center;
+    margin-bottom: -15px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #303245;
+}
+
+.registration-container .input-container {
+    margin-top: 10px;
+    height: 55px;
+    position: relative;
+    padding: 0 20px;
+}
+
+.registration-container .input {
+    background-color: #303245;
+    border-radius: 17px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    font-size: 12px;
+    height: 35px;
+    outline: 0;
+    padding: 5px 20px;
+    width: 100%;
+	box-shadow: 0px 3px 6px 3px rgba(0, 0, 0, 0.25);
+    transition: box-shadow 0.5s;
+}
+
+.registration-container .input:hover {
+    box-shadow: 0px 0px 1px 4px rgba(0, 0, 0, 0.25);
+    transition: box-shadow 0.5s;
+}
+
+.registration-container .input_help_info {
+    width: 10px;
+    height: 10px;
+    overflow: hidden;
+    border-radius: 100%;
+    background-color: #0088dd9c;
+    color: transparent;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 13px;
+    box-shadow: inset 0px 0px 1px 3px rgba(0, 90, 185, 0.25);
+    transition: width 0.4s;
+}
+
+.registration-container .input_help_info.error {
+    right: -16px;
+    background-color: #dd2f009c;
+    box-shadow: inset 0px 0px 1px 3px rgba(185, 44, 0, 0.25);
+}
+
+.registration-container .input_help_info ul {
+	padding: 0 0 0 10px;
+    margin: 0;
+}
+
+.registration-container .input_help_info ul > li {
+
+}
+
+.registration-container .input_help_info:hover {
+    border-radius: 8px 0px 8px 8px;
+    height: fit-content;
+    max-height: 125px;
+    width: 100%;
+    max-width: 150px;
+    overflow: auto;
+    z-index: 100;
+    color: #fff;
+    font-size: 10px;
+    padding: 20px;
+    transition: width 0.4s;
+}
+
+.registration-container .cut {
+    background-color: #fff;
+    border-radius: 17px;
+    height: 15px;
+    left: 44px;
+    position: absolute;
+    top: -20px;
+    transform: translateY(0);
+    transition: transform 200ms;
+    width: 61px;
+}
+
+.registration-container .cut.width {
+	width: 116px;
+}
+
+.registration-container .input:focus ~ .cut,
+.registration-container .input:not(:placeholder-shown) ~ .cut {
+	transform: translateY(11px);
+}
+
+.registration-container .placeholder {
+	color: #777777;
+    font-family: sans-serif;
+    font-size: 12px;
+    left: 40px;
+    pointer-events: none;
+    position: absolute;
+    transform-origin: 0 50%;
+    transition: transform 200ms, color 200ms;
+    top: 11px;
+}
+
+.registration-container .input:focus ~ .placeholder,
+.registration-container .input:not(:placeholder-shown) ~ .placeholder {
+	transform: translateY(-20px) translateX(15px) scale(0.75);
+}
+
+.registration-container .input:not(:placeholder-shown) ~ .placeholder {
+	color: #333;
+	letter-spacing: 1px;
+	font-weight: bold;
+}
+
+.registration-container .input:focus ~ .placeholder {
+	color: #333;
+	letter-spacing: 1px;
+	font-weight: bold;
+}
+
+.registration-container .form-controls {
+	width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+	padding-top: 10px;
+}
+
+.registration-container .form-controls > *:first-child {
+    margin-top: 0px;
+}
+
+.registration-container .submit {
+    align-self: center;
+
+    background-color: #0088dd9c;
+    border-radius: 8px;
+    border: 0;
+    box-sizing: border-box;
+    color: #eee;
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 35px;
+    outline: 0;
+	width: 105%;
+    padding: 0;
+    margin-top: 25px;
+    display: flex;
+    text-align: center;
+	justify-content: center;
+    box-shadow: 0px 3px 7px 2px rgba(0, 0, 0, 0.25);
+    transition: box-shadow 0.5s;
+}
+
+.registration-container .submit:hover {
+	box-shadow: 0px 0px 1px 4px rgba(0, 175, 10, 0.5);
+    transition: box-shadow 0.5s;
+}
+
+.registration-container .submit:active {
+	background-color: #06b;
+}
+
+.registration-container .submit > a {
+    text-decoration: none;
+    color: #ffffff;
+    width: 100%;
+    height: 100%;
+    line-height: 34px;
+}
+
+.registration-container .password_reset, .signup {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	font-size: 10px;
+}
+
+.registration-container .password_reset {
+	padding-top: 10px;
+}
+
+.registration-container .password_reset > a,
+.registration-container .signup > a {
+	display: flex;
+    padding: 5px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: left;
+	color: #5654ff;
+}
+
+.registration-container .signup > a {
+    padding: 0px 0px 0px 5px;
+}
+
+.registration-container .signup {
+	flex-direction: row;
+}
+
+.registration-container .password_reset > a:hover,
+.registration-container .signup > a:hover {
+	text-decoration: underline;
+}
+
+.registration_links {
+	display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top: 15px;
+}
+
+.registration-container .registration_links .password_reset {
+    flex-direction: row;
+    padding-top: 0;
+}
+
+.registration-container .registration_links .password_reset > a {
+    padding: 0 5px;
+}
+
+.registration-container .registration_links .password_reset,
+.registration-container .registration_links .signup {
+    width: auto;
+}
+
+
+.registration-container .form_notification {
+	max-height: 130px;
+    overflow: auto;
+    font-size: 10px;
+    border-radius: 12px;
+    width: 75%;
+    align-self: center;
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / 5%), inset 0 1px 4px rgb(0 0 0 / 50%), inset 0 2px 8px rgb(0 0 0 / 5%);
+
+}
+
+.registration-container .form_notification.active {
+    padding: 5px;
+}
+
+.registration-container .message-text {
+	padding: 10px 15px 10px 15px;
+    background-color: #ff2727;
+    color: white;
+    border-radius: 7px;
+    font-size: 12px;
+    line-height: 18px;
+    word-break: break-word;
+}
+
+.registration-container .message-text.info {
+    background-color: #b9b9b9;
+}
+
+.registration-container .message-text.info.bgblue {
+    background-color: #003388;
+}
+
+.registration-container .message-text > ul {
+    margin: 0;
+	padding: 0px 0px 0px 5px;
+}
+
+.registration-container .message-text > ul > li {
+}
+
+.registration-container .message-text div > div {
+	padding-top: 5px;
+    color: #1000ff;
+	text-decoration: underline;
+}
+
+.registration-container .input_help_info::-webkit-scrollbar-thumb, 
+.registration-container .form_notification::-webkit-scrollbar-thumb {
+    background-color: #cacacade;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    background-clip: padding-box; 
+}
+
+.registration-container .input_help_info::-webkit-scrollbar-thumb:hover, 
+.registration-container .form_notification::-webkit-scrollbar-thumb:hover {
+    background-color: #a4a4a4; 
+}
+
+.registration-container .input_help_info::-webkit-scrollbar, 
+.registration-container .form_notification::-webkit-scrollbar {
+    display: none;
+    width: 11px;
+    height: 11px;
+}
+.registration-container .input_help_info::-webkit-scrollbar {
+    display: block;
+}
+
+.registration-container .form_notification:hover::-webkit-scrollbar, 
+.registration-container .form_notification:hover::-webkit-scrollbar {
+    display: block;
+}
+
+
+/*< -- -- -- Media -- -- -->*/
+
+/**
+ * Basic CSS Media Query Template
+ * TODO: I should probably use Sass...
+ * Author: Michael Vieth
+ * ------------------------------------------
+ *  Responsive Grid Media Queries - 1280, 1024, 768, 480
+ *   1280-1024   - desktop (default grid)
+ *   1024-768    - tablet landscape
+ *   768-480     - tablet 
+ *   480-less    - phone landscape & smaller
+ * --------------------------------------------
+ */
+@media all and (min-width: 1024px) and (max-width: 1280px) {
+
+}
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+
+}
+
+@media all and (max-width: 480px) {
+	
+}
+
+
+/* Portrait */
+@media screen and (orientation:portrait) { 
+	/* Portrait styles here */ 
+
+}
+/* Landscape */
+@media screen and (orientation:landscape) and (max-device-height: 500px) { 
+	/* Landscape styles here */ 
+	
+}
+@media screen and (orientation:landscape) { 
+	/* Landscape styles here */ 
+}
+
+
+/* CSS for iPhone, iPad, and Retina Displays */
+
+/* Non-Retina */
+@media screen and (-webkit-max-device-pixel-ratio: 1) {
+}
+
+/* Retina */
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min--moz-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 1.5) {
+}
+
+/* iPhone Portrait */
+@media screen and (max-device-width: 480px) and (orientation:portrait) {
+} 
+
+/* iPhone Landscape */
+@media screen and (max-device-width: 480px) and (orientation:landscape) {
+}
+
+/* iPad Portrait */
+@media screen and (min-device-width: 481px) and (orientation:portrait) {
+}
+
+/* iPad Landscape */
+@media screen and (min-device-width: 481px) and (orientation:landscape) {
+
 }
