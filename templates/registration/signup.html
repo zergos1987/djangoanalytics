@@ -1,27 +1,22 @@
-{% extends 'registration\base.html' %}
-
-{% load static %}
-{% load widget_tweaks %}
-{% load form_tags %}
+{% extends "registration\base.html" %}
 
 
-{% block signup %}
-<form class="form" method="post" action="" novalidate>
-  {% csrf_token %}
+{% block header %}{{ block.super }}{% endblock header %}
+{% block login_header %}Регистрация{% endblock login_header %}
 
-  <div class="header">
-    <div class="brand-block">
-        {% block header_section_left_brand_details %}
-        <a href="/" class="logo" title="zs_admin">
-            <img src="{% block brand_details_logo_url %}/static/app_zs_admin/origin/res/img/logo.png{% endblock brand_details_logo_url %}" class="brand-logo" style="zoom: {% block header_section_left_brand_details_logo_zoom %}1{% endblock header_section_left_brand_details_logo_zoom %}">
-            <span style="color:{% block header_section_left_brand_details_title_color %}#333{% endblock header_section_left_brand_details_title_color %}">{% block header_section_left_brand_details_title %}DjangoAnalytics{% endblock header_section_left_brand_details_title %}</span>
-        </a>
-        {% endblock header_section_left_brand_details %}
+{% block signup_container %}
+{% csrf_token %}
+
+{% if user.is_authenticated %}
+  <div class="form-controls">
+    <div class="form_notification active">
+      <div class="message-text info bgblue">ВЫ уже авторизованы.</div>
     </div>
-    <div class="login-header">Регистрация</div>
   </div>
-
-
+  <button type="submit" class="submit" value="Выйти">
+    <a href="{% url 'logout' %}">выйти?</a>
+  </button>
+{% else %}
 
     {% for field in form %}
       {% if field.name == 'email' %}
@@ -98,6 +93,6 @@
 		</small>
 	</div>   
   </div>
-</form>
-{% endblock %}
-          <div class=
+{% endif %}
+
+{% endblock signup_container %}

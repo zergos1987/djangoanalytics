@@ -103,8 +103,8 @@ app_name_list = (
 	("zs_examples", "zs_examples"),
 )
 class aside_left_menu_includes(models.Model):
-	name = models.CharField(max_length=200)
-	parent_name = models.CharField(max_length=200) 
+	parent_name = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True) 
+	name = models.CharField(max_length=200) 
 	menu_level = models.CharField(max_length=15, choices=menu_level_choices, default='level-0')
 	menu_icon_type = models.CharField(max_length=15, choices=menu_icon_type_choices, default='arrow')
 	name_order_by = IntegerField(default=1, choices=[(i, i) for i in range(1, 16)])
@@ -125,7 +125,7 @@ class aside_left_menu_includes(models.Model):
 		if self.menu_icon_type == 'arrow' and self.href != '#':
 			self.href = '#'
 			
-		if self.name == self.parent_name:
+		if self.name == str(self.parent_name):
 			if self.is_actual:
 				try:
 					aside_left_menu_includes.objects.filter(
@@ -146,7 +146,7 @@ class aside_left_menu_includes(models.Model):
 	def __str__(self):
 		return (
 			self.name + ' | ' + 
-			self.parent_name + ' | ' + 
+			#self.parent_name + ' | ' +  
 			self.menu_level + ' | ' + 
 			self.menu_icon_type + ' | ' +
 			str(self.render_app_name) + ' | ' +

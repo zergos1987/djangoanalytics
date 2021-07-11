@@ -35,7 +35,7 @@
 
 
 <!-- body -->
-	<!-- container display mode --> <!-- active --> <!-- fixed --> <!-- container-aside-left-disabled -->  <!-- container-header-disabled -->
+	<!-- container display mode --> <!-- active --> <!-- fixed --> <!-- container-aside-left-disabled -->  <!-- container-header-disabled --> <!--  container-main-padding-off --> 
 	{% block container_display_mode_classname %}
 		{% spaceless %}
 		{% if app_settings.app_settings_container_display_mode.all != None %}
@@ -96,7 +96,6 @@
 			
 			{% block main_site_page %}{% if app_settings.app_settings_container_aside_left_main_site_page %}/{{app_settings.app_settings_container_aside_left_main_site_page}}/{% else %}{{ block.super }}{% endif %}{% endblock main_site_page %}
 
-
 				{% block container_aside_left_settings_menu %}{% if app_settings.app_settings_container_aside_left_settings_menu_enable %}{{ block.super }}{% endif %}{% endblock container_aside_left_settings_menu %}
 
 					{% block container_aside_left_settings_menu_items %}
@@ -122,17 +121,31 @@
 
 			<!-- container-main -->
 			{% block container_main %}{{ block.super }}{% endblock container_main %}
-			
-				 {% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}
+
+				{% block container_main_bg_color %}
+					{% if app_settings.app_settings_container_main_bg_color_enable %}
+						style="background-color: {{app_settings.app_settings_container_main_bg_color}};"
+			        {% endif %}
+				{% endblock container_main_bg_color %}
+
+				{% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}
 				 	{% block breadcrumb_items %}{% endblock breadcrumb_items %}
 
 				{% block container_main_content %}
-				<h1>500</h1>
-				<div class="wrapper">	
+				<h1>500. Ошибка сервера.</h1>
+					<!-- /*tesseract*/ -->
+					
+					<!-- <canvas id = "c1"></canvas> -->
+					<!-- /*black hole background*/ -->
+<!--                     <div id="blackhole">
+                        <div class="centerHover"><span>ENTER</span></div>
+                    </div> -->
+
+<!-- 				<div class="wrapper">	
 					<div class="main_text_header">Аналитика и Дашборды</div>
 					<div class="main_theme">
 					</div>
-				</div>
+				</div> -->
 				{% endblock container_main_content %}
 			<!-- end container-main -->
 
@@ -154,8 +167,3 @@
         {% block vendor_js %}{{ block.super }}{% endblock vendor_js %}
     <!-- end block JS --> 
 <!-- end body -->
-
-
-
-
-

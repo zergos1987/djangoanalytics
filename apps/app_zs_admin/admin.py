@@ -48,8 +48,8 @@ class appAdmin(ImportExportModelAdmin):
         # else:
         #     return False
 
-    class Media:
-        js = ('/static/admin/js/jquery.grp_timepicker.js', )
+    # class Media:
+    #     js = ('/static/admin/js/jquery.grp_timepicker.js', )
 
     resource_class = appResource
 admin.site.register(app, appAdmin)
@@ -83,8 +83,8 @@ class container_display_modeAdmin(ImportExportModelAdmin):
         # else:
         #     return False
 
-    class Media:
-        js = ('/static/admin/js/jquery.grp_timepicker.js', )
+    # class Media:
+    #     js = ('/static/admin/js/jquery.grp_timepicker.js', )
 
     resource_class = container_display_modeResource
 admin.site.register(container_display_mode, container_display_modeAdmin)
@@ -118,8 +118,8 @@ class html_lang_codeAdmin(ImportExportModelAdmin):
         # else:
         #     return False
 
-    class Media:
-        js = ('/static/admin/js/jquery.grp_timepicker.js', )
+    # class Media:
+    #     js = ('/static/admin/js/jquery.grp_timepicker.js', )
 
     resource_class = html_lang_codeResource
 admin.site.register(html_lang_code, html_lang_codeAdmin)
@@ -153,8 +153,8 @@ class meta_charset_codeAdmin(ImportExportModelAdmin):
         # else:
         #     return False
 
-    class Media:
-        js = ('/static/admin/js/jquery.grp_timepicker.js', )
+    # class Media:
+    #     js = ('/static/admin/js/jquery.grp_timepicker.js', )
 
     resource_class = meta_charset_codeResource
 admin.site.register(meta_charset_code, meta_charset_codeAdmin)
@@ -188,8 +188,8 @@ class meta_author_descriptionAdmin(ImportExportModelAdmin):
         # else:
         #     return False
 
-    class Media:
-        js = ('/static/admin/js/jquery.grp_timepicker.js', )
+    # class Media:
+    #     js = ('/static/admin/js/jquery.grp_timepicker.js', )
 
     resource_class = meta_author_descriptionResource
 admin.site.register(meta_author_description, meta_author_descriptionAdmin)
@@ -223,8 +223,8 @@ class user_settings_locale_includesAdmin(ImportExportModelAdmin):
         # else:
         #     return False
 
-    class Media:
-        js = ('/static/admin/js/jquery.grp_timepicker.js', )
+    # class Media:
+    #     js = ('/static/admin/js/jquery.grp_timepicker.js', )
 
     resource_class = user_settings_locale_includesResource
 admin.site.register(user_settings_locale_includes, user_settings_locale_includesAdmin)
@@ -235,17 +235,28 @@ class aside_left_menu_includesResource(resources.ModelResource):
     class Meta:
         model = aside_left_menu_includes
         fields = (
-            'name', 'parent_name', 'menu_level', 'menu_icon_type', 'render_app_name', 'name_order_by', 'parent_name_order_by', 'is_actual',  'href',  ) 
+            'name',  'menu_level', 'menu_icon_type', 'render_app_name', 'name_order_by', 'parent_name_order_by', 'is_actual',  'href',  ) 
 
 class aside_left_menu_includesAdmin(ImportExportModelAdmin):
     list_display = [
-        'id', 'name', 'parent_name', 'menu_level', 'menu_icon_type', 'render_app_name', 'name_order_by', 'parent_name_order_by', 'is_actual',  'href']
+        'id', 'parent_name_short', 'name',  'menu_level', 'menu_icon_type', 'render_app_name', 'name_order_by', 'parent_name_order_by', 'is_actual',  'href']
 
     list_filter = (
-        'name', 'parent_name',  'is_actual',  #('dt', DateTimeRangeFilter)
+        'name',  'is_actual',  #('dt', DateTimeRangeFilter)
     )
 
     filter_horizontal = ('url_access_via_groups', 'url_access_via_users',)
+    def parent_name_short(self, obj):
+        if obj.parent_name.parent_name.parent_name.parent_name.parent_name:
+            return obj.parent_name.parent_name.parent_name.parent_name.parent_name.name
+        elif obj.parent_name.parent_name.parent_name.parent_name:
+            return obj.parent_name.parent_name.parent_name.parent_name.name
+        elif obj.parent_name.parent_name.parent_name:
+            return obj.parent_name.parent_name.parent_name.name
+        elif obj.parent_name.parent_name:
+            return obj.parent_name.parent_name
+        else:
+            obj.parent_name.name
 
     def save_model(self, request, obj, form, change):
         if obj.menu_icon_type == "arrow" and obj.href != '#':
@@ -265,8 +276,8 @@ class aside_left_menu_includesAdmin(ImportExportModelAdmin):
         # else:
         #     return False
 
-    class Media:
-        js = ('/static/admin/js/jquery.grp_timepicker.js', )
+    # class Media:
+    #     js = ('/static/admin/js/jquery.grp_timepicker.js', )
 
     resource_class = aside_left_menu_includesResource
 admin.site.register(aside_left_menu_includes, aside_left_menu_includesAdmin)

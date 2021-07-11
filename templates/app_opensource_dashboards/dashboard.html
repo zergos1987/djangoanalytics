@@ -27,6 +27,7 @@
 	    <!-- APP CSS -->
 	    {% block css %}{{ block.super }}
 		<link href="{% static 'app_opensource_dashboards/origin/css/index.css' %}" rel="stylesheet">
+		<link href="{% static 'app_opensource_dashboards/origin/css/os_dashboards.css' %}" rel="stylesheet">
 		{% endblock css %}
 	    <!-- APP VENDOR CSS -->
 	    {% block vendor_css %}{{ block.super }}{% endblock vendor_css %}
@@ -37,15 +38,7 @@
 <!-- body -->
 	<!-- container display mode --> <!-- active --> <!-- fixed --> <!-- container-aside-left-disabled -->  <!-- container-header-disabled --> <!--  container-main-padding-off --> 
 	{% block container_display_mode_classname %}
-		{% spaceless %}
-		{% if app_settings.app_settings_container_display_mode.all != None %}
-			{% for container_mode in app_settings.app_settings_container_display_mode.all %}
-				{{ container_mode.name }}
-			{% endfor %}
-		{% else %}
-			active
-		{% endif %}
-		{% endspaceless %}
+
     {% endblock container_display_mode_classname %}
 
 		<!-- container-header -->
@@ -130,14 +123,25 @@
 
 				{% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}
 				 	{% block breadcrumb_items %}
-                        <li><a>дашборды</a></li>{% endblock breadcrumb_items %}
+                        <li><a href="{% url 'app_opensource_dashboards:index' %}">Дашборды</a></li>
+                        <li><a>{% for item in app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}	
+								{% if item.id|stringformat:"i" in request.path %}
+								{{item.name}}
+								{% else %}
+								{% endif %}
+							{% endfor %}</a>
+						</li>
+                    {% endblock breadcrumb_items %}
 
 				{% block container_main_content %}
 
-				<div class="wrapper">	
-					<div class="main_text_header">Аналитика и Дашборды</div>
-					<div class="main_theme">
-					</div>
+				<div class="dashboards">
+					{% for item in app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}	
+						{% if item.id|stringformat:"i" in request.path %}
+							{{item}}
+						{% else %}
+						{% endif %}
+					{% endfor %}
 				</div>
 				{% endblock container_main_content %}
 			<!-- end container-main -->

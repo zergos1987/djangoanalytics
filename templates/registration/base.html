@@ -1,5 +1,7 @@
 {% extends "app_zs_admin\base.html" %}
 {% load static %}
+{% load widget_tweaks %}
+{% load form_tags %}
 {% load l10n %}
 
 <!-- head -->
@@ -20,8 +22,8 @@
 <!-- end head -->
 
 <!-- body -->
-	<!-- container display mode --> <!-- active --> <!-- fixed --> <!-- container-aside-left-disabled -->  <!-- container-header-disabled -->
-	{% block container_display_mode_classname %}container-aside-left-disabled container-header-disabled{% endblock container_display_mode_classname %}
+	<!-- container display mode --> <!-- active --> <!-- fixed --> <!-- container-aside-left-disabled -->  <!-- container-header-disabled --> <!-- container-main-padding-off -->
+	{% block container_display_mode_classname %}container-aside-left-disabled container-header-disabled container-main-padding-off{% endblock container_display_mode_classname %}
 
 		<!-- container-header -->
 			<!-- header-section-left -->
@@ -50,19 +52,33 @@
 				{% block breadcrumb %}{% endblock breadcrumb %}
 
 				{% block container_main_content %}
-				<div style="position: absolute;left: 0px;top: 0px;width: 100%;height: 100%;align-items: center;justify-content: center;display: flex;">
+				<div class="registration-bg">
 				    <canvas id="nodes"></canvas>
 				</div>
 				<div class="registration-container">
 					<div class="wrapper">
-						{% block signup %}
-						{% endblock %}
+						<form class="form" method="post" action="">
+						{% block header %}
+						<div class="header">
+							<div class="brand-block">
+								<a href="/" class="logo" title="zs_admin">
+								    <img src="/static/app_zs_admin/origin/res/img/GPB_logo.png" class="brand-logo" style="zoom: 1;">
+								    <span style="color: #162E89;">Газпромбанк</span>
+								</a>
+							</div>
+							<div class="login-header">{% block login_header %}login_header{% endblock login_header %}</div>
+						</div>
+						{% endblock header %}
 
-						{% block login %}
-						{% endblock %}
+						{% block signup_container %}
+						{% endblock signup_container %}
 
-						{% block password_reset %}
-						{% endblock %}
+						{% block login_container %}
+						{% endblock login_container %}
+
+						{% block password_reset_container %}
+						{% endblock password_reset_container %}
+						</form>
 					</div>
 				</div>
 				{% endblock container_main_content %}

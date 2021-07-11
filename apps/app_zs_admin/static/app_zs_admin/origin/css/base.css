@@ -61,8 +61,8 @@ svg {
 .container .border-shadow.bottom.header {
     width: calc(100% - 72px);
     margin-left: 72px;
-    height: 20px;
-    margin-top: 37px;
+    height: 6px;
+    margin-top: 52px;
 }
 
 .container.container-aside-left-disabled .border-shadow.bottom.header {
@@ -111,29 +111,27 @@ svg {
 /*breadcrumb*/
 .breadcrumb {
     display: flex;
-    position: relative;
+    position: absolute;
     width: auto;
-    margin-top: -20px;
-    padding: 20px 0px 20px 0px;
+    padding: 0px 0px 20px 0px;
     /*max-height: 55px;*/
     width: fit-content;
 }
 
 .breadcrumb ul {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     list-style-type: none;
     font-size: 0.75rem;
-    height: 28px;
+    height: 100%;
+    min-height: 28px;
     overflow: hidden;
 }
 
 .breadcrumb ul {
-    height: 100%;
-}
-
-.breadcrumb:hover ul {
-    padding-left: 3px;
+    padding-left: 5px;
+    margin-left: -5px;
 }
 
 .breadcrumb > ul > li {
@@ -177,7 +175,7 @@ svg {
 .breadcrumb:hover ul > li:not(:last-child):after {
     content: "";
     position: absolute;
-    top: 10px;
+    top: 11px;
     width: 0.7em;
     height: 0.7em;
     right: 7px;
@@ -191,7 +189,7 @@ svg {
 .breadcrumb > ul > li  > a {
     display: flex;
     align-items: center;
-    padding: 4px 16px 4px 0px;
+    padding: 4px 16px 4px 1px;
     margin: 3px 0px 3px 0px;
     text-decoration: none;
     color: #444;
@@ -233,12 +231,24 @@ svg {
     display: flex;
 }
 
+.breadcrumb > ul > li:last-child  > a {
+    font-weight: bold;
+    color: #333;
+}
+
+.breadcrumb:hover > ul > li:last-child > a {
+    background-color: transparent;
+    box-shadow: initial;
+    border-radius: 0;
+    padding: 4px 3px 4px 0px;
+}
+
 .breadcrumb:hover > ul > li {
     margin-left: 0px;
-    height: 27px;
+    height: 28px;
 }
 .breadcrumb:hover > ul > li:last-child {
-    padding: 0px 3px 0px 0px;
+    padding: 0;
 }
 .breadcrumb > ul > li:only-child {
     display: none;
@@ -508,7 +518,30 @@ svg {
 	display: flex;
 	align-items: center;
     height: 40px;
+    overflow-x: overlay;
 }
+
+.container-header .header-section-right::-webkit-scrollbar-thumb {
+    background-color: #cacacade;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    background-clip: padding-box; 
+}
+
+.container-header .header-section-right::-webkit-scrollbar-thumb:hover {
+    background-color: #a4a4a4; 
+}
+
+.container-header .header-section-right::-webkit-scrollbar {
+    display: block;
+    width: 7px;
+    height: 7px;
+}
+
+.container-header .header-section-right:hover::-webkit-scrollbar {
+    display: block;
+}
+
 
 .container-header .header-section-right button {
     background: transparent;
@@ -1344,18 +1377,25 @@ svg {
     grid-area: container;
     display: flex;
     flex-direction: column;
-    background: #f9f9f9;
-    padding: 24px 20px 20px 24px;
+    background: #f9f9f9;    
+    padding: 15px 15px 15px 0px;
     transition: padding .5s;
 }
+
 .container:not(.active) .container-main {
-    padding-left: 95px;
+    padding-left: 85px;
 }
+
 .container.active .container-main {
-    padding-left: 265px;
+    padding-left: 255px;
 }
+
 .container.container-aside-left-disabled .container-main {
     padding-left: 25px;
+}
+
+.container.container-main-padding-off .container-main {
+    padding: 0 !important;
 }
     /* ---- ---- ---- app ---- ---- ---- */
     #app {
@@ -1524,11 +1564,11 @@ svg {
 		width: 100%;
 		margin-left: initial;
 	}
-    .container.active .container-main {
-        padding-left: 24px;
+    .container.active .container-main {   
+         padding: 15px 10px;
     }
     .container:not(.active) .container-main {
-        padding-left: 24px;
+        padding-left: 15px;
     }
 }
 
@@ -1586,20 +1626,92 @@ svg {
 /*MEDIA ================================================================== */
 
 
-/*MEDIA iphone 5 */
-/*MEDIA end iphone 5 */
+/*< -- -- -- Media -- -- -->*/
 
-/*MEDIA iphone 5 landscape */
-/*MEDIA end iphone 5 landscape */
+/**
+ * Basic CSS Media Query Template
+ * TODO: I should probably use Sass...
+ * Author: Michael Vieth
+ * ------------------------------------------
+ *  Responsive Grid Media Queries - 1280, 1024, 768, 480
+ *   1280-1024   - desktop (default grid)
+ *   1024-768    - tablet landscape
+ *   768-480     - tablet 
+ *   480-less    - phone landscape & smaller
+ * --------------------------------------------
+ */
+@media all and (min-width: 1024px) and (max-width: 1280px) {
 
-/*MEDIA iphone X */
-/*MEDIA end iphone X */
+}
 
-/*MEDIA iphone landscape*/
-/*MEDIA end iphone landscape*/
+@media all and (min-width: 768px) and (max-width: 1024px) {
 
-/*MEDIA Ipad */
-/*MEDIA end Ipad */
+}
 
-/*MEDIA Ipad landscape*/
-/*MEDIA end Ipad landscape*/
+@media all and (min-width: 480px) and (max-width: 768px) {
+
+}
+
+@media all and (max-width: 480px) {
+    .header-section-right .item-group.active .items {
+        position: fixed;
+        right: 0;
+    }
+    .container:not(.active) .container-aside-left .item-group.active > .items-frame {
+        width: 100%;
+        max-width: 200px;
+    }
+}
+
+
+/* Portrait */
+@media screen and (orientation:portrait) { 
+    /* Portrait styles here */ 
+
+}
+/* Landscape */
+@media screen and (orientation:landscape) and (max-device-height: 500px) { 
+    .container:not(.active) .container-aside-left .item-group.active > .items-frame {
+        bottom: 10px;
+        max-height: 230px;
+    }
+    .container-main {    
+        padding: 10px 15px 10px 0px;
+    }
+    /* Landscape styles here */ 
+    
+}
+@media screen and (orientation:landscape) { 
+    /* Landscape styles here */ 
+}
+
+
+/* CSS for iPhone, iPad, and Retina Displays */
+
+/* Non-Retina */
+@media screen and (-webkit-max-device-pixel-ratio: 1) {
+}
+
+/* Retina */
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min--moz-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 1.5) {
+}
+
+/* iPhone Portrait */
+@media screen and (max-device-width: 480px) and (orientation:portrait) {
+} 
+
+/* iPhone Landscape */
+@media screen and (max-device-width: 480px) and (orientation:landscape) {
+}
+
+/* iPad Portrait */
+@media screen and (min-device-width: 481px) and (orientation:portrait) {
+}
+
+/* iPad Landscape */
+@media screen and (min-device-width: 481px) and (orientation:landscape) {
+
+}

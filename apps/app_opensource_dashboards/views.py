@@ -30,22 +30,22 @@ def index(request):
 def render_view(request, id):
 	content_access = True
 
-	user_selected_content = aside_left_menu_includes.objects.get(id=id)
+	# user_selected_content = aside_left_menu_includes.objects.get(id=id)
 
-	required_user_check = user_selected_content.url_access_via_users.all()
-	required_groups_check = user_selected_content.url_access_via_groups.all()
+	# required_user_check = user_selected_content.url_access_via_users.all()
+	# required_groups_check = user_selected_content.url_access_via_groups.all()
 
-	user_matches = [val for val in required_user_check if val.username in [request.user.username]]
-	groups_matches = [val for val in required_groups_check if val in request.user.groups.all()]
+	# user_matches = [val for val in required_user_check if val.username in [request.user.username]]
+	# groups_matches = [val for val in required_groups_check if val in request.user.groups.all()]
 
-	if len(user_matches) == 0 and len(required_user_check) > 0: content_access = False
-	if len(groups_matches) != len(required_groups_check): content_access = False
+	# if len(user_matches) == 0 and len(required_user_check) > 0: content_access = False
+	# if len(groups_matches) != len(required_groups_check): content_access = False
 
 
 	app_settings = app.objects.filter(is_actual=True).first()
 	app_opensource_dashboards_settings = ''
 	
-	template = 'app_opensource_dashboards/index.html'
+	template = 'app_opensource_dashboards/dashboard.html'
 
 	context = {
 		'app_settings': app_settings,
@@ -57,6 +57,6 @@ def render_view(request, id):
 
 	# from django.http import Http404
 	# raise Http404("Poll does not exist")
-	raise Http404()
+	#raise Http404()
 
 	return render(request, template, context)

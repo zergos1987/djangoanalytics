@@ -1,40 +1,54 @@
 {% extends "registration\base.html" %}
 
 
-{% block login %}
-<form class="form" method="post" action="">
-  {% csrf_token %}
+{% block header %}{{ block.super }}{% endblock header %}
+{% block login_header %}Вход{% endblock login_header %}
 
-  <div class="header">
-    <div class="brand-block">
-        {% block header_section_left_brand_details %}
-        <a href="/" class="logo" title="zs_admin">
-            <img src="{% block brand_details_logo_url %}/static/app_zs_admin/origin/res/img/logo.png{% endblock brand_details_logo_url %}" class="brand-logo" style="zoom: {% block header_section_left_brand_details_logo_zoom %}1{% endblock header_section_left_brand_details_logo_zoom %}">
-            <span style="color:{% block header_section_left_brand_details_title_color %}#333{% endblock header_section_left_brand_details_title_color %}">{% block header_section_left_brand_details_title %}DjangoAnalytics{% endblock header_section_left_brand_details_title %}</span>
-        </a>
-        {% endblock header_section_left_brand_details %}
-    </div>
-    <div class="login-header">Вход</div>
-  </div>
+{% block login_container %}
+{% csrf_token %}
 
-  {% if user.is_authenticated %}
+{% if user.is_authenticated %}
   <div class="form-controls">
     <div class="form_notification active">
-      <div class="message-text info bgblue">У вашей учётной записи отстуствую права доступа к данной странице: {{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ next }}</div>
+      <div class="message-text info bgblue">ВЫ уже авторизованы.</div>
     </div>
   </div>
-  <button type="submit" class="submit" value="Выйти"><a href="{% url 'logout' %}">выйти?</a></button>
-  {% else %}
-  <div class="input-container">
-    <input id="username" class="input" type="text" name="username" autocomplete="username" autocapitalize="none" placeholder=" " required />
-    <div class="cut"></div>
-    <label for="username" class="placeholder">Логин</label>
-  </div>
-  <div class="input-container">
-    <input id="password" class="input" type="password" name="password" autocomplete="current-password" placeholder=" " required/>
-    <div class="cut"></div>
-    <label for="password" class="placeholder">Пароль</label>
-  </div>
+  <button type="submit" class="submit" value="Выйти">
+    <a href="{% url 'logout' %}">выйти?</a>
+  </button>
+{% else %}
+
+  {% for field in form %}
+    {% if field.name == 'username' %}
+    <div class="input-container">
+      <input  id="id_username" class="input" type="text" name="username" maxlength="150" autocapitalize="none" placeholder=" " required />
+      {% if field.help_text %}
+        <div class="input_help_info">{{ field.help_text }}</div>
+      {% endif %}
+      {% for error in field.errors %}
+        <div class="input_help_info error">{{ error }}</div>
+      {% endfor %}
+      <div class="cut"></div>
+      <label for="id_username" class="placeholder">Логин</label>
+    </div>
+    {% endif %}
+  {% endfor %}
+
+  {% for field in form %}
+    {% if field.name == 'password' %}
+    <div class="input-container">
+      <input id="id_password" class="input" type="password" name="password" autocomplete="current-password" placeholder=" " required/>
+      {% if field.help_text %}
+        <div class="input_help_info">{{ field.help_text }}</div>
+      {% endif %}
+      {% for error in field.errors %}
+        <div class="input_help_info error">{{ error }}</div>
+      {% endfor %}
+      <div class="cut"></div>
+      <label for="id_password" class="placeholder">Пароль</label>
+    </div>
+    {% endif %}
+  {% endfor %}
 
   <div class="form-controls">
     <div class="form_notification {% if form.errors or next and not user.is_authenticated %}active{% endif %}">
@@ -50,7 +64,7 @@
         {% endif %}
 
         {% if next %}
-        <div class="message-text info">
+        <div class="message-text info bgblue">
           {% if user.is_authenticated %}
             <p>У вашей учётной записи отстуствую права доступа к данной странице.
           please login with an account that has access.</p>
@@ -63,7 +77,7 @@
     </div>
 
     <button type="submit" class="submit" value="Вход">войти</button>
-
+  {% if 1 == 2 %}
     <small class="password_reset">
       <a href="{% url 'password_reset' %}">Забыли пароль?</a>
     </small>
@@ -76,5 +90,6 @@
     <input type="hidden" name="next" value="{{ next }}" />
   </div>
   {% endif %}
-</form>
-{% endblock %}
+{% endif %}
+
+{% endblock login_container %}

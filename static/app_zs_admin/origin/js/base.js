@@ -264,6 +264,13 @@ $(document).ready(function(){
 
 	});
 	//header-section-right > MENU
+	//mouse wheel horizontal scroll
+	const scrollContainer = document.querySelector(".header-section-right");
+	scrollContainer.addEventListener("wheel", (evt) => {
+	    evt.preventDefault();
+	    scrollContainer.scrollLeft += evt.deltaY;
+	});
+
 	$('.header-section-right .item-group .items-header').off('click').click(function () {
 		removeActiveClass('header-section-right');
 		// header-section-right > item-group > items-header
