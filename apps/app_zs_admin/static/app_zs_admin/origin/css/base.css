@@ -1398,7 +1398,7 @@ svg {
     padding-left: 25px;
 }
 
-.container.container-main-padding-off .container-main {
+.container.container-aside-left-disabled.container-header-disabled.container-main-padding-off .container-main {
     padding: 0 !important;
 }
     /* ---- ---- ---- app ---- ---- ---- */
