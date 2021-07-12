@@ -1007,7 +1007,7 @@ svg {
 .container-aside-left a {
     display: flex;
     align-items: center;
-    padding: 10px 27px 10px 26px;
+    padding: 10px 27px 10px 13px;
     color: #000;
     width: auto;
     min-width: fit-content;
