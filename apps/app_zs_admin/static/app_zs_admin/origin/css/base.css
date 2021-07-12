@@ -1036,6 +1036,10 @@ svg {
     height: 55px;
     right: 1.5px;
     width: 0px;
+    outline: 2px solid #ff60608a;
+}
+
+.container:not(.active) .container-aside-left .item-group.active > a.items-header:after {
     outline: 2px solid #ff6060;
 }
 
