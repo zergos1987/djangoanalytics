@@ -118,6 +118,10 @@ svg {
     width: fit-content;
 }
 
+.container.container-aside-left-disabled.container-header-disabled.container-main-padding-off .breadcrumb {
+    display: none;
+}
+
 .breadcrumb ul {
     display: flex;
     align-items: center;
