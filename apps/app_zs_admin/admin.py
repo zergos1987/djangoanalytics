@@ -248,7 +248,7 @@ class aside_left_menu_includesAdmin(ImportExportModelAdmin):
     filter_horizontal = ('url_access_via_groups', 'url_access_via_users',)
     def parent_name_short(self, obj):
         if obj.name:
-            if obj.parent_name.name:
+            if obj.parent_name:
                 return obj.parent_name.name
 
     def save_model(self, request, obj, form, change):
