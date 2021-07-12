@@ -124,22 +124,23 @@ class aside_left_menu_includes(models.Model):
 	def save(self, *args, **kwargs):
 		if self.menu_icon_type == 'arrow' and self.href != '#':
 			self.href = '#'
-			
-		if self.name == str(self.parent_name):
-			if self.is_actual:
-				try:
-					aside_left_menu_includes.objects.filter(
-						name_order_by=self.name_order_by, 
-						is_actual=False).exclude(id=self.id).update(is_actual=True)
-				except Exception as e:
-					pass
-			else:
-				try:
-					aside_left_menu_includes.objects.filter(
-						name_order_by=self.name_order_by, 
-						is_actual=True).exclude(id=self.id).update(is_actual=False)
-				except Exception as e:
-					pass
+
+		if self.parent_name:
+			if self.name == str(self.parent_name):
+				if self.is_actual:
+					try:
+						aside_left_menu_includes.objects.filter(
+							name_order_by=self.name_order_by, 
+							is_actual=False).exclude(id=self.id).update(is_actual=True)
+					except Exception as e:
+						pass
+				else:
+					try:
+						aside_left_menu_includes.objects.filter(
+							name_order_by=self.name_order_by, 
+							is_actual=True).exclude(id=self.id).update(is_actual=False)
+					except Exception as e:
+						pass
 
 		super(aside_left_menu_includes, self).save(*args, **kwargs)
 
