@@ -107,8 +107,8 @@ class aside_left_menu_includes(models.Model):
 	name = models.CharField(max_length=200) 
 	menu_level = models.CharField(max_length=15, choices=menu_level_choices, default='level-0')
 	menu_icon_type = models.CharField(max_length=15, choices=menu_icon_type_choices, default='arrow')
-	name_order_by = IntegerField(default=1, choices=[(i, i) for i in range(1, 16)])
-	parent_name_order_by = IntegerField(default=1, choices=[(i, i) for i in range(1, 16)])
+	name_order_by = IntegerField(default=1, choices=[(i, i) for i in range(1, 101)])
+	parent_name_order_by = IntegerField(default=1, choices=[(i, i) for i in range(1, 101)])
 	url_access_via_groups = models.ManyToManyField(Group, blank=True)
 	url_access_via_users = models.ManyToManyField(User, blank=True)
 	render_app_name  = models.CharField(max_length=70, choices=app_name_list, null=True, blank=True) 
@@ -118,7 +118,7 @@ class aside_left_menu_includes(models.Model):
 	class Meta:
 		# app_label helps django to recognize your db
 		app_label = 'app_zs_admin'
-		ordering = ('name_order_by', 'parent_name_order_by',)
+		ordering = ('parent_name_order_by', 'name_order_by', )
 		unique_together = ('name', 'parent_name', 'name_order_by', 'parent_name_order_by',)
 	
 	def save(self, *args, **kwargs):
