@@ -1398,7 +1398,7 @@ svg {
     margin-right: 15px;
     margin-top: 15px;
     opacity: 0;
-    right: 15px;
+    right: 12px;
     transition: all .5s ease-in;
 }
 
@@ -1410,7 +1410,7 @@ svg {
     margin-right: 0px;
     margin-top: 0px;
     opacity: 1;
-    right: 15px;
+    right: 12px;
     transition: all .5s ease-out;
 }
 
@@ -1420,14 +1420,17 @@ svg {
 
 .container-main .full-screen-button svg {
     fill: #e4e4e4;
+    transition: fill .5s ease-out;
 }
 
 .container-main:hover .full-screen-button:hover svg {
     fill: #616161;
+    transition: fill .1s ease-in;
 }
 
 .container-main:hover .full-screen-button svg:active {
     fill: #ccc;
+    transition: fill .05s ease-out;
 }
 
 .container:not(.active) .container-main {
