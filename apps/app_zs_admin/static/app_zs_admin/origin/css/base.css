@@ -1391,6 +1391,10 @@ svg {
     position: relative;
 }
 
+.container.container-aside-left-disabled.container-header-disabled.container-main-padding-off .container-main .full-screen-button {
+    top: 15px;
+}
+
 .container-main .full-screen-button {
     position: absolute;
     width: 0px;
@@ -1399,18 +1403,20 @@ svg {
     margin-top: 15px;
     opacity: 0;
     right: 12px;
+    border-radius: 50%;
+    overflow: hidden;
     transition: all .5s ease-in;
 }
 
 .container-main:hover .full-screen-button {
     position: absolute;
-    z-index: 1000;
+    z-index: 500;
     width: 30px;
     height: 30px;
     margin-right: 0px;
     margin-top: 0px;
     opacity: 1;
-    right: 12px;
+    border-radius: 0%;
     transition: all .5s ease-out;
 }
 
