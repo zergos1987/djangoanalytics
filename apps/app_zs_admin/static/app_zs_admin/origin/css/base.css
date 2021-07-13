@@ -1368,7 +1368,7 @@ svg {
 }
 
 .container:not(.active) .container-aside-left .item-group.active > .items-frame > .items a:first-child {
-    margin-top: 20px;
+    margin-top: 18px;
 }
 
 .container:not(.active) .container-aside-left .item-group.active > .items-frame > .items a:last-child {
