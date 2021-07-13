@@ -1398,7 +1398,6 @@ svg {
     margin-right: 15px;
     margin-top: 15px;
     opacity: 0;
-    background-color: rgb(0 0 0 / 7%);
     right: 15px;
     transition: all .5s ease-in;
 }
@@ -1413,6 +1412,22 @@ svg {
     opacity: 1;
     right: 15px;
     transition: all .5s ease-out;
+}
+
+.container-main:hover .full-screen-button:hover {
+    cursor: pointer;
+}
+
+.container-main .full-screen-button svg {
+    fill: #e4e4e4;
+}
+
+.container-main:hover .full-screen-button:hover svg {
+    fill: #616161;
+}
+
+.container-main:hover .full-screen-button svg:active {
+    fill: #ccc;
 }
 
 .container:not(.active) .container-main {
