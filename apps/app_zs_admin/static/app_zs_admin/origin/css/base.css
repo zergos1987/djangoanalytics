@@ -521,8 +521,8 @@ svg {
 	grid-area: icons-block;
 	display: flex;
 	align-items: center;
-    height: 40px;
-    overflow-x: overlay;
+	height: 50px;
+	overflow-x: overlay;
 }
 
 .container-header .header-section-right::-webkit-scrollbar-thumb {
