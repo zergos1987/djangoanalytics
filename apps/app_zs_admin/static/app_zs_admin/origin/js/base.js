@@ -292,6 +292,26 @@ $(document).ready(function(){
 		}
 		// header-section-right > item-group > items > a.row.link
 	});
+	
+	// container-main full screen mode on/off
+	if(document.getElementsByClassName('full-screen-button').length > 0) {
+		[].forEach.call(document.getElementsByClassName('full-screen-button'),function(el){
+		    el.addEventListener("click", toggle_fullscreen_mode, false);
+		});
+		function toggle_fullscreen_mode(ele) {
+			if (document.querySelectorAll('#container.container-aside-left-disabled.container-header-disabled.container-main-padding-off').length === 1) {
+				container.classList.remove('container-aside-left-disabled');
+				container.classList.remove('container-header-disabled');
+				container.classList.remove('container-main-padding-off');	
+			} else {
+				container.className = "container";
+				container.classList.add('container-aside-left-disabled');
+				container.classList.add('container-header-disabled');
+				container.classList.add('container-main-padding-off');
+			}
+		}	
+	}
+	
 	// container-main
 	$('.container .container-main').off('click').click(function () {
 		if ($('.container .container-main').hasClass('fade-bg') === true) {
