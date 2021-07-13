@@ -1585,6 +1585,7 @@ svg {
     .container.active .container-main {   
          padding: 15px 10px;
     }
+    .container.active .container-main,
     .container:not(.active) .container-main {
         padding: 15px;
     }
