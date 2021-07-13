@@ -1388,6 +1388,16 @@ svg {
     background: #f9f9f9;    
     padding: 15px 15px 15px 0px;
     transition: padding .5s;
+    position: relative;
+}
+
+.container-main .full-screen-button {
+    position: absolute;
+    width: 30px;
+    height: 0px;
+    background-color: #fff;
+    right: 15px;
+    transition: all .06s ease-in;
 }
 
 .container:not(.active) .container-main {
