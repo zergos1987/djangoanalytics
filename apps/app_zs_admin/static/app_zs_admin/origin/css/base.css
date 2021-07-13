@@ -1568,7 +1568,8 @@ svg {
 	.container-header {
 		grid-template-columns: auto auto;
 		justify-content: space-between;
-		padding: 8px 16px;
+		padding: 0px 16px;
+		align-items: center;
 	}
 
 	.container-header .header-section-left .logo span {
