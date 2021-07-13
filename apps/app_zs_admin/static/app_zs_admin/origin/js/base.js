@@ -298,13 +298,15 @@ $(document).ready(function(){
 		[].forEach.call(document.getElementsByClassName('full-screen-button'),function(el){
 		    el.addEventListener("click", toggle_fullscreen_mode, false);
 		});
+		let prev_classlist_names = container.classList
 		function toggle_fullscreen_mode(ele) {
 			if (document.querySelectorAll('#container.container-aside-left-disabled.container-header-disabled.container-main-padding-off').length === 1) {
 				container.classList.remove('container-aside-left-disabled');
 				container.classList.remove('container-header-disabled');
-				container.classList.remove('container-main-padding-off');	
+				container.classList.remove('container-main-padding-off');
+				container.classList = prev_classlist_names	
 			} else {
-				container.className = "container";
+				prev_classlist_names = container.classList
 				container.classList.add('container-aside-left-disabled');
 				container.classList.add('container-header-disabled');
 				container.classList.add('container-main-padding-off');
