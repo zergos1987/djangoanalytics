@@ -38,7 +38,15 @@
 <!-- body -->
 	<!-- container display mode --> <!-- active --> <!-- fixed --> <!-- container-aside-left-disabled -->  <!-- container-header-disabled --> <!--  container-main-padding-off --> 
 	{% block container_display_mode_classname %}
-
+		{% spaceless %}
+		{% if app_settings.app_settings_container_display_mode.all != None %}
+			{% for container_mode in app_settings.app_settings_container_display_mode.all %}
+				{{ container_mode.name }}
+			{% endfor %}
+		{% else %}
+			active
+		{% endif %}
+		{% endspaceless %}
     {% endblock container_display_mode_classname %}
 
 		<!-- container-header -->
@@ -113,6 +121,7 @@
 			<!-- end container-aside-left -->
 
 			<!-- container-main -->
+            {% block full_screen_mode %}{{ block.super }}{% endblock full_screen_mode %}
 			{% block container_main %}{{ block.super }}{% endblock container_main %}
 
 				{% block container_main_bg_color %}

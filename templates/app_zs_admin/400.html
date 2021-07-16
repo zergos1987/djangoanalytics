@@ -120,6 +120,7 @@
 			<!-- end container-aside-left -->
 
 			<!-- container-main -->
+            {% block full_screen_mode %}{% endblock full_screen_mode %}
 			{% block container_main %}{{ block.super }}{% endblock container_main %}
 
 				{% block container_main_bg_color %}
