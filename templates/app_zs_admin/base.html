@@ -243,6 +243,7 @@
                 {% block container_aside_left %}
 
                 {% block container_aside_left_settings_menu %}
+                {% block container_aside_left_settings_menu_items %}
                 <div class="divider"></div>
 
                 <div class="item-group">
@@ -256,7 +257,6 @@
                     </a>
                     <div class="items-frame">
                         <div class="items">
-                            {% block container_aside_left_settings_menu_items %}
                             <a href="#" class="level-1"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>Приложения</span></div></a>
                             <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>accounts</span></div></a>
                             <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>app_opensource_dashboards</span></div></a>
@@ -274,13 +274,14 @@
                             <a href="#" class="level-3"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>ZS</span></div></a>
                             <a href="#" class="level-4"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>создание</span></div></a>
                             <a href="#" class="level-4"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>изменение</span></div></a>
-                            {% endblock container_aside_left_settings_menu_items %}
                         </div>
                     </div>
                 </div>
+                {% endblock container_aside_left_settings_menu_items %}
                 {% endblock container_aside_left_settings_menu %}
 
                 {% block container_aside_left_dashboards_menu %}
+                {% block container_aside_left_dashboards_menu_items %}
                 <div class="divider"></div>
 
                 <div class="item-group">
@@ -294,7 +295,6 @@
                     </a>
                     <div class="items-frame">
                         <div class="items">
-                            {% block container_aside_left_dashboards_menu_items %}
                             <a href="#" class="level-1"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>Департамент #1</span></div></a>
                             <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #1</span></div></a>
                             <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #2</span></div></a>
@@ -311,10 +311,10 @@
                             <a href="#" class="level-1"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>ФИО #3</span></div></a>
                             <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #1</span></div></a>
                             <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #2</span></div></a>
-                            {% endblock container_aside_left_dashboards_menu_items %}
                         </div>
                     </div>
                 </div>
+                {% endblock container_aside_left_dashboards_menu_items %}
                 {% endblock container_aside_left_dashboards_menu %}
 
                 {% endblock container_aside_left %}

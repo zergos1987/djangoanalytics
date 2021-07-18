@@ -4,7 +4,6 @@
 
 
 
-
 <!-- doctype html lang -->
 	{% block html_lang_text %}{% if app_settings.app_settings_html_lang_code %}{{ app_settings.app_settings_html_lang_code }}{% else %}{{ block.super }}{% endif %}{% endblock html_lang_text %}
 <!-- end doctype html lang -->
@@ -100,7 +99,7 @@
 
 					{% block container_aside_left_settings_menu_items %}
 				        {% if app_settings.app_settings_container_aside_left_settings_menu_items_includes.all %}
-				        	{% include "app_zs_admin/include/container_aside_left_menu_items_includes.html" with menu_items=app_settings.app_settings_container_aside_left_settings_menu_items_includes.all %}
+				        	{% include "app_zs_admin/include/container_aside_left_menu_items_includes.html" with menu_type="settings" menu_items=app_settings.app_settings_container_aside_left_settings_menu_items_includes.all %}
 				        {% else %}
 				        	{{ block.super }}
 				        {% endif %}
@@ -111,7 +110,7 @@
 
 					{% block container_aside_left_dashboards_menu_items %}
 				        {% if app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}
-				        	{% include "app_zs_admin/include/container_aside_left_menu_items_includes.html" with menu_items=app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}
+				        	{% include "app_zs_admin/include/container_aside_left_menu_items_includes.html" with menu_type="dashboards" menu_items=app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}
 				        {% else %}
 				        	{{ block.super }}
 				        {% endif %}

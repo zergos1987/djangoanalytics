@@ -118,6 +118,10 @@ svg {
     width: fit-content;
 }
 
+.container.container-aside-left-disabled.container-header-disabled.container-main-padding-off .breadcrumb {
+    display: none;
+}
+
 .breadcrumb ul {
     display: flex;
     align-items: center;
@@ -129,8 +133,9 @@ svg {
     overflow: hidden;
 }
 
-.breadcrumb:hover ul {
+.breadcrumb ul {
     padding-left: 5px;
+    margin-left: -5px;
 }
 
 .breadcrumb > ul > li {
@@ -516,8 +521,8 @@ svg {
 	grid-area: icons-block;
 	display: flex;
 	align-items: center;
-    height: 40px;
-    overflow-x: overlay;
+	height: 50px;
+	overflow-x: overlay;
 }
 
 .container-header .header-section-right::-webkit-scrollbar-thumb {
@@ -1006,7 +1011,7 @@ svg {
 .container-aside-left a {
     display: flex;
     align-items: center;
-    padding: 10px 27px 10px 26px;
+    padding: 10px 27px 10px 22px;
     color: #000;
     width: auto;
     min-width: fit-content;
@@ -1035,6 +1040,10 @@ svg {
     height: 55px;
     right: 1.5px;
     width: 0px;
+    outline: 2px solid #ff60608a;
+}
+
+.container:not(.active) .container-aside-left .item-group.active > a.items-header:after {
     outline: 2px solid #ff6060;
 }
 
@@ -1359,7 +1368,7 @@ svg {
 }
 
 .container:not(.active) .container-aside-left .item-group.active > .items-frame > .items a:first-child {
-    margin-top: 20px;
+    margin-top: 18px;
 }
 
 .container:not(.active) .container-aside-left .item-group.active > .items-frame > .items a:last-child {
@@ -1379,6 +1388,55 @@ svg {
     background: #f9f9f9;    
     padding: 15px 15px 15px 0px;
     transition: padding .5s;
+    position: relative;
+}
+
+.container.container-aside-left-disabled.container-header-disabled.container-main-padding-off .container-main .full-screen-button {
+    top: 15px;
+}
+
+.container-main .full-screen-button {
+    position: absolute;
+    width: 0px;
+    height: 0px;
+    margin-right: 15px;
+    margin-top: 15px;
+    opacity: 0;
+    right: 15px;
+    border-radius: 50%;
+    overflow: hidden;
+    transition: all .5s ease-in;
+}
+
+.container-main:hover .full-screen-button {
+    position: absolute;
+    z-index: 500;
+    width: 30px;
+    height: 30px;
+    margin-right: 0px;
+    margin-top: 0px;
+    opacity: 1;
+    border-radius: 0%;
+    transition: all .5s ease-out;
+}
+
+.container-main:hover .full-screen-button:hover {
+    cursor: pointer;
+}
+
+.container-main .full-screen-button svg {
+    fill: #e4e4e4;
+    transition: fill .5s ease-out;
+}
+
+.container-main:hover .full-screen-button:hover svg {
+    fill: #616161;
+    transition: fill .1s ease-in;
+}
+
+.container-main:hover .full-screen-button svg:active {
+    fill: #ccc;
+    transition: fill .05s ease-out;
 }
 
 .container:not(.active) .container-main {
@@ -1390,52 +1448,52 @@ svg {
 }
 
 .container.container-aside-left-disabled .container-main {
-    padding-left: 25px;
+    padding-left: 17px;
 }
 
-.container.container-main-padding-off .container-main {
+.container.container-aside-left-disabled.container-header-disabled.container-main-padding-off .container-main {
     padding: 0 !important;
 }
     /* ---- ---- ---- app ---- ---- ---- */
     #app {
-        max-width: 1600px;
-        height: 100%;
-        width: 100%;
-        margin: 0 auto;
-        position: relative;
+	height: fit-content;
+	min-height: 100%;
+	width: 100%;
+	margin: 0 auto;
+	position: relative;
     }
 
-    #app > .grid-items-columns {
+    #app > .dashboards > .grid-items-columns {
         display: grid;
         grid-gap: 2vmin 3.5vmin;
         grid-auto-flow: column;
     }
 
-    #app > .grid-items-columns.col1 {
+    #app > .dashboards > .grid-items-columns.col1 {
         grid-template-columns: repeat(1, 1fr);
         /*grid-template-columns: attr(data-cols-count);*/
     }
-    #app > .grid-items-columns.col2 {
+    #app > .dashboards > .grid-items-columns.col2 {
         grid-template-columns: repeat(2, 1fr);
     }
-    #app > .grid-items-columns.col3 {
+    #app > .dashboards > .grid-items-columns.col3 {
         grid-template-columns: repeat(3, 1fr);
     }
-    #app > .grid-items-columns.col4 {
+    #app > .dashboards > .grid-items-columns.col4 {
         grid-template-columns: repeat(4, 1fr);
     }
-    #app > .grid-items-columns.col5 {
+    #app > .dashboards > .grid-items-columns.col5 {
         grid-template-columns: repeat(5, 1fr);
     }
-    #app > .grid-items-columns.col6 {
+    #app > .dashboards > .grid-items-columns.col6 {
         grid-template-columns: repeat(6, 1fr);
     }
 
-    #app > .grid-items-columns:not(:last-child) {
+    #app > .dashboards > .grid-items-columns:not(:last-child) {
         padding-bottom: 2.5vmax;
     }
 
-    #app > .grid-items-columns > .grid-row {
+    #app > .dashboards > .grid-items-columns > .grid-row {
         display: flex;
         flex-direction: column;
         position: relative;
@@ -1443,38 +1501,38 @@ svg {
         height: 100%;
         border-radius: 15px;
     }
-    #app > .grid-items-columns > .grid-row > img {
+    #app > .dashboards > .grid-items-columns > .grid-row > img {
         width: 100%;
         height: 100%;
         background-color: #dfdfdf;
         border-radius: inherit;	    
     }
     @supports (aspect-ratio: 1 / 1) {
-        #app > .grid-items-columns > .grid-row > img.aspect-ratio.type1 {
+        #app > .dashboards > .grid-items-columns > .grid-row > img.aspect-ratio.type1 {
             aspect-ratio: 25 / 8;
         }
-        #app > .grid-items-columns > .grid-row > img.aspect-ratio.type2 {
+        #app > .dashboards > .grid-items-columns > .grid-row > img.aspect-ratio.type2 {
             aspect-ratio: 25 / 13;
         }
-        #app > .grid-items-columns > .grid-row > img.aspect-ratio.type3 {
+        #app > .dashboards > .grid-items-columns > .grid-row > img.aspect-ratio.type3 {
             aspect-ratio: 15 / 20;
         }
     }
     @supports not (aspect-ratio: 1 / 1) {
-        #app > .grid-items-columns > .grid-row > img.aspect-ratio.type1 {
+        #app > .dashboards > .grid-items-columns > .grid-row > img.aspect-ratio.type1 {
             height: 0;
             padding-top: calc(30 / 100 * 100%);
         }
-        #app > .grid-items-columns > .grid-row > img.aspect-ratio.type2 {
+        #app > .dashboards > .grid-items-columns > .grid-row > img.aspect-ratio.type2 {
             height: 0;
             padding-top: calc(56 / 100 * 100%);
         }
-        #app > .grid-items-columns > .grid-row > img.aspect-ratio.type3 {
+        #app > .dashboards > .grid-items-columns > .grid-row > img.aspect-ratio.type3 {
             height: 0;
             padding-top: calc(138 / 100 * 100%);
         }
     }
-    #app > .grid-items-columns > .grid-row > .content-block {
+    #app > .dashboards > .grid-items-columns > .grid-row > .content-block {
         position: absolute;
         width: 100%;
         height: 100%;
@@ -1484,7 +1542,7 @@ svg {
         box-shadow: 5px 5px 5px #dedede, -5px -5px 5px #ffffff;
         transition: background 1s, box-shadow 1s;
     }
-    #app > .grid-items-columns > .grid-row > .content-block:empty:before {
+    #app > .dashboards > .grid-items-columns > .grid-row > .content-block:empty:before {
         content: 'placeholder';
         position: absolute;
         display: flex;
@@ -1510,7 +1568,8 @@ svg {
 	.container-header {
 		grid-template-columns: auto auto;
 		justify-content: space-between;
-		padding: 8px 16px;
+		padding: 0px 16px;
+		align-items: center;
 	}
 
 	.container-header .header-section-left .logo span {
@@ -1566,8 +1625,9 @@ svg {
     .container.active .container-main {   
          padding: 15px 10px;
     }
+    .container.active .container-main,
     .container:not(.active) .container-main {
-        padding-left: 15px;
+        padding: 15px;
     }
 }
 

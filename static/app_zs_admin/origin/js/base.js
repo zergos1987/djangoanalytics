@@ -266,10 +266,12 @@ $(document).ready(function(){
 	//header-section-right > MENU
 	//mouse wheel horizontal scroll
 	const scrollContainer = document.querySelector(".header-section-right");
-	scrollContainer.addEventListener("wheel", (evt) => {
-	    evt.preventDefault();
-	    scrollContainer.scrollLeft += evt.deltaY;
-	});
+		if(scrollContainer !== null) {
+		scrollContainer.addEventListener("wheel", (evt) => {
+		    evt.preventDefault();
+		    scrollContainer.scrollLeft += evt.deltaY;
+		});
+	}
 
 	$('.header-section-right .item-group .items-header').off('click').click(function () {
 		removeActiveClass('header-section-right');
@@ -292,6 +294,54 @@ $(document).ready(function(){
 		}
 		// header-section-right > item-group > items > a.row.link
 	});
+	
+	// container-main full screen mode on/off
+	if(document.getElementsByClassName('full-screen-button').length > 0) {
+		[].forEach.call(document.getElementsByClassName('full-screen-button'),function(el){
+		    el.addEventListener("click", toggle_fullscreen_mode, false);
+		});
+
+		let prev_classlist_names = [];
+		function prev_classlist_names_clear() {
+			prev_classlist_names = [];
+		}
+
+		function prev_classlist_names_update(classlist) {
+			if(classlist.length > 0) {
+				for (let i = 1; i < classlist.length; i++) {
+					prev_classlist_names.push(classlist[i]);
+				}
+			}
+		};
+
+		function prev_classlist_names_set(classlist, prev_classlist) {
+			if(prev_classlist_names.length > 0) {
+				for (let i = 0; i < prev_classlist_names.length; i++) {
+					if (prev_classlist_names[i] !== 'container' || prev_classlist_names[i] !== 'container-aside-left-disabled' || prev_classlist_names[i] !== 'container-header-disabled' || prev_classlist_names[i] !== 'container-main-padding-off') {
+						classlist.add(prev_classlist_names[i]);
+					}
+				}
+			}
+		};
+
+		prev_classlist_names_update(container.classList);
+		function toggle_fullscreen_mode(ele) {
+			if (document.querySelectorAll('#container.container-aside-left-disabled.container-header-disabled.container-main-padding-off').length === 1) {
+				container.classList.remove('container-aside-left-disabled');
+				container.classList.remove('container-header-disabled');
+				container.classList.remove('container-main-padding-off');
+				prev_classlist_names_set(container.classList, prev_classlist_names);
+			} else {
+				prev_classlist_names_clear();
+				prev_classlist_names_update(container.classList);
+				container.classList.remove('fixed');
+				container.classList.add('container-aside-left-disabled');
+				container.classList.add('container-header-disabled');
+				container.classList.add('container-main-padding-off');
+			}
+		}	
+	}
+	
 	// container-main
 	$('.container .container-main').off('click').click(function () {
 		if ($('.container .container-main').hasClass('fade-bg') === true) {
