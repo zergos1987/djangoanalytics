@@ -97,10 +97,10 @@ menu_icon_type_choices = (
 	("arrow", "arrow"),
 )
 app_name_choices = (
-	("zs_admin", "zs_admin"),
-	("os_dashboards", "os_dashboards"),
-	("zs_dashboards", "zs_dashboards"),
-	("zs_examples", "zs_examples"),
+	("app_zs_admin", "app_zs_admin"),
+	("app_opensource_dashboards", "app_opensource_dashboards"),
+	("app_zs_dashboards", "app_zs_dashboards"),
+	("app_zs_examples", "app_zs_examples"),
 )
 source_type_choices = (
 	("external", "external"),
@@ -165,14 +165,14 @@ class aside_left_menu_includes(models.Model):
 
 
 app_name_choices = (
-	("zs_admin", "zs_admin"),
+	("app_zs_admin", "app_zs_admin"),
 	("accounts", "accounts"),
-	("os_dashboards", "os_dashboards"),
-	("os_surveys", "os_surveys"),
-	("zs_dashboards", "zs_dashboards"),
-	("zs_examples", "zs_examples"),
-	("db_sadko", "db_sadko"),
-	("db_sqlite_test", "db_sqlite_test"),
+	("app_opensource_dashboards", "app_opensource_dashboards"),
+	("app_opensource_surveys", "app_opensource_surveys"),
+	("app_zs_dashboards", "app_zs_dashboards"),
+	("app_zs_examples", "app_zs_examples"),
+	("database_oracle_sadko", "database_oracle_sadko"),
+	("database_sqlite_test", "database_sqlite_test"),
 )
 class app(models.Model):
 	app_brand_name = models.CharField(max_length=400, default='DjangoAnalytics')
