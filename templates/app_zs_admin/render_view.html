@@ -26,8 +26,7 @@
 	{% block head_css %}{{ block.super }}{% endblock head_css %}
 	    <!-- APP CSS -->
 	    {% block css %}{{ block.super }}
-		<link href="{% static 'app_opensource_dashboards/origin/css/index.css' %}" rel="stylesheet">
-		<link href="{% static 'app_opensource_dashboards/origin/css/os_dashboards.css' %}" rel="stylesheet">
+		<link href="{% static 'app_zs_admin/origin/css/render_view.css' %}" rel="stylesheet">
 		{% endblock css %}
 	    <!-- APP VENDOR CSS -->
 	    {% block vendor_css %}{{ block.super }}{% endblock vendor_css %}
@@ -101,7 +100,7 @@
 
 					{% block container_aside_left_settings_menu_items %}
 				        {% if app_settings.app_settings_container_aside_left_settings_menu_items_includes.all %}
-				        	{% include "app_zs_admin/include/container_aside_left_menu_items_includes.html" with menu_items=app_settings.app_settings_container_aside_left_settings_menu_items_includes.all %}
+				        	{% include "app_zs_admin/include/container_aside_left_menu_items_includes.html" with menu_type="settings" menu_items=app_settings.app_settings_container_aside_left_settings_menu_items_includes.all %}
 				        {% else %}
 				        	{{ block.super }}
 				        {% endif %}
@@ -112,7 +111,7 @@
 
 					{% block container_aside_left_dashboards_menu_items %}
 				        {% if app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}
-				        	{% include "app_zs_admin/include/container_aside_left_menu_items_includes.html" with menu_items=app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}
+				        	{% include "app_zs_admin/include/container_aside_left_menu_items_includes.html" with menu_type="dashboards" menu_items=app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}
 				        {% else %}
 				        	{{ block.super }}
 				        {% endif %}
@@ -133,7 +132,7 @@
 				{% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}
 				 	{% block breadcrumb_items %}
                         <li><a href="{% url 'app_opensource_dashboards:index' %}">Дашборды</a></li>
-                        <li><a>{% for item in app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}	
+                        <li><a>{% for item in app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}
 								{% if item.id|stringformat:"i" in request.path %}
 								{{item.name}}
 								{% else %}
@@ -144,10 +143,14 @@
 
 				{% block container_main_content %}
 
-				<div class="dashboards">
+				<div class="render_view">
 					{% for item in app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}	
 						{% if item.id|stringformat:"i" in request.path %}
-							{{item}}
+							{% if item.source_type == 'external' %}
+							<iframe class="external-container" height=100% width="100%" frameborder="0" src="{{item.content_href}}" allowfullscreen></iframe>
+							{% else %}
+							{{item}}---{{item.source_type}}
+							{% endif %}
 						{% else %}
 						{% endif %}
 					{% endfor %}
@@ -167,7 +170,7 @@
         <!-- BASE JS -->
         <!-- APP JS -->
         {% block js %}{{ block.super }}
-        <script src="{% static 'app_opensource_dashboards/origin/js/index.js'%}"></script>
+        <script src="{% static 'app_zs_admin/origin/js/render_view.js'%}"></script>
         {% endblock js %}
         <!-- APP VENDOR JS -->
         {% block vendor_js %}{{ block.super }}{% endblock vendor_js %}

@@ -55,7 +55,6 @@ svg {
 .border-shadow.bottom {
 	border-bottom: 1px solid #cdcdcd;
     /*box-shadow: 0 6px 6px -6px #c4c4c4;*/
-    transition: all 0.5s;
 }
 
 .container .border-shadow.bottom.header {
@@ -251,11 +250,19 @@ svg {
     margin-left: 0px;
     height: 28px;
 }
+
 .breadcrumb:hover > ul > li:last-child {
     padding: 0;
 }
+
 .breadcrumb > ul > li:only-child {
     display: none;
+}
+
+.container-main,
+.breadcrumb > ul > li,
+.breadcrumb > ul > li:last-child {
+    background-color: #fff;
 }
 /*CONTAINER =================================================================== */
 .container {
@@ -974,7 +981,6 @@ svg {
     display: block;
     border-top: 1px solid rgba(0,0,0,0.1);
     width: 100%;
-    transition: all 0.5s ease 0s;
     position: absolute;
     margin-top: 22px;
     z-index: 10;

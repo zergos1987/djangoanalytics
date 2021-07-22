@@ -96,11 +96,15 @@ menu_icon_type_choices = (
 	("folder", "folder"),
 	("arrow", "arrow"),
 )
-app_name_list = (
+app_name_choices = (
 	("zs_admin", "zs_admin"),
 	("os_dashboards", "os_dashboards"),
 	("zs_dashboards", "zs_dashboards"),
 	("zs_examples", "zs_examples"),
+)
+source_type_choices = (
+	("external", "external"),
+	("internal", "internal"),
 )
 class aside_left_menu_includes(models.Model):
 	parent_name = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True) 
@@ -111,9 +115,11 @@ class aside_left_menu_includes(models.Model):
 	parent_name_order_by = IntegerField(default=1, choices=[(i, i) for i in range(1, 101)])
 	url_access_via_groups = models.ManyToManyField(Group, blank=True)
 	url_access_via_users = models.ManyToManyField(User, blank=True)
-	render_app_name  = models.CharField(max_length=70, choices=app_name_list, null=True, blank=True) 
-	is_actual = models.BooleanField(default=True)
+	render_app_name  = models.CharField(max_length=70, choices=app_name_choices, null=True, blank=True)
 	href = models.CharField(max_length=800, blank=True, null=True, default="#")
+	content_href = models.TextField(blank=True, null=True, default="#")
+	source_type = models.CharField(max_length=20, choices=source_type_choices, default='external')
+	is_actual = models.BooleanField(default=True)
 
 	class Meta:
 		# app_label helps django to recognize your db
@@ -158,7 +164,7 @@ class aside_left_menu_includes(models.Model):
 
 
 
-app_name_list = (
+app_name_choices = (
 	("zs_admin", "zs_admin"),
 	("accounts", "accounts"),
 	("os_dashboards", "os_dashboards"),
@@ -191,8 +197,8 @@ class app(models.Model):
 	app_settings_header_section_right_user_settings_locale_includes = models.ManyToManyField(user_settings_locale_includes, blank=True,  limit_choices_to = {'is_actual': True})
 	app_settings_header_section_right_user_settings_menu_enable = models.BooleanField(default=True)
 	app_settings_container_aside_left_enable = models.BooleanField(default=True)
-	app_settings_container_aside_left_main_site_page = models.CharField(max_length=70, choices=app_name_list, null=True, blank=True) 
-	app_start_page = models.CharField(max_length=70, choices=app_name_list, null=True, blank=False, default='zs_admin') 
+	app_settings_container_aside_left_main_site_page = models.CharField(max_length=70, choices=app_name_choices, null=True, blank=True) 
+	app_start_page = models.CharField(max_length=70, choices=app_name_choices, null=True, blank=False, default='zs_admin') 
 	app_settings_container_aside_left_settings_menu_enable = models.BooleanField(default=True)
 	app_settings_container_aside_left_settings_menu_items_includes = models.ManyToManyField(aside_left_menu_includes, related_name='settings_menu', blank=True,  limit_choices_to = {'is_actual': True})
 	app_settings_container_aside_left_dashboards_menu_enable = models.BooleanField(default=True)

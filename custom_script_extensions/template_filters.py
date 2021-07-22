@@ -23,13 +23,10 @@ def to_upper(value):
     return value
 
 @register.simple_tag
-def check_url_permission(content_obj, check_perm_type, menu_type, obj_id, user_id):
-	if check_perm_type == 'has_item_perm':
-		user_content_has_permission = check_user_content_request_permission(
-			content_obj=content_obj,
-			obj_id=obj_id,
-			user_id=user_id)
-	if check_perm_type == 'has_menu_perm':
-		print(menu_type, 'QQQQQQQQQQ')
-		user_content_has_permission = False
+def check_url_permission(content_obj, obj_id, user_id, menu_type=None):
+	user_content_has_permission = check_user_content_request_permission(
+		content_obj=content_obj,
+		obj_id=obj_id,
+		user_id=user_id,
+		menu_type=menu_type)
 	return user_content_has_permission

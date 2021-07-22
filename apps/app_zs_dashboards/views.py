@@ -1,19 +1,12 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
-from django.http import HttpResponse, FileResponse, Http404, HttpResponseRedirect, HttpResponseForbidden, HttpResponsePermanentRedirect
-from django.contrib.auth.models import User, Group
-from django.views.generic import UpdateView, ListView, TemplateView, RedirectView
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import csrf_exempt
-from django.db.models import Case, Sum, Min, Max, Count, When, Q, F, Value, IntegerField, CharField, DateField, DateTimeField
+from django.core.exceptions import PermissionDenied
+from django.http import HttpResponse, FileResponse, Http404, HttpResponseRedirect, HttpResponseForbidden, HttpResponsePermanentRedirect
+from django.urls import reverse
 
-import uuid
-from django.utils.crypto import get_random_string
-
-from datetime import datetime
-import json
-
-import os
+from apps.app_zs_admin.models import app, aside_left_menu_includes
+from custom_script_extensions.custom_permissions_check import check_user_content_request_permission
 
 
 
@@ -26,3 +19,27 @@ def index(request):
 	template = 'app_zs_dashboards/index.html'
 
 	return render(request, template)
+
+
+
+@login_required
+@permission_required('app_zs_dashboards.view_app')
+def render_view(request, id):
+	user_content_has_permission = check_user_content_request_permission(
+		content_obj='aside_left_menu_includes',
+		obj_id=id,
+		user_id=request.user.id)
+
+	if not user_content_has_permission: raise PermissionDenied()
+
+	app_settings = app.objects.filter(is_actual=True).first()
+	app_zs_dashboards_settings = ''
+	
+	template = 'app_zs_admin/render_view.html'
+
+	context = {
+		'app_settings': app_settings,
+		'application_settings': app_zs_dashboards_settings
+	}
+
+	return render(request, template, context)

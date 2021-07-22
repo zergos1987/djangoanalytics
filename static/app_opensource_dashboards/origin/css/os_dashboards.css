@@ -1,9 +1,15 @@
 .dashboards {
 	width: 100%;
-	height: 100%;
+	height: 100%;    
+	display: flex;
+    flex-direction: column;
 	padding-top: 40px;
 }
 
 .container.container-aside-left-disabled.container-header-disabled.container-main-padding-off .dashboards {
 	padding: 15px;
+}
+
+.dashboards > .external-container {
+
 }

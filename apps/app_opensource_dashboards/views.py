@@ -34,18 +34,16 @@ def render_view(request, id):
 		obj_id=id,
 		user_id=request.user.id)
 
-	print(user_content_has_permission, 'ZZZZZZZZzzzzz')
 	if not user_content_has_permission: raise PermissionDenied()
-
 
 	app_settings = app.objects.filter(is_actual=True).first()
 	app_opensource_dashboards_settings = ''
 	
-	template = 'app_opensource_dashboards/dashboard.html'
+	template = 'app_zs_admin/render_view.html'
 
 	context = {
 		'app_settings': app_settings,
-		'app_opensource_dashboards_settings': app_opensource_dashboards_settings
+		'application_settings': app_opensource_dashboards_settings
 	}
 
 	return render(request, template, context)

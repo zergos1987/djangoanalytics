@@ -1,9 +1,3 @@
-.container-main,
-.breadcrumb > ul > li,
-.breadcrumb > ul > li:last-child {
-	background-color: #fff;
-}
-
 #app .wrapper {
     height: 100%;
     display: flex;

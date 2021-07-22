@@ -1,12 +1,12 @@
 {% load template_filters %}
 
 {% spaceless %}
-{% check_url_permission 'aside_left_menu_includes' 'has_menu_perm' menu_type item.id request.user.id as has_menu_perm %}
+{% check_url_permission 'aside_left_menu_includes' 1 request.user.id menu_type as has_menu_perm %}
 {% if has_menu_perm %}
 <div class="divider"></div>
 
 <div class="item-group">
-    <a href="#" class="items-header">
+    <a class="items-header">
     	{% if menu_type == "settings" %}
         <svg viewBox="0 0 24 24">
             <g>
@@ -27,7 +27,7 @@
     <div class="items-frame">
         <div class="items">
 		{% for item in menu_items %}
-		{% check_url_permission 'aside_left_menu_includes' 'has_item_perm' menu_type item.id request.user.id as has_item_perm %}
+		{% check_url_permission 'aside_left_menu_includes' item.id request.user.id menu_type as has_item_perm %}
 		{% if has_item_perm %}
 		<a {% if item.href == '#' %}{% else %}href="
 		{% if item.render_app_name == None %}{{item.href}}{% else %}/{{item.render_app_name}}/render_view/{{item.id}}/{% endif %}"{% endif %} class="{{item.menu_level}}"><div class="row"><i class="fas fa-folder fa-localy {{item.menu_icon_type}}"></i><span>{{item.name}}</span></div></a>
