@@ -3,7 +3,7 @@ from apps.app_opensource_dashboards import views
 from django.views.generic import TemplateView
 from django.urls import path
 
-app_name = 'app_opensource_dashboards'
+app_name = 'os_dashboards'
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
