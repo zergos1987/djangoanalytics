@@ -120,42 +120,42 @@
 			<!-- end container-aside-left -->
 
 			<!-- container-main -->
-            {% block full_screen_mode %}{{ block.super }}{% endblock full_screen_mode %}
+            		{% block full_screen_mode %}{{ block.super }}{% endblock full_screen_mode %}
 			{% block container_main %}{{ block.super }}{% endblock container_main %}
 
-				{% block container_main_bg_color %}
-					{% if app_settings.app_settings_container_main_bg_color_enable %}
-						style="background-color: {{app_settings.app_settings_container_main_bg_color}};"
+			{% block container_main_bg_color %}
+				{% if app_settings.app_settings_container_main_bg_color_enable %}style="background-color: {{app_settings.app_settings_container_main_bg_color}};"
 			        {% endif %}
-				{% endblock container_main_bg_color %}
+			{% endblock container_main_bg_color %}
 
-				{% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}
-				 	{% block breadcrumb_items %}
+			{% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}
+
+			{% block breadcrumb_items %}
                         <li><a href="{% url 'app_opensource_dashboards:index' %}">Дашборды</a></li>
-                        <li><a>{% for item in app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}
-								{% if item.id|stringformat:"i" in request.path %}
-								{{item.name}}
-								{% else %}
-								{% endif %}
-							{% endfor %}</a>
-						</li>
-                    {% endblock breadcrumb_items %}
+                        <li><a>{% spaceless %}{% for item in app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}
+                        		      {% concat_all '/' item.id '/' as item_id %}
+					      {% if item_id in request.path %}
+					      {{item.name}}
+					      {% else %}
+					      {% endif %}
+					      {% endfor %}{% endspaceless %}</a></li>
+			{% endblock breadcrumb_items %}
 
-				{% block container_main_content %}
-
-				<div class="render_view">
-					{% for item in app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}	
-						{% if item.id|stringformat:"i" in request.path %}
-							{% if item.source_type == 'external' %}
+			{% block container_main_content %}
+			<div class="render_view">{% spaceless %}
+		        	{% for item in app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}	
+					{% concat_all '/' item.id '/' as item_id %}
+					{% if item_id in request.path %}
+						{% if item.source_type == 'external' %}
 							<iframe class="external-container" height=100% width="100%" frameborder="0" src="{{item.content_href}}" allowfullscreen></iframe>
-							{% else %}
-							{{item}}---{{item.source_type}}
-							{% endif %}
 						{% else %}
+							{{item}}---{{item.source_type}}
 						{% endif %}
-					{% endfor %}
-				</div>
-				{% endblock container_main_content %}
+					{% else %}
+					{% endif %}
+				{% endfor %}
+			{% endspaceless %}</div>
+			{% endblock container_main_content %}
 			<!-- end container-main -->
 
 			<!-- container-footer -->
