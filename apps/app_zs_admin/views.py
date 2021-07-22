@@ -14,7 +14,7 @@ from custom_script_extensions.custom_permissions_check import check_user_content
 # Create your views here.
 #@method_decorator([login_required, permission_required("app_zs_admin.view_app")], name="dispatch")
 @login_required
-@permission_required('app_zs_admin.view_app')
+#@permission_required('app_zs_admin.view_app')
 def index(request):
 	app_settings = app.objects.filter(is_actual=True).first()
 	if 'zs_admin' != app_settings.app_start_page:
@@ -29,7 +29,7 @@ def index(request):
 
 
 @login_required
-@permission_required('app_zs_admin.view_app')
+#@permission_required('app_zs_admin.view_app')
 def render_view(request, id):
 	user_content_has_permission = check_user_content_request_permission(
 		content_obj='aside_left_menu_includes',
@@ -64,7 +64,7 @@ def handler400(request, exception):
 
 
 @login_required
-@permission_required('app_zs_admin.view_app')
+#@permission_required('app_zs_admin.view_app')
 def handler403(request, exception):
 	app_settings = app.objects.filter(is_actual=True).first()
 	context = {
@@ -76,7 +76,7 @@ def handler403(request, exception):
 
 
 @login_required
-@permission_required('app_zs_admin.view_app')
+#@permission_required('app_zs_admin.view_app')
 def handler404(request, exception):
 	app_settings = app.objects.filter(is_actual=True).first()
 	context = {
@@ -88,7 +88,7 @@ def handler404(request, exception):
 
 
 @login_required
-@permission_required('app_zs_admin.view_app')
+#@permission_required('app_zs_admin.view_app')
 def handler500(request):
 	app_settings = app.objects.filter(is_actual=True).first()
 	context = {
