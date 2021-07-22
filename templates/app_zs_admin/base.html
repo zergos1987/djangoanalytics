@@ -231,7 +231,7 @@
             <nav class="container-aside-left">
                 <!-- <span class="border-shadow right sidebarleft"></span> -->
                 <div class="item-group">
-                    <a href="{% block main_site_page %}{% url 'app_zs_admin:index' %}{% endblock main_site_page %}" class="items-header">
+                    <a href="{% block main_site_page %}{% url 'zs_admin:index' %}{% endblock main_site_page %}" class="items-header">
                         <svg viewBox="0 0 24 24">
                             <g>
                                 <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8"></path>
@@ -342,7 +342,7 @@
                 {% block breadcrumb %}
                 <div class="breadcrumb">
                     <ul>
-                        <li><a href="{% url 'app_zs_admin:index' %}">Главная</a></li>
+                        <li><a href="{% url 'zs_admin:index' %}">Главная</a></li>
                         {% block breadcrumb_items %}
                         <li><a href="#">Дашборды</a></li>
                         <li><a href="#">Департамент №1</a></li>
