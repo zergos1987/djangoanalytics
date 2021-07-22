@@ -23,6 +23,11 @@ def to_upper(value):
     return value
 
 @register.simple_tag
+def concat_all(*args):
+    """concatenate all args"""
+    return ''.join(map(str, args))
+
+@register.simple_tag
 def check_url_permission(content_obj, obj_id, user_id, menu_type=None):
 	user_content_has_permission = check_user_content_request_permission(
 		content_obj=content_obj,
