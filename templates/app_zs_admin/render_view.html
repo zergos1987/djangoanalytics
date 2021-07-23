@@ -129,16 +129,16 @@
 			{% endblock container_main_bg_color %}
 
 			{% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}
-			{% block breadcrumb_items %}
-				{% for item in app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}{% spaceless %}
+			{% block breadcrumb_items %}{% spaceless %}
+				{% for item in app_settings.app_settings_container_aside_left_menu_items_includes.all %}
 					{% concat_all '/' item.id '/' as item_id %}
 					{% if item_id in request.path %}
-					<li><a href="/{{item.render_app_name}}/">{% spaceless %}Дашборды{% endspaceless %}</a></li>
+					<li><a href="/{{item.render_app_name}}/">{% spaceless %}{{item.render_app_name_translate}}{% endspaceless %}</a></li>
 					<li><a>{% spaceless %}{{item.parent_name.name}}{% endspaceless %}</a></li>
 					<li><a>{% spaceless %}{{item.name}}{% endspaceless %}</a></li>
-				{% else %}
-				{% endif %}
-				{% endspaceless %}{% endfor %}
+					{% else %}
+					{% endif %}
+				{% endfor %}{% endspaceless %}
 			{% endblock breadcrumb_items %}
 
 			{% block container_main_content %}
