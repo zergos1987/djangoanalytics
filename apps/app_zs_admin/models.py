@@ -165,7 +165,6 @@ class aside_left_menu_includes(models.Model):
 			str(self.name_order_by) + ' | ' + 
 			self.menu_level + ' | ' + 
 			self.menu_icon_type + ' | ' +
-			str(self.is_new_parent_menu) + ' | ' +
 			str(self.render_app_name) + ' | ' +
 			#self.parent_name + ' | ' +  
 			self.name)
