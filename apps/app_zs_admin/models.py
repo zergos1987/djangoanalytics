@@ -125,6 +125,7 @@ class aside_left_menu_includes(models.Model):
 	href = models.CharField(max_length=800, blank=True, null=True, default="#")
 	content_href = models.TextField(blank=True, null=True, default="#")
 	source_type = models.CharField(max_length=20, choices=source_type_choices, default='external')
+	is_new_parent_menu = models.BooleanField(default=False)
 	is_actual = models.BooleanField(default=True)
 
 	class Meta:
@@ -158,14 +159,15 @@ class aside_left_menu_includes(models.Model):
 
 	def __str__(self):
 		return (
-			self.name + ' | ' + 
-			#self.parent_name + ' | ' +  
+			self.render_app_name_translate + ' | ' + 
+			str(self.parent_name_order_by) + ' | ' + 
+			str(self.name_order_by) + ' | ' + 
 			self.menu_level + ' | ' + 
 			self.menu_icon_type + ' | ' +
+			str(self.is_new_parent_menu) + ' | ' +
 			str(self.render_app_name) + ' | ' +
-			str(self.is_actual) + ' | ' +
-			str(self.name_order_by) + ' | ' + 
-			str(self.parent_name_order_by))
+			#self.parent_name + ' | ' +  
+			self.name)
 
 
 
