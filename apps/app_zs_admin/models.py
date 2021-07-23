@@ -125,6 +125,7 @@ class aside_left_menu_includes(models.Model):
 	href = models.CharField(max_length=800, blank=True, null=True, default="#")
 	content_href = models.TextField(blank=True, null=True, default="#")
 	source_type = models.CharField(max_length=20, choices=source_type_choices, default='external')
+	new_parent_menu_svg_icon = models.TextField(blank=True, null=True)
 	is_new_parent_menu = models.BooleanField(default=False)
 	is_actual = models.BooleanField(default=True)
 
