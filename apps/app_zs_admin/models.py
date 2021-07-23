@@ -121,6 +121,7 @@ class aside_left_menu_includes(models.Model):
 	url_access_via_users = models.ManyToManyField(User, blank=True)
 	render_app_name  = models.CharField(max_length=70, choices=app_name_choices, null=True, blank=True)
 	render_app_name_translate = models.CharField(max_length=150, choices=render_app_name_translate, null=False, default='Дашборды')
+	is_new_parent_menu = models.BooleanField(default=False)
 	href = models.CharField(max_length=800, blank=True, null=True, default="#")
 	content_href = models.TextField(blank=True, null=True, default="#")
 	source_type = models.CharField(max_length=20, choices=source_type_choices, default='external')
