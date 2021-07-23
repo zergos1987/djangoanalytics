@@ -156,7 +156,7 @@ class aside_left_menu_includes(models.Model):
 
 	def __str__(self):
 		return (
-			str(self.render_app_name_translate) + ' | ' + 
+			#str(self.render_app_name_translate) + ' | ' + 
 			str(self.parent_name_order_by) + ' | ' + 
 			str(self.name_order_by) + ' | ' + 
 			self.menu_level + ' | ' + 
