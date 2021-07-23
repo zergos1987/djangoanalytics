@@ -236,11 +236,11 @@ class aside_left_menu_includesResource(resources.ModelResource):
     class Meta:
         model = aside_left_menu_includes
         fields = (
-            'name',  'menu_level', 'menu_icon_type',  'parent_name_order_by', 'name_order_by', 'render_app_name', 'render_app_name_translate', 'href', 'is_new_parent_menu', 'is_actual', ) 
+            'name',  'menu_level', 'menu_icon_type',  'parent_name_order_by', 'name_order_by', 'render_app_name', 'render_app_name_translate', 'href', 'is_actual', ) 
 
 class aside_left_menu_includesAdmin(ImportExportModelAdmin):
     list_display = [
-        'id', 'parent_name_short', 'name',  'menu_level', 'menu_icon_type', 'parent_name_order_by', 'name_order_by', 'render_app_name', 'render_app_name_translate', 'href', 'is_new_parent_menu', 'is_actual']
+        'id', 'parent_name_short', 'name',  'menu_level', 'menu_icon_type', 'parent_name_order_by', 'name_order_by', 'render_app_name', 'render_app_name_translate', 'href', 'is_actual']
 
     list_filter = (
         'name',  'is_actual',  #('dt', DateTimeRangeFilter)
