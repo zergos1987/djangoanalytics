@@ -143,7 +143,7 @@
 
 			{% block container_main_content %}
 			<div class="render_view">{% spaceless %}
-		        	{% for item in app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}	
+		        	{% for item in app_settings.app_settings_container_aside_left_menu_items_includes.all %}	
 					{% concat_all '/' item.id '/' as item_id %}
 					{% if item_id in request.path %}
 						{% if item.source_type == 'external' %}
