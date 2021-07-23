@@ -33,7 +33,8 @@ class appAdmin(ImportExportModelAdmin):
         'app_settings_container_display_mode', 
         'app_settings_header_section_right_user_settings_locale_includes',
         'app_settings_container_aside_left_settings_menu_items_includes',
-        'app_settings_container_aside_left_dashboards_menu_items_includes',)
+        'app_settings_container_aside_left_dashboards_menu_items_includes',
+        'app_settings_container_aside_left_menu_items_includes',)
     
     def has_import_permission(self, request, obj=None):
         if request.user.is_superuser:
