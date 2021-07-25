@@ -28,10 +28,10 @@ def concat_all(*args):
     return ''.join(map(str, args))
 
 @register.simple_tag
-def check_url_permission(content_obj, obj_id, user_id, menu_type=None):
+def check_url_permission(content_obj, obj_id, user_id, check_menu_level_any=None):
 	user_content_has_permission = check_user_content_request_permission(
 		content_obj=content_obj,
 		obj_id=obj_id,
 		user_id=user_id,
-		menu_type=menu_type)
+		check_menu_level_any=check_menu_level_any)
 	return user_content_has_permission

@@ -241,9 +241,6 @@
                     </a>
                 </div>
                 {% block container_aside_left %}
-
-                {% block container_aside_left_settings_menu %}
-                {% block container_aside_left_settings_menu_items %}
                 <div class="divider"></div>
 
                 <div class="item-group">
@@ -277,11 +274,7 @@
                         </div>
                     </div>
                 </div>
-                {% endblock container_aside_left_settings_menu_items %}
-                {% endblock container_aside_left_settings_menu %}
 
-                {% block container_aside_left_dashboards_menu %}
-                {% block container_aside_left_dashboards_menu_items %}
                 <div class="divider"></div>
 
                 <div class="item-group">
@@ -314,9 +307,6 @@
                         </div>
                     </div>
                 </div>
-                {% endblock container_aside_left_dashboards_menu_items %}
-                {% endblock container_aside_left_dashboards_menu %}
-
                 {% endblock container_aside_left %}
             </nav>
 
@@ -354,7 +344,11 @@
 
                 <div class="app" id="app">
                 {% block container_main_content %}
-                    <div class="dashboards">
+                    <div class="wrapper">   
+                        <div class="main_text_header">Django Analytics</div>
+                        <div class="main_theme"></div>
+                    </div>
+<!--                     <div class="dashboards">
                         <div class="grid-items-columns">
                             <div class="grid-row type1">
                                 <img class="aspect-ratio" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="alt="placeholder via aspect-ratio" style="aspect-ratio: 25 / 8">
@@ -399,7 +393,7 @@
                                 <div class="content-block"></div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 {% endblock container_main_content %}
                 </div>
                 

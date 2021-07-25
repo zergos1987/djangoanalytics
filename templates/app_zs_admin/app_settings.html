@@ -26,7 +26,7 @@
 	{% block head_css %}{{ block.super }}{% endblock head_css %}
 	    <!-- APP CSS -->
 	    {% block css %}{{ block.super }}
-		<link href="{% static 'app_zs_admin/origin/css/index.css' %}" rel="stylesheet">
+		<link href="{% static 'app_zs_admin/origin/css/app_settings.css' %}" rel="stylesheet">
 		{% endblock css %}
 	    <!-- APP VENDOR CSS -->
 	    {% block vendor_css %}{{ block.super }}{% endblock vendor_css %}
@@ -107,17 +107,20 @@
     		{% block full_screen_mode %}{% endblock full_screen_mode %}
 			{% block container_main %}{{ block.super }}{% endblock container_main %}
 
-				{% block container_main_bg_color %}
-					{% if app_settings.app_settings_container_main_bg_color_enable %}
-						style="background-color: {{app_settings.app_settings_container_main_bg_color}};"
-			        {% endif %}
-				{% endblock container_main_bg_color %}
+			{% block container_main_bg_color %}
+				{% if app_settings.app_settings_container_main_bg_color_enable %}style="background-color: {{app_settings.app_settings_container_main_bg_color}};"
+		        {% endif %}
+			{% endblock container_main_bg_color %}
 
-				{% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}
-				 	{% block breadcrumb_items %}{% endblock breadcrumb_items %}
+			{% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}
+			{% block breadcrumb_items %}{% spaceless %}<li><a>Настройки</a></li>{% endspaceless %}
+			{% endblock breadcrumb_items %}
 
 			{% block container_main_content %}
-			<div class="render_view">{% spaceless %}<h1>404. Страница не найдена.</h1>{% endspaceless %}</div>
+			<div class="wrapper">	
+				<div class="main_text_header">Приложения и настройки</div>
+				<div class="main_theme"></div>
+			</div>
 			{% endblock container_main_content %}
 			<!-- end container-main -->
 
@@ -133,9 +136,14 @@
         <!-- BASE JS -->
         <!-- APP JS -->
         {% block js %}{{ block.super }}
-        <script src="{% static 'app_zs_admin/origin/js/index.js'%}"></script>
+        <script src="{% static 'app_zs_admin/origin/js/app_settings.js'%}"></script>
         {% endblock js %}
         <!-- APP VENDOR JS -->
         {% block vendor_js %}{{ block.super }}{% endblock vendor_js %}
     <!-- end block JS --> 
 <!-- end body -->
+
+
+
+
+

@@ -29,6 +29,20 @@ def index(request):
 
 
 @login_required
+@permission_required('app_zs_admin.view_app')
+def zs_admin_app_settings(request):
+	app_settings = app.objects.filter(is_actual=True).first()
+	
+	context = {
+		'app_settings': app_settings
+	}
+
+	template = 'app_zs_admin/app_settings.html' 
+
+	return render(request, template, context)
+
+
+@login_required
 #@permission_required('app_zs_admin.view_app')
 def render_view(request, id):
 	user_content_has_permission = check_user_content_request_permission(
@@ -52,7 +66,7 @@ def render_view(request, id):
 
 
 @login_required
-@permission_required('app_zs_admin.view_app')
+#@permission_required('app_zs_admin.view_app')
 def handler400(request, exception):
 	app_settings = app.objects.filter(is_actual=True).first()
 	context = {

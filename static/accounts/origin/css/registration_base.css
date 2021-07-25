@@ -339,6 +339,8 @@
     font-size: 12px;
     line-height: 18px;
     word-break: break-word;
+    height: 120px;
+    overflow: auto;
 }
 
 .registration-container .message-text.info {
@@ -364,7 +366,7 @@
 }
 
 .registration-container .input_help_info::-webkit-scrollbar-thumb, 
-.registration-container .form_notification::-webkit-scrollbar-thumb {
+.registration-container .form_notification > .message-text::-webkit-scrollbar-thumb {
     background-color: #cacacade;
     border: 2px solid transparent;
     border-radius: 10px;
@@ -372,12 +374,12 @@
 }
 
 .registration-container .input_help_info::-webkit-scrollbar-thumb:hover, 
-.registration-container .form_notification::-webkit-scrollbar-thumb:hover {
+.registration-container .form_notification > .message-text::-webkit-scrollbar-thumb:hover {
     background-color: #a4a4a4; 
 }
 
 .registration-container .input_help_info::-webkit-scrollbar, 
-.registration-container .form_notification::-webkit-scrollbar {
+.registration-container .form_notification > .message-text::-webkit-scrollbar {
     display: none;
     width: 11px;
     height: 11px;
@@ -386,8 +388,8 @@
     display: block;
 }
 
-.registration-container .form_notification:hover::-webkit-scrollbar, 
-.registration-container .form_notification:hover::-webkit-scrollbar {
+.registration-container .form_notification > .message-text:hover::-webkit-scrollbar, 
+.registration-container .form_notification > .message-text:hover::-webkit-scrollbar {
     display: block;
 }
 

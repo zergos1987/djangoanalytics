@@ -1,9 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
 .container-main,
 .breadcrumb > ul > li,
 .breadcrumb > ul > li:last-child {
 	background-color: #fff;
 }
-
+ 
 #app .wrapper {
     height: 100%;
     display: flex;
@@ -13,20 +14,50 @@
 }
 
 #app .main_text_header { 
-    font-size: 4vmin;
+    font-size: 15vmin;
     letter-spacing: 0.5px;
     font-weight: bold;
     color: #ffffffe0;
     position: absolute;
     margin-top: -6vh;
     text-align: center;
-    text-shadow: 2px 2px 2px #c7c7c7, -2px -2px 2px #c7c7c7, 2px -2px 2px #c7c7c7, -2px 2px 2px #c7c7c7, 4px 4px 4px #c7c7c7, -4px -4px 4px #c7c7c7, 4px -4px 4px #c7c7c7, -4px 4px 4px #c7c7c7;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+
+    font-family: 'Ubuntu', sans-serif;
+    color: #121212;
+    text-shadow: 
+        0 0.2vmin 0.1vmin #747474, 
+        -0.1vmin 0.3vmin 0.1vmin #767676, 
+        -0.2vmin 0.5vmin 0.1vmin #787878, 
+        -0.3vmin 0.7vmin 0.1vmin #7a7a7a, 
+        -0.4vmin 0.9vmin 0.1vmin #7f7f7f, 
+        -0.5vmin 1vmin 0.1vmin #838383, 
+        -0.6vmin 1.3vmin 0.1vmin #878787, 
+        -0.7vmin 1.5vmin 0.1vmin #8a8a8a, 
+        -0.8vmin 1.7vmin 0.1vmin #8e8e8e, 
+        -0.9vmin 1.9vmin 0.1vmin #949494, 
+        -1.0vmin 2.1vmin 0.1vmin #989898, 
+        -1.1vmin 2.3vmin 0.1vmin #9f9f9f, 
+        -1.2vmin 2.5vmin 0.1vmin #a2a2a2, 
+        -1.3vmin 2.7vmin 0.1vmin #a7a7a7, 
+        -1.4vmin 2.9vmin 0.1vmin #adadad, 
+        -1.5vmin 3.1vmin 0.1vmin #b3b3b3, 
+        -1.6vmin 3.3vmin 0.1vmin #b6b6b6, 
+        -1.7vmin 3.5vmin 0.1vmin #bcbcbc, 
+        -1.8vmin 3.7vmin 0.1vmin #c2c2c2, 
+        -1.9vmin 3.9vmin 0.1vmin #c8c8c8, 
+        -2.0vmin 4.1vmin 0.1vmin #cbcbcb, 
+        -2.1vmin 4.3vmin 0.1vmin #d2d2d2, 
+        -2.2vmin 4.5vmin 0.1vmin #d5d5d5, 
+        -2.3vmin 4.7vmin 0.1vmin #e2e2e2, 
+        -2.4vmin 4.9vmin 0.1vmin #e6e6e6, 
+        -2.5vmin 5.1vmin 0.1vmin #eaeaea, 
+        -2.6vmin 5.3vmin 0.1vmin #efefef;
 }
 
 #app .main_theme {
@@ -39,7 +70,8 @@
     max-width: 700px;
     max-height: 700px;
     justify-content: center;
-    display: flex;
+    /*display: flex;*/
+    display: none;
 }
 
 .shadows {
@@ -60,105 +92,6 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-/*main-theme chage container params*/
-
-.container-main {
-}
-
-#app {
-
-}
-
-
-
-/*tesseract*/
-/*#app canvas {background: rgb(255, 255, 255);}*/
-
-/*black hole background*/
-
-#app #blackhole {
-    height: 100%;
-    width: 100%;
-    position: relative;
-    display: flex;
-}
-
-#app .centerHover {
-    width: 255px;
-    height: 255px;
-    background-color: transparent;
-    border-radius: 50%;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-top: -128px;
-    margin-left: -128px;
-    z-index: 2;
-    cursor: pointer;
-    line-height: 255px;
-    text-align: center;
-    transition: all 500ms;
-    
-    &.open  {
-        opacity: 0;
-        pointer-events: none;
-    }
-    
-    &:hover span {
-        color: #DDD;
-        
-        &:before { background-color: #DDD; }
-        &:after { background-color: #DDD; }
-    }
-    
-    span {
-        color: #666;
-        font-family: serif;
-        font-size: 18px;
-        position: relative;
-        transition: all 500ms;
-        
-        &:before {
-            content: '';
-            display: inline-block;
-            height: 1px;
-            width: 16px;
-            margin-right: 12px;
-            margin-bottom: 4px;
-            background-color: #666;
-            transition: all 500ms;
-        }
-        &:after {
-            content: '';
-            display: inline-block;
-            height: 1px;
-            width: 16px;
-            margin-left: 12px;
-            margin-bottom: 4px;
-            background-color: #666;
-            transition: all 500ms;
-        }
-    }
-}
-#app canvas {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    margin: auto;
-}
-
-
-/*MODAL MENU ============================================================= */
 /*MEDIA ================================================================== */
 
 

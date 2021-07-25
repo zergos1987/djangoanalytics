@@ -136,18 +136,18 @@ class aside_left_menu_includes(models.Model):
 			self.href = '#'
 
 		if self.parent_name:
-			if self.name == str(self.parent_name):
+			if self.name == str(self.parent_name.name):
 				if self.is_actual:
 					try:
 						aside_left_menu_includes.objects.filter(
-							name_order_by=self.name_order_by, 
+							parent_name_order_by=self.name_order_by, 
 							is_actual=False).exclude(id=self.id).update(is_actual=True)
 					except Exception as e:
 						pass
 				else:
 					try:
 						aside_left_menu_includes.objects.filter(
-							name_order_by=self.name_order_by, 
+							parent_name_order_by=self.name_order_by, 
 							is_actual=True).exclude(id=self.id).update(is_actual=False)
 					except Exception as e:
 						pass
@@ -203,10 +203,7 @@ class app(models.Model):
 	app_settings_container_aside_left_enable = models.BooleanField(default=True)
 	app_settings_container_aside_left_main_site_page = models.CharField(max_length=70, choices=app_name_choices, null=True, blank=True) 
 	app_start_page = models.CharField(max_length=70, choices=app_name_choices, null=True, blank=False, default='zs_admin') 
-	app_settings_container_aside_left_settings_menu_enable = models.BooleanField(default=True)
-	app_settings_container_aside_left_settings_menu_items_includes = models.ManyToManyField(aside_left_menu_includes, related_name='settings_menu', blank=True,  limit_choices_to = {'is_actual': True})
-	app_settings_container_aside_left_dashboards_menu_enable = models.BooleanField(default=True)
-	app_settings_container_aside_left_dashboards_menu_items_includes = models.ManyToManyField(aside_left_menu_includes, related_name='dashboards_menu', blank=True,  limit_choices_to = {'is_actual': True})
+	app_settings_container_aside_left_menu_items_includes = models.ManyToManyField(aside_left_menu_includes, related_name='aside_left_menu', blank=True,  limit_choices_to = {'is_actual': True})
 	app_settings_container_main_bg_color_enable = models.BooleanField(default=True)
 	app_settings_container_main_bg_color = ColorField(default='#f9f9f9')
 	app_settings = JSONField(default=list, null=True, blank=True)

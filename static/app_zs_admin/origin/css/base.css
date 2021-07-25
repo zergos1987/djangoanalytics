@@ -250,11 +250,19 @@ svg {
     margin-left: 0px;
     height: 28px;
 }
+
 .breadcrumb:hover > ul > li:last-child {
     padding: 0;
 }
+
 .breadcrumb > ul > li:only-child {
     display: none;
+}
+
+.container-main,
+.breadcrumb > ul > li,
+.breadcrumb > ul > li:last-child {
+    background-color: #fff;
 }
 /*CONTAINER =================================================================== */
 .container {

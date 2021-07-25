@@ -92,40 +92,24 @@
 			<!-- end header-section-right -->
 
 			<!-- container-aside-left -->
-			{% block container_aside_left %}{% if app_settings.app_settings_container_aside_left_enable %}{{ block.super }}{% endif %}{% endblock container_aside_left %}
-			
 			{% block main_site_page %}{% if app_settings.app_settings_container_aside_left_main_site_page %}/{{app_settings.app_settings_container_aside_left_main_site_page}}/{% else %}{{ block.super }}{% endif %}{% endblock main_site_page %}
 
-				{% block container_aside_left_settings_menu %}{% if app_settings.app_settings_container_aside_left_settings_menu_enable %}{{ block.super }}{% endif %}{% endblock container_aside_left_settings_menu %}
-
-					{% block container_aside_left_settings_menu_items %}
-				        {% if app_settings.app_settings_container_aside_left_settings_menu_items_includes.all %}
-				        	{% include "app_zs_admin/include/container_aside_left_menu_items_includes.html" with menu_type="settings" menu_items=app_settings.app_settings_container_aside_left_settings_menu_items_includes.all %}
-				        {% else %}
-				        	{{ block.super }}
-				        {% endif %}
-			        {% endblock container_aside_left_settings_menu_items %}
-
-
-				{% block container_aside_left_dashboards_menu %}{% if app_settings.app_settings_container_aside_left_dashboards_menu_enable %}{{ block.super }}{% endif %}{% endblock container_aside_left_dashboards_menu %}
-
-					{% block container_aside_left_dashboards_menu_items %}
-				        {% if app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}
-				        	{% include "app_zs_admin/include/container_aside_left_menu_items_includes.html" with menu_type="dashboards" menu_items=app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}
-				        {% else %}
-				        	{{ block.super }}
-				        {% endif %}
-			        {% endblock container_aside_left_dashboards_menu_items %}
-
+			{% block container_aside_left %}
+				{% if app_settings.app_settings_container_aside_left_menu_items_includes.all %}
+					{% include "app_zs_admin/include/container_aside_left_menu_includes.html" with menu_items=app_settings.app_settings_container_aside_left_menu_items_includes.all %}
+				{% else %}
+					{{ block.super }}
+				{% endif %}
+			{% endblock container_aside_left %}
 			<!-- end container-aside-left -->
 
 			<!-- container-main -->
-            		{% block full_screen_mode %}{{ block.super }}{% endblock full_screen_mode %}
+    		{% block full_screen_mode %}{{ block.super }}{% endblock full_screen_mode %}
 			{% block container_main %}{{ block.super }}{% endblock container_main %}
 
 			{% block container_main_bg_color %}
 				{% if app_settings.app_settings_container_main_bg_color_enable %}style="background-color: {{app_settings.app_settings_container_main_bg_color}};"
-			        {% endif %}
+		        {% endif %}
 			{% endblock container_main_bg_color %}
 
 			{% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}

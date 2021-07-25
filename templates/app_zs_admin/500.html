@@ -1,7 +1,7 @@
 {% extends "app_zs_admin\base.html" %}
 {% load static %}
 {% load l10n %}
-
+{% load template_filters %}
 
 
 
@@ -92,35 +92,19 @@
 			<!-- end header-section-right -->
 
 			<!-- container-aside-left -->
-			{% block container_aside_left %}{% if app_settings.app_settings_container_aside_left_enable %}{{ block.super }}{% endif %}{% endblock container_aside_left %}
-			
 			{% block main_site_page %}{% if app_settings.app_settings_container_aside_left_main_site_page %}/{{app_settings.app_settings_container_aside_left_main_site_page}}/{% else %}{{ block.super }}{% endif %}{% endblock main_site_page %}
 
-				{% block container_aside_left_settings_menu %}{% if app_settings.app_settings_container_aside_left_settings_menu_enable %}{{ block.super }}{% endif %}{% endblock container_aside_left_settings_menu %}
-
-					{% block container_aside_left_settings_menu_items %}
-				        {% if app_settings.app_settings_container_aside_left_settings_menu_items_includes.all %}
-				        	{% include "app_zs_admin/include/container_aside_left_menu_items_includes.html" with menu_type="settings" menu_items=app_settings.app_settings_container_aside_left_settings_menu_items_includes.all %}
-				        {% else %}
-				        	{{ block.super }}
-				        {% endif %}
-			        {% endblock container_aside_left_settings_menu_items %}
-
-
-				{% block container_aside_left_dashboards_menu %}{% if app_settings.app_settings_container_aside_left_dashboards_menu_enable %}{{ block.super }}{% endif %}{% endblock container_aside_left_dashboards_menu %}
-
-					{% block container_aside_left_dashboards_menu_items %}
-				        {% if app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}
-				        	{% include "app_zs_admin/include/container_aside_left_menu_items_includes.html" with menu_type="dashboards" menu_items=app_settings.app_settings_container_aside_left_dashboards_menu_items_includes.all %}
-				        {% else %}
-				        	{{ block.super }}
-				        {% endif %}
-			        {% endblock container_aside_left_dashboards_menu_items %}
-
+			{% block container_aside_left %}
+				{% if app_settings.app_settings_container_aside_left_menu_items_includes.all %}
+					{% include "app_zs_admin/include/container_aside_left_menu_includes.html" with menu_items=app_settings.app_settings_container_aside_left_menu_items_includes.all %}
+				{% else %}
+					{{ block.super }}
+				{% endif %}
+			{% endblock container_aside_left %}
 			<!-- end container-aside-left -->
 
 			<!-- container-main -->
-            {% block full_screen_mode %}{% endblock full_screen_mode %}
+    		{% block full_screen_mode %}{% endblock full_screen_mode %}
 			{% block container_main %}{{ block.super }}{% endblock container_main %}
 
 				{% block container_main_bg_color %}
@@ -132,22 +116,9 @@
 				{% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}
 				 	{% block breadcrumb_items %}{% endblock breadcrumb_items %}
 
-				{% block container_main_content %}
-				<h1>500. Ошибка сервера.</h1>
-					<!-- /*tesseract*/ -->
-					
-					<!-- <canvas id = "c1"></canvas> -->
-					<!-- /*black hole background*/ -->
-<!--                     <div id="blackhole">
-                        <div class="centerHover"><span>ENTER</span></div>
-                    </div> -->
-
-<!-- 				<div class="wrapper">	
-					<div class="main_text_header">Аналитика и Дашборды</div>
-					<div class="main_theme">
-					</div>
-				</div> -->
-				{% endblock container_main_content %}
+			{% block container_main_content %}
+			<div class="render_view">{% spaceless %}<h1>500. Ошибка сервера.</h1>{% endspaceless %}</div>
+			{% endblock container_main_content %}
 			<!-- end container-main -->
 
 			<!-- container-footer -->

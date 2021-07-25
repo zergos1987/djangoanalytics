@@ -32,8 +32,6 @@ class appAdmin(ImportExportModelAdmin):
     filter_horizontal = (
         'app_settings_container_display_mode', 
         'app_settings_header_section_right_user_settings_locale_includes',
-        'app_settings_container_aside_left_settings_menu_items_includes',
-        'app_settings_container_aside_left_dashboards_menu_items_includes',
         'app_settings_container_aside_left_menu_items_includes',)
     
     def has_import_permission(self, request, obj=None):
@@ -247,7 +245,10 @@ class aside_left_menu_includesAdmin(ImportExportModelAdmin):
     )
 
     def get_render_app_name_name(self, obj):
-        return obj.render_app_name_translate.name
+        if obj.render_app_name_translate:
+            return obj.render_app_name_translate.name
+        else:
+            '--'
     get_render_app_name_name.short_description = 'menu_level_name'
     get_render_app_name_name.admin_order_field = 'render_app_name_translate__name'
 
