@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^zs_admin/$', views.zs_admin_app_settings, name='zs_admin_app_settings'),
     url(r'^zs_admin/render_view/(?P<id>[0-9]+)/$', views.render_view, name="render_view"),
+    url(r'^users_profile/$', views.users_profile_view, name='users_profile_view'),
 ]

@@ -30,14 +30,12 @@
 }
 
 #app .main_theme {
-    background-image: url(/static/app_zs_admin/origin/res/img/main_theme.jpg);
+    background-image: url(/static/app_zs_admin/origin/res/img/zs_admin_app_settings.png);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    width: 100%;
-    height: 50%;
-    max-width: 700px;
-    max-height: 700px;
+    width: 66%;
+    height: 66%;
     justify-content: center;
     display: flex;
 }

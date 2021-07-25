@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
@@ -32,7 +32,7 @@ def index(request):
 @permission_required('app_zs_admin.view_app')
 def zs_admin_app_settings(request):
 	app_settings = app.objects.filter(is_actual=True).first()
-	
+
 	context = {
 		'app_settings': app_settings
 	}
@@ -52,17 +52,18 @@ def render_view(request, id):
 
 	if not user_content_has_permission: raise PermissionDenied()
 
-	app_settings = app.objects.filter(is_actual=True).first()
-	application_settings = ''
-	
-	template = 'app_zs_admin/render_view.html'
+	user_content_selected = aside_left_menu_includes.objects.get(id=id)
+	content_source_type = user_content_selected.source_type
 
-	context = {
-		'app_settings': app_settings,
-		'application_settings': application_settings
-	}
+	application_settings = {}
+	if content_source_type == 'internal':
+		print('internal', user_content_selected.href)
+		return redirect(reverse(f"{user_content_selected.render_app_name}:{user_content_selected.href}"))
+		#return redirect('{}?flag=True&user_id=23'.format(reverse(f"{user_content_selected.render_app_name}:{user_content_selected.href}")))
+	if content_source_type == 'external':
+		print('external', user_content_selected.href)
 
-	return render(request, template, context)
+	raise Http404()
 
 
 @login_required
@@ -111,3 +112,31 @@ def handler500(request):
 	response = render(request, "app_zs_admin/500.html", context)
 	response.status_code = 500
 	return response
+
+
+# internal views ################################################################
+def users_profile_view(request):
+	_id = aside_left_menu_includes.objects.filter(href='users_profile_view', is_actual=True).first().id
+	user_content_has_permission = check_user_content_request_permission(
+		content_obj='aside_left_menu_includes',
+		obj_id=_id,
+		user_id=request.user.id)
+	if not user_content_has_permission: raise PermissionDenied()
+
+	application_settings = {
+		'content_id': 1, 
+		'user_id': 1, 
+		'content_type': 'form',
+		'content': 'form_object'
+	}
+	print(application_settings, 'ZZZZZZZZZZZZZZzzz')
+	app_settings = app.objects.filter(is_actual=True).first()
+	
+	template = 'app_zs_admin/render_view.html'
+
+	context = {
+		'app_settings': app_settings,
+		'application_settings': application_settings
+	}
+
+	return render(request, template, context)
