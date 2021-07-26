@@ -13,7 +13,7 @@ def check_user_content_request_permission(content_obj, obj_id, user_id, check_me
 		from apps.app_zs_admin.models import aside_left_menu_includes
 		if check_menu_level_any:
 			obj_items = aside_left_menu_includes.objects.filter(
-				render_app_name_translate__name=check_menu_level_any, 
+				source_app_name_translate__name=check_menu_level_any, 
 				menu_icon_type='folder',
 				is_actual=True)
 			for obj in obj_items:
