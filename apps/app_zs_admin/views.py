@@ -72,7 +72,7 @@ def render_view(request, id):
 		except Exception as e:
 			print(str(e))
 
-	#raise Http404()
+	raise Http404()
 
 	app_settings = app.objects.filter(is_actual=True).first()
 	template = 'app_zs_admin/render_view.html'
@@ -156,6 +156,69 @@ def users_profile(request):
 		'content': 'form_object'
 	}
 	
+	app_settings = app.objects.filter(is_actual=True).first()
+	
+	template = 'app_zs_admin/render_view.html'
+
+	context = {
+		'app_settings': app_settings,
+		'app_settings_user': {},
+		'app_view_object': {'object': 1},
+		'app_view_object_settings': user_content_selected,
+		'app_view_settings': {},
+		'app_view_settings_user': {},
+	}
+
+	return render(request, template, context)
+
+
+def dashboard_settings(request):
+	user_content_selected = aside_left_menu_includes.objects.filter(href='dashboard_settings', is_actual=True).first()
+
+	user_content_has_permission = check_user_content_request_permission(
+		content_obj='aside_left_menu_includes',
+		obj_id=user_content_selected.id,
+		user_id=request.user.id)
+	if not user_content_has_permission: raise PermissionDenied()
+
+	app_view_object = {
+		'content_id': 1, 
+		'user_id': 1, 
+		'content_type': 'form',
+		'content': 'form_object'
+	}
+	app_settings = app.objects.filter(is_actual=True).first()
+	
+	template = 'app_zs_admin/render_view.html'
+
+	context = {
+		'app_settings': app_settings,
+		'app_settings_user': {},
+		'app_view_object': {'object': 1},
+		'app_view_object_settings': user_content_selected,
+		'app_view_settings': {},
+		'app_view_settings_user': {},
+	}
+
+	return render(request, template, context)
+
+
+def dashboard_publication(request):
+	user_content_selected = aside_left_menu_includes.objects.filter(href='dashboard_publication', is_actual=True).first()
+
+	user_content_has_permission = check_user_content_request_permission(
+		content_obj='aside_left_menu_includes',
+		obj_id=user_content_selected.id,
+		user_id=request.user.id)
+	if not user_content_has_permission: raise PermissionDenied()
+
+	app_view_object = {
+		'content_id': 1, 
+		'user_id': 1, 
+		'content_type': 'form',
+		'content': 'form_object'
+	}
+
 	app_settings = app.objects.filter(is_actual=True).first()
 	
 	template = 'app_zs_admin/render_view.html'
