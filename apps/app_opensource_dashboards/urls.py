@@ -7,5 +7,5 @@ app_name = 'os_dashboards'
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    # url(r'^render_view/(?P<id>[0-9]+)/$', views.render_view, name="render_view"),
+    url(r'^mb_list/$', views.mb_list, name='mb_list'),
 ]
