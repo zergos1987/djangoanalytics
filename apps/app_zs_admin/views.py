@@ -60,7 +60,7 @@ def render_view(request, id):
 	application_settings = {}
 	if content_source_type == 'internal':
 		print('internal', user_content_selected.href)
-		return redirect(reverse(f"{user_content_selected.render_app_name}:{user_content_selected.href}"))
+		return redirect(reverse(f"{user_content_selected.source_app_name}:{user_content_selected.href}"))
 		#return redirect('{}?flag=True&user_id=23'.format(reverse(f"{user_content_selected.render_app_name}:{user_content_selected.href}")))
 	if content_source_type == 'external':
 		print('external', user_content_selected.href)
