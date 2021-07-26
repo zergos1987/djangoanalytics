@@ -119,8 +119,8 @@ def get_metabase_iframe(dashboard_id=None):
 	return iframeUrl
 
 
-def mb_list(request):
-	user_content_selected = aside_left_menu_includes.objects.filter(href='mb_list', is_actual=True).first()
+def mb(request, id):
+	user_content_selected = aside_left_menu_includes.objects.filter(id=id, is_actual=True).first()
 
 	user_content_has_permission = check_user_content_request_permission(
 		content_obj='aside_left_menu_includes',
