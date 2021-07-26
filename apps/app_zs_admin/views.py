@@ -59,11 +59,18 @@ def render_view(request, id):
 
 	application_settings = {}
 	if content_source_type == 'internal':
-		print('internal', user_content_selected.source_app_name, user_content_selected.href)
-		return redirect(reverse(f"{user_content_selected.source_app_name}:{user_content_selected.href}"))
+		print('internal', user_content_selected.source_app_name, user_content_selected.href, user_content_selected.id)
+		try:
+			return redirect(reverse(f"{user_content_selected.source_app_name}:{user_content_selected.href}"))
+		except Exception as e:
+			print(str(e))
 		#return redirect('{}?flag=True&user_id=23'.format(reverse(f"{user_content_selected.render_app_name}:{user_content_selected.href}")))
 	if content_source_type == 'external':
-		print('external', user_content_selected.source_app_name, user_content_selected.href)
+		print('external', user_content_selected.source_app_name, user_content_selected.href, user_content_selected.id)
+		try:
+			return redirect(reverse(f"{user_content_selected.source_app_name}:{user_content_selected.href}"))
+		except Exception as e:
+			print(str(e))
 
 	#raise Http404()
 
