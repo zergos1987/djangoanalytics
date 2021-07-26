@@ -5,16 +5,16 @@
 {% with parent_name_order_by_count=item.parent_name_order_by %}
 
 {% if item.menu_level == 'level-menu' %}
-{% check_url_permission 'aside_left_menu_includes' item.id request.user.id item.render_app_name_translate.name as has_menu_perm %}
+{% check_url_permission 'aside_left_menu_includes' item.id request.user.id item.source_app_name_translate.name as has_menu_perm %}
 {% if has_menu_perm %}
 
 <div class="divider"></div>
 <div class="item-group">
-    <a class="items-header">{{item.level_menu_svg_icon|safe}}<span>{{item.render_app_name_translate.name}}</span></a>
+    <a class="items-header">{{item.level_menu_svg_icon|safe}}<span>{{item.source_app_name_translate.name}}</span></a>
     <div class="items-frame">
         <div class="items">
             {% for item_inner_items in menu_items %}
-            {% if item.render_app_name_translate.name == item_inner_items.render_app_name_translate.name and item_inner_items.menu_level != 'level-menu' %}
+            {% if item.source_app_name_translate.name == item_inner_items.source_app_name_translate.name and item_inner_items.menu_level != 'level-menu' %}
             {% check_url_permission 'aside_left_menu_includes' item_inner_items.id request.user.id as has_item_perm %}
             {% if has_item_perm %}
             <a {% if item_inner_items.href == '#' %}{% else %}href="{% if item_inner_items.render_app_name == None %}{{item_inner_items.href}}{% else %}/{{item_inner_items.render_app_name}}/render_view/{{item_inner_items.id}}/{% endif %}"{% endif %} class="{{item_inner_items.menu_level}}"><div class="row"><i class="fas fa-folder fa-localy {{item_inner_items.menu_icon_type}}"></i><span>{{item_inner_items.name}}</span></div></a>
