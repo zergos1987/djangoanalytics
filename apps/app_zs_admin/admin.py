@@ -234,7 +234,7 @@ class aside_left_menu_includesResource(resources.ModelResource):
     class Meta:
         model = aside_left_menu_includes
         fields = (
-            'name',  'menu_level', 'menu_icon_type',  'parent_name_order_by', 'name_order_by', 'render_app_name', 'render_app_name_translate', 'href', 'is_actual', ) 
+            'name',  'menu_level', 'menu_icon_type',  'parent_name_order_by', 'name_order_by', 'render_app_name', 'source_app_name_translate', 'href', 'is_actual', ) 
 
 class aside_left_menu_includesAdmin(ImportExportModelAdmin):
     list_display = [
@@ -245,12 +245,12 @@ class aside_left_menu_includesAdmin(ImportExportModelAdmin):
     )
 
     def get_render_app_name_name(self, obj):
-        if obj.render_app_name_translate:
-            return obj.render_app_name_translate.name
+        if obj.source_app_name_translate:
+            return obj.source_app_name_translate.name
         else:
             '--'
     get_render_app_name_name.short_description = 'menu_level_name'
-    get_render_app_name_name.admin_order_field = 'render_app_name_translate__name'
+    get_render_app_name_name.admin_order_field = 'source_app_name_translate__name'
 
     filter_horizontal = ('url_access_via_groups', 'url_access_via_users',)
     def parent_name_short(self, obj):
