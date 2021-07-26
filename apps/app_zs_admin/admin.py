@@ -238,19 +238,19 @@ class aside_left_menu_includesResource(resources.ModelResource):
 
 class aside_left_menu_includesAdmin(ImportExportModelAdmin):
     list_display = [
-        'id', 'parent_name_short', 'name',  'menu_level', 'menu_icon_type', 'parent_name_order_by', 'name_order_by', 'render_app_name', 'get_render_app_name_name', 'href', 'is_actual']
+        'id', 'parent_name_short', 'name',  'menu_level', 'menu_icon_type', 'parent_name_order_by', 'name_order_by', 'render_app_name', 'get_source_app_name_translate_name', 'href', 'is_actual']
 
     list_filter = (
         'name',  'is_actual',  #('dt', DateTimeRangeFilter)
     )
 
-    def get_render_app_name_name(self, obj):
+    def get_source_app_name_translate_name(self, obj):
         if obj.source_app_name_translate:
             return obj.source_app_name_translate.name
         else:
             '--'
-    get_render_app_name_name.short_description = 'menu_level_name'
-    get_render_app_name_name.admin_order_field = 'source_app_name_translate__name'
+    get_source_app_name_translate_name.short_description = 'menu_level_name'
+    get_source_app_name_translate_name.admin_order_field = 'source_app_name_translate__name'
 
     filter_horizontal = ('url_access_via_groups', 'url_access_via_users',)
     def parent_name_short(self, obj):
