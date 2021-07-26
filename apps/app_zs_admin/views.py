@@ -68,7 +68,7 @@ def render_view(request, id):
 	if content_source_type == 'external':
 		print('external', user_content_selected.source_app_name, user_content_selected.href, user_content_selected.id)
 		try:
-			return redirect(reverse(f"{user_content_selected.source_app_name}:{user_content_selected.href}"))
+			return redirect(reverse(f"{user_content_selected.source_app_name}:{user_content_selected.href}", kwargs={'id': user_content_selected.id}))
 		except Exception as e:
 			print(str(e))
 
