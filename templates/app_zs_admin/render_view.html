@@ -111,6 +111,7 @@
 				{% if app_settings.app_settings_container_main_bg_color_enable %}style="background-color: {{app_settings.app_settings_container_main_bg_color}};"
 		        {% endif %}
 			{% endblock container_main_bg_color %}
+
 			{% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}
 			{% block breadcrumb_items %}{% spaceless %}
 				{% if app_view_object_settings %}
@@ -124,9 +125,15 @@
 			<div class="render_view">{% spaceless %}
 				{% if app_view_object_settings %}
 					{% if app_view_object_settings.source_type == 'external' %}
-						<iframe class="external-container" height=100% width="100%" frameborder="0" src="{{app_view_object_settings.external_href}}" allowfullscreen></iframe>
+						{% if app_view_object and app_view_object_settings %}
+							<iframe class="external-container" height=100% width="100%" frameborder="0" src="{{app_view_object.object}}" allowfullscreen="true" allowtransparency="true"></iframe>
+						{% else %}
+							<iframe class="external-container" height=100% width="100%" frameborder="0" src="{{app_view_object_settings.external_href}}" allowfullscreen="true" allowtransparency="true"></iframe>
+						{% endif %}
 					{% else %}
-						{{app_view_object_settings}}---{{app_view_object_settings.source_type}}
+						{% if app_view_object and app_view_object_settings %}
+							{{app_view_object_settings}}---{{app_view_object_settings.source_type}}
+						{% endif %}
 					{% endif %}
 				{% else %}
 				{% endif %}
