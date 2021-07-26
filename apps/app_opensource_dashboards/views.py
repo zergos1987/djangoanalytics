@@ -128,28 +128,26 @@ def mb(request, id):
 		user_id=request.user.id)
 	if not user_content_has_permission: raise PermissionDenied()
 
-	app_view_object = {
-		'content_id': 1, 
-		'user_id': 1, 
-		'content_type': 'form',
-		'content': 'form_object'
-	}
-
 	dashboards_list = get_metabase_api(ask='dashboards_list')
-	selected_metabase_dashboard_id = [i for i in dashboards_list if i.get('name') == user_content_selected.external_href][0].get('id')
+	selected_metabase_dashboard_id = [i for i in dashboards_list if i.get('name') == user_content_selected.external_href]
+
+	app_view_object = {}
+	if selected_metabase_dashboard_id: 
+		selected_metabase_dashboard_id = selected_metabase_dashboard_id[0].get('id')
+		app_view_object = {'object': get_metabase_iframe(dashboard_id=selected_metabase_dashboard_id)}
+
 	print('RRRRRRRRRRRRRRRRR', selected_metabase_dashboard_id, user_content_selected.external_href)
 
 	app_settings = app.objects.filter(is_actual=True).first()
-	
-	template = 'app_zs_admin/render_view.html'
 
 	context = {
 		'app_settings': app_settings,
 		'app_settings_user': {},
-		'app_view_object': {'object': get_metabase_iframe(dashboard_id=selected_metabase_dashboard_id)},
+		'app_view_object': {},
 		'app_view_object_settings': user_content_selected,
 		'app_view_settings': {},
 		'app_view_settings_user': {},
 	}
+	context['app_view_object'] = app_view_object
 
 	return render(request, template, context)
