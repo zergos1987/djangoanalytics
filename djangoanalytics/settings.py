@@ -37,6 +37,10 @@ django_initialize = os.environ.get("django_initialize", config('django_initializ
 django_initialize_management_commands = os.environ.get("django_initialize_management_commands", config('django_initialize_management_commands', default=False, cast=bool))
 django_initialize_defaults = os.environ.get("django_initialize_defaults", config('django_initialize_defaults', default=False, cast=bool))
 
+#Opensource dashboards constants
+OS_DASHBOARDS_METABASE_LOGIN = os.environ.get("OS_DASHBOARDS_METABASE_LOGIN", config('OS_DASHBOARDS_METABASE_LOGIN'))
+OS_DASHBOARDS_METABASE_PSW = os.environ.get("OS_DASHBOARDS_METABASE_PSW", config('OS_DASHBOARDS_METABASE_PSW'))
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.auth',
