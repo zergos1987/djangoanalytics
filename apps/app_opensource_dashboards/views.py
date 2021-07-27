@@ -31,7 +31,11 @@ def index(request):
 
 
 # internal views ################################################################
-metabase_host_url = "https://metabase:8010"
+OS_DASHBOARDS_METABASE_URL = os.environ.get("OS_DASHBOARDS_METABASE_URL", config('OS_DASHBOARDS_METABASE_URL'))
+OS_DASHBOARDS_METABASE_SECRET_KEY = os.environ.get("OS_DASHBOARDS_METABASE_SECRET_KEY", config('OS_DASHBOARDS_METABASE_SECRET_KEY'))
+OS_DASHBOARDS_METABASE_LOGIN = os.environ.get("OS_DASHBOARDS_METABASE_LOGIN", config('OS_DASHBOARDS_METABASE_LOGIN'))
+OS_DASHBOARDS_METABASE_PSW = os.environ.get("OS_DASHBOARDS_METABASE_PSW", config('OS_DASHBOARDS_METABASE_PSW'))
+
 
 def get_metabase_api(ask=None):
 	from metabase_api import Metabase_API
@@ -93,7 +97,11 @@ def get_metabase_api(ask=None):
 	Metabase_API.delete = delete
 
 	if ask == 'dashboards_list':
-		mb = Metabase_API(metabase_host_url, 'email', 'password')
+		mb = Metabase_API(
+			OS_DASHBOARDS_METABASE_URL, 
+			OS_DASHBOARDS_METABASE_LOGIN,
+			OS_DASHBOARDS_METABASE_PSW
+			)
 		ask = mb.get('/api/dashboard/embeddable')
 	return ask
 
@@ -104,14 +112,14 @@ def get_metabase_iframe(dashboard_id=None):
 	import jwt
 	import time
 
-	METABASE_SITE_URL = metabase_host_url
-	METABASE_SECRET_KEY = "fasfqwf1231raswfas"
+	METABASE_SITE_URL = OS_DASHBOARDS_METABASE_URL
+	METABASE_SECRET_KEY = OS_DASHBOARDS_METABASE_SECRET_KEY
 
 	payload = {
 	  "resource": {"dashboard": dashboard_id},
 	  "params": {
-	    "yeardatatermstats": "2020;2021",
-	    "status": 200
+	    "дата_начала_пм": "2021-07-01~2021-07-15",
+	    #"yeardatatermstats": "2020;2021",
 	  },
 	  "exp": round(time.time()) + (60 * 10) # 10 minute expiration
 	}
@@ -121,6 +129,8 @@ def get_metabase_iframe(dashboard_id=None):
 	return iframeUrl
 
 
+@login_required
+@permission_required('app_opensource_dashboards.view_app')
 def mb(request, id):
 	user_content_selected = aside_left_menu_includes.objects.filter(id=id, is_actual=True).first()
 
@@ -137,8 +147,6 @@ def mb(request, id):
 	if selected_metabase_dashboard_id: 
 		selected_metabase_dashboard_id = selected_metabase_dashboard_id[0].get('id')
 		app_view_object = {'object': get_metabase_iframe(dashboard_id=selected_metabase_dashboard_id)}
-
-	print('RRRRRRRRRRRRRRRRR', selected_metabase_dashboard_id, user_content_selected.external_href)
 
 	app_settings = app.objects.filter(is_actual=True).first()
 
