@@ -59,6 +59,7 @@
 						
 						{% block header_section_left_brand_details_logo_zoom %}{% if app_settings.app_brand_logo_zoom %}{{ app_settings.app_brand_logo_zoom|unlocalize }}{% else %}{{ block.super }}{% endif %}{% endblock header_section_left_brand_details_logo_zoom %}
 					
+					{% block header_section_left_brand_details_title_help %}{% if app_settings.app_brand_name %}{{ app_settings.app_brand_name }}{% else %}{{ block.super }}{% endif %}{% endblock header_section_left_brand_details_title_help %}
 					{% block header_section_left_brand_details_title %}{% if app_settings.app_brand_name %}{{ app_settings.app_brand_name }}{% else %}{{ block.super }}{% endif %}{% endblock header_section_left_brand_details_title %}
 						
 						{% block header_section_left_brand_details_title_color %}{% if app_settings.app_brand_color %}{{ app_settings.app_brand_color }}{% else %}{{ block.super }}{% endif %}{% endblock header_section_left_brand_details_title_color %}
