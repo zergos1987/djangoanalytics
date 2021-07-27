@@ -140,7 +140,11 @@ def mb(request, id):
 		user_id=request.user.id)
 	if not user_content_has_permission: raise PermissionDenied()
 
-	dashboards_list = get_metabase_api(ask='dashboards_list')
+	dashboards_list = []
+	try:
+		dashboards_list = get_metabase_api(ask='dashboards_list')
+	except Exception as e:
+		print('dashboards_list error: ', str(e))
 	selected_metabase_dashboard_id = [i for i in dashboards_list if i.get('name') == user_content_selected.external_href]
 
 	app_view_object = {}
@@ -149,7 +153,7 @@ def mb(request, id):
 		app_view_object = {'object': get_metabase_iframe(dashboard_id=selected_metabase_dashboard_id)}
 
 	app_settings = app.objects.filter(is_actual=True).first()
-
+	template = 'app_zs_admin/render_view.html'
 	context = {
 		'app_settings': app_settings,
 		'app_settings_user': {},
