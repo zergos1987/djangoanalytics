@@ -25,12 +25,14 @@
 	<!-- css -->
 	{% block head_css %}{{ block.super }}{% endblock head_css %}
 	    <!-- APP CSS -->
-	    {% block css %}{{ block.super }}{% spaceless %}
+	    {% block css %}{{ block.super }}
+		{% spaceless %}
 		<link href="{% static 'app_zs_admin/origin/css/render_view.css' %}" rel="stylesheet">
 		{% for link in app_view_object.object_html_source.css %}
 		<link href="{{link}}" rel="stylesheet">
-		{% endfor %}{% endspaceless %}
-		{% endblock css %}
+		{% endfor %}
+		{% endspaceless %}
+	    {% endblock css %}
 	    <!-- APP VENDOR CSS -->
 	    {% block vendor_css %}{{ block.super }}{% endblock vendor_css %}
 	<!-- css -->
