@@ -1,4 +1,13 @@
 /*< -- -- -- base -- -- -->*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active
+{
+    -webkit-text-fill-color: #eee !important;
+    -webkit-box-shadow: 0 0 0 30px #303245 inset !important;
+}
+
 .registration-bg {
     position: absolute;    
     left: 0px;
