@@ -158,9 +158,11 @@
         <!-- APP JS -->
         {% block js %}{{ block.super }}
         <script src="{% static 'app_zs_admin/origin/js/render_view.js'%}"></script>
-		{% for src in app_view_object.object_html_source.js %}
-		<script src="{{src}}"></script>
-		{% endfor %}{% endspaceless %}
+	{% for src in app_view_object.object_html_source.js %}
+		{% spaceless %}
+			<script src="{{src}}"></script>
+		{% endspaceless %}
+	{% endfor %}
         {% endblock js %}
         <!-- APP VENDOR JS -->
         {% block vendor_js %}{{ block.super }}{% endblock vendor_js %}
