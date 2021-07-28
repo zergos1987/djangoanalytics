@@ -151,6 +151,7 @@ def mb(request, id):
 	if selected_metabase_dashboard_id: 
 		selected_metabase_dashboard_id = selected_metabase_dashboard_id[0].get('id')
 		app_view_object = {'object': get_metabase_iframe(dashboard_id=selected_metabase_dashboard_id)}
+		app_view_object['object_html_source'] = {'css': ['static/app_opensource_dashboards/origin/css/metabase_zs_admin.css'], 'js': []}
 
 	app_settings = app.objects.filter(is_actual=True).first()
 	template = 'app_zs_admin/render_view.html'
