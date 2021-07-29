@@ -248,7 +248,8 @@ def custom_sync_user_relations(user, data):
         {'ldap_is_active': ldap_is_active}
     ]
     update_user_extra_data(user, extra_data)
-
+    #update_user_sadko_groups(user)
+    
     return user, data
 
 
