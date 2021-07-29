@@ -11,5 +11,5 @@
 }
 
 .render_view > .external-container {
-
+	z-index: -1;
 }

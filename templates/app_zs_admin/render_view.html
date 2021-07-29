@@ -132,9 +132,9 @@
 				{% if app_view_object_settings %}
 					{% if app_view_object_settings.source_type == 'external' %}
 						{% if app_view_object and app_view_object_settings %}
-							<iframe class="external-container" height=100% width="100%" frameborder="0" src="{{app_view_object.object}}" allowfullscreen="true" allowtransparency="true"></iframe>
+							<iframe id="external-container" class="external-container" height=100% width="100%" frameborder="0" src="{{app_view_object.object}}" allowfullscreen="true" allowtransparency="true"></iframe>
 						{% else %}
-							<iframe class="external-container" height=100% width="100%" frameborder="0" src="{{app_view_object_settings.external_href}}" allowfullscreen="true" allowtransparency="true"></iframe>
+							<iframe id="external-container" class="external-container" height=100% width="100%" frameborder="0" src="{{app_view_object_settings.external_href}}" allowfullscreen="true" allowtransparency="true"></iframe>
 						{% endif %}
 					{% else %}
 						{% if app_view_object and app_view_object_settings %}
