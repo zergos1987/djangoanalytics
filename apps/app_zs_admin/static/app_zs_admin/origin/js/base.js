@@ -1,5 +1,16 @@
 $(document).ready(function(){
-
+	
+	//if load self in iframe
+    function inIframe () {
+        try {
+            return window.self !== window.top;
+        } catch (e) {
+            return true;
+        }
+    }
+    if(inIframe()) {
+		window.location.href="about:blank";
+    }
 
 	// Burger-menu
 	const container = document.querySelector('#container');
@@ -392,6 +403,9 @@ $(document).ready(function(){
 	});
 
 
+	$('#external-container').contents().click(function(){
+	    $('.item-group.active').removeClass('active');
+	});
 
 	$(document).mouseup(function (e) {
 	    var querySelector1 = $(".item-group, .header-section-right button, .header-section-center");

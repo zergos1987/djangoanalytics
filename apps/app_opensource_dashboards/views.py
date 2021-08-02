@@ -118,7 +118,8 @@ def get_metabase_iframe(dashboard_id=None):
 	payload = {
 	  "resource": {"dashboard": dashboard_id},
 	  "params": {
-	    "дата_начала_пм": "2021-07-01~2021-07-15",
+	  	#"meny_type": 'folder'
+	    #"дата_начала_пм": "2021-07-01~2021-07-15",
 	    #"yeardatatermstats": "2020;2021",
 	  },
 	  "exp": round(time.time()) + (60 * 10) # 10 minute expiration

@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
 	// Burger-menu
 	const container = document.querySelector('#container');
 		if($('#button-menu').length > 0) {
@@ -392,6 +391,9 @@ $(document).ready(function(){
 	});
 
 
+	$('#external-container').contents().click(function(){
+	    $('.item-group.active').removeClass('active');
+	});
 
 	$(document).mouseup(function (e) {
 	    var querySelector1 = $(".item-group, .header-section-right button, .header-section-center");

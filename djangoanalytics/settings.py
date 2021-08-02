@@ -31,7 +31,6 @@ SECRET_KEY = os.environ.get("SECRET_KEY", config('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", config('DEBUG', default=False, cast=bool))
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", config('ALLOWED_HOSTS')).split(",")
-
 # django_load_once - events
 django_initialize = os.environ.get("django_initialize", config('django_initialize', default=False, cast=bool))
 django_initialize_management_commands = os.environ.get("django_initialize_management_commands", config('django_initialize_management_commands', default=False, cast=bool))
@@ -521,6 +520,15 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+# If you set this to False, Django will make some optimizations so as not
+# to load the internationalization machinery.
+USE_I18N = True
+
+# If you set this to False, Django will not format dates, numbers and
+# calendars according to the current locale
+USE_L10N = True
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'mediafiles'
 

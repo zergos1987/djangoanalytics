@@ -107,6 +107,7 @@ source_type_choices = (
 	("external", "external"),
 	("internal", "internal"),
 )
+
 class aside_left_menu_includes(models.Model):
 	parent_name = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True, related_name='for_parent_name') 
 	name = models.CharField(max_length=200) 
@@ -133,7 +134,7 @@ class aside_left_menu_includes(models.Model):
 	
 	def save(self, *args, **kwargs):
 		if not self.external_href or self.external_href == '#':
-			self.external_href = self.name
+			self.external_href = "Empty content frame"
 			
 		if self.menu_icon_type == 'arrow' and self.href != '#':
 			self.href = '#'
