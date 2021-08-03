@@ -206,7 +206,6 @@ def dashboard_settings(request):
 
 
 @login_required
-#@permission_required('app_zs_admin.view_app')
 def dashboard_publication(request):
 	user_content_selected = aside_left_menu_includes.objects.filter(href='dashboard_publication', is_actual=True).first()
 
@@ -216,12 +215,17 @@ def dashboard_publication(request):
 		user_id=request.user.id)
 	if not user_content_has_permission: raise PermissionDenied()
 
-	app_view_object = {
-		'content_id': 1, 
-		'user_id': 1, 
-		'content_type': 'form',
-		'content': 'form_object'
-	}
+
+	if request.method == 'POST':
+		form = ContentpublicationsForm(request.POST)
+		if form.is_valid():
+			user_selected_content_publication_list = form.cleaned_data['content_m2m'] #result as QuerySet
+			user_selected_content_publication_list = list([str(i) for i in user_selected_content_publication_list]) #you can convert it to list or anything you need
+			form.save(commit=False)
+			return HttpResponseRedirect(request.path_info)
+	else:
+		form = ContentpublicationsForm()
+
 
 	app_settings = app.objects.filter(is_actual=True).first()
 	
@@ -230,7 +234,7 @@ def dashboard_publication(request):
 	context = {
 		'app_settings': app_settings,
 		'app_settings_user': {},
-		'app_view_object': {'object': 1},
+		'app_view_object': {'object': form},
 		'app_view_object_settings': user_content_selected,
 		'app_view_settings': {},
 		'app_view_settings_user': {},
