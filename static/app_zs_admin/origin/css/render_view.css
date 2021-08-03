@@ -207,7 +207,7 @@
 		transform: rotate(90deg);
 		padding: 10px 5px 10px 5px;
 	}
-	.form_frame .selector-available h2, #form_frame .selector-chosen h2 {
+	.form_frame .selector-available h2, .form_frame .selector-chosen h2 {
     	align-self: flex-start;
     	padding-left: 5px;
 	}
@@ -221,7 +221,7 @@
     	overflow: hidden;
     	padding-top: 20px;
 	}
-	.form_frame .selector-available, #form_frame .selector-chosen {
+	.form_frame .selector-available, .form_frame .selector-chosen {
 		margin-top: -25px;
 	}
 	.form_frame input[type="submit"] {
