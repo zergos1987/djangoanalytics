@@ -91,10 +91,12 @@
 }
 
 #id_content_m2m_filter {
-	line-height: 35px;
+    line-height: 35px;
     text-indent: 35px;
     background: url(/static/grappelli/images/icons/searchbox.png) 10px 50% no-repeat;
     background-color: #ddd;
+    border: 1px solid #cdcdcd;
+    border-bottom: none;
 }
 
 #id_content_m2m_input {
