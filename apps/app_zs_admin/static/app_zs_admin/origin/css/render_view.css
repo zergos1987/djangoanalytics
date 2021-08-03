@@ -106,9 +106,10 @@
 #id_content_m2m_add_all_link, #id_content_m2m_remove_all_link {
     text-align: center;
     font-size: 0.7em;
-	padding: 2px 0px;
+    padding: 2px 0px;
     width: 100%;
     border: 1px solid #cdcdcd;
+    border-top: none;
     background-color: #ddd;
     text-decoration: none;
     color: #0f89d0;
