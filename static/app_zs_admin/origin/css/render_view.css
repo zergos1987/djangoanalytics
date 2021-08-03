@@ -15,11 +15,11 @@
 
 }
 /*form frame*/
-#form_frame {
+.form_frame {
     padding: 10px 15px 15px 20px;
     align-self: center;
 }
-#form_frame legend {
+.form_frame legend {
     color: #606060;
     padding: 0px 10px;
     font-weight: 600;
@@ -27,7 +27,7 @@
     font-size: 0.7em;
     letter-spacing: 0.6px;
 }
-#form_frame fieldset {
+.form_frame fieldset {
 	border-radius: 10px;
 	padding: 10px 25px 20px 25px;
     border: 1px solid #cdcdcd;
@@ -36,7 +36,7 @@
 }
 /*Grappelli admin widgets*/
 /*FilteredSelectMultiple widgets form*/
-#form_frame .selector {
+.form_frame .selector {
 	display: flex;
 	align-items: center;
 	padding-top: 10px;
@@ -64,7 +64,7 @@
 	color: #fff;
 }
 
-#form_frame option:hover {
+.form_frame option:hover {
 	background-color: #848484;
 	color: #fff;
 }
@@ -73,18 +73,18 @@
 	margin-top: 33px;
 }
 
-#form_frame .selector-available, #form_frame .selector-chosen {
+.form_frame .selector-available, .form_frame .selector-chosen {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 }
 
-#form_frame .selector-chooser {
+.form_frame .selector-chooser {
 	padding: 0 5px;
 	list-style: none;
 }
 
-#form_frame .selector-available h2, #form_frame .selector-chosen h2 {
+.form_frame .selector-available h2, .form_frame .selector-chosen h2 {
 	font-size: 0.8em;
 	padding-bottom: 10px;
 	align-self: center;
@@ -120,7 +120,7 @@
     color: #fff;
 }
 
-#form_frame input[type="submit"] {
+.form_frame input[type="submit"] {
 	margin-top: 10px;
 	width: 100%;
 	background-color: #0088dd9c;
@@ -134,7 +134,7 @@
     cursor: pointer;
 }
 
-#form_frame input[type="submit"]:hover {
+.form_frame input[type="submit"]:hover {
     box-shadow: 0px 0px 1px 4px rgba(0, 175, 10, 0.2);
     transition: box-shadow 0.5s;
 }
@@ -187,13 +187,13 @@
 
 @media all and (max-width: 480px) {
 	/*FilteredSelectMultiple widgets form*/
-	#form_frame {
+	.form_frame {
         padding: 10px 0px 0px 0px;
 	}
-	#form_frame fieldset {
+	.form_frame fieldset {
 		padding: 5px 12px 20px 12px;
 	}
-	#form_frame .selector {
+	.form_frame .selector {
 		flex-direction: column;
 	}
 	#id_content_m2m_from {
@@ -203,35 +203,35 @@
 	#id_content_m2m_to {
     	margin-top: 10px;
 	}
-	#form_frame .selector-chooser {
+	.form_frame .selector-chooser {
 		transform: rotate(90deg);
 		padding: 10px 5px 10px 5px;
 	}
-	#form_frame .selector-available h2, #form_frame .selector-chosen h2 {
+	.form_frame .selector-available h2, #form_frame .selector-chosen h2 {
     	align-self: flex-start;
     	padding-left: 5px;
 	}
-	#form_frame .selector-available h2 {
+	.form_frame .selector-available h2 {
     	padding-top: 25px;
 	}
-	#form_frame .selector-chosen h2 {
+	.form_frame .selector-chosen h2 {
     	padding-bottom: 0px;
 	}
 	#id_content_m2m_add_link, #id_content_m2m_remove_link {
     	overflow: hidden;
     	padding-top: 20px;
 	}
-	#form_frame .selector-available, #form_frame .selector-chosen {
+	.form_frame .selector-available, #form_frame .selector-chosen {
 		margin-top: -25px;
 	}
-	#form_frame input[type="submit"] {
+	.form_frame input[type="submit"] {
     	margin-top: 25px;
 	}
 }
 
 @media all and (max-width: 320px) {
 	/*FilteredSelectMultiple widgets form*/
-	#form_frame {
+	.form_frame {
         padding: 5px 0px 0px 0px;
 	}
 	#id_content_m2m_from, #id_content_m2m_to {
@@ -251,10 +251,10 @@
 /* Landscape */
 @media screen and (orientation:landscape) and (max-device-height: 500px) { 
 	/*FilteredSelectMultiple widgets form*/
-	#form_frame .selector {
+	.form_frame .selector {
     	padding-top: 0px;
 	}
-	#form_frame {
+	.form_frame {
         padding: 5px 0px 0px 0px;
 	}
 	#id_content_m2m_from, #id_content_m2m_to {
