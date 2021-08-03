@@ -57,6 +57,7 @@
 	padding: 5px 10px 5px;
 	margin: 0px 0px 1px 0px;
 	background-color: #e8e8e8;
+	cursor: pointer;
 }
 
 #id_content_m2m_to option {
