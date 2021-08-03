@@ -1,3 +1,4 @@
+/*container*/
 .render_view {
 	width: 100%;
 	height: 100%;    
@@ -9,3 +10,297 @@
 .container.container-aside-left-disabled.container-header-disabled.container-main-padding-off .render_view {
 	padding: 15px;
 }
+
+.render_view > .external-container {
+
+}
+/*form frame*/
+#form_frame {
+    padding: 10px 15px 15px 20px;
+    align-self: center;
+}
+#form_frame legend {
+    color: #606060;
+    padding: 0px 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.7em;
+    letter-spacing: 0.6px;
+}
+#form_frame fieldset {
+	border-radius: 10px;
+	padding: 10px 25px 20px 25px;
+    border: 1px solid #cdcdcd;
+    width: fit-content;
+	box-shadow: 0px 7px 12px 2px #dedede, 0px 6px 4px 1px #ffffff;
+}
+/*Grappelli admin widgets*/
+/*FilteredSelectMultiple widgets form*/
+#form_frame .selector {
+	display: flex;
+	align-items: center;
+	padding-top: 10px;
+}
+
+#id_content_m2m_from, #id_content_m2m_to {
+	height: 200px !important;
+	width: 100%;
+    max-width: 300px;
+    font-size: 0.75em;
+    padding: 0px 0px 0px 0px;
+    border: 1px solid #cdcdcd;
+    outline: 0px;
+	padding: 2px;
+}
+
+#id_content_m2m_from option, #id_content_m2m_to option {
+	padding: 5px 10px 5px;
+	margin: 0px 0px 1px 0px;
+	background-color: #e8e8e8;
+}
+
+#id_content_m2m_to option {
+	background-color: #07d621;
+	color: #fff;
+}
+
+#form_frame option:hover {
+	background-color: #848484;
+	color: #fff;
+}
+
+#id_content_m2m_to {
+	margin-top: 33px;
+}
+
+#form_frame .selector-available, #form_frame .selector-chosen {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+#form_frame .selector-chooser {
+	padding: 0 5px;
+	list-style: none;
+}
+
+#form_frame .selector-available h2, #form_frame .selector-chosen h2 {
+	font-size: 0.8em;
+	padding-bottom: 10px;
+	align-self: center;
+}
+
+#id_content_m2m_filter {
+	line-height: 35px;
+    text-indent: 35px;
+    background: url(/static/grappelli/images/icons/searchbox.png) 10px 50% no-repeat;
+    background-color: #ddd;
+}
+
+#id_content_m2m_input {
+    width: calc(100% - 60px);
+    padding: 4px 0px 4px 8px;
+    border: 1px solid #cdcdcd;
+}
+
+#id_content_m2m_add_all_link, #id_content_m2m_remove_all_link {
+    text-align: center;
+    font-size: 0.7em;
+	padding: 2px 0px;
+    width: 100%;
+    border: 1px solid #cdcdcd;
+    background-color: #ddd;
+    text-decoration: none;
+    color: #0f89d0;
+    cursor: pointer;
+}
+
+#id_content_m2m_add_all_link:hover, #id_content_m2m_remove_all_link:hover {
+    background-color: #777777;
+    color: #fff;
+}
+
+#form_frame input[type="submit"] {
+	margin-top: 10px;
+	width: 100%;
+	background-color: #0088dd9c;
+    box-shadow: 0px 3px 7px 2px rgba(0, 32, 150, 0.2);
+    transition: box-shadow 0.5s;
+    border: 0;
+    line-height: 25px;
+    color: #fff;
+    font-size: 0.8em;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+#form_frame input[type="submit"]:hover {
+    box-shadow: 0px 0px 1px 4px rgba(0, 175, 10, 0.2);
+    transition: box-shadow 0.5s;
+}
+
+#id_content_m2m_add_link, #id_content_m2m_remove_link {
+	display: block;
+	width: 18px;
+	height: 18px;
+	color: transparent !important;
+	background-position: 50% 0;
+	background-repeat: no-repeat;
+}
+
+#id_content_m2m_add_link {
+	background-image: url(/static/grappelli/images/icons/selector-add-m2m-horizontal.png);
+}
+
+#id_content_m2m_remove_link {
+	background-image: url(/static/grappelli/images/icons/selector-remove-m2m-horizontal.png);
+}
+
+
+/*MEDIA ================================================================== */
+
+
+/*< -- -- -- Media -- -- -->*/
+
+/**
+ * Basic CSS Media Query Template
+ * TODO: I should probably use Sass...
+ * Author: Michael Vieth
+ * ------------------------------------------
+ *  Responsive Grid Media Queries - 1280, 1024, 768, 480
+ *   1280-1024   - desktop (default grid)
+ *   1024-768    - tablet landscape
+ *   768-480     - tablet 
+ *   480-less    - phone landscape & smaller
+ * --------------------------------------------
+ */
+@media all and (min-width: 1024px) and (max-width: 1280px) {
+
+}
+
+@media all and (min-width: 768px) and (max-width: 1024px) {
+}
+
+@media all and (min-width: 480px) and (max-width: 768px) {
+
+}
+
+@media all and (max-width: 480px) {
+	/*FilteredSelectMultiple widgets form*/
+	#form_frame {
+        padding: 10px 0px 0px 0px;
+	}
+	#form_frame fieldset {
+		padding: 5px 12px 20px 12px;
+	}
+	#form_frame .selector {
+		flex-direction: column;
+	}
+	#id_content_m2m_from {
+	    max-height: 200px;
+	    height: 100% !important;
+	}
+	#id_content_m2m_to {
+    	margin-top: 10px;
+	}
+	#form_frame .selector-chooser {
+		transform: rotate(90deg);
+		padding: 10px 5px 10px 5px;
+	}
+	#form_frame .selector-available h2, #form_frame .selector-chosen h2 {
+    	align-self: flex-start;
+    	padding-left: 5px;
+	}
+	#form_frame .selector-available h2 {
+    	padding-top: 25px;
+	}
+	#form_frame .selector-chosen h2 {
+    	padding-bottom: 0px;
+	}
+	#id_content_m2m_add_link, #id_content_m2m_remove_link {
+    	overflow: hidden;
+    	padding-top: 20px;
+	}
+	#form_frame .selector-available, #form_frame .selector-chosen {
+		margin-top: -25px;
+	}
+	#form_frame input[type="submit"] {
+    	margin-top: 25px;
+	}
+}
+
+@media all and (max-width: 320px) {
+	/*FilteredSelectMultiple widgets form*/
+	#form_frame {
+        padding: 5px 0px 0px 0px;
+	}
+	#id_content_m2m_from, #id_content_m2m_to {
+		height: 85px !important;
+	}
+	.container.active.container-aside-left-disabled.container-header-disabled.container-main-padding-off #id_content_m2m_from, 
+	.container.active.container-aside-left-disabled.container-header-disabled.container-main-padding-off #id_content_m2m_to {
+		height: 130px !important;
+	}
+}
+
+/* Portrait */
+@media screen and (orientation:portrait) { 
+    /* Portrait styles here */ 
+
+}
+/* Landscape */
+@media screen and (orientation:landscape) and (max-device-height: 500px) { 
+	/*FilteredSelectMultiple widgets form*/
+	#form_frame .selector {
+    	padding-top: 0px;
+	}
+	#form_frame {
+        padding: 5px 0px 0px 0px;
+	}
+	#id_content_m2m_from, #id_content_m2m_to {
+		height: 85px !important;
+	}
+	.container.container-aside-left-disabled.container-header-disabled.container-main-padding-off #id_content_m2m_from, 
+	.container.container-aside-left-disabled.container-header-disabled.container-main-padding-off #id_content_m2m_to {
+		height: 165px !important;
+	}
+}
+@media screen and (orientation:landscape) and (max-device-height: 320px) { 
+    /* Landscape styles here */ 
+    /*FilteredSelectMultiple widgets form*/
+	.container.container-aside-left-disabled.container-header-disabled.container-main-padding-off #id_content_m2m_from, 
+	.container.container-aside-left-disabled.container-header-disabled.container-main-padding-off #id_content_m2m_to {
+		height: 115px !important;
+	}
+}
+
+
+/* CSS for iPhone, iPad, and Retina Displays */
+
+/* Non-Retina */
+@media screen and (-webkit-max-device-pixel-ratio: 1) {
+}
+
+/* Retina */
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min--moz-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 1.5) {
+}
+
+/* iPhone Portrait */
+@media screen and (max-device-width: 480px) and (orientation:portrait) {
+} 
+
+/* iPhone Landscape */
+@media screen and (max-device-width: 480px) and (orientation:landscape) {
+}
+
+/* iPad Portrait */
+@media screen and (min-device-width: 481px) and (orientation:portrait) {
+}
+
+/* iPad Landscape */
+@media screen and (min-device-width: 481px) and (orientation:landscape) {
+
+	
