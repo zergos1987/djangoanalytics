@@ -34,7 +34,22 @@
 		{% endspaceless %}
 	    {% endblock css %}
 	    <!-- APP VENDOR CSS -->
-	    {% block vendor_css %}{{ block.super }}{% endblock vendor_css %}
+	    {% block vendor_css %}{{ block.super }}
+	    <script type="text/javascript" charset="utf-8">
+            // GLOBALS
+            var grappelli = {},
+                ADMIN_URL = "/admin",
+                DATE_FORMAT = "%d.%m.%Y",
+                TIME_FORMAT = "%H:%M:%S",
+                DATETIME_FORMAT = "%d.%m.%Y %H:%M:%S";
+        </script>
+        <script src="/static/grappelli/jquery/jquery.min.js" type="text/javascript"></script>
+        <script src="/static/grappelli/jquery/jquery-migrate-3.0.1.min.js" type="text/javascript"></script>
+        <script src="/static/grappelli/jquery/ui/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="/static/grappelli/js/grappelli.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="/adminjsi18n/"></script>
+        <script src="/static/admin/js/vendor/jquery/jquery.js"></script>
+	    {% endblock vendor_css %}
 	<!-- css -->
 <!-- end head -->
 
