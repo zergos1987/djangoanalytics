@@ -1,0 +1,25 @@
+{% spaceless %}
+{% for item in form %}
+    {% if item.label == 'ContentpublicationsForm' %}
+    <div class="form_frame" id="{{item.label}}">
+        <form action="" method="post">
+            <div id='form-app'>
+                <fieldset>
+                <legend>публикация дашбордов</legend>      
+                    <form action="." method="POST">
+                        {{ form_media }}
+                        {% csrf_token %}
+                        <div>
+                        {% for item in form %}
+                            {{item}}
+                        {% endfor %}
+                        </div>
+                        <input type="submit" value="Сохранить">
+                    </form>
+                </fieldset>
+            </div>
+        </form>
+    </div>
+    {% endif %}
+{% endfor %}
+{% endspaceless %}
