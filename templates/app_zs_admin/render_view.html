@@ -142,6 +142,8 @@
 						{% endif %}
 					{% else %}
 						{% if app_view_object and app_view_object_settings %}
+							{% include "app_zs_admin/include/forms_factory_template.html" with form=app_view_object.object form_media=app_view_object.object.media %}
+						{% else %}
 							{{app_view_object_settings}}---{{app_view_object_settings.source_type}}
 						{% endif %}
 					{% endif %}
