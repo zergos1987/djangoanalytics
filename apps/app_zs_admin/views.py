@@ -234,7 +234,7 @@ def dashboard_publication(request):
 	context = {
 		'app_settings': app_settings,
 		'app_settings_user': {},
-		'app_view_object': {'object': form},
+		'app_view_object': {'object': form, 'object_type': 'form'},
 		'app_view_object_settings': user_content_selected,
 		'app_view_settings': {},
 		'app_view_settings_user': {},
