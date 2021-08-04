@@ -288,6 +288,9 @@
 	.container.container-aside-left-disabled.container-header-disabled.container-main-padding-off #id_content_m2m_to {
 		height: 165px !important;
 	}
+	.form_frame .selector-chooser {
+		margin-top: 45px;
+	}
 }
 @media screen and (orientation:landscape) and (max-device-height: 320px) { 
     /* Landscape styles here */ 
