@@ -109,9 +109,11 @@
 
 #id_content_m2m_input {
     width: calc(100% - 60px);
-    padding: 4px 0px 4px 8px;
+    padding: 5px 0px 4px 8px;
     border: 1px solid #cdcdcd;
     cursor: pointer;
+    border-radius: 12px;
+    font-size: 0.75em;
 }
 
 #id_content_m2m_add_all_link, #id_content_m2m_remove_all_link {
