@@ -77,8 +77,8 @@
 }
 
 .form_frame option:hover {
-	background-color: #848484 !important;
-	color: #fff;
+    background-color: #a7a7a7 !important;
+    color: #fff !important;
 }
 
 #id_content_m2m_to {
