@@ -45,11 +45,11 @@
 #id_content_m2m_from, #id_content_m2m_to {
 	height: 200px !important;
 	width: 100%;
-    max-width: 300px;
-    font-size: 0.75em;
-    padding: 0px 0px 0px 0px;
-    border: 1px solid #cdcdcd;
-    outline: 0px;
+	max-width: 300px;
+	font-size: 0.75em;
+	padding: 0px 0px 0px 0px;
+	border: 1px solid #cdcdcd;
+	outline: 0px;
 	padding: 2px;
 }
 
@@ -61,6 +61,8 @@
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
+	font-size: 0.95em;
+	font-family: Roboto;
 }
 
 #id_content_m2m_from option:hover, #id_content_m2m_to option:hover {
@@ -114,6 +116,7 @@
     cursor: pointer;
     border-radius: 12px;
     font-size: 0.75em;
+    font-family: inherit;
 }
 
 #id_content_m2m_add_all_link, #id_content_m2m_remove_all_link {
