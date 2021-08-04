@@ -246,9 +246,15 @@ def create_default_users_groups_permissions():
 		obj.set_password(default_password)
 		obj.is_staff = False
 		obj.save()
+		#default dashboards read access
 		add_groups_to_users(username='TEST_USER_default', groupname='app_zs_admin_viewer_group')
 		add_groups_to_users(username='TEST_USER_default', groupname='app_opensource_dashboards_viewer_group')
 		add_groups_to_users(username='TEST_USER_default', groupname='app_zs_dashboards_viewer_group')
+		#default dashboards edit access
+		add_groups_to_users(username='TEST_USER_default', groupname='app_opensource_dashboards_editor_group')
+		add_groups_to_users(username='TEST_USER_default', groupname='app_zs_dashboards_editor_group')
+		#default zs_admin users edit access
+		add_groups_to_users(username='TEST_USER_default', groupname='app_zs_admin_editor_group')
 
 
 	return 'Done.'
