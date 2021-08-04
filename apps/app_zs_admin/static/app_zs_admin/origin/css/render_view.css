@@ -107,6 +107,7 @@
 	background-color: #ddd;
 	border: 1px solid #cdcdcd;
 	border-bottom: none;
+	border-radius: 7px 7px 0 0;
 }
 
 #id_content_m2m_input {
@@ -120,16 +121,17 @@
 }
 
 #id_content_m2m_add_all_link, #id_content_m2m_remove_all_link {
-    text-align: center;
-    font-size: 0.7em;
-    padding: 2px 0px;
-    width: 100%;
-    border: 1px solid #cdcdcd;
-    border-top: none;
-    background-color: #ddd;
-    text-decoration: none;
-    color: #0f89d0;
-    cursor: pointer;
+	text-align: center;
+	font-size: 0.7em;
+	padding: 2px 0px;
+	width: 100%;
+	border: 1px solid #cdcdcd;
+	border-top: none;
+	background-color: #ddd;
+	text-decoration: none;
+	color: #0f89d0;
+	cursor: pointer;
+	border-radius: 0 0 7px 7px;
 }
 
 #id_content_m2m_add_all_link:hover, #id_content_m2m_remove_all_link:hover {
