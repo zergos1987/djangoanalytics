@@ -56,7 +56,7 @@
 #id_content_m2m_from option, #id_content_m2m_to option {
 	padding: 5px 10px 5px;
 	margin: 0px 0px 1px 0px;
-	background-color: #e8e8e8;
+	background-color: #eaeaea;
 	cursor: pointer;
 	overflow: hidden;
 	white-space: nowrap;
@@ -64,6 +64,7 @@
 	font-size: 0.95em;
 	font-family: Roboto;
 	box-shadow: inset 0px -1px 0px 0px rgb(0 0 0 / 22%);
+	color: #333;
 }
 
 #id_content_m2m_from option:hover, #id_content_m2m_to option:hover {
@@ -71,8 +72,8 @@
 }
 
 #id_content_m2m_to option {
-	background-color: #07d621;
-	color: #fff;
+    background-color: #6ef17f;
+    color: #333;
 }
 
 .form_frame option:hover {
