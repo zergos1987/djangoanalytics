@@ -120,6 +120,10 @@
 	font-family: inherit;
 }
 
+#id_content_m2m_input:hover {
+    border: 1px solid #6d66a7;
+}
+
 #id_content_m2m_add_all_link, #id_content_m2m_remove_all_link {
 	text-align: center;
 	font-size: 0.7em;
