@@ -220,8 +220,6 @@ def dashboard_publication(request):
 	if request.method == 'POST':
 		form = ContentpublicationsForm(request.POST)
 		if form.is_valid():
-			user_selected_content_publication_list = form.cleaned_data['content_m2m'] #result as QuerySet
-			user_selected_content_publication_list = list([str(i) for i in user_selected_content_publication_list]) #you can convert it to list or anything you need
 			form.save(commit=False)
 			return HttpResponseRedirect(request.path_info)
 	else:
