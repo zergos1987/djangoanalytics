@@ -101,17 +101,17 @@
 }
 
 #id_content_m2m_filter {
-    line-height: 35px;
-    text-indent: 35px;
-    background: url(/static/grappelli/images/icons/searchbox.png) 10px 50% no-repeat;
-    background-color: #ddd;
-    border: 1px solid #cdcdcd;
-    border-bottom: none;
+	line-height: 32px;
+	text-indent: 35px;
+	background: url(/static/grappelli/images/icons/searchbox.png) 10px 50% no-repeat;
+	background-color: #ddd;
+	border: 1px solid #cdcdcd;
+	border-bottom: none;
 }
 
 #id_content_m2m_input {
     width: calc(100% - 60px);
-    padding: 5px 0px 4px 8px;
+    padding: 5px 0px 4px 11px;
     border: 1px solid #cdcdcd;
     cursor: pointer;
     border-radius: 12px;
