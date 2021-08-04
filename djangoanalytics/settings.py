@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'sslserver',
     'widget_tweaks',
     'colorfield',
+    'easy_select2',
     'apps.accounts',
     'apps.app_zs_admin',
     'apps.app_opensource_dashboards',
