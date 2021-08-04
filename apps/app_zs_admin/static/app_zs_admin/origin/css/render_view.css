@@ -63,6 +63,7 @@
 	text-overflow: ellipsis;
 	font-size: 0.95em;
 	font-family: Roboto;
+	box-shadow: inset 0px -1px 0px 0px rgb(0 0 0 / 22%);
 }
 
 #id_content_m2m_from option:hover, #id_content_m2m_to option:hover {
