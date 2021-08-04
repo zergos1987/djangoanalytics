@@ -138,19 +138,20 @@ svg {
 }
 
 .breadcrumb > ul > li {
-    display: flex;
-    align-content: center;
-    position: relative;
-    float: left;
-    background-color: #f9f9f9;
-    box-shadow: inset 1px 0px 0px 0px rgb(0 0 0 / 22%);
-    z-index: 1;
-    width: 70px;
-    max-width: 160px;
-    min-width: 70px;
-    margin-left: -50px;
-    height: 15px;
-    transition: all 0.5s;
+	display: flex;
+	align-content: center;
+	position: relative;
+	float: left;
+	background-color: #f9f9f9;
+	box-shadow: inset 1px 0px 0px 0px rgb(0 0 0 / 22%);
+	z-index: 1;
+	width: 70px;
+	max-width: 160px;
+	min-width: 70px;
+	margin-left: -50px;
+	height: 15px;
+	transition: all 0.5s;
+	transition: margin 0.5s;
 }
 
 .breadcrumb > ul > li:not(:last-child):before {
