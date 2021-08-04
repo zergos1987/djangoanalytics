@@ -148,7 +148,6 @@ def update_user_groups(username, update_group_list, filter_contains):
 
 #update user extra data
 def update_user_extra_data(username, extra_data):
-
 	def get_update_value(search_field):
 		v = [i for i in extra_data if search_field in i][0].get(search_field, None)#[0]
 		if type(v).__name__ != 'bool': v = v[0]
@@ -175,7 +174,7 @@ def create_default_users_groups_permissions():
 	for u in default_users:
 		is_staff = False
 		if u == 'admin': get_or_create_user(u=u, is_staff=True)
-		if u == 'TEST_USER':
+		if u == 'TEST_USER' and u != 'TEST_USER_default':
 			for r in role_groups:
 				if 'Application' in r:
 					for app in app_list:
@@ -231,7 +230,7 @@ def create_default_users_groups_permissions():
 	conditions = reduce(operator.or_, [Q(**{"username__contains": user}) for user in default_users])
 	actual_u_list = User.objects.filter(conditions)
 	for u in actual_u_list:
-		if 'TEST_USER' in u.username:
+		if 'TEST_USER' in u.username and 'TEST_USER_default' not in u.username:
 			username = u.username
 			groupname = username[username.find('_USER_')+6:] + '_group'
 			#print('===', username, groupname)
@@ -239,6 +238,17 @@ def create_default_users_groups_permissions():
 			if 'editor' in groupname or 'creator' in groupname or 'api' in groupname:
 				groupname = groupname.replace('editor', 'viewer').replace('creator', 'viewer').replace('api', 'viewer')
 				add_groups_to_users(username, groupname)
+
+
+	#create TEST_USER_default
+	obj, created = User.objects.get_or_create(username='TEST_USER_default')
+	if created:
+		obj.set_password(default_password)
+		obj.is_staff = False
+		obj.save()
+		add_groups_to_users(username='TEST_USER_default', groupname='app_zs_admin_viewer_group')
+		add_groups_to_users(username='TEST_USER_default', groupname='app_opensource_dashboards_viewer_group')
+		add_groups_to_users(username='TEST_USER_default', groupname='app_zs_dashboards_viewer_group')
 
 
 	return 'Done.'
