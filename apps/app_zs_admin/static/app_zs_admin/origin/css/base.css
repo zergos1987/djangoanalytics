@@ -150,7 +150,6 @@ svg {
 	min-width: 70px;
 	margin-left: -50px;
 	height: 15px;
-	transition: all 0.5s;
 	transition: margin 0.5s;
 }
 
