@@ -176,12 +176,12 @@ svg {
 }
 
 .breadcrumb:hover ul > li:not(:last-child):after {
-    content: "";
-    position: absolute;
-    top: 11px;
-    width: 0.7em;
-    height: 0.7em;
-    right: 7px;
+	content: "";
+	position: absolute;
+	top: 10px;
+	width: 0.7em;
+	height: 0.7em;
+	right: 5px;
 }
 
 .breadcrumb:hover ul > li:not(:last-child):hover:after {
