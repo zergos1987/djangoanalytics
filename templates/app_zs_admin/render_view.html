@@ -181,11 +181,23 @@
         <!-- APP JS -->
         {% block js %}{{ block.super }}
         <script src="{% static 'app_zs_admin/origin/js/render_view.js'%}"></script>
-	{% for src in app_view_object.object_html_source.js %}
-		{% spaceless %}
-			<script src="{{src}}"></script>
-		{% endspaceless %}
-	{% endfor %}
+		{% for src in app_view_object.object_html_source.js %}
+			{% spaceless %}
+				<script src="{{src}}"></script>
+			{% endspaceless %}
+		{% endfor %}
+		<script type="text/javascript">
+			var iframe = document.getElementById('external-container');
+			var iframeDocument;
+			var x;
+			function function_name() {
+				// iframeDocument = iframe.contentDocument || iframe.contentWindow.document
+				// console.log(iframeDocument, 'QQQQQQQQQQQQQQQQQQQQQQQQ')
+				x = document.getElementById('external-container').contentWindow.document.body.innerHTML
+				console.log('QQQQQQQQQQQQQQQQQQQQQQQQ', x)
+			}
+			setTimeout(function_name(), 10000);
+		</script>
         {% endblock js %}
         <!-- APP VENDOR JS -->
         {% block vendor_js %}{{ block.super }}{% endblock vendor_js %}

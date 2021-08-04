@@ -75,7 +75,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-X_FRAME_OPTIONS = 'SAMEORIGIN'
+X_FRAME_OPTIONS = 'SAMEORIGIN' #ALLOWALL SAMEORIGIN
 
 AUTHENTICATION_BACKENDS = [
     'django_python3_ldap.auth.LDAPBackend',
