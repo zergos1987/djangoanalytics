@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from apps.app_zs_admin.models import app, aside_left_menu_includes
+from easy_select2 import Select2Multiple
 
 
 
@@ -15,6 +16,39 @@ class SignUpForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
     	super(SignUpForm, self).__init__(*args, **kwargs)
+
+
+
+class UserZsAdminForm(forms.Form):
+	username = forms.ModelMultipleChoiceField(
+		queryset=User.objects.filter(is_staff=False).exclude(username__startswith='TEST_USER'), 
+		label=u"UserZsAdminForm",
+		widget=Select2Multiple(select2attrs={'width': 'auto'}))
+	# username = forms.ModelMultipleChoiceField(
+	# 	label=u"UserZsAdminForm",
+	# 	queryset=User.objects.filter(is_staff=False).exclude(username__startswith='TEST_USER'),)
+	can_access_dashboards = forms.BooleanField(
+		label=u"доступ к разделу - дашборды (просмотр)",
+		required=False, 
+		initial=False)
+	can_edit_dashboards = forms.BooleanField(
+		label=u"доступ к разделу - дашборды (редактирование)",
+		required=False, 
+		initial=False)
+	can_edit_users_access = forms.BooleanField(
+		label=u"доступ к разделу - пользователи (редактирование)",
+		required=False, 
+		initial=False)
+
+	class Meta:
+		model = User
+		fields = ('username', 'can_access_dashboards', 'can_edit_dashboards', 'can_edit_users_access',)
+	
+	class Media:
+		css = {
+			'all': [],
+		}
+		js = []
 
 
 
