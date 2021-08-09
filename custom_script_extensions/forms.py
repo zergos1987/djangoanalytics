@@ -1,12 +1,52 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group, Permission, ContentType
+from django.db.models import Case, Value, When
+from django.db.models.functions import Concat
+from django.db.models import CharField
 from django.contrib.admin.widgets import FilteredSelectMultiple
 from apps.app_zs_admin.models import app, aside_left_menu_includes
-from easy_select2 import Select2Multiple
+from apps.accounts.models import user_extra_details
+from easy_select2 import Select2Multiple, Select2
+from django.utils.safestring import mark_safe
 
 
+# UTIL FUNCTIONS ##################################
+def user_groups_update(user, role, add=False):
+	groups = []
+	if role == 'can_access_dashboards':
+		groups = ['app_zs_admin_viewer_group', 'app_opensource_dashboards_viewer_group', 'app_zs_dashboards_viewer_group']
+	if role == 'can_edit_dashboards':
+		groups = ['app_opensource_dashboards_editor_group', 'app_zs_dashboards_editor_group']
+	if role == 'can_edit_users_access':
+		groups = ['app_zs_admin_editor_group']
 
+	for g in groups:
+		group = Group.objects.get(name=g)
+		if add == True:
+			user.groups.add(group)
+		if add == False:
+			user.groups.remove(group)
+		user.save()
+
+def user_groups_check(user, role):
+	check = True
+	groups = []
+	if role == 'can_access_dashboards':
+		groups = ['app_zs_admin_viewer_group', 'app_opensource_dashboards_viewer_group', 'app_zs_dashboards_viewer_group']
+	if role == 'can_edit_dashboards':
+		groups = ['app_opensource_dashboards_editor_group', 'app_zs_dashboards_editor_group']
+	if role == 'can_edit_users_access':
+		groups = ['app_zs_admin_editor_group']
+
+	for g in groups:
+		check = user.groups.filter(name=g).exists()
+		if check == False: break
+
+	return check
+
+
+# FORMS ################################################
 class SignUpForm(UserCreationForm):
     email = forms.CharField(max_length=254, required=True, widget=forms.EmailInput())
 
@@ -18,37 +58,202 @@ class SignUpForm(UserCreationForm):
     	super(SignUpForm, self).__init__(*args, **kwargs)
 
 
-
-class UserZsAdminForm(forms.Form):
-	username = forms.ModelMultipleChoiceField(
-		queryset=User.objects.filter(is_staff=False).exclude(username__startswith='TEST_USER'), 
+class UserZsAdminForm(forms.ModelForm):
+	the_user = forms.ChoiceField(
+		choices=(),
 		label=u"UserZsAdminForm",
-		widget=Select2Multiple(select2attrs={'width': 'auto'}))
-	# username = forms.ModelMultipleChoiceField(
-	# 	label=u"UserZsAdminForm",
-	# 	queryset=User.objects.filter(is_staff=False).exclude(username__startswith='TEST_USER'),)
+		widget=Select2(select2attrs={'width': '100%'}))
 	can_access_dashboards = forms.BooleanField(
-		label=u"доступ к разделу - дашборды (просмотр)",
+		label=u"доступ к разделу: дашборды (просмотр)",
 		required=False, 
-		initial=False)
+		initial=False,
+		widget=forms.CheckboxInput(attrs={
+            'id': 'CheckboxInput_can_access_dashboards'
+        }),)
 	can_edit_dashboards = forms.BooleanField(
-		label=u"доступ к разделу - дашборды (редактирование)",
+		label=u"доступ к разделу: дашборды (редактирование)",
 		required=False, 
-		initial=False)
+		initial=False,
+		widget=forms.CheckboxInput(attrs={
+            'id': 'CheckboxInput_can_edit_dashboards'
+        }),)
 	can_edit_users_access = forms.BooleanField(
-		label=u"доступ к разделу - пользователи (редактирование)",
+		label=u"доступ к разделу: настройки > администрирование > пользователи (редактирование)",
 		required=False, 
-		initial=False)
+		initial=False,
+		widget=forms.CheckboxInput(attrs={
+            'id': 'CheckboxInput_can_edit_users_access'
+        }),)
+	user_is_active = forms.BooleanField(
+		label=u"доступ к сайту",
+		required=False, 
+		initial=False,
+		widget=forms.CheckboxInput(attrs={
+            'id': 'CheckboxInput_user_is_active'
+        }),)
+
 
 	class Meta:
-		model = User
-		fields = ('username', 'can_access_dashboards', 'can_edit_dashboards', 'can_edit_users_access',)
+		model = user_extra_details
+		fields = ('the_user', 'can_access_dashboards', 'can_edit_dashboards', 'can_edit_users_access', 'user_is_active', )
 	
 	class Media:
 		css = {
 			'all': [],
 		}
 		js = []
+
+
+	def get_form_kwargs(self):
+		kwargs = super(UserZsAdminForm, self).get_form_kwargs()
+		if self.request.method in ('POST', 'PUT'):
+			kwargs.update({
+				'data': self.request.POST,
+				'files': self.request.FILES,
+				})
+		elif self.request.method in ('GET'):
+			kwargs.update({'get_data': self.request.GET})
+
+		return kwargs
+
+
+	def __init__(self, *args, **kwargs):
+		super(UserZsAdminForm, self).__init__(*args,**kwargs)
+		selected_the_user = args[0].get('user_id', None)
+		x = [(c, c) for c in user_extra_details.objects.filter(user__is_staff=False
+			).exclude(user__username__startswith='TEST_USER'
+			).annotate(full_names=Case(When(full_name__exact='', then=Value('н/д')), When(full_name__isnull=False, then='full_name'), default=None, output_field=CharField())
+			).annotate(full_names2=Concat('id', Value(' | '), 'user__username', Value(' | '), 'full_names', output_field=CharField())
+			).values_list('full_names2', flat=True)]
+		self.fields['the_user'].choices = [(c, c) for c in user_extra_details.objects.filter(user__is_staff=False
+			).exclude(user__username__startswith='TEST_USER'
+			).annotate(full_names=Case(When(full_name__exact='', then=Value('н/д')), When(full_name__isnull=False, then='full_name'), default=None, output_field=CharField())
+			).annotate(full_names2=Concat('id', Value(' | '), 'user__username', Value(' | '), 'full_names', output_field=CharField())
+			).values_list('full_names2', flat=True)]
+		if selected_the_user and selected_the_user != '-' and selected_the_user.isnumeric():
+			u = User.objects.filter(id=selected_the_user).first()
+
+			if u:
+				sorted_choices = []
+				selected_choice = None
+				for i in self.fields['the_user'].choices:
+					if selected_the_user != i[0].rsplit('|')[0].replace(' ', ''):
+						sorted_choices.append(i)
+					else:
+						selected_choice = i
+				if selected_choice:
+					self.fields['the_user'].choices = [selected_choice] + sorted_choices + [('-','не выбрано')] 
+				else:
+					self.fields['the_user'].choices = [('-','не выбрано')] + self.fields['the_user'].choices
+					self.fields['can_access_dashboards'].widget = forms.HiddenInput()
+					self.fields['can_edit_dashboards'].widget = forms.HiddenInput()
+					self.fields['can_edit_users_access'].widget = forms.HiddenInput()
+					self.fields['user_is_active'].widget = forms.HiddenInput()
+
+				if user_groups_check(u, 'can_access_dashboards'):
+					self.fields['can_access_dashboards'].widget.attrs['checked'] = 'checked'
+
+				if user_groups_check(u, 'can_edit_dashboards'):
+					self.fields['can_edit_dashboards'].widget.attrs['checked'] = 'checked'
+
+				if user_groups_check(u, 'can_edit_users_access'):
+					self.fields['can_edit_users_access'].widget.attrs['checked'] = 'checked'
+
+				if u.is_active:
+					self.fields['user_is_active'].widget.attrs['checked'] = 'checked'
+			else:
+				self.fields['the_user'].choices = [('-','не выбрано')] + self.fields['the_user'].choices
+				self.fields['can_access_dashboards'].widget = forms.HiddenInput()
+				self.fields['can_edit_dashboards'].widget = forms.HiddenInput()
+				self.fields['can_edit_users_access'].widget = forms.HiddenInput()
+				self.fields['user_is_active'].widget = forms.HiddenInput()
+		else:
+			self.fields['the_user'].choices = [('-','не выбрано')] + self.fields['the_user'].choices
+			self.fields['can_access_dashboards'].widget = forms.HiddenInput()
+			self.fields['can_edit_dashboards'].widget = forms.HiddenInput()
+			self.fields['can_edit_users_access'].widget = forms.HiddenInput()
+			self.fields['user_is_active'].widget = forms.HiddenInput()
+
+		self.onchange_the_user = mark_safe("""
+			<script>
+			$(document.body).on("change","#id_COLUMN_EVENT_NAME_1",function(){
+				location.href = location.protocol + '//' + location.host + location.pathname + '?user_id=' + $('#select2-id_the_user-container')[0].title.split(' | ')[0];
+			});
+			/*
+			let checkbox2 = $('#UserZsAdminForm input#CheckboxInput_can_access_dashboards');
+			let checkbox3 = $('#UserZsAdminForm input#CheckboxInput_can_edit_dashboards');
+			let checkbox4 = $('#UserZsAdminForm input#CheckboxInput_can_edit_users_access');
+			if(checkbox2) {
+				if (checkbox2.prop('checked') === false) {
+					$(checkbox3).parent().addClass('disabled');
+					$(checkbox4).parent().addClass('disabled');
+				}
+			}
+			$(document.body).on("change","#COLUMN_EVENT_NAME_2",function(){
+				//console.log('CheckboxInput_can_access_dashboards');
+				if (checkbox2.prop('checked') === true) {
+					$(checkbox3).parent().removeClass('disabled');
+					$(checkbox4).parent().removeClass('disabled');
+				} else {
+					$(checkbox3).parent().addClass('disabled');
+					$(checkbox4).parent().addClass('disabled');
+					$(checkbox3).prop('checked', false);
+					$(checkbox4).prop('checked', false);
+				}
+			});
+			$(document.body).on("change","#COLUMN_EVENT_NAME_3",function(){
+				//console.log('CheckboxInput_can_edit_dashboards');
+			});
+			$(document.body).on("change","#COLUMN_EVENT_NAME_4",function(){
+				//console.log('CheckboxInput_can_edit_users_access');
+			});
+			$(document.body).on("change","#COLUMN_EVENT_NAME_5",function(){
+				//console.log('CheckboxInput_user_is_active');
+			});
+			*/
+			</script>""".replace('FORM_EVENT_NAME', 'UserZsAdminForm'
+				).replace('COLUMN_EVENT_NAME_1', 'the_user' 
+				).replace('COLUMN_EVENT_NAME_2', 'CheckboxInput_can_access_dashboards'
+				).replace('COLUMN_EVENT_NAME_3', 'CheckboxInput_can_edit_dashboards'
+				).replace('COLUMN_EVENT_NAME_4', 'CheckboxInput_can_edit_users_access'
+				).replace('COLUMN_EVENT_NAME_5', 'CheckboxInput_user_is_active'))
+
+	def clean(self):
+		cleaned_data = super(UserZsAdminForm, self).clean()
+		clean_user = self.cleaned_data.get('the_user')
+		if clean_user and clean_user != '-' and clean_user.isnumeric():
+			self.cleaned_data['the_user'] = self.cleaned_data.get('the_user').rsplit('|')[0].replace(' ', '')
+		else:
+			self.cleaned_data['the_user'] = self.cleaned_data.get('the_user').rsplit('|')[0].replace(' ', '')
+
+
+	def save(self, commit=False, *args, **kwargs):
+		saved_data = super(UserZsAdminForm, self).save(commit=False, *args, **kwargs)
+		if self.cleaned_data.get('the_user') != '-':
+			u = User.objects.get(id=self.cleaned_data.get('the_user'))
+
+			if self.cleaned_data.get('can_access_dashboards') == True:
+				user_groups_update(u, 'can_access_dashboards', True)
+			else:
+				user_groups_update(u, 'can_access_dashboards', False)
+
+			if self.cleaned_data.get('can_edit_dashboards') == True:
+				user_groups_update( u, 'can_edit_dashboards',True)
+			else:
+				user_groups_update(u, 'can_edit_dashboards', False)
+
+			if self.cleaned_data.get('can_edit_users_access') == True:
+				user_groups_update(u, 'can_edit_users_access', True)
+			else:
+				user_groups_update(u, 'can_edit_users_access', False)
+
+			if self.cleaned_data.get('user_is_active') == True:
+				u.is_active = True
+			else:
+				u.is_active = False
+			u.save()
+
+		return saved_data
 
 
 
@@ -93,7 +298,6 @@ class ContentpublicationsForm(forms.ModelForm):
 		#self.fields['content_m2m'].queryset = all_items.exclude(id__in=selected_ids_list)
 		#self.fields['content_m2m'].initial = all_items.filter(id__in=selected_ids_list)
 		if self.instance: self.fields["content_m2m"].initial = (selected_ids_list)
-		#print(self.fields['content_m2m'].initial, 'QQQQQQQQQQQQQQQQQQQQQQQQQQ')
 		#№self.fields['content_m2m'].help_text = "Открыть доступ к контенту для пользователей."
 		#self.fields['content_m2m'].label = "Выбрать контент"
 
@@ -110,10 +314,6 @@ class ContentpublicationsForm(forms.ModelForm):
 		remove_items_ids_list = aside_left_menu_includes.objects.filter(is_actual=True, menu_icon_type='folder', source_app_name_translate__name='Дашборды', id__in=[i for i in current_items_ids_list if i not in selected_items_ids_list]).all()
 		add_items_ids_list = aside_left_menu_includes.objects.filter(is_actual=True, menu_icon_type='folder', source_app_name_translate__name='Дашборды', id__in=[i for i in selected_items_ids_list if i not in current_items_ids_list]).all()
 
-		# print(current_items_ids_list)
-		# print(selected_items_ids_list)
-		# print(remove_items_ids_list)
-		# print(add_items_ids_list)
 
 		app.objects.filter(is_actual=True).first().app_settings_container_aside_left_menu_items_includes.remove(*remove_items_ids_list)
 		app.objects.filter(is_actual=True).first().app_settings_container_aside_left_menu_items_includes.add(*add_items_ids_list)
