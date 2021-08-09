@@ -1,25 +1,40 @@
 {% spaceless %}
-{% for item in form %}
-    {% if item.label == 'ContentpublicationsForm' %}
-    <div class="form_frame" id="{{item.label}}">
-        <form action="" method="post">
-            <div id='form-app'>
-                <fieldset>
+<div class="form_frame" id="{% for item in form %}{% if forloop.first %}{{item.label}}{% endif %}{% endfor %}">
+    <form action="" method="post">
+        {{ form_media }}
+        {% csrf_token %}
+        <div id='form-app'>
+            <fieldset>
+            {% for item_1 in form %}
+                {% if item_1.label == 'ContentpublicationsForm' %}
                 <legend>публикация дашбордов</legend>      
-                    <form action="." method="POST">
-                        {{ form_media }}
-                        {% csrf_token %}
-                        <div>
-                        {% for item in form %}
-                            {{item}}
-                        {% endfor %}
+                    <div class="items-container">
+                    {% for item_2 in form %}
+                        {{item_2}}
+                    {% endfor %}
+                    </div>
+                <input type="submit" {%if brand_color %}style="background-color: {{brand_color}};"{% endif %} value="Сохранить">
+                {% endif %}
+                {% if item_1.label == 'UserZsAdminForm' %}
+                <legend>доступ</legend>   
+                    <div class="items-container">
+                    {% for item_2 in form.visible_fields %}
+                        <div class="form-items-group">
+                            {% if item_2.label == 'UserZsAdminForm' %}
+                            {{item_2}}
+                            {% else %}
+                            {{item_2}}
+                            <label class="form-item-label" for="{{item_2.name}}">{{item_2.label}}</label>
+                            {% endif %}
                         </div>
-                        <input type="submit" value="Сохранить">
-                    </form>
-                </fieldset>
-            </div>
-        </form>
-    </div>
-    {% endif %}
-{% endfor %}
+                    {% endfor %}
+                    </div>
+                <input type="submit" {%if brand_color %}style="background-color: {{brand_color}};"{% endif %} value="Сохранить">
+                {{form.onchange_the_user}}
+                {% endif %}
+            {% endfor %}
+            </fieldset>
+        </div>
+    </form>
+</div>
 {% endspaceless %}
