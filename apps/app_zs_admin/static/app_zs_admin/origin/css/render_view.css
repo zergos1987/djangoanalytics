@@ -1,4 +1,7 @@
 /*container*/
+.form_frame form {
+	    background-color: #fff;
+}
 .render_view {
 	width: 100%;
 	height: 100%;    
