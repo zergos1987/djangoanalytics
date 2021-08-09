@@ -7,7 +7,7 @@ from django.urls import reverse
 
 from apps.app_zs_admin.models import app, aside_left_menu_includes
 from custom_script_extensions.custom_permissions_check import check_user_content_request_permission
-from custom_script_extensions.forms import ContentpublicationsForm
+from custom_script_extensions.forms import UserZsAdminForm, ContentpublicationsForm
 
 
 
@@ -150,13 +150,18 @@ def users_profile(request):
 		user_id=request.user.id)
 	if not user_content_has_permission: raise PermissionDenied()
 
-	app_view_object = {
-		'content_id': 1, 
-		'user_id': 1, 
-		'content_type': 'form',
-		'content': 'form_object'
-	}
-	
+
+	if request.method == 'POST':
+		form = UserZsAdminForm(request.POST, request.GET)
+		if form.is_valid():
+			form.save(commit=False)
+			args = form.cleaned_data.get('the_user', '-')
+			request_path = request.path_info + '?user_id=' + args
+			return HttpResponseRedirect(request_path)
+	else:
+		form = UserZsAdminForm(request.GET)
+
+
 	app_settings = app.objects.filter(is_actual=True).first()
 	
 	template = 'app_zs_admin/render_view.html'
@@ -164,7 +169,7 @@ def users_profile(request):
 	context = {
 		'app_settings': app_settings,
 		'app_settings_user': {},
-		'app_view_object': {'object': 1},
+		'app_view_object': {'object': form, 'object_type': 'form'},
 		'app_view_object_settings': user_content_selected,
 		'app_view_settings': {},
 		'app_view_settings_user': {},
