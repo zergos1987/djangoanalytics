@@ -55,6 +55,7 @@ svg {
 .border-shadow.bottom {
 	border-bottom: 1px solid #cdcdcd;
     /*box-shadow: 0 6px 6px -6px #c4c4c4;*/
+	transition: all 0.5s;
 }
 
 .container .border-shadow.bottom.header {
