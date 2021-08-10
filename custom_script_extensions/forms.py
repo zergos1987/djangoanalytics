@@ -120,16 +120,13 @@ class UserZsAdminForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(UserZsAdminForm, self).__init__(*args,**kwargs)
 		selected_the_user = args[0].get('user_id', None)
-		x = [(c, c) for c in user_extra_details.objects.filter(user__is_staff=False
-			).exclude(user__username__startswith='TEST_USER'
-			).annotate(full_names=Case(When(full_name__exact='', then=Value('н/д')), When(full_name__isnull=False, then='full_name'), default=None, output_field=CharField())
-			).annotate(full_names2=Concat('id', Value(' | '), 'user__username', Value(' | '), 'full_names', output_field=CharField())
-			).values_list('full_names2', flat=True)]
+
 		self.fields['the_user'].choices = [(c, c) for c in user_extra_details.objects.filter(user__is_staff=False
 			).exclude(user__username__startswith='TEST_USER'
 			).annotate(full_names=Case(When(full_name__exact='', then=Value('н/д')), When(full_name__isnull=False, then='full_name'), default=None, output_field=CharField())
-			).annotate(full_names2=Concat('id', Value(' | '), 'user__username', Value(' | '), 'full_names', output_field=CharField())
+			).annotate(full_names2=Concat('user__id', Value(' | '), 'user__username', Value(' | '), 'full_names', output_field=CharField())
 			).values_list('full_names2', flat=True)]
+			
 		if selected_the_user and selected_the_user != '-' and selected_the_user.isnumeric():
 			u = User.objects.filter(id=selected_the_user).first()
 

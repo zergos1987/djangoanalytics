@@ -1,3 +1,7 @@
+.container-main {
+    background-image: none !important;
+}
+
 .container-main,
 .breadcrumb > ul > li,
 .breadcrumb > ul > li:last-child {

@@ -5130,11 +5130,14 @@ text.value-label-white {
 .tfpVo {
   background-color: #fff !important;
   border: 1px solid rgba(0,0,0,0.1) !important;
-  border-radius: 12px !important;
-  box-shadow: 0px 2px 5px 1px #d5d5d582, -1px 4px 4px #ffffff !important;
+  margin: 10px 5px;
+  padding: 0px 10px 0px;
+  border-radius: 7px !important;
+  box-shadow: inset 0px 0px 6px 0px #dbdbdb, inset -5px -5px 10px #ffffff;
+  /*box-shadow: 0px 2px 5px 1px #d5d5d582, -1px 4px 4px #ffffff !important;*/
 }
 .PopoverContainer {
-  top: 12px !important;
+  top: 1px !important;
 }
 ._3yC8D ._1J_Mq p {
     margin: 0 1.5em 0em 0 !important;
@@ -5181,7 +5184,8 @@ text.value-label-white {
   border-radius: 25px !important;
   border-radius: 14px !important;
   margin: 5px !important;
-  box-shadow: 4px 5px 10px 0px rgb(101 101 101 / 20%), -7px -3px 9px 0px rgb(234 234 234 / 55%) !important;
+  /*box-shadow: 4px 5px 10px 0px rgb(101 101 101 / 20%), -7px -3px 9px 0px rgb(234 234 234 / 55%) !important;*/
+  box-shadow: 4px 5px 10px 0px rgb(0 0 0 / 20%), -8px -8px 18px 0 rgb(255 255 255 / 55%) !important;
   border: 1px solid rgba(0,0,0,0.1) !important;
 }
 
@@ -5193,6 +5197,53 @@ text.value-label-white {
   padding: 0 !important;
   margin: 0 !important;
   border: none !important;
-  background: none !important
+  background: none !important;
   z-index: -1;
+}
+.hFNRPZ {
+    color: rgb(80, 158, 227) !important;
+}
+._20z_B {
+    color: #565656 !important;
+}
+.PopoverBody.PopoverBody--withBackground {
+    border: 1px solid rgb(0 0 0 / 10%) !important;
+    box-shadow: 2px 7px 7px 0px rgb(0 0 0 / 21%) !important;
+    border-radius: 0px !important;
+}
+.EmbedFrame-header {
+  position: fixed;
+  z-index: 4;
+  width: auto;
+  left: 5px;
+  top: 5px;
+  border-radius: 12px;
+  padding: 2px 8px;
+  /*box-shadow: 1px 1px 7px 1px rgb(0 0 0 / 20%), -2px -2px 5px 0 rgb(255 255 255 / 55%);*/
+}
+
+.EmbedFrame-header {
+  width: 25px;
+  height: 25px;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #0048ff5c;
+  opacity: 0.6;
+  box-shadow: 0px 0px 0px 4px rgb(218 215 234), -8px -8px 18px 0 rgb(255 255 255 / 55%);
+  border: 2px #fff dotted;
+}
+
+.EmbedFrame-header:hover {
+  width: auto;
+  height: auto;
+  overflow: auto;
+  cursor: pointer;
+  background-color: #0048ff8f;
+  opacity: 1;
+  box-shadow: 1px 1px 7px 1px rgb(0 0 0 / 20%), -2px -2px 5px 0 rgb(255 255 255 / 55%);
+  border: none;
+}
+
+.EmbedFrame-header:hover:before {
+  content: '';
 }
