@@ -5171,13 +5171,24 @@ text.value-label-white {
 .EmbedFrame-header, .EmbedFrame-footer {
   background-color: transparent !important;
 }
-.PopoverBody.PopoverBody--withBackground {
-    border: 1px solid rgba(0,0,0,0.1) !important;
-    box-shadow: 0 0 0px 6px rgb(0 0 0 / 11%) !important;
-    border-radius: 6px !important;
+
+.PopoverContainer.PopoverContainer--open.tether-element.tether-element-attached-top.tether-target-attached-bottom.tether-element-attached-right.tether-target-attached-right.tether-enabled .PopoverBody.PopoverBody--withBackground {
+    border: 1px solid rgb(0 0 0 / 10%) !important;
+    border-radius: 7px !important;
+}
+.PopoverContainer.tether-element.tether-element-attached-top.tether-target-attached-bottom.PopoverContainer--open.tether-element-attached-right.tether-target-attached-right.tether-enabled .PopoverBody.PopoverBody--withBackground {
+  border: 1px solid rgb(0 0 0 / 10%) !important;
+  box-shadow: 0px 2px 8px 0px rgb(0 0 0 / 21%) !important;
+  border-radius: 15px !important;
+}
+.PopoverContainer.PopoverContainer--open.tether-element.tether-abutted.tether-abutted-left.tether-element-attached-top.tether-element-attached-left.tether-target-attached-bottom.tether-target-attached-left.tether-enabled .PopoverBody.PopoverBody--withBackground {
+  border: 1px solid rgb(0 0 0 / 10%) !important;
+  border-radius: 0px !important;
+  box-shadow: 0px 9px 8px 0px rgb(0 0 0 / 13%) !important;
 }
 .PopoverParameterFieldWidgetFooter {
     bottom: 0px !important;
+    border-radius: 0 0 15px 15px;
 }
 .DashCard .Card {
   background-color: #f6f6f6 !important;
@@ -5206,11 +5217,6 @@ text.value-label-white {
 ._20z_B {
     color: #565656 !important;
 }
-.PopoverBody.PopoverBody--withBackground {
-    border: 1px solid rgb(0 0 0 / 10%) !important;
-    box-shadow: 2px 7px 7px 0px rgb(0 0 0 / 21%) !important;
-    border-radius: 0px !important;
-}
 .EmbedFrame-header {
   position: fixed;
   z-index: 4;
@@ -5227,10 +5233,10 @@ text.value-label-white {
   height: 25px;
   overflow: hidden;
   cursor: pointer;
-  background-color: #0048ff5c;
+  background-color: #0048ffa3;
   opacity: 0.6;
-  box-shadow: 0px 0px 0px 4px rgb(218 215 234), -8px -8px 18px 0 rgb(255 255 255 / 55%);
-  border: 2px #fff dotted;
+  box-shadow: 0px 0px 0px 4px rgb(248 248 248), -8px -8px 18px 0 rgb(255 255 255 / 55%);
+  border: 2px #ffffff dotted;
 }
 
 .EmbedFrame-header:hover {
@@ -5238,7 +5244,7 @@ text.value-label-white {
   height: auto;
   overflow: auto;
   cursor: pointer;
-  background-color: #0048ff8f;
+  background-color: transparent;
   opacity: 1;
   box-shadow: 1px 1px 7px 1px rgb(0 0 0 / 20%), -2px -2px 5px 0 rgb(255 255 255 / 55%);
   border: none;
