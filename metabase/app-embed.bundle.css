@@ -5127,14 +5127,18 @@ text.value-label-white {
 .mt1, ._38YTw {
   margin: 0 !important;
 }
-.tfpVo {
+.tfpVo._38618._3Dqep {
   background-color: #fff !important;
   border: 1px solid rgba(0,0,0,0.1) !important;
-  margin: 10px 5px;
+  margin: 0px 10px 10px;
   padding: 0px 10px 0px;
   border-radius: 7px !important;
-  box-shadow: inset 0px 0px 6px 0px #dbdbdb, inset -5px -5px 10px #ffffff;
-  /*box-shadow: 0px 2px 5px 1px #d5d5d582, -1px 4px 4px #ffffff !important;*/
+  box-shadow: 0px 0px 0px 1px #e2e2e2, 0px 0px 10px #ffffff;
+  cursor: pointer;
+}
+.tfpVo._38618._3Dqep legend {
+    position: absolute !important;
+    margin-bottom: 55px !important;
 }
 .PopoverContainer {
   top: 1px !important;
@@ -5151,34 +5155,41 @@ text.value-label-white {
   z-index: 4;
 }*/
 .rounded, .Wr_al {
-    border-radius: 8px;
+  border-radius: 8px;
 }
 .bg-medium, .bg-medium-hover:hover {
-    background-color: #a3ff9a !important;
+  background-color: #a3ff9a !important;
+  box-shadow: inset 0px 0px 3px 3px rgb(0 181 40 / 24%) !important;
+  border-radius: 0px;
 }
 .Button--primary {
-    color: #ffffff;
-    background: #509ee3;
-    border: 1px solid #509ee3;
-    border-radius: 0 !important;
-    width: 100%;
+  color: #ffffff;
+  background: #509ee3;
+  border: 1px solid #509ee3;
+  border-radius: 0 !important;
+  width: 100%;
 }
 .bg-light, .bg-light-hover:hover {
-    background-color: #eeeeee !important;
-    border-radius: 0 !important;
+  background-color: #eeeeee !important;
+  border-radius: 0 !important;
+  color: #000000 !important;
 }
 
-.EmbedFrame-header, .EmbedFrame-footer {
+.EmbedFrame-footer {
   background-color: transparent !important;
 }
-
+.PopoverContainer.tether-element.tether-element-attached-top.tether-element-attached-left.tether-target-attached-bottom.tether-target-attached-left.tether-abutted.tether-abutted-left.tether-enabled,
+.PopoverContainer.PopoverContainer--open.tether-element.tether-element-attached-top.tether-element-attached-left.tether-target-attached-bottom.tether-target-attached-left.tether-enabled {
+  margin-top: 0px;
+  margin-left: 100px;
+}
 .PopoverContainer.PopoverContainer--open.tether-element.tether-element-attached-top.tether-target-attached-bottom.tether-element-attached-right.tether-target-attached-right.tether-enabled .PopoverBody.PopoverBody--withBackground {
-    border: 1px solid rgb(0 0 0 / 10%) !important;
-    border-radius: 7px !important;
+  border: 1px solid rgb(0 0 0 / 10%) !important;
+  border-radius: 7px !important;
 }
 .PopoverContainer.tether-element.tether-element-attached-top.tether-target-attached-bottom.PopoverContainer--open.tether-element-attached-right.tether-target-attached-right.tether-enabled .PopoverBody.PopoverBody--withBackground {
   border: 1px solid rgb(0 0 0 / 10%) !important;
-  box-shadow: 0px 2px 8px 0px rgb(0 0 0 / 21%) !important;
+  box-shadow: 0px 10px 10px 1px rgb(0 0 0 / 9%) !important;
   border-radius: 15px !important;
 }
 .PopoverContainer.PopoverContainer--open.tether-element.tether-abutted.tether-abutted-left.tether-element-attached-top.tether-element-attached-left.tether-target-attached-bottom.tether-target-attached-left.tether-enabled .PopoverBody.PopoverBody--withBackground {
@@ -5214,6 +5225,9 @@ text.value-label-white {
 .hFNRPZ {
     color: rgb(80, 158, 227) !important;
 }
+.PopoverContainer.PopoverContainer--open.tether-element.tether-element-attached-top.tether-element-attached-left.tether-target-attached-bottom.tether-target-attached-left.tether-enabled .hFNRPZ {
+    color: #333 !important;
+}
 ._20z_B {
     color: #565656 !important;
 }
@@ -5229,27 +5243,100 @@ text.value-label-white {
 }
 
 .EmbedFrame-header {
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   overflow: hidden;
-  cursor: pointer;
   background-color: #0048ffa3;
   opacity: 0.6;
-  box-shadow: 0px 0px 0px 4px rgb(248 248 248), -8px -8px 18px 0 rgb(255 255 255 / 55%);
+  box-shadow: 0px 0px 3px 2px rgb(0 0 0 / 20%), -2px -2px 5px 0 rgb(255 255 255 / 55%);
   border: 2px #ffffff dotted;
+  background-image: url(http://djangoanalytics.ru:8000/static/app_opensource_dashboards/origin/res/img/filter_icon.svg);
+  background-repeat: no-repeat;
+  background-color: transparent;
+  box-shadow: none;
+  border: none;
+  filter: invert(64%) sepia(69%) saturate(1885%) hue-rotate(66deg) brightness(100%) contrast(96%);
 }
 
 .EmbedFrame-header:hover {
   width: auto;
   height: auto;
   overflow: auto;
-  cursor: pointer;
-  background-color: transparent;
+  background-color: #f3f3f3;
   opacity: 1;
-  box-shadow: 1px 1px 7px 1px rgb(0 0 0 / 20%), -2px -2px 5px 0 rgb(255 255 255 / 55%);
-  border: none;
+  box-shadow: 0px 6px 7px 1px rgb(0 0 0 / 20%), -2px -2px 5px 0 rgb(255 255 255 / 55%);
+  border: 1px solid rgb(0 0 0 / 20%) !important;
+  background-image: none;
+  filter: none;
+  padding: 20px 10px 10px;
+}
+
+.EmbedFrame-header .flex.align-end.flex-wrap.flex-row.mt1 {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-auto-rows: minmax(65px, auto);
+  align-items: center;
+  visibility: hidden;
+}
+
+.EmbedFrame-header:hover .flex.align-end.flex-wrap.flex-row.mt1 {
+  position: relative;
+  top: initial;
+  width: auto;
+  visibility: visible;
+}
+
+.EmbedFrame-header:hover fieldset {
+  cursor: pointer;
 }
 
 .EmbedFrame-header:hover:before {
   content: '';
+}
+
+table.CtorL tr[data-testid="table-row"] {
+    border-bottom: 1.1px solid rgb(226 226 226);
+}
+
+table.CtorL tr[data-testid="table-row"] span {
+  color: #555555 !important;
+  font-weight: normal !important;
+}
+
+.TableInteractive-headerCellData.cellData.text-brand-hover.text-medium {
+  color: #333 !important;
+}
+
+.TableInteractive-headerCellData.cellData.text-brand-hover.text-medium:hover {
+  cursor: pointer;
+  border-bottom: 1.5px solid rgb(0 8 255);
+}
+
+.text-brand-hover.LegendItem.no-decoration.flex.align-center.fullscreen-normal-text.fullscreen-night-text.mr1.cursor-pointer {
+  text-transform: uppercase;
+  color: #333;
+}
+
+.overflow-auto.pl1.my1.scroll-hide {
+  max-height: 150px !important;
+}
+
+html::-webkit-scrollbar-thumb {
+    background-color: #cacaca;
+    border: 3px solid transparent;
+    border-radius: 10px;
+    background-clip: padding-box;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+    background-color: #a4a4a4; 
+}
+
+html::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+    background-color: #fff;
 }

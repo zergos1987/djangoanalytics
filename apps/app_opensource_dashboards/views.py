@@ -144,7 +144,6 @@ def mb(request, id):
 	dashboards_list = []
 	try:
 		dashboards_list = get_metabase_api(ask='dashboards_list')
-		print(dashboards_list)
 	except Exception as e:
 		print('dashboards_list error: ', str(e))
 	selected_metabase_dashboard_id = [i for i in dashboards_list if i.get('name') == user_content_selected.external_href]
