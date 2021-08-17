@@ -11,6 +11,23 @@
 	overflow: auto;
 }
 
+.render_view::-webkit-scrollbar-thumb {
+    background-color: #cacaca;
+    border: 3px solid transparent;
+    border-radius: 10px;
+    background-clip: padding-box;
+}
+
+.render_view::-webkit-scrollbar-thumb:hover {
+    background-color: #a4a4a4; 
+}
+
+.render_view::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+    background-color: #fff;
+}
+
 .container.container-aside-left-disabled.container-header-disabled.container-main-padding-off .render_view {
 	padding: 15px;
 }
