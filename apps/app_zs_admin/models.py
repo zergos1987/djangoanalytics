@@ -134,10 +134,11 @@ class aside_left_menu_includes(models.Model):
 	
 	def save(self, *args, **kwargs):
 		if not self.external_href or self.external_href == '#':
-			self.external_href = "Empty content frame"
-			
-		if self.menu_icon_type == 'arrow' and self.href != '#':
+			self.external_href = self.name
+
+		if self.menu_icon_type == 'arrow':
 			self.href = '#'
+			self.external_href = '#'
 
 		if self.parent_name:
 			if self.name == str(self.parent_name.name):
