@@ -133,12 +133,12 @@ class aside_left_menu_includes(models.Model):
 		unique_together = ('name', 'parent_name', 'name_order_by', 'parent_name_order_by',)
 	
 	def save(self, *args, **kwargs):
-		if not self.external_href or self.external_href == '#':
-			self.external_href = self.name
-
 		if self.menu_icon_type == 'arrow':
 			self.href = '#'
 			self.external_href = '#'
+
+		if self.menu_icon_type == 'folder':
+			self.external_href = self.name
 
 		if self.parent_name:
 			if self.name == str(self.parent_name.name):
