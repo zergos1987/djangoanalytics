@@ -138,7 +138,8 @@ class aside_left_menu_includes(models.Model):
 			self.external_href = '#'
 
 		if self.menu_icon_type == 'folder':
-			self.external_href = self.name
+			if not 'http' in self.external_href:
+				self.external_href = self.name
 
 		if self.parent_name:
 			if self.name == str(self.parent_name.name):
