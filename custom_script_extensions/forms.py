@@ -17,7 +17,7 @@ def user_groups_update(user, role, add=False):
 	if role == 'can_access_dashboards':
 		groups = ['app_zs_admin_viewer_group', 'app_opensource_dashboards_viewer_group', 'app_zs_dashboards_viewer_group']
 	if role == 'can_edit_dashboards':
-		groups = ['app_opensource_dashboards_editor_group', 'app_zs_dashboards_editor_group']
+		groups = ['app_opensource_dashboards_editor_group', 'app_zs_dashboards_editor_group', 'app_opensource_dashboards_creator_group', 'app_zs_dashboards_creator_group']
 	if role == 'can_edit_users_access':
 		groups = ['app_zs_admin_editor_group']
 

@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^zs_admin/render_view/(?P<id>[0-9]+)/$', views.render_view, name="render_view"),
     url(r'^zs_admin/users_profile/$', views.users_profile, name='users_profile'),
     url(r'^zs_admin/dashboard_settings/$', views.dashboard_settings, name='dashboard_settings'),
+    url(r'^zs_admin/dashboard_creation/$', views.dashboard_creation, name='dashboard_creation'),
     url(r'^zs_admin/dashboard_publication/$', views.dashboard_publication, name='dashboard_publication'),
 ]

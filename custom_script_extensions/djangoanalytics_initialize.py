@@ -255,6 +255,9 @@ def create_default_users_groups_permissions():
 		add_groups_to_users(username='TEST_USER_default', groupname='app_zs_dashboards_editor_group')
 		#default zs_admin users edit access
 		add_groups_to_users(username='TEST_USER_default', groupname='app_zs_admin_editor_group')
+		#default zs_admin users create access
+		add_groups_to_users(username='TEST_USER_default', groupname='app_opensource_dashboards_creator_group')
+		add_groups_to_users(username='TEST_USER_default', groupname='app_zs_dashboards_creator_group')
 
 
 	return 'Done.'

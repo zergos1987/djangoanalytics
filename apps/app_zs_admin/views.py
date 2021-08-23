@@ -9,7 +9,8 @@ from apps.app_zs_admin.models import app, aside_left_menu_includes
 from custom_script_extensions.custom_permissions_check import check_user_content_request_permission
 from custom_script_extensions.forms import UserZsAdminForm, ContentpublicationsForm
 
-
+import os
+from decouple import config
 
 
 # Create your views here.
@@ -178,6 +179,7 @@ def users_profile(request):
 	return render(request, template, context)
 
 
+
 @login_required
 #@permission_required('app_zs_admin.view_app')
 def dashboard_settings(request):
@@ -209,6 +211,26 @@ def dashboard_settings(request):
 	}
 
 	return render(request, template, context)
+
+
+
+@login_required
+def dashboard_creation(request):
+	user_content_selected = aside_left_menu_includes.objects.filter(href='dashboard_publication', is_actual=True).first()
+
+	user_content_has_permission = check_user_content_request_permission(
+		content_obj='aside_left_menu_includes',
+		obj_id=user_content_selected.id,
+		user_id=request.user.id)
+	if not user_content_has_permission: raise PermissionDenied()
+
+	OS_DASHBOARDS_METABASE_URL = os.environ.get("OS_DASHBOARDS_METABASE_URL", config('OS_DASHBOARDS_METABASE_URL'))
+	OS_DASHBOARDS_METABASE_SECRET_KEY = os.environ.get("OS_DASHBOARDS_METABASE_SECRET_KEY", config('OS_DASHBOARDS_METABASE_SECRET_KEY'))
+	OS_DASHBOARDS_METABASE_LOGIN = os.environ.get("OS_DASHBOARDS_METABASE_LOGIN", config('OS_DASHBOARDS_METABASE_LOGIN'))
+	OS_DASHBOARDS_METABASE_PSW = os.environ.get("OS_DASHBOARDS_METABASE_PSW", config('OS_DASHBOARDS_METABASE_PSW'))
+	
+	return redirect(OS_DASHBOARDS_METABASE_URL)#HttpResponse(200)
+
 
 
 @login_required
