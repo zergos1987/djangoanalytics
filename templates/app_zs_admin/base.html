@@ -102,13 +102,16 @@
                                     </g>
                                 </svg>
                             </button>
+                            {% block header_section_right_notification_items_count %}
                             <div class="notification-count">3</div>
+                            {% endblock header_section_right_notification_items_count %}
                         </div>
                         <div class="items-frame">
                             <div class="items">
                                 <div class="row">
                                     <div class="notification_header">Сообщения и обновления</div>
                                 </div>
+                                {% block header_section_right_notification_items %}
                                 <div class="row">
                                     <div class="notification_container">
                                         <div class="block-header">Сообщение №1</div>
@@ -130,6 +133,7 @@
                                         <div class="block-content">Новых уведомлений нет</div>
                                     </div>
                                 </div>
+                                {% endblock header_section_right_notification_items %}
                             </div>
                         </div>
                     </div>

@@ -75,6 +75,23 @@
 				{% block header_section_right_search_extra_button %}{% if app_settings.app_settings_header_section_right_search_extra_button_enable and app_settings.app_settings_header_section_center_enable %}{{ block.super }}{% endif %}{% endblock header_section_right_search_extra_button %}
 				
 				{% block header_section_right_notification %}{% if app_settings.app_settings_header_section_right_notification_enable %}{{ block.super }}{% endif %}{% endblock header_section_right_notification %}
+				{% block header_section_right_notification_items_count %}
+				{% if app_events %}
+				<div class="notification-count">{% if app_events.count > 9%}+9{% else %}{{app_events.count}}{% endif %}</div>
+				{% endif %}
+				{% endblock header_section_right_notification_items_count %}
+				{% block header_section_right_notification_items %}
+					{% if app_events %}
+						{% include "app_zs_admin/include/header_section_right_notification_includes.html" with menu_items=app_events %}
+					{% else %}
+	                    <div class="row divider"></div>
+	                    <div class="row">
+	                        <div class="notification_container">
+	                            <div class="block-content">Новых уведомлений нет</div>
+	                        </div>
+	                    </div>
+					{% endif %}
+				{% endblock header_section_right_notification_items %}
 
 				{% block header_section_right_user_settings %}{% if app_settings.app_settings_header_section_right_user_settings_enable %}{{ block.super }}{% endif %}{% endblock header_section_right_user_settings %}
 

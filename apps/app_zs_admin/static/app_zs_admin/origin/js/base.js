@@ -30,7 +30,14 @@ $(document).ready(function(){
 		}
 		if(window.innerWidth <= 768) {
 			container.classList.add('active');
-		}	
+			if(scrollContainer !== null) {
+				scrollContainer.addEventListener("wheel", horizontal_scroll);
+			}
+		} else {
+			if(scrollContainer !== null) {
+				scrollContainer.removeEventListener("wheel", horizontal_scroll);
+			}
+		}
 	}
 
 	//containerSize();
@@ -277,12 +284,12 @@ $(document).ready(function(){
 	//header-section-right > MENU
 	//mouse wheel horizontal scroll
 	const scrollContainer = document.querySelector(".header-section-right");
-		if(scrollContainer !== null) {
-		scrollContainer.addEventListener("wheel", (evt) => {
-		    evt.preventDefault();
-		    scrollContainer.scrollLeft += evt.deltaY;
-		});
+	function horizontal_scroll(evt) {
+		evt.preventDefault();
+		scrollContainer.scrollLeft += evt.deltaY;
+
 	}
+
 
 	$('.header-section-right .item-group .items-header').off('click').click(function () {
 		removeActiveClass('header-section-right');

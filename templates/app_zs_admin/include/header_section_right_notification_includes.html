@@ -1,0 +1,22 @@
+{% spaceless %}
+{% for item in menu_items %}
+{% if forloop.first %}
+<div class="row">
+    <div class="notification_container">
+        <div class="block-header">{{item.title}}</div>
+        <div class="block-date">{{item.event_date}}</div>
+        <div class="block-content">{{item.event_content}}</div>
+    </div>
+</div>
+{% else %}
+<div class="row divider"></div>
+<div class="row">
+    <div class="notification_container">
+        <div class="block-header">{{item.title}}</div>
+        <div class="block-date">{{item.event_date}}</div>
+        <div class="block-content">{{item.event_content}}</div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endspaceless %}

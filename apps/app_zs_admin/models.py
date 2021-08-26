@@ -236,20 +236,37 @@ class app(models.Model):
 
 
 
-# class notification_events(models.Model):
-# 	title = models.CharField(max_length=400)
-# 	event_date = models.DateTimeField(auto_now_add=True, blank=True)
-# 	event_content = models.CharField(max_length=100)
-# 	is_actual = models.BooleanField(default=False)
+class notification_events(models.Model):
+	title = models.CharField(max_length=400)
+	event_date = models.DateTimeField(auto_now_add=True, blank=False)
+	event_content = models.CharField(max_length=100)
+	users_list = models.ManyToManyField(User, related_name='for_user_notification_event_show', blank=True)
+	is_actual = models.BooleanField(default=False)
 
-# 	class Meta:
-# 		# app_label helps django to recognize your db
-# 		app_label = 'app_zs_admin'
-# 		ordering = ('event_date', )
+	class Meta:
+		# app_label helps django to recognize your db
+		app_label = 'app_zs_admin'
+		ordering = ('-event_date', )
 
-# 	def __str__(self):
-# 		return (
-# 			str(self.title) + ' | ' + 
-# 			str(self.event_date) + ' | ' + 
-# 			str(self.event_content) + ' | ' +
-# 			str(self.is_actual))
+	def __str__(self):
+		return (
+			str(self.title) + ' | ' + 
+			str(self.event_date) + ' | ' + 
+			str(self.event_content) + ' | ' +
+			str(self.is_actual))
+
+
+
+class user_notification_event_confirm(models.Model):
+	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="for_user_notification_event_confirm")
+	confirm_date = models.DateTimeField(auto_now_add=True, blank=False)
+
+	class Meta:
+		# app_label helps django to recognize your db
+		app_label = 'app_zs_admin'
+		ordering = ('-confirm_date', 'user' )
+
+	def __str__(self):
+		return (
+			str(self.user) + ' | ' + 
+			str(self.confirm_date))

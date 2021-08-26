@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse, FileResponse, Http404, HttpResponseRedirect, HttpResponseForbidden, HttpResponsePermanentRedirect
 from django.urls import reverse
 
-from apps.app_zs_admin.models import app, aside_left_menu_includes
+from apps.app_zs_admin.models import app, notification_events, aside_left_menu_includes
 from custom_script_extensions.custom_permissions_check import check_user_content_request_permission
 from custom_script_extensions.forms import UserZsAdminForm, ContentpublicationsForm
 
@@ -19,10 +19,12 @@ from decouple import config
 #@permission_required('app_zs_admin.view_app')
 def index(request):
 	app_settings = app.objects.filter(is_actual=True).first()
+	app_events = notification_events.objects.filter(is_actual=True).all()
 	if 'zs_admin' != app_settings.app_start_page:
 		return HttpResponseRedirect(f'/{app_settings.app_start_page}/')
 	context = {
 		'app_settings': app_settings,
+		'app_events': app_events,
 		'app_settings_user': {},
 	}
 

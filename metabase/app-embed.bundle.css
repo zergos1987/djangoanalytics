@@ -5178,24 +5178,19 @@ text.value-label-white {
 .EmbedFrame-footer {
   background-color: transparent !important;
 }
-.PopoverContainer.tether-element.tether-element-attached-top.tether-element-attached-left.tether-target-attached-bottom.tether-target-attached-left.tether-abutted.tether-abutted-left.tether-enabled,
-.PopoverContainer.PopoverContainer--open.tether-element.tether-element-attached-top.tether-element-attached-left.tether-target-attached-bottom.tether-target-attached-left.tether-enabled {
-  margin-top: 0px;
-  margin-left: 100px;
-}
 .PopoverContainer.PopoverContainer--open.tether-element.tether-element-attached-top.tether-target-attached-bottom.tether-element-attached-right.tether-target-attached-right.tether-enabled .PopoverBody.PopoverBody--withBackground {
   border: 1px solid rgb(0 0 0 / 10%) !important;
   border-radius: 7px !important;
-}
-.PopoverContainer.tether-element.tether-element-attached-top.tether-target-attached-bottom.PopoverContainer--open.tether-element-attached-right.tether-target-attached-right.tether-enabled .PopoverBody.PopoverBody--withBackground {
-  border: 1px solid rgb(0 0 0 / 10%) !important;
-  box-shadow: 0px 10px 10px 1px rgb(0 0 0 / 9%) !important;
-  border-radius: 15px !important;
 }
 .PopoverContainer.PopoverContainer--open.tether-element.tether-abutted.tether-abutted-left.tether-element-attached-top.tether-element-attached-left.tether-target-attached-bottom.tether-target-attached-left.tether-enabled .PopoverBody.PopoverBody--withBackground {
   border: 1px solid rgb(0 0 0 / 10%) !important;
   border-radius: 0px !important;
   box-shadow: 0px 9px 8px 0px rgb(0 0 0 / 13%) !important;
+}
+.PopoverContainer.tether-element.tether-element-attached-top.tether-target-attached-bottom.PopoverContainer--open.tether-element-attached-right.tether-target-attached-right.tether-enabled .PopoverBody.PopoverBody--withBackground {
+  border: 1px solid rgb(0 0 0 / 10%) !important;
+  border-radius: 15px !important;
+  box-shadow: 0px 10px 10px 1px rgb(0 0 0 / 9%) !important;
 }
 .PopoverParameterFieldWidgetFooter {
     bottom: 0px !important;
