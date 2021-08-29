@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^zs_admin/dashboard_settings/$', views.dashboard_settings, name='dashboard_settings'),
     url(r'^zs_admin/dashboard_creation/$', views.dashboard_creation, name='dashboard_creation'),
     url(r'^zs_admin/dashboard_publication/$', views.dashboard_publication, name='dashboard_publication'),
+    url(r'^zs_admin/notification_events_confirm/(?P<user_id>\d+)/$', views.notification_events_confirm, name='notification_events_confirm'),
 ]

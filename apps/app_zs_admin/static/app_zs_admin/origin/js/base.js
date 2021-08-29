@@ -423,4 +423,27 @@ $(document).ready(function(){
 	    }
 
 	});
+
+	//notification_events_confirm
+	let notification_container = $('#notification').parent().parent();
+	if (notification_container.length > 0) {
+		notification_container.on('click', function() {
+			if (notification_event_confirm === 0) {
+				notification_event_confirm = 1;
+				$('.notification-count').css('visibility', 'hidden');
+				if (notification_container.hasClass('active')) {
+					$.ajax({
+						url: `zs_admin/notification_events_confirm/${request_user_id}/`,
+						dataType: 'json',
+						headers: {
+							'csrf_token':'{% csrf_token %}'
+						},
+						success:function(data){
+							console.log('event notification confirm status: ', data);
+						}
+					});
+				}
+			}
+		});
+	}
 });

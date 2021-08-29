@@ -7,7 +7,8 @@ from django.urls import reverse
 import os
 from decouple import config
 
-from apps.app_zs_admin.models import app, aside_left_menu_includes
+from django.contrib.auth.models import User
+from apps.app_zs_admin.models import app, aside_left_menu_includes, notification_events, user_notification_event_confirm
 from custom_script_extensions.custom_permissions_check import check_user_content_request_permission
 
 
@@ -17,11 +18,20 @@ from custom_script_extensions.custom_permissions_check import check_user_content
 @permission_required('app_opensource_dashboards.view_app')
 def index(request):
 	app_settings = app.objects.filter(is_actual=True).first()
+	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
+	app_events = {}
+	if confirm_events_user:
+		app_events['actual'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__gte=confirm_events_user.confirm_date).all()
+		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
+	else:
+		app_events['actual'] = notification_events.objects.filter(is_actual=True).all()[:5]
+
 	app_opensource_dashboards_settings = ''
 	
 	template = 'app_opensource_dashboards/index.html'
 	context = {
 		'app_settings': app_settings,
+		'app_events': app_events,
 		'app_settings_user': {},
 		'app_opensource_dashboards_settings': app_opensource_dashboards_settings,
 		'app_opensource_dashboards_settings_user': {}
@@ -155,9 +165,18 @@ def mb(request, id):
 		app_view_object['object_html_source'] = {'css': ['/static/app_opensource_dashboards/origin/css/metabase_zs_admin.css'], 'js': []}
 
 	app_settings = app.objects.filter(is_actual=True).first()
+	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
+	app_events = {}
+	if confirm_events_user:
+		app_events['actual'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__gte=confirm_events_user.confirm_date).all()
+		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
+	else:
+		app_events['actual'] = notification_events.objects.filter(is_actual=True).all()[:5]
+
 	template = 'app_zs_admin/render_view.html'
 	context = {
 		'app_settings': app_settings,
+		'app_events': app_events,
 		'app_settings_user': {},
 		'app_view_object': {},
 		'app_view_object_settings': user_content_selected,

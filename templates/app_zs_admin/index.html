@@ -76,13 +76,14 @@
 				
 				{% block header_section_right_notification %}{% if app_settings.app_settings_header_section_right_notification_enable %}{{ block.super }}{% endif %}{% endblock header_section_right_notification %}
 				{% block header_section_right_notification_items_count %}
-				{% if app_events %}
-				<div class="notification-count">{% if app_events.count > 9%}+9{% else %}{{app_events.count}}{% endif %}</div>
+				{% if app_events and app_events.actual.count > 0 %}
+				<div class="notification-count">{% if app_events.actual.count > 9%}+9{% else %}{{app_events.actual.count}}{% endif %}</div>
+				<script type="text/javascript">setTimeout(function() {notification_event_confirm=0},1000);</script>
 				{% endif %}
 				{% endblock header_section_right_notification_items_count %}
 				{% block header_section_right_notification_items %}
 					{% if app_events %}
-						{% include "app_zs_admin/include/header_section_right_notification_includes.html" with menu_items=app_events %}
+						{% include "app_zs_admin/include/header_section_right_notification_includes.html" with events_actual=app_events.actual events_previews=app_events.previews %}
 					{% else %}
 	                    <div class="row divider"></div>
 	                    <div class="row">

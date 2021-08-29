@@ -4,7 +4,7 @@ from django.db.models import IntegerField
 from colorfield.fields import ColorField
 from jsonfield import JSONField
 from django.core.validators import MinValueValidator, MaxValueValidator
-
+from django.utils import timezone
 
 
 # Create your models here.
@@ -265,6 +265,10 @@ class user_notification_event_confirm(models.Model):
 		# app_label helps django to recognize your db
 		app_label = 'app_zs_admin'
 		ordering = ('-confirm_date', 'user' )
+
+	def save(self, *args, **kwargs):
+		self.confirm_date = timezone.now()
+		super(user_notification_event_confirm, self).save(*args, **kwargs)
 
 	def __str__(self):
 		return (

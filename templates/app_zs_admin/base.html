@@ -429,6 +429,10 @@
         </div>
             
         <script src="{% static 'app_zs_admin/vendor/jquery-3.5.1/jquery-3.5.1.js'%}"></script>
+        <script type="text/javascript">
+            let request_user_id = '{{user.id}}' || '0';
+            let notification_event_confirm = 1;
+        </script>
         {% block head_js %}
             <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
             <!-- BASE JS -->

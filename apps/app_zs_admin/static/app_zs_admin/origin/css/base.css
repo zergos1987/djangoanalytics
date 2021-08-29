@@ -939,6 +939,19 @@ svg {
     cursor: pointer;
 }
 
+.notification-group-new {
+    padding: 8px 0px 6px 17px;
+    font-size: 11px;
+    font-weight: bold;
+
+}
+
+.notification-group-old {
+    padding: 20px 0px 6px 17px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
 .header-section-right .item-group.active .items:not(.countries) .row > .notification_header {
     padding: 0px 0px 9px;
     margin: 0 auto;
@@ -957,6 +970,10 @@ svg {
     background-color: #fff;
     border-radius: 6px;
     border: 1px solid #cdcdcd;
+}
+
+.header-section-right .item-group.active .items:not(.countries) .row > .notification_container.old {
+    opacity: 0.65;
 }
 
 .header-section-right .item-group.active .items:not(.countries) .row > .notification_container > .block-header {
