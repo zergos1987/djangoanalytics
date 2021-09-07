@@ -250,6 +250,9 @@ class UserZsAdminForm(forms.ModelForm):
 						$('.user-creation-button').addClass('displayNone');
 					} else {
 						console.log('create', $('#username').val());
+						let new_user = $('#username').val();
+						let submit = window.location.origin + `/zs_admin/users_profile/create/${new_user}/`
+						window.location = submit;
 					}
 				}
 			}
