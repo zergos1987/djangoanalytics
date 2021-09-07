@@ -211,10 +211,27 @@ class UserZsAdminForm(forms.ModelForm):
 				})
 			};
 			setTimeout(click_select2_choice_menu, 200);
-			function create_new_user() {
+			function create_new_user(_this) {
+				if ($(_this).text() === '+') {
+					$(_this).text('-')
+					$('#form-app fieldset .items-container > .form-items-group:not(:first-child)').fadeOut(0);
+					$('#form-app fieldset .items-container > .form-items-group:first-child > .select2.select2-container').fadeOut(0);
+					$('#form-app fieldset > input').fadeOut(0);
+					$('#form-app fieldset .items-container > .form-items-group:first-child').prepend(`<div class="user-creation-container"><input type="text" id="username" name="username"></div>`);
+					$('#form-app fieldset').append(`<button type="button" class="user-creation-button">Создать</button>`);
+					$('#form-app fieldset > legend').text('создать пользователя');
+				} else {
+					$(_this).text('+')
+					$('#form-app fieldset .items-container > .form-items-group:not(:first-child)').fadeIn(300);
+					$('#form-app fieldset .items-container > .form-items-group:first-child > .select2.select2-container').fadeIn(300);
+					$('#form-app fieldset > input').fadeIn(300);
+					$('.user-creation-container').remove();
+					$('.user-creation-button').remove();
+					$('#form-app fieldset > legend').text('доступ');
+				}
 			}
 			function addCreateButton() {
-				$('#form-app fieldset .items-container > .form-items-group:first-child').prepend(`<button type="button" onclick="create_new_user();" class="add-new-user-button" title="Создать учётную запись пользователя">+</button>`);
+				$('#form-app fieldset .items-container > .form-items-group:first-child').prepend(`<button type="button" onclick="create_new_user(this);" class="add-new-user-button" title="Создать учётную запись пользователя">+</button>`);
 			}
 			setTimeout(addCreateButton, 200);
 			/*
