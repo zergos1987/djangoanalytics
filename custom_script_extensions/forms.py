@@ -251,10 +251,16 @@ class UserZsAdminForm(forms.ModelForm):
 						$('.user-creation-alert-container').prepend('<div>Минимальное значение букв >3 !</div>');
 						$('.user-creation-button').addClass('displayNone');
 					} else {
-						console.log('create', $('#username').val());
-						let new_user = $('#username').val();
-						let submit = window.location.origin + `/zs_admin/users_profile/create/${new_user}/`
-						window.location = submit;
+						if($('#username').val().match(/\W/)) {
+							$('#form-app fieldset .items-container > .form-items-group:first-child').prepend(`<div class="user-creation-alert-container"><button type="button" onclick="removeAlertContainer();" class="creation-alert-confirm">OK</button></div>`);
+							$('.user-creation-alert-container').prepend('<div>Только буквы и цифры допустимы!</div>');
+							$('.user-creation-button').addClass('displayNone');
+						} else {
+							console.log('create', $('#username').val());
+							let new_user = $('#username').val();
+							let submit = window.location.origin + `/zs_admin/users_profile/create/${new_user}/`
+							window.location = submit;
+						}
 					}
 				}
 			}
