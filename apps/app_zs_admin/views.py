@@ -237,6 +237,8 @@ def users_profile(request, username=None):
 			u, created = User.objects.get_or_create(username=username)
 			request_path = f'/zs_admin/users_profile/'
 			if created:
+				u.is_active = False
+				u.save()
 				request_path = request_path + f'?user_id={u.id}'
 			return HttpResponseRedirect(request_path)
 
