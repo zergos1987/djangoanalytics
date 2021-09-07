@@ -176,6 +176,13 @@ class UserZsAdminForm(forms.ModelForm):
 			$(document.body).on("change","#id_COLUMN_EVENT_NAME_1",function(){
 				location.href = location.protocol + '//' + location.host + location.pathname + '?user_id=' + $('#select2-id_the_user-container')[0].title.split(' | ')[0];
 			});
+			function hide_submit_input_for_None_selection() {
+				if ($('.select2-selection__rendered').text() === 'не выбрано') {
+					$('#form-app fieldset > input').addClass('displayNone');
+				} else {
+					$('#form-app fieldset > input').removeClass('displayNone');
+				}
+			}
 			function select2_get_formatted_choice_menu() {
 				let li_items = $('.select2-container ul li');
 				for (i=0; i < li_items.length; i++) {
