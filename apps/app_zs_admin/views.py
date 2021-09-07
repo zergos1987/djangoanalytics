@@ -239,6 +239,7 @@ def users_profile(request, username=None):
 			if created:
 				u.is_active = False
 				u.save()
+				user_extra_details.objects.filter(user=u).update(ldap_is_active=True)
 				request_path = request_path + f'?user_id={u.id}'
 			return HttpResponseRedirect(request_path)
 
