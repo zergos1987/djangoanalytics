@@ -222,7 +222,7 @@ def notification_events_confirm(request, user_id):
 
 @login_required
 #@permission_required('app_zs_admin.view_app')
-def users_profile(request):
+def users_profile(request, username=None):
 	user_content_selected = aside_left_menu_includes.objects.filter(href='users_profile', is_actual=True).first()
 
 	user_content_has_permission = check_user_content_request_permission(
@@ -231,6 +231,14 @@ def users_profile(request):
 		user_id=request.user.id)
 	if not user_content_has_permission: raise PermissionDenied()
 
+	if username is not None:
+		if len(username) > 3:
+			print('creating new user', username, request.path_info)
+			u, created = User.objects.get_or_create(username=username)
+			request_path = f'/zs_admin/users_profile/'
+			if created:
+				request_path = request_path + f'?user_id={u.id}'
+			return HttpResponseRedirect(request_path)
 
 	if request.method == 'POST':
 		form = UserZsAdminForm(request.POST, request.GET)
