@@ -210,7 +210,13 @@ class UserZsAdminForm(forms.ModelForm):
 					}
 				})
 			};
-			setTimeout(click_select2_choice_menu, 500);
+			setTimeout(click_select2_choice_menu, 200);
+			function create_new_user() {
+			}
+			function addCreateButton() {
+				$('#form-app fieldset .items-container > .form-items-group:first-child').prepend(`<button type="button" onclick="create_new_user();" class="add-new-user-button" title="Создать учётную запись пользователя">+</button>`);
+			}
+			setTimeout(addCreateButton, 200);
 			/*
 			let checkbox2 = $('#UserZsAdminForm input#CheckboxInput_can_access_dashboards');
 			let checkbox3 = $('#UserZsAdminForm input#CheckboxInput_can_edit_dashboards');
