@@ -233,6 +233,7 @@ class UserZsAdminForm(forms.ModelForm):
 						$('#form-app fieldset .items-container > .form-items-group:first-child').prepend(`<div class="user-creation-container"><input type="text" id="username" name="username" pattern="[a-zA-Z0-9-]+" required></div>`);
 						$('#form-app fieldset').append(`<button type="button" onclick="create_new_user(this, 'create');" class="user-creation-button">Создать</button>`);
 						$('#form-app fieldset > legend').text('создать пользователя');
+						$('.user-creation-alert-container').remove();
 					} else {
 						$(_this).text('+')
 						$('#form-app fieldset .items-container > .form-items-group:not(:first-child)').fadeIn(300);
@@ -241,6 +242,7 @@ class UserZsAdminForm(forms.ModelForm):
 						$('.user-creation-container').remove();
 						$('.user-creation-button').remove();
 						$('#form-app fieldset > legend').text('доступ');
+						$('.user-creation-alert-container').remove();
 					}
 				}
 				if (job_type === 'create') {
