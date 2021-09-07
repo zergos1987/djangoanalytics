@@ -29,7 +29,7 @@
                         </div>
                     {% endfor %}
                     </div>
-                <input type="submit" {%if brand_color %}style="background-color: {{brand_color}};"{% endif %} value="Сохранить">
+                <input type="submit" class="displayNone" {%if brand_color %}style="background-color: {{brand_color}};"{% endif %} value="Сохранить">
                 {{form.onchange_the_user}}
                 {% endif %}
             {% endfor %}
