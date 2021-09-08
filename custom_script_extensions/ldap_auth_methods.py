@@ -234,9 +234,11 @@ def custom_sync_user_relations(user, data):
             g = group[3:group.find(',')]
             g = 'LDAP_' + g
             clean_ldap_groups.append(g)
-            get_or_create_groups(g)
-            add_groups_to_users(user, g)
+    get_or_create_groups(clean_ldap_groups, bulk_create=True)
+    for item in clean_ldap_groups:
+        add_groups_to_users(user, item)
     update_user_groups(user, clean_ldap_groups, 'LDAP')
+    #update_user_sadko_groups(user)
 
     extra_data = [
         {'full_name': data.get('displayName', None)},
