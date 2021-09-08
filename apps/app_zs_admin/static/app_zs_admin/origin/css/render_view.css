@@ -568,7 +568,7 @@ span.select2-container li.select2-results__options {
     transform: rotate(180deg);
 }
  
-.fathgrid-wrapper > div[id*='table-container'] {
+.table-grid-container > .fathgrid-wrapper > div[id*='table-container'] {
     overflow: hidden;
     width: fit-content;
     height: fit-content;
@@ -579,6 +579,11 @@ span.select2-container li.select2-results__options {
     margin: 10px auto;
     max-width: 100%;
     z-index: 1;
+    background-color: #fff;
+}
+
+.table-grid-container.dict_table > .fathgrid-wrapper > div[id*='table-container'] {
+	background-color: transparent;
 }
 
 .fathgrid-wrapper > div[id*='table-container']::-webkit-scrollbar-thumb {

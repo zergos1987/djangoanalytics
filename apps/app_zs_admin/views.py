@@ -360,6 +360,7 @@ def dashboard_settings(request):
 	
 	context = {
 		'app_settings': app_settings,
+		'app_events': app_events,
 		'app_settings_user': {},
 		'app_view_object': object_list,
 		'app_view_object_settings': user_content_selected, 
