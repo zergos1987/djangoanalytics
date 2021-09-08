@@ -246,7 +246,7 @@ class UserZsAdminForm(forms.ModelForm):
 					}
 				}
 				if (job_type === 'create') {
-					if($('#username').val().length < 3) {
+					if($('#username').val().length <= 3) {
 						$('#form-app fieldset .items-container > .form-items-group:first-child').prepend(`<div class="user-creation-alert-container"><button type="button" onclick="removeAlertContainer();" class="creation-alert-confirm">OK</button></div>`);
 						$('.user-creation-alert-container').prepend('<div>Минимальное значение букв >3 !</div>');
 						$('.user-creation-button').addClass('displayNone');
