@@ -1,4 +1,8 @@
 /*container*/
+#form-app {
+	background-color: #fff;
+}
+
 .render_view {
 	width: 100%;
 	height: 100%;    
@@ -282,12 +286,16 @@ span.select2-container li.select2-results__options {
     color: #000;
     cursor: pointer;
     z-index: 1;
-    margin-left: -18px;
+    margin-left: -15px;
     font-family: inherit;
 }
 
+.table-grid-container.dict_table .add-row-button {
+    margin-left: 108px;
+}
+
 .header-display-button {
-	top: 45px;
+	top: 46px;
     position: absolute;
     background-color: #1b39ec;
     color: #e4e4e4;
@@ -421,7 +429,7 @@ span.select2-container li.select2-results__options {
 .table-grid-container.dict_table .fathgrid-wrapper > nav:nth-child(3).displayNone {
 	display: flex !important;
 	background-color: #fff;
-	margin-left: 96px;
+	margin-left: 192px;
 	margin-top: 8px;
 	border-radius: 0 7px 7px 0;
 	z-index: 10;
@@ -904,7 +912,7 @@ table.table-grid.fathgrid tfoot th:empty {
 
 #UserZsAdminForm #form-app fieldset button.add-new-user-button {
     position: absolute;
-    right: -22px;
+    right: -23px;
 }
 
 #UserZsAdminForm #form-app .user-creation-container {

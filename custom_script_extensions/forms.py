@@ -230,7 +230,7 @@ class UserZsAdminForm(forms.ModelForm):
 						$('#form-app fieldset .items-container > .form-items-group:not(:first-child)').fadeOut(0);
 						$('#form-app fieldset .items-container > .form-items-group:first-child > .select2.select2-container').fadeOut(0);
 						$('#form-app fieldset > input').fadeOut(0);
-						$('#form-app fieldset .items-container > .form-items-group:first-child').prepend(`<div class="user-creation-container"><input type="text" id="username" name="username" pattern="[a-zA-Z0-9-]+" required></div>`);
+						$('#form-app fieldset .items-container > .form-items-group:first-child').prepend(`<div class="user-creation-container"><input type="text" id="username" name="username" pattern="[a-zA-Z0-9]+" required></div>`);
 						$('#form-app fieldset').append(`<button type="button" onclick="create_new_user(this, 'create');" class="user-creation-button">Создать</button>`);
 						$('#form-app fieldset > legend').text('создать пользователя');
 						$('.user-creation-alert-container').remove();

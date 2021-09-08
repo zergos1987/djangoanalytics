@@ -232,7 +232,7 @@ def get_table_settings(table_name, url_for_render, request):
 		settings['get_media'] = False
 		settings['request_table_columns_props'] = [
 			{
-				'db_name': 'id', 
+				'db_name': 'user__id', 
 				'grid_header_name': 'id',
 				'grid_column_props': {
 					'label': '',
