@@ -105,9 +105,15 @@ def get_or_create_permission(codename, name, content_type):
 
 
 #create groups if not exists
-def get_or_create_groups(g):
-	obj, created = Group.objects.get_or_create(name=g)
-	print('STATUS. create groups if not exists:', created, obj)
+def get_or_create_groups(g, bulk_create=False):
+	if bulk_create == False:
+		obj, created = Group.objects.get_or_create(name=g)
+		print('STATUS. create groups if not exists:', created, obj)
+	if bulk_create == True:
+		bulk_items = []
+		for item in g:
+			bulk_items.append(Group(name=item))
+		Group.objects.bulk_create(bulk_items, ignore_conflicts=True)
 
 
 #add permissions to groups if not exists

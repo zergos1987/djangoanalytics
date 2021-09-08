@@ -176,6 +176,14 @@ class UserZsAdminForm(forms.ModelForm):
 			$(document.body).on("change","#id_COLUMN_EVENT_NAME_1",function(){
 				location.href = location.protocol + '//' + location.host + location.pathname + '?user_id=' + $('#select2-id_the_user-container')[0].title.split(' | ')[0];
 			});
+			function hide_submit_input_for_None_selection() {
+				if ($('.select2-selection__rendered').text() === 'не выбрано') {
+					$('#form-app fieldset > input').addClass('displayNone');
+				} else {
+					$('#form-app fieldset > input').removeClass('displayNone');
+				}
+			}
+			setTimeout(hide_submit_input_for_None_selection, 200);
 			function select2_get_formatted_choice_menu() {
 				let li_items = $('.select2-container ul li');
 				for (i=0; i < li_items.length; i++) {
@@ -185,7 +193,7 @@ class UserZsAdminForm(forms.ModelForm):
 					let textParts = [];
 					for (var n = 0; n < count_parts.length; n++) {
 						if(count_parts[n].trim() !== "") {
-						textParts.push('<div class="row-part"><div class="row-part-header">' + row_headers[n] + '</div><div class="row-part-text">' + count_parts[n].trim() + '</div></div>')
+							textParts.push('<div class="row-part"><div class="row-part-header">' + row_headers[n] + '</div><div class="row-part-text">' + count_parts[n].trim() + '</div></div>')
 						}
 					}
 
@@ -197,7 +205,7 @@ class UserZsAdminForm(forms.ModelForm):
 					li_items.eq(i).html(formatted_lines)
 				}
 			};
-			function click_select2_choice_menu() {
+			function click_select2_choice_menu() { 
 				let selected_text = $('#select2-id_the_user-container').text();
 				selected_text = selected_text.replace('|  |', '').replace('|  |', '').replace('|  |', '').replace('|  |', '')
 				$('#select2-id_the_user-container').text(selected_text);
@@ -210,7 +218,56 @@ class UserZsAdminForm(forms.ModelForm):
 					}
 				})
 			};
-			setTimeout(click_select2_choice_menu, 500);
+			setTimeout(click_select2_choice_menu, 200);
+			function removeAlertContainer() {
+				$('.user-creation-alert-container').remove();
+				$('.user-creation-button').removeClass('displayNone');
+			}
+			function create_new_user(_this, job_type) {
+				if (job_type === 'init') {
+					if ($(_this).text() === '+') {
+						$(_this).text('-')
+						$('#form-app fieldset .items-container > .form-items-group:not(:first-child)').fadeOut(0);
+						$('#form-app fieldset .items-container > .form-items-group:first-child > .select2.select2-container').fadeOut(0);
+						$('#form-app fieldset > input').fadeOut(0);
+						$('#form-app fieldset .items-container > .form-items-group:first-child').prepend(`<div class="user-creation-container"><input type="text" id="username" name="username" pattern="[a-zA-Z0-9-]+" required></div>`);
+						$('#form-app fieldset').append(`<button type="button" onclick="create_new_user(this, 'create');" class="user-creation-button">Создать</button>`);
+						$('#form-app fieldset > legend').text('создать пользователя');
+						$('.user-creation-alert-container').remove();
+					} else {
+						$(_this).text('+')
+						$('#form-app fieldset .items-container > .form-items-group:not(:first-child)').fadeIn(300);
+						$('#form-app fieldset .items-container > .form-items-group:first-child > .select2.select2-container').fadeIn(300);
+						$('#form-app fieldset > input').fadeIn(300);
+						$('.user-creation-container').remove();
+						$('.user-creation-button').remove();
+						$('#form-app fieldset > legend').text('доступ');
+						$('.user-creation-alert-container').remove();
+					}
+				}
+				if (job_type === 'create') {
+					if($('#username').val().length <= 3) {
+						$('#form-app fieldset .items-container > .form-items-group:first-child').prepend(`<div class="user-creation-alert-container"><button type="button" onclick="removeAlertContainer();" class="creation-alert-confirm">OK</button></div>`);
+						$('.user-creation-alert-container').prepend('<div>Минимальное значение букв >3 !</div>');
+						$('.user-creation-button').addClass('displayNone');
+					} else {
+						if($('#username').val().match(/\W/)) {
+							$('#form-app fieldset .items-container > .form-items-group:first-child').prepend(`<div class="user-creation-alert-container"><button type="button" onclick="removeAlertContainer();" class="creation-alert-confirm">OK</button></div>`);
+							$('.user-creation-alert-container').prepend('<div>Только буквы и цифры допустимы!</div>');
+							$('.user-creation-button').addClass('displayNone');
+						} else {
+							console.log('create', $('#username').val());
+							let new_user = $('#username').val();
+							let submit = window.location.origin + `/zs_admin/users_profile/create/${new_user}/`
+							window.location = submit;
+						}
+					}
+				}
+			}
+			function addCreateButton() {
+				$('#form-app fieldset .items-container > .form-items-group:first-child').prepend(`<button type="button" onclick="create_new_user(this, 'init');" class="add-new-user-button" title="Создать учётную запись пользователя">+</button>`);
+			}
+			setTimeout(addCreateButton, 200);
 			/*
 			let checkbox2 = $('#UserZsAdminForm input#CheckboxInput_can_access_dashboards');
 			let checkbox3 = $('#UserZsAdminForm input#CheckboxInput_can_edit_dashboards');
