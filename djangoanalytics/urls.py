@@ -62,6 +62,7 @@ urlpatterns = [
 urlpatterns += [
     url(r'^accounts/signup/$', accounts_views.signup, name='signup'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
+    url(r'^login/$', auth_views.LoginView.as_view(redirect_authenticated_user=True), name='login'),
     url(r'^reset/$', auth_views.PasswordResetView.as_view(
         template_name='registration/password_reset.html',
         email_template_name='registration/password_reset_email.html',
