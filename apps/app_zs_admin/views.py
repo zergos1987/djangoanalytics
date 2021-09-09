@@ -374,7 +374,7 @@ def dashboard_settings(request):
 
 @login_required
 def dashboard_creation(request):
-	user_content_selected = aside_left_menu_includes.objects.filter(href='dashboard_publication', is_actual=True).first()
+	user_content_selected = aside_left_menu_includes.objects.filter(href='dashboard_creation', is_actual=True).first()
 
 	user_content_has_permission = check_user_content_request_permission(
 		content_obj='aside_left_menu_includes',
