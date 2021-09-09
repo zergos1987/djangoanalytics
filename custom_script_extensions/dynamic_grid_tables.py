@@ -64,6 +64,7 @@ def get_table_settings(table_name, url_for_render, request):
 	if settings['table_name'] == 'aside_left_menu_includes':
 		list_of_dicts_dashboards = views.get_metabase_api(ask='dashboards_list')
 		list_of_dashboards = [d['name'] for d in list_of_dicts_dashboards if 'name' in d]
+		list_of_dashboards = sorted(list_of_dashboards)
 		
 		settings['request_table_title'] = 'Настройки доступа и ссылки'
 		settings['fathgrid_initialize_settings'] = fathgrid_initialize_settings_FOR_ALL
