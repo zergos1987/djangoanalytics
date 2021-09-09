@@ -223,8 +223,8 @@ GRAPPELLI_SWITCH_USER = True
 # LDAP authentification backend
 LOGIN_REDIRECT_URL = '/'
 
-LOGIN_URL = '/accounts/login'
-LOGOUT_REDIRECT_URL = '/accounts/login'
+LOGIN_URL = '/login'
+LOGOUT_REDIRECT_URL = '/login'
 
 
 # LDAP Authentification ##########################
