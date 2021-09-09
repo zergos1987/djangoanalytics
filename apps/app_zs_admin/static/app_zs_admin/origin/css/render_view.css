@@ -236,7 +236,7 @@ span.select2-container li.select2-results__options {
 .table-grid-container.dict_table .create-item {
     position: absolute;
     padding: 0;
-    margin-left: 175px;
+    margin-left: 95px;
 }
 
 .table-grid-header .header-item:not(:last-child) {
