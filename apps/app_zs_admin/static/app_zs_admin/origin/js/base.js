@@ -433,7 +433,7 @@ $(document).ready(function(){
 				$('.notification-count').css('visibility', 'hidden');
 				if (notification_container.hasClass('active')) {
 					$.ajax({
-						url: `zs_admin/notification_events_confirm/${request_user_id}/`,
+						url: `/zs_admin/notification_events_confirm/${request_user_id}/`,
 						dataType: 'json',
 						headers: {
 							'csrf_token':'{% csrf_token %}'
