@@ -2,7 +2,7 @@ from apps.accounts.models import user_extra_details
 from apps.app_zs_admin.models import app, aside_left_menu_includes
 from django.contrib.auth.models import User, Group
 from django.contrib.contenttypes.models import ContentType 
-
+from apps.app_opensource_dashboards import views
 
 from django.db.models import Q
 from django.db.models.functions import Lower
@@ -62,6 +62,9 @@ def get_table_settings(table_name, url_for_render, request):
 
 
 	if settings['table_name'] == 'aside_left_menu_includes':
+		list_of_dicts_dashboards = views.get_metabase_api(ask='dashboards_list')
+		list_of_dashboards = [d['name'] for d in list_of_dicts_dashboards if 'name' in d]
+		
 		settings['request_table_title'] = 'Настройки доступа и ссылки'
 		settings['fathgrid_initialize_settings'] = fathgrid_initialize_settings_FOR_ALL
 		settings['request_table_columns_id'] = 'id'
@@ -111,7 +114,7 @@ def get_table_settings(table_name, url_for_render, request):
 					'editable': 'true',
 					'filterable': 'true',
 					'type': 'textarea',
-					'listOfValues': [],
+					'listOfValues': list_of_dashboards,
 					'footer': """(data,el) => `${data.map(item => item.$$$COLUMN$$$).filter((value, index, self) => self.indexOf(value) === index).length}`""",
 					'html': """x => `<div class="table-tbody-td-div"><div>${RenderRow(x.$$$COLUMN$$$, false)}</div></div>`"""
 				}
