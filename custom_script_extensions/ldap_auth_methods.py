@@ -19,7 +19,7 @@ def update_user_sadko_groups(user):
     if conn_sadko.connection is None:
         cursor = conn_sadko.cursor()  
     
-    sql="""""""
+    sql=""""""
 
     cursor = conn_sadko.connection.cursor()
     cursor.execute(sql)
