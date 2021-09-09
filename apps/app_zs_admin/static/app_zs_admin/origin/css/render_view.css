@@ -255,6 +255,7 @@ span.select2-container li.select2-results__options {
 	display: flex;
 	align-items: center;
 	border-radius: 15px 0px 0px 15px;
+	background-color: #fff;
 }
 
 .table-grid-header .header-item input {
