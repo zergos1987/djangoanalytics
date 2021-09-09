@@ -233,6 +233,60 @@ admin.site.register(user_settings_locale_includes, user_settings_locale_includes
 
 
 
+class aside_left_menu_includesResource(resources.ModelResource):
+    class Meta:
+        model = aside_left_menu_includes
+        fields = (
+           'parent_name_short', 'name', 'menu_level', 'menu_icon_type', 'parent_name_order_by', 'name_order_by', 'render_app_name', 'source_app_name', 'href', 'is_actual', ) 
+
+class aside_left_menu_includesAdmin(ImportExportModelAdmin):
+    list_display = [
+        'id', 'menu_level_name', 'parent_name_short', 'name', 'menu_level', 'menu_icon_type', 'parent_name_order_by', 'name_order_by', 'render_app_name', 'source_app_name', 'href', 'is_actual']
+
+    list_filter = (
+        'name',  'is_actual',  #('dt', DateTimeRangeFilter)
+    )
+
+    def menu_level_name(self, obj):
+        if obj.source_app_name_translate:
+            return obj.source_app_name_translate.name
+        else:
+            '--'
+    menu_level_name.short_description = 'menu_level_name'
+    menu_level_name.admin_order_field = 'source_app_name_translate__name'
+
+    filter_horizontal = ('url_access_via_groups', 'url_access_via_users',)
+    def parent_name_short(self, obj):
+        if obj.name:
+            if obj.parent_name:
+                return obj.parent_name.name
+
+    def save_model(self, request, obj, form, change):
+        if obj.menu_icon_type == "arrow" and obj.href != '#':
+            messages.error(request, "Cannot save menu_icon_type = arrow and href != '#'. Change menu_icon_type for saving href !")
+        super(aside_left_menu_includesAdmin, self).save_model(request, obj, form, change)
+
+    def has_import_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_export_permission(self, request, obj=None):
+        return True
+        # if request.user.is_superuser:
+        #     return True
+        # else:
+        #     return False
+
+    # class Media:
+    #     js = ('/static/admin/js/jquery.grp_timepicker.js', )
+
+    resource_class = aside_left_menu_includesResource
+admin.site.register(aside_left_menu_includes, aside_left_menu_includesAdmin)
+
+
+
 class notification_eventsResource(resources.ModelResource):
     class Meta:
         model = notification_events
