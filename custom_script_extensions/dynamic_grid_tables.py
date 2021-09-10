@@ -72,6 +72,7 @@ def get_table_settings(table_name, url_for_render, request):
 		settings['request_table_max_limit_rows'] = 5000
 		settings['request_table_as_dict'] = False
 		settings['request_m2m_join_columns'] = ['url_access_via_groups__name', 'url_access_via_users__username']
+		settings['textarea_select_options'] = list_of_dashboards
 		settings['get_media'] = True
 		settings['request_table_columns_props'] = [
 			{
@@ -115,7 +116,7 @@ def get_table_settings(table_name, url_for_render, request):
 					'editable': 'true',
 					'filterable': 'true',
 					'type': 'textarea',
-					'listOfValues': list_of_dashboards,
+					'listOfValues': [],#list_of_dashboards,
 					'footer': """(data,el) => `${data.map(item => item.$$$COLUMN$$$).filter((value, index, self) => self.indexOf(value) === index).length}`""",
 					'html': """x => `<div class="table-tbody-td-div"><div>${RenderRow(x.$$$COLUMN$$$, false)}</div></div>`"""
 				}
@@ -233,6 +234,7 @@ def get_table_settings(table_name, url_for_render, request):
 		settings['request_table_max_limit_rows'] = 5000
 		settings['request_table_as_dict'] = True
 		settings['request_m2m_join_columns'] = []
+		settings['textarea_select_options'] = []		
 		settings['get_media'] = False
 		settings['request_table_columns_props'] = [
 			{
@@ -347,6 +349,7 @@ def get_table_settings(table_name, url_for_render, request):
 		settings['request_table_max_limit_rows'] = 5000
 		settings['request_table_as_dict'] = True
 		settings['request_m2m_join_columns'] = []
+		settings['textarea_select_options'] = []
 		settings['get_media'] = False
 		settings['request_table_columns_props'] = [
 			{
