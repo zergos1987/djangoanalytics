@@ -381,6 +381,33 @@ def dynamic_datagrid(
 				$(selector).parent().addClass('grid-item-close');
 			}
 
+			function updateValue(_this) {
+				$('[data-originalvalue]').attr('data-originalvalue', _this.value);
+				$('[data-originalvalue]').val(_this.value);
+				$('.grid-item-display-button').off('click').click();
+			}
+
+			function ShowTextareaSelectOptions(colname, colval, textarea_select_options) {
+				if (textarea_select_options.length > 0) {
+					let item_options = textarea_select_options.map(o => o[colname]).filter(function (el) {return el != null;})[0];
+					if (item_options) {
+						if (item_options.length > 0) {
+							$('.selected [data-originalvalue]').parent().prepend(`<a href="javascript:void(0);" class="textarea_select_options_container"><select onchange="updateValue(this)"></select><a>`);
+							$.each(item_options, function (i, item) {
+								$('.textarea_select_options_container > select').append($('<option>', { 
+									value: item,
+									text : item 
+								}));
+							});
+							$(".textarea_select_options_container > select").val(colval);
+							$(".textarea_select_options_container").click(function(e) {
+								e.stopPropagation();
+							});
+						}
+					}
+				}
+			}
+
 			$$$request_m2m_join_columns$$$
 			$$$textarea_select_options$$$
 
