@@ -218,9 +218,9 @@ span.select2-container li.select2-results__options {
 }
 
 .table-grid-container.dict_table > .table-grid-header.displayNone > .header-item.pages-limit > div {
-    padding: 6px 13px;
+	padding: 6px 13px;
     background: #fff;
-    border-radius: 7px 0 0 7px;
+    border-radius: 7px;
 }
 
 .table-grid-header .header-item {
@@ -424,13 +424,11 @@ span.select2-container li.select2-results__options {
 }
 
 .table-grid-container.dict_table .fathgrid-wrapper > nav:nth-child(3).displayNone {
-	display: flex !important;
-	background-color: #fff;
-	margin: 0;
-	margin-left: 96px;
-	top: -45px;
-	z-index: 10;
-	border-radius: 0 7px 7px 0;
+    display: flex !important;
+    background-color: #fff;
+    top: -45px;
+    z-index: 10;
+    border-radius: 7px;
 }
 
 .table-grid-container.dict_table .fathgrid-wrapper > nav:nth-child(3).displayNone svg {

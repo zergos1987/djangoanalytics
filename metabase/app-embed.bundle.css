@@ -5132,8 +5132,8 @@ text.value-label-white {
   border: 1px solid rgba(0,0,0,0.1) !important;
   margin: 0px 10px 10px;
   padding: 0px 10px 0px;
-  border-radius: 7px !important;
-  box-shadow: 0px 0px 0px 1px #6e6e6e, 0px 0px 10px #ffffff;
+  border-radius: 6px !important;
+  box-shadow: 0px 0px 0px 1px #a7a7a7, inset 0px 0px 10px 0px #ffffff;
   cursor: pointer;
 }
 .tfpVo._38618._3Dqep legend {
