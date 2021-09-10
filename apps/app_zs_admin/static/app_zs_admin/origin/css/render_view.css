@@ -316,6 +316,7 @@ span.select2-container li.select2-results__options {
 	background-color: #26ea4c;
 	color: #000000;
 	font-size: 11px;
+	z-index: 2;
 }
 
 .title-display-button {
@@ -379,6 +380,17 @@ span.select2-container li.select2-results__options {
 
 .table-grid-header .header-item.create-item {
 
+}
+
+/*select option*/
+.textarea_select_options_container {
+	display: inline-block;
+	padding-bottom: 5px;
+	z-index: 1;
+	width: 100%;
+}
+.textarea_select_options_container > select {
+	width: 100%;
 }
 
 /*table*/
