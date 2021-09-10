@@ -316,7 +316,7 @@ span.select2-container li.select2-results__options {
 	background-color: #26ea4c;
 	color: #000000;
 	font-size: 11px;
-	z-index: 2;
+	z-index: 1;
 }
 
 .title-display-button {
