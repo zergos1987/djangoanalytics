@@ -65,6 +65,8 @@ def get_table_settings(table_name, url_for_render, request):
 		list_of_dicts_dashboards = views.get_metabase_api(ask='dashboards_list')
 		list_of_dashboards = [d['name'] for d in list_of_dicts_dashboards if 'name' in d]
 		list_of_dashboards = sorted(list_of_dashboards)
+
+		list_of_dashboards_places = list(aside_left_menu_includes.objects.filter(source_app_name_translate__name__exact='Дашборды', menu_icon_type='arrow', is_actual=True).values_list('name', flat=True))
 		
 		settings['request_table_title'] = 'Настройки доступа и ссылки'
 		settings['fathgrid_initialize_settings'] = fathgrid_initialize_settings_FOR_ALL
@@ -72,7 +74,7 @@ def get_table_settings(table_name, url_for_render, request):
 		settings['request_table_max_limit_rows'] = 5000
 		settings['request_table_as_dict'] = False
 		settings['request_m2m_join_columns'] = ['url_access_via_groups__name', 'url_access_via_users__username']
-		settings['textarea_select_options'] = [{'name': list_of_dashboards}]
+		settings['textarea_select_options'] = [{'name': list_of_dashboards}, {'parent_name__name': list_of_dashboards_places}]
 		settings['get_media'] = True
 		settings['request_table_columns_props'] = [
 			{
@@ -95,13 +97,13 @@ def get_table_settings(table_name, url_for_render, request):
 				'grid_header_name': 'Меню: контент, принадлежность',
 				'grid_column_props': {
 					'label': '',
-					'class': '',
+					'class': 'textarea_select_options',
 					'disabled': 'false',
 					'pattern': '',
 					'editable': 'true',
 					'filterable': 'true',
 					'type': '',
-					'listOfValues': ['Дашборды','ЦИРКП'],
+					'listOfValues': [],#['Дашборды','ЦИРКП'],
 					'footer': """(data,el) => `${data.map(item => item.$$$COLUMN$$$).filter((value, index, self) => self.indexOf(value) === index).length}`""",
 					'html': """x => `<div class="table-tbody-td-div"><div>${RenderRow(x.$$$COLUMN$$$, false)}</div></div>`"""
 				}
