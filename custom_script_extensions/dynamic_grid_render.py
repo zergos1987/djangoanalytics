@@ -30,6 +30,7 @@ def dynamic_datagrid(
 	request_table_secure_values_hide=[],
 	request_table_max_limit_rows=20,
 	request_m2m_join_columns=[],
+	textarea_select_options=[],
 	add_row_default={},
 	get_media=False):
 
