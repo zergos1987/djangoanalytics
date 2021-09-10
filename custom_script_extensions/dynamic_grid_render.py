@@ -382,6 +382,7 @@ def dynamic_datagrid(
 			}
 
 			$$$request_m2m_join_columns$$$
+			$$$textarea_select_options$$$
 
 		 	table_$$$grid_id$$$ = FathGrid("table_$$$grid_id$$$", {
 				// // ########## GRID CONFIG SETTINGS ###################
@@ -613,6 +614,7 @@ def dynamic_datagrid(
 				).replace('$$$request_table_title$$$', request_table_title
 				).replace('$$$columns_properties$$$',fathgrid_initialize_settings.get('columns_properties', '')
 				).replace('$$$request_m2m_join_columns$$$', f'let $$$grid_id$$$_request_m2m_join_columns={request_m2m_join_columns}'
+				).replace('$$$textarea_select_options$$$', f'let $$$grid_id$$$_textarea_select_options={textarea_select_options}'
 				).replace('csrf_token', request.META.get('CSRF_COOKIE', '')
 				).replace('$$$grid_id$$$', grid_id)
 
