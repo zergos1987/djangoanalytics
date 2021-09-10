@@ -72,7 +72,7 @@ def get_table_settings(table_name, url_for_render, request):
 		settings['request_table_max_limit_rows'] = 5000
 		settings['request_table_as_dict'] = False
 		settings['request_m2m_join_columns'] = ['url_access_via_groups__name', 'url_access_via_users__username']
-		settings['textarea_select_options'] = list_of_dashboards
+		settings['textarea_select_options'] = [{'name': list_of_dashboards}]
 		settings['get_media'] = True
 		settings['request_table_columns_props'] = [
 			{
@@ -110,7 +110,7 @@ def get_table_settings(table_name, url_for_render, request):
 				'grid_header_name': 'Контент',
 				'grid_column_props': {
 					'label': '',
-					'class': '',
+					'class': 'textarea_select_options',
 					'disabled': 'false',
 					'pattern': '',
 					'editable': 'true',
