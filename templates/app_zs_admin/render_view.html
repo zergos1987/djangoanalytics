@@ -155,7 +155,15 @@
 			{% block breadcrumb_items %}{% spaceless %}
 				{% if app_view_object_settings %}
 					<li><a href="/{{app_view_object_settings.source_app_name}}/">{% spaceless %}{{app_view_object_settings.source_app_name_translate.name}}{% endspaceless %}</a></li>
-					<li><a>{% spaceless %}{{app_view_object_settings.parent_name.name}}{% endspaceless %}</a></li>
+
+					{% if app_view_object_settings.parent_name.parent_name.parent_name.parent_name.parent_name.name %}{% if app_view_object_settings.parent_name.parent_name.parent_name.parent_name.parent_name.name == app_view_object_settings.parent_name.parent_name.parent_name.parent_name.name %}{% else %}<li><a>{% spaceless %}{{app_view_object_settings.parent_name.name}}{% endspaceless %}</a></li>{% endif %}{% endif %}
+					
+					{% if app_view_object_settings.parent_name.parent_name.parent_name.parent_name.name %}{% if app_view_object_settings.parent_name.parent_name.parent_name.parent_name.name == app_view_object_settings.parent_name.parent_name.parent_name.name %}{% else %}<li><a>{% spaceless %}{{app_view_object_settings.parent_name.name}}{% endspaceless %}</a></li>{% endif %}{% endif %}
+					
+					{% if app_view_object_settings.parent_name.parent_name.parent_name.name %}{% if app_view_object_settings.parent_name.parent_name.parent_name.name == app_view_object_settings.parent_name.parent_name.name %}{% else %}<li><a>{% spaceless %}{{app_view_object_settings.parent_name.name}}{% endspaceless %}</a></li>{% endif %}{% endif %}
+					
+					{% if app_view_object_settings.parent_name.parent_name.name %}{% if app_view_object_settings.parent_name.parent_name.name == app_view_object_settings.parent_name.name %}{% else %}<li><a>{% spaceless %}{{app_view_object_settings.parent_name.name}}{% endspaceless %}</a></li>{% endif %}{% endif %}
+					
 					<li><a>{% spaceless %}{{app_view_object_settings.name}}{% endspaceless %}</a></li>
 				{% endif %}{% endspaceless %}
 			{% endblock breadcrumb_items %}
