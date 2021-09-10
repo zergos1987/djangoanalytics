@@ -342,6 +342,7 @@ def dashboard_settings(request):
 					request_table_columns_id=table_settings.get('request_table_columns_id'),
 					request_table_columns_props=table_settings.get('request_table_columns_props'),
 					request_m2m_join_columns=table_settings.get('request_m2m_join_columns'),
+					textarea_select_options=table_settings.get('textarea_select_options'),
 					add_row_default=table_settings.get('add_row_default'),
 					get_media=table_settings.get('get_media')), 
 				'object_type': 'dynamic_datagrid'
