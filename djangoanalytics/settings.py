@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'widget_tweaks',
     'colorfield',
     'easy_select2',
+    'ckeditor',
     'apps.accounts',
     'apps.app_zs_admin',
     'apps.app_opensource_dashboards',
@@ -493,6 +494,26 @@ def user_login_failed_callback(sender, credentials, **kwargs):
         credentials=credentials,
     ))
 
+#CKEditor config
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+    },
+    'awesome_ckeditor_type2': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 300,
+    },
+    'awesome_ckeditor_type3': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source']
+        ]
+    }
+}
 
 # Email backend
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'        

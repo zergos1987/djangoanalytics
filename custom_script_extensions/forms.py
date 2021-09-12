@@ -5,10 +5,11 @@ from django.db.models import Case, Value, When
 from django.db.models.functions import Concat
 from django.db.models import CharField
 from django.contrib.admin.widgets import FilteredSelectMultiple
-from apps.app_zs_admin.models import app, aside_left_menu_includes
+from apps.app_zs_admin.models import app, aside_left_menu_includes, notification_events
 from apps.accounts.models import user_extra_details
 from easy_select2 import Select2Multiple, Select2
 from django.utils.safestring import mark_safe
+from ckeditor.widgets import CKEditorWidget
 
 
 # UTIL FUNCTIONS ##################################
@@ -129,7 +130,6 @@ class UserZsAdminForm(forms.ModelForm):
 			
 		if selected_the_user and selected_the_user != '-' and selected_the_user.isnumeric():
 			u = User.objects.filter(id=selected_the_user).first()
-			print(u, 'FFFFFFFFFFFFFFFFFff')
 			if u:
 				sorted_choices = []
 				selected_choice = None
@@ -362,6 +362,8 @@ class custom_ModelMultipleChoiceField(forms.ModelMultipleChoiceField):
 			return option_name
 		return obj
 
+
+
 class ContentpublicationsForm(forms.ModelForm):
 	content_m2m = custom_ModelMultipleChoiceField(
 		queryset=None,#aside_left_menu_includes.objects.filter(is_actual=True, menu_icon_type='folder', source_app_name_translate__name='Дашборды').all(),
@@ -410,3 +412,45 @@ class ContentpublicationsForm(forms.ModelForm):
 		app.objects.filter(is_actual=True).first().app_settings_container_aside_left_menu_items_includes.add(*add_items_ids_list)
 
 		return app__container_aside_left_menu_items_includes
+
+
+
+class notificationCreationForm(forms.ModelForm):
+	title = forms.CharField(
+		label=u"notificationCreationForm",
+		max_length=254, 
+		required=True)
+	event_content = forms.CharField(
+		label=u"Контент",
+		required=False,
+		widget=forms.Textarea)
+	event_content2 = forms.CharField(
+		label=u"Контент (расширенный формат)",
+		required=False,
+		widget=CKEditorWidget()
+		)
+	is_actual = forms.BooleanField(
+		label=u"Опубликовать",
+		required=False, 
+		initial=False,
+		widget=forms.CheckboxInput(attrs={
+            'id': 'CheckboxInput_is_actual'
+        }),)
+
+	class Meta:
+		model = notification_events
+		fields = ('title', 'event_content', 'event_content2', 'is_actual', )
+	
+	class Media:
+		css = {
+			'all': [],
+		}
+		js = []
+
+	def __init__(self, *args, **kwargs):
+		super(notificationCreationForm, self).__init__(*args, **kwargs)
+
+	def save(self, commit=False, *args, **kwargs):
+		form_obj = super(notificationCreationForm, self).save(commit=False, *args, **kwargs)
+
+		return form_obj

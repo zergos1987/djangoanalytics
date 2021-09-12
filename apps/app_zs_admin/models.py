@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, Group
 from django.db.models import IntegerField
 from colorfield.fields import ColorField
 from jsonfield import JSONField
+from ckeditor.fields import RichTextField
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 
@@ -129,7 +130,7 @@ class aside_left_menu_includes(models.Model):
 	class Meta:
 		# app_label helps django to recognize your db
 		app_label = 'app_zs_admin'
-		ordering = ('parent_name_order_by', 'name_order_by', )
+		ordering = ('parent_name_order_by', 'name_order_by', '-menu_icon_type', )
 		unique_together = ('name', 'parent_name', 'name_order_by', 'parent_name_order_by',)
 	
 	def save(self, *args, **kwargs):
@@ -240,6 +241,7 @@ class notification_events(models.Model):
 	title = models.CharField(max_length=400)
 	event_date = models.DateTimeField(auto_now_add=True, blank=False)
 	event_content = models.CharField(max_length=100)
+	event_content2 = RichTextField(config_name='default', blank=True)
 	users_list = models.ManyToManyField(User, related_name='for_user_notification_event_show', blank=True)
 	is_actual = models.BooleanField(default=False)
 

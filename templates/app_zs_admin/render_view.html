@@ -156,13 +156,13 @@
 				{% if app_view_object_settings %}
 					<li><a href="/{{app_view_object_settings.source_app_name}}/">{% spaceless %}{{app_view_object_settings.source_app_name_translate.name}}{% endspaceless %}</a></li>
 
-					{% if app_view_object_settings.parent_name.parent_name.parent_name.parent_name.parent_name.name %}{% if app_view_object_settings.parent_name.parent_name.parent_name.parent_name.parent_name.name == app_view_object_settings.parent_name.parent_name.parent_name.parent_name.name %}{% else %}<li><a>{% spaceless %}{{app_view_object_settings.parent_name.parent_name.parent_name.parent_name.parent_name.name}}{% endspaceless %}</a></li>{% endif %}{% endif %}
+					{% if app_view_object_settings.parent_name.parent_name.parent_name.parent_name.parent_name.name %}{% if app_view_object_settings.parent_name.parent_name.parent_name.parent_name.parent_name.name == app_view_object_settings.parent_name.parent_name.parent_name.parent_name.name %}{% else %}<li><a>{% spaceless %}{{app_view_object_settings.parent_name.parent_name.parent_name.parent_name.name}}{% endspaceless %}</a></li>{% endif %}{% endif %}
 					
-					{% if app_view_object_settings.parent_name.parent_name.parent_name.parent_name.name %}{% if app_view_object_settings.parent_name.parent_name.parent_name.parent_name.name == app_view_object_settings.parent_name.parent_name.parent_name.name %}{% else %}<li><a>{% spaceless %}{{app_view_object_settings.parent_name.parent_name.parent_name.parent_name.name}}{% endspaceless %}</a></li>{% endif %}{% endif %}
+					{% if app_view_object_settings.parent_name.parent_name.parent_name.parent_name.name %}{% if app_view_object_settings.parent_name.parent_name.parent_name.parent_name.name == app_view_object_settings.parent_name.parent_name.parent_name.name %}{% else %}<li><a>{% spaceless %}{{app_view_object_settings.parent_name.parent_name.parent_name.name}}{% endspaceless %}</a></li>{% endif %}{% endif %}
 					
-					{% if app_view_object_settings.parent_name.parent_name.parent_name.name %}{% if app_view_object_settings.parent_name.parent_name.parent_name.name == app_view_object_settings.parent_name.parent_name.name %}{% else %}<li><a>{% spaceless %}{{app_view_object_settings.parent_name.parent_name.parent_name.name}}{% endspaceless %}</a></li>{% endif %}{% endif %}
+					{% if app_view_object_settings.parent_name.parent_name.parent_name.name %}{% if app_view_object_settings.parent_name.parent_name.parent_name.name == app_view_object_settings.parent_name.parent_name.name %}{% else %}<li><a>{% spaceless %}{{app_view_object_settings.parent_name.parent_name.name}}{% endspaceless %}</a></li>{% endif %}{% endif %}
 					
-					{% if app_view_object_settings.parent_name.parent_name.name %}{% if app_view_object_settings.parent_name.parent_name.name == app_view_object_settings.parent_name.name %}{% else %}<li><a>{% spaceless %}{{app_view_object_settings.parent_name.parent_name.name}}{% endspaceless %}</a></li>{% endif %}{% endif %}
+					{% if app_view_object_settings.parent_name.parent_name.name %}{% if app_view_object_settings.parent_name.parent_name.name == app_view_object_settings.parent_name.name %}{% else %}<li><a>{% spaceless %}{{app_view_object_settings.parent_name.name}}{% endspaceless %}</a></li>{% endif %}{% endif %}
 					
 					<li><a>{% spaceless %}{{app_view_object_settings.name}}{% endspaceless %}</a></li>
 				{% endif %}{% endspaceless %}
@@ -177,16 +177,19 @@
 						{% else %}
 							{% if 'http' in app_view_object_settings.external_href or 'javascript' in app_view_object_settings.external_href %}
 								<iframe id="external-container" class="external-container" height=100% width="100%" frameborder="0" src="{{app_view_object_settings.external_href}}" allowfullscreen="true" allowtransparency="true"></iframe>
+								<div class="iframe-onloading"></div>
 							{% else %}
 								<iframe id="external-container" class="external-container" height="100%" width="100%" frameborder="0" src="javascript:document.write('<h1 style=&quot;width: 100%;height: 100%;display: flex;justify-content: center;align-items: center;padding: 0;margin: 0;&quot;>Empty content frame.</h1>')" allowfullscreen="true" allowtransparency="true"></iframe>
+								<div class="iframe-onloading"></div>
 							{% endif %}
 						{% endif %}
 					{% else %}
 						{% if app_view_object and app_view_object_settings and app_view_object.object_type == 'form' %}
-							{% include "app_zs_admin/include/forms_factory_template.html" with form=app_view_object.object form_media=app_view_object.object.media brand_color=app_settings.app_brand_color %}
+							{% include "app_zs_admin/include/forms_factory_template.html" with form=app_view_object.object form_media=app_view_object.object.media brand_color=app_settings.app_brand_color %}<div class="iframe-onloading type2"></div>
 						{% else %}
 							{% with app_view_object|first as obj %}
 							{% if obj and app_view_object_settings and obj.object_type == 'dynamic_datagrid' %}
+								<div class="iframe-onloading type3"></div>
 								<div class="dynamic_datagrid_wrapper">
 								{% for datagrid in app_view_object %}
 									{% include "app_zs_admin/include/tables_factory_template.html" with table=datagrid.object js=datagrid.object.js media=datagrid.object.media brand_color=app_settings.app_brand_color %}
@@ -210,7 +213,6 @@
 		<!-- end container-header -->
 
 	<!-- end container display mode --> 
-
 	<!-- block JS --> 
     {% block head_js %}{{ block.super }}{% endblock head_js %}
         <!-- BASE JS -->

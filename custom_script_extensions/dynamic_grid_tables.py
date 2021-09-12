@@ -102,7 +102,7 @@ def get_table_settings(table_name, url_for_render, request):
 					'pattern': '',
 					'editable': 'true',
 					'filterable': 'true',
-					'type': '',
+					'type': 'textarea',
 					'listOfValues': [],#['Дашборды','ЦИРКП'],
 					'footer': """(data,el) => `${data.map(item => item.$$$COLUMN$$$).filter((value, index, self) => self.indexOf(value) === index).length}`""",
 					'html': """x => `<div class="table-tbody-td-div"><div>${RenderRow(x.$$$COLUMN$$$, false)}</div></div>`"""
@@ -256,7 +256,7 @@ def get_table_settings(table_name, url_for_render, request):
 				}
 			}, {
 				'db_name': 'user__username', 
-				'grid_header_name': 'user_id',
+				'grid_header_name': 'username',
 				'grid_column_props': {
 					'label': '',
 					'class': '',

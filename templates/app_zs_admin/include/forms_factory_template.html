@@ -32,6 +32,23 @@
                 <input type="submit" class="displayNone" {%if brand_color %}style="background-color: {{brand_color}};"{% endif %} value="Сохранить">
                 {{form.onchange_the_user}}
                 {% endif %}
+                {% if item_1.label == 'notificationCreationForm' %}
+                <legend>Уведомления и события</legend>      
+                    <div class="items-container">
+                    {% for item_2 in form.visible_fields %}
+                        <div class="form-items-group">
+                            {% if item_2.label == 'notificationCreationForm' %}
+                            {{item_2}}
+                            <label class="form-item-label" for="{{item_2.name}}">Заголовок</label>
+                            {% else %}
+                            {{item_2}}
+                            <label class="form-item-label" for="{{item_2.name}}">{{item_2.label}}</label>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    </div>
+                <input type="submit" {%if brand_color %}style="background-color: {{brand_color}};"{% endif %} value="Сохранить">
+                {% endif %}
             {% endfor %}
             </fieldset>
         </div>

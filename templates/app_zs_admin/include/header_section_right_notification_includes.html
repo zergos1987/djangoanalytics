@@ -14,7 +14,7 @@
     <div class="notification_container">
         <div class="block-header">{{item.title}}</div>
         <div class="block-date">{{item.event_date}}</div>
-        <div class="block-content">{{item.event_content}}</div>
+        <div class="block-content">{%if item.event_content2%}{{item.event_content2|safe}}{% else %}{{item.event_content}}{% endif %}</div>
     </div>
 </div>
 {% else %}
@@ -23,7 +23,7 @@
     <div class="notification_container">
         <div class="block-header">{{item.title}}</div>
         <div class="block-date">{{item.event_date}}</div>
-        <div class="block-content">{{item.event_content}}</div>
+        <div class="block-content">{%if item.event_content2%}{{item.event_content2|safe}}{% else %}{{item.event_content}}{% endif %}</div>
     </div>
 </div>
 {% endif %}
@@ -38,7 +38,7 @@
     <div class="notification_container old">
         <div class="block-header">{{item.title}}</div>
         <div class="block-date">{{item.event_date}}</div>
-        <div class="block-content">{{item.event_content}}</div>
+        <div class="block-content">{%if item.event_content2%}{{item.event_content2|safe}}{% else %}{{item.event_content}}{% endif %}</div>
     </div>
 </div>
 {% else %}
@@ -47,7 +47,7 @@
     <div class="notification_container old">
         <div class="block-header">{{item.title}}</div>
         <div class="block-date">{{item.event_date}}</div>
-        <div class="block-content">{{item.event_content}}</div>
+        <div class="block-content">{%if item.event_content2%}{{item.event_content2|safe}}{% else %}{{item.event_content}}{% endif %}</div>
     </div>
 </div>
 {% endif %}

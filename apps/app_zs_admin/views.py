@@ -12,7 +12,7 @@ from apps.app_zs_admin.models import app, notification_events, user_notification
 from custom_script_extensions.dynamic_grid_tables import get_table_settings
 from custom_script_extensions.dynamic_grid_render import dynamic_datagrid
 from custom_script_extensions.custom_permissions_check import check_user_content_request_permission
-from custom_script_extensions.forms import UserZsAdminForm, ContentpublicationsForm
+from custom_script_extensions.forms import UserZsAdminForm, ContentpublicationsForm, notificationCreationForm
 
 from django.core.serializers import serialize
 from django.http.response import JsonResponse
@@ -235,6 +235,52 @@ def notification_events_confirm(request, user_id):
 	else:
 		return HttpResponse(500)
 	return HttpResponse(200)
+
+
+@login_required
+#@permission_required('app_zs_admin.view_app')
+def notification_events_publication(request):
+	user_content_selected = aside_left_menu_includes.objects.filter(href='notification_events_publication', is_actual=True).first()
+
+	user_content_has_permission = check_user_content_request_permission(
+		content_obj='aside_left_menu_includes',
+		obj_id=user_content_selected.id,
+		user_id=request.user.id)
+	if not user_content_has_permission: raise PermissionDenied()
+
+
+	if request.method == 'POST':
+		form = notificationCreationForm(request.POST)
+		if form.is_valid():
+			form.save(commit=False)
+			return HttpResponseRedirect(request.path_info)
+	else:
+		form = notificationCreationForm()
+
+
+	app_settings = app.objects.filter(is_actual=True).first()
+	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
+	app_events = {}
+	if confirm_events_user:
+		app_events['actual'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__gte=confirm_events_user.confirm_date).all()
+		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
+	else:
+		app_events['actual'] = notification_events.objects.filter(is_actual=True).all()[:5]
+
+	
+	template = 'app_zs_admin/render_view.html'
+
+	context = {
+		'app_settings': app_settings,
+		'app_events': app_events,
+		'app_settings_user': {},
+		'app_view_object': {'object': form, 'object_type': 'form'},
+		'app_view_object_settings': user_content_selected,
+		'app_view_settings': {},
+		'app_view_settings_user': {},
+	}
+
+	return render(request, template, context)
 
 
 @login_required

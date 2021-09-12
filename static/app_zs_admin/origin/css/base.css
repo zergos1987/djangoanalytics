@@ -55,7 +55,7 @@ svg {
 .border-shadow.bottom {
 	border-bottom: 1px solid #cdcdcd;
     /*box-shadow: 0 6px 6px -6px #c4c4c4;*/
-	transition: all 0.5s;
+	/*transition: all 0.5s;*/
 }
 
 .container .border-shadow.bottom.header {
@@ -375,6 +375,10 @@ svg {
     box-shadow: inset 5px 5px 10px #dedede,
             inset -5px -5px 10px #ffffff;
     transition: background 1s, box-shadow 1s;
+}
+
+.container-header .items-header {
+    position: relative;
 }
 
 /*burger menu*/
@@ -889,10 +893,6 @@ svg {
     align-items: center;
 }
 
-.header-section-right .item-group.active .items:not(.countries) .row:nth-child(1) {
-    margin-top: 5px;
-}
-
 .header-section-right .item-group.active .items:not(.countries) .row.header {
     align-items: unset;
     justify-content: space-between;
@@ -921,9 +921,9 @@ svg {
 
 .notification-count {
     position: absolute;
-    top: 10px;
-    margin-left: 24px;
-    background-color: #f00;
+    top: 6px;
+    margin-left: 25px;
+    background-color: #d81111;
     opacity: 0.8;
     font-weight: bold;
     font-family: monospace;
@@ -939,12 +939,28 @@ svg {
     cursor: pointer;
 }
 
+.notification-group-new {
+    padding: 8px 0px 6px 17px;
+    font-size: 11px;
+    font-weight: bold;
+
+}
+
+.notification-group-old {
+    padding: 20px 0px 6px 17px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
 .header-section-right .item-group.active .items:not(.countries) .row > .notification_header {
-    padding: 0px 0px 14px;
+    padding: 0px 0px 9px;
     margin: 0 auto;
     font-weight: bold;
     letter-spacing: 0.5px;
     color: #333;
+    min-width: 250px;
+    justify-content: center;
+    display: flex;
 }
 
 .header-section-right .item-group.active .items:not(.countries) .row > .notification_container {
@@ -954,6 +970,10 @@ svg {
     background-color: #fff;
     border-radius: 6px;
     border: 1px solid #cdcdcd;
+}
+
+.header-section-right .item-group.active .items:not(.countries) .row > .notification_container.old {
+    opacity: 0.65;
 }
 
 .header-section-right .item-group.active .items:not(.countries) .row > .notification_container > .block-header {

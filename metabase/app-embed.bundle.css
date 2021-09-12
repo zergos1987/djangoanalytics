@@ -5129,11 +5129,10 @@ text.value-label-white {
 }
 .tfpVo._38618._3Dqep {
   background-color: #fff !important;
-  border: 1px solid rgba(0,0,0,0.1) !important;
+  border: 1px solid rgb(147 147 147) !important;
   margin: 0px 10px 10px;
   padding: 0px 10px 0px;
-  border-radius: 6px !important;
-  box-shadow: 0px 0px 0px 1px #a7a7a7, inset 0px 0px 10px 0px #ffffff;
+  border-radius: 7px !important;
   cursor: pointer;
 }
 .tfpVo._38618._3Dqep legend {
@@ -5197,11 +5196,11 @@ text.value-label-white {
     border-radius: 0 0 15px 15px;
 }
 .DashCard .Card {
-  /*background-color: #ebebeba1 !important;*/
-  background-color: #ffffff99 !important;
+  background-color: #ebebeba8 !important;
+  /* background-color: #ffffff99 !important; */
   border-radius: 15px !important;
   margin: 4px 5px !important;
-  /*box-shadow: 4px 5px 10px 0px rgb(101 101 101 / 20%), -7px -3px 9px 0px rgb(234 234 234 / 55%) !important;*/
+  /* box-shadow: 4px 5px 10px 0px rgb(101 101 101 / 20%), -7px -3px 9px 0px rgb(234 234 234 / 55%) !important; */
   box-shadow: 4px 5px 10px 0px rgb(0 0 0 / 20%), -8px -8px 18px 0 rgb(255 255 255 / 55%) !important;
   border: 1px solid rgba(0,0,0,0.1) !important;
 }
@@ -5257,8 +5256,8 @@ text.value-label-white {
   width: auto;
   height: auto;
   overflow: auto;
-  /*background-color: #c685181c;*/
-  background-color: #d6d6d6a3;
+  background-color: #c685181c;
+  background-color: #e3e3e3;
   opacity: 1;
   box-shadow: 0px 10px 7px 1px rgb(0 0 0 / 20%), -2px -2px 5px 0 rgb(255 255 255 / 55%);
   border: 1px solid rgb(0 0 0 / 20%) !important;
