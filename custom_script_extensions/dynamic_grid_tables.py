@@ -4,6 +4,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib.contenttypes.models import ContentType 
 from apps.app_opensource_dashboards import views
 
+
 from django.db.models import Q
 from django.db.models.functions import Lower
 from django.db.models import FloatField, CharField
@@ -67,7 +68,7 @@ def get_table_settings(table_name, url_for_render, request):
 		list_of_dashboards = sorted(list_of_dashboards)
 
 		list_of_dashboards_places = list(aside_left_menu_includes.objects.filter(source_app_name_translate__name__exact='Дашборды', menu_icon_type='arrow', is_actual=True).values_list('name', flat=True))
-		
+
 		settings['request_table_title'] = 'Настройки доступа и ссылки'
 		settings['fathgrid_initialize_settings'] = fathgrid_initialize_settings_FOR_ALL
 		settings['request_table_columns_id'] = 'id'
@@ -236,7 +237,7 @@ def get_table_settings(table_name, url_for_render, request):
 		settings['request_table_max_limit_rows'] = 5000
 		settings['request_table_as_dict'] = True
 		settings['request_m2m_join_columns'] = []
-		settings['textarea_select_options'] = []		
+		settings['textarea_select_options'] = []
 		settings['get_media'] = False
 		settings['request_table_columns_props'] = [
 			{
@@ -256,7 +257,7 @@ def get_table_settings(table_name, url_for_render, request):
 				}
 			}, {
 				'db_name': 'user__username', 
-				'grid_header_name': 'username',
+				'grid_header_name': 'user_id',
 				'grid_column_props': {
 					'label': '',
 					'class': '',
