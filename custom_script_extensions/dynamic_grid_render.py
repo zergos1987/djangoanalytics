@@ -457,7 +457,7 @@ def dynamic_datagrid(
 					pie: 'Круговая',
 				},
 				onClick: function(item,col,el) {
-					//console.log('onClick:', item,col,el);
+					console.log('onClick:', item,col,el);
 
 					
 					if ($('#'+this.id).closest('.table-grid-container').hasClass('dict_table') === true) {
@@ -559,11 +559,17 @@ def dynamic_datagrid(
 							});
 						} else {
 							if ($('#' + this.id + ' .grid-item-close').length > 0) {
-								//console.log('b')
+								console.log('b')
 								table_$$$grid_id$$$.editCell(-1, -1);
 							} else {
-								//console.log('a')
 								table_$$$grid_id$$$.editCell(item.rownum, col);
+								if ($(el).hasClass('textarea_select_options')) {
+									let _thisColval = $('.selected [data-originalvalue]').attr('data-originalvalue');
+									if (_thisColval.length > 1) {
+										let _thisColname = Object.keys(item).find(key => item[key] === _thisColval);
+										ShowTextareaSelectOptions(_thisColname, _thisColval, $$$grid_id$$$_textarea_select_options);
+									}
+								}
 								$('.selected [data-originalvalue]').parent().prepend('<button onclick="close_edit_item(this);" class="grid-item-display-button">S</button>');
 							}
 						}
@@ -975,3 +981,5 @@ def dynamic_datagrid(
 	except Exception as e:
 		print('dynamic grid error: ', str(e))
 		return 'dynamic grid error'   	
+
+
