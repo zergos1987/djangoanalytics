@@ -139,7 +139,7 @@ class aside_left_menu_includes(models.Model):
 			self.external_href = '#'
 
 		if self.menu_icon_type == 'folder':
-			if self.source_app_name_translate.name == 'Дашборды':
+			if self.source_app_name_translate.name == 'Дашборды' and self.source_type == 'external':
 				self.href = 'mb'
 			if not 'http' in self.external_href:
 				self.external_href = self.name
