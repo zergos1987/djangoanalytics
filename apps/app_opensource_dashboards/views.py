@@ -15,7 +15,7 @@ from custom_script_extensions.custom_permissions_check import check_user_content
 # Create your views here.
 #@method_decorator([login_required, permission_required("app_opensource_dashboards.view_app")], name="dispatch")
 @login_required
-@permission_required('app_opensource_dashboards.view_app')
+#@permission_required('app_opensource_dashboards.view_app')
 def index(request):
 	app_settings = app.objects.filter(is_actual=True).first()
 	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
