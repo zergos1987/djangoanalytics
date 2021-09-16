@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 'use strict';
 {
   const globals = this;
@@ -210,6 +209,3 @@
     django.jsi18n_initialized = true;
   }
 };
-=======
-i18n copy here
->>>>>>> 7d3ce72314d5b85e8d72af39095ce73bc0b22b6c
