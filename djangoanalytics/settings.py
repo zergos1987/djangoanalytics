@@ -498,6 +498,7 @@ def user_login_failed_callback(sender, credentials, **kwargs):
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'full',
+        'toolbarCanCollapse': True,
     },
     'awesome_ckeditor_type2': {
         'toolbar': 'full',
