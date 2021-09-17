@@ -10,6 +10,7 @@ from decouple import config
 from django.contrib.auth.models import User
 from apps.app_zs_admin.models import app, aside_left_menu_includes, notification_events, user_notification_event_confirm
 from custom_script_extensions.custom_permissions_check import check_user_content_request_permission
+from django.db.models import Q
 
 
 # Create your views here.
@@ -21,7 +22,7 @@ def index(request):
 	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
 	app_events = {}
 	if confirm_events_user:
-		app_events['actual'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__gte=confirm_events_user.confirm_date).all()
+		app_events['actual'] = notification_events.objects.filter(Q(is_actual=True) & Q(event_date__gte=confirm_events_user.confirm_date) & Q(Q(users_list=request.user) | Q(title='Новый пользователь!'))).all()
 		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
 	else:
 		app_events['actual'] = notification_events.objects.filter(is_actual=True).all()[:5]
@@ -168,7 +169,7 @@ def mb(request, id):
 	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
 	app_events = {}
 	if confirm_events_user:
-		app_events['actual'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__gte=confirm_events_user.confirm_date).all()
+		app_events['actual'] = notification_events.objects.filter(Q(is_actual=True) & Q(event_date__gte=confirm_events_user.confirm_date) & Q(Q(users_list=request.user) | Q(title='Новый пользователь!'))).all()
 		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
 	else:
 		app_events['actual'] = notification_events.objects.filter(is_actual=True).all()[:5]

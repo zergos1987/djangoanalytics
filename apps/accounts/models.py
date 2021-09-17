@@ -207,6 +207,9 @@ def user_logged_out_callback(sender, request, user, **kwargs):
         	os_family=user_agent.os.family,
         	os_version=user_agent.os.version_string)
 
+    Session.objects.filter(usersession__user=user).delete()
+        
+
 
 @receiver(user_login_failed)
 def user_login_failed_callback(sender, credentials, **kwargs):

@@ -5333,10 +5333,27 @@ html::-webkit-scrollbar-thumb:hover {
 html::-webkit-scrollbar {
     width: 14px;
     height: 14px;
-    background-color: #fff;
+    background-color: transparent;
 }
 
 .TableInteractive-headerCellData--sorted .Icon-chevrondown, .TableInteractive-headerCellData--sorted .Icon-chevronup {
     height: 12px !important;
     width: 12px !important;
+}
+
+text.value-label-outline {
+    stroke: transparent !important;
+    fill: #fff !important;
+}
+
+text.value-label {
+    fill: #757575 !important;
+}
+
+.Dashboard text.value-label, .Dashboard text.value-label-outline, .Dashboard text.value-label-white, .Dashboard .LineAreaBarChart .dc-chart .axis text {
+    font-size: 1.2vh !important;
+}
+
+.LineAreaBarChart .dc-chart g.row text.outside {
+    font-size: 1.3vh !important;
 }
