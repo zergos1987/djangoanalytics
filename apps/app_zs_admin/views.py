@@ -248,7 +248,7 @@ def notification_events_publication(request):
 		user_id=request.user.id)
 	if not user_content_has_permission: raise PermissionDenied()
 
-
+	form_detail_list = notification_events.objects.filter(is_actual=True).all()
 	if request.method == 'POST':
 		form = notificationCreationForm(request.POST)
 		if form.is_valid():
@@ -274,7 +274,7 @@ def notification_events_publication(request):
 		'app_settings': app_settings,
 		'app_events': app_events,
 		'app_settings_user': {},
-		'app_view_object': {'object': form, 'object_type': 'form'},
+		'app_view_object': {'object': form, 'object_type': 'form', 'form_detail_list': form_detail_list},
 		'app_view_object_settings': user_content_selected,
 		'app_view_settings': {},
 		'app_view_settings_user': {},

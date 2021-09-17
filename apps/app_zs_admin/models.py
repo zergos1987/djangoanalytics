@@ -242,7 +242,7 @@ class app(models.Model):
 class notification_events(models.Model):
 	title = models.CharField(max_length=400)
 	event_date = models.DateTimeField(auto_now_add=True, blank=False)
-	event_content = models.CharField(max_length=100)
+	event_content = models.CharField(max_length=100, blank=True, null=True)
 	event_content2 = RichTextField(config_name='default', blank=True, null=True)
 	users_list = models.ManyToManyField(User, related_name='for_user_notification_event_show', blank=True)
 	is_actual = models.BooleanField(default=False)

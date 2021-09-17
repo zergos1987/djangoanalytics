@@ -5,9 +5,8 @@ from rangefilter.filters import DateRangeFilter, DateTimeRangeFilter
 from import_export.admin import ImportExportModelAdmin, ImportExportActionModelAdmin
 from django import forms
 from ckeditor.widgets import CKEditorWidget
-
 from .models import (
-	app,
+        app,
         container_display_mode,
         html_lang_code,
         meta_charset_code,
@@ -289,12 +288,6 @@ admin.site.register(aside_left_menu_includes, aside_left_menu_includesAdmin)
 
 
 
-class notificationAdminForm(forms.ModelForm):
-    event_content2 = forms.CharField(widget=CKEditorWidget())
-
-    class Meta:
-        model = notification_events
-        fields = '__all__'
 
 class notification_eventsResource(resources.ModelResource):
     class Meta:
@@ -302,7 +295,7 @@ class notification_eventsResource(resources.ModelResource):
         fields = ('title', 'event_date', 'event_content', 'is_actual',) 
 
 class notification_eventsAdmin(ImportExportModelAdmin):
-    form = notificationAdminForm
+    event_content2 = forms.CharField(widget=CKEditorWidget())
 
     list_display = [
         'id', 'title', 'event_date', 'event_content', 'event_content2', 'is_actual']
