@@ -5131,7 +5131,7 @@ text.value-label-white {
   background-color: #fff !important;
   border: 1px solid rgb(147 147 147) !important;
   margin: 0px 10px 10px;
-  padding: 0px 10px 0px;
+  padding: 10px 10px 0px;
   border-radius: 7px !important;
   cursor: pointer;
 }
