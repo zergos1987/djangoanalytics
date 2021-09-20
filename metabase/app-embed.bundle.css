@@ -5355,7 +5355,7 @@ text.value-label {
 }
 
 .LineAreaBarChart .dc-chart g.row text.outside {
-    font-size: 1.4vh !important;
+    font-size: 1.3vh !important;
 }
 
 table.CtorL tr[data-testid="table-row"] span {
