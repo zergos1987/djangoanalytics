@@ -40,6 +40,10 @@ table.table-grid.fathgrid::-webkit-scrollbar {
 
 }
 
+.render_view > .external-container.mb {
+    margin-left: 6px;
+}
+
 .iframe-onloading {
 	display: flex;
 	position: absolute;
