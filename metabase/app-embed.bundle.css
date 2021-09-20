@@ -5196,7 +5196,7 @@ text.value-label-white {
     border-radius: 0 0 15px 15px;
 }
 .DashCard .Card {
-  background-color: #ebebeba8 !important;
+  background-color: #f1f1f1b0 !important;
   /* background-color: #ffffff99 !important; */
   border-radius: 15px !important;
   margin: 4px 5px !important;
@@ -5359,6 +5359,12 @@ text.value-label {
 }
 
 table.CtorL tr[data-testid="table-row"] span {
+    text-overflow: ellipsis;
+    max-width: 200px;
+    overflow: hidden;
+}
+
+.CtorL th, .CtorL td table.CtorL tr[data-testid="table-row"] > td:hover span {
     text-overflow: ellipsis;
     white-space: pre-wrap;
 }
