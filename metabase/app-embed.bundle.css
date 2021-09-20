@@ -5351,11 +5351,11 @@ text.value-label {
 }
 
 .Dashboard text.value-label, .Dashboard text.value-label-outline, .Dashboard text.value-label-white, .Dashboard .LineAreaBarChart .dc-chart .axis text {
-    font-size: 1.3vh !important;
+    font-size: 0.7em !important;
 }
 
 .LineAreaBarChart .dc-chart g.row text.outside {
-    font-size: 1.3vh !important;
+    font-size: 0.7em !important;
 }
 
 table.CtorL tr[data-testid="table-row"] span {
