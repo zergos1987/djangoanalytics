@@ -5370,7 +5370,7 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 }
 
 .LegendItem > div.flex > div {
-  font-size: 0.8em;
+  font-size: 0.95em;
 }
 
 .dc-chart .grid-line, .dc-chart .axis .grid-line, .dc-chart .grid-line line, .dc-chart .axis .grid-line line {
@@ -5378,10 +5378,26 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 }
 
 .ScalarValue {
-  font-size: 1.4rem;
+  font-size: 1.4rem !important;
 }
 
 .tether-target.tether-element-attached-top.tether-element-attached-center.tether-target-attached-bottom.tether-target-attached-center {
-  color: #b7b7b7;
-  font-size: 1em;
+  color: #b7b7b7 !important;
+  font-size: 1em !important;
+}
+
+.CtorL th, .CtorL td {
+    border-bottom: 1px solid rgba(216, 216, 216, 0.30000000000000004) !important;
+}
+
+.TableInteractive-headerCellData.cellData.text-brand-hover.text-medium.TableInteractive-headerCellData.text-right > div {
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: flex-end;
+}
+
+.TableInteractive-headerCellData.cellData.text-brand-hover.text-medium.TableInteractive-headerCellData.text-right > div > svg {
+  margin: 0 !important;
+  margin-left: 5px !important;
 }
