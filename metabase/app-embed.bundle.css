@@ -5311,10 +5311,15 @@ table.CtorL tr[data-testid="table-row"] span {
   border-bottom: 1.5px solid rgb(0 8 255);
 }
 
-div.LineAreaBarChart  > ._14YpV:nth-child(2) > .text-brand-hover.LegendItem.no-decoration.flex.align-center.fullscreen-normal-text.fullscreen-night-text.mr1.cursor-pointer {
+div.LineAreaBarChart  > div:nth-child(1) > .text-brand-hover.LegendItem.no-decoration.flex.align-center.fullscreen-normal-text.fullscreen-night-text.mr1.cursor-pointer {
   color: #616161;
   font-family: Roboto;
   font-size: 1.3em;
+}
+
+div.LineAreaBarChart > div:nth-child(2) > .text-brand-hover.LegendItem.no-decoration.flex.align-center.fullscreen-normal-text.fullscreen-night-text.mr1.cursor-pointer {
+  color: #616161;
+  font-size: 1em;
 }
 
 .overflow-auto.pl1.my1.scroll-hide {
