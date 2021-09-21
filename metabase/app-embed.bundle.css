@@ -5199,7 +5199,7 @@ text.value-label-white {
   background-color: #f1f1f1b0 !important;
   /* background-color: #ffffff99 !important; */
   border-radius: 15px !important;
-  margin: 4px 5px !important;
+  margin: 6px !important;
   /* box-shadow: 4px 5px 10px 0px rgb(101 101 101 / 20%), -7px -3px 9px 0px rgb(234 234 234 / 55%) !important; */
   box-shadow: 4px 5px 10px 0px rgb(0 0 0 / 20%), -8px -8px 18px 0 rgb(255 255 255 / 55%) !important;
   border: 1px solid rgba(0,0,0,0.1) !important;
