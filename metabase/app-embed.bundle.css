@@ -5299,6 +5299,7 @@ table.CtorL tr[data-testid="table-row"] {
 table.CtorL tr[data-testid="table-row"] span {
   color: #555555 !important;
   font-weight: normal !important;
+  font-size: 0.9em;
 }
 
 .TableInteractive-headerCellData.cellData.text-brand-hover.text-medium {
