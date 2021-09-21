@@ -5311,9 +5311,10 @@ table.CtorL tr[data-testid="table-row"] span {
   border-bottom: 1.5px solid rgb(0 8 255);
 }
 
-.text-brand-hover.LegendItem.no-decoration.flex.align-center.fullscreen-normal-text.fullscreen-night-text.mr1.cursor-pointer {
-  text-transform: uppercase;
-  color: #333;
+div > ._14YpV:first-children > .text-brand-hover.LegendItem.no-decoration.flex.align-center.fullscreen-normal-text.fullscreen-night-text.mr1.cursor-pointer {
+  color: #616161;
+  font-family: Roboto;
+  font-size: 1.3em;
 }
 
 .overflow-auto.pl1.my1.scroll-hide {
@@ -5353,6 +5354,15 @@ text.value-label {
 
 .Dashboard text.value-label, .Dashboard text.value-label-outline, .Dashboard text.value-label-white, .Dashboard .LineAreaBarChart .dc-chart .axis text {
     font-size: 0.7em !important;
+}
+
+.LineAreaBarChart .dc-chart g.row text.outside {
+    font-size: 0.7em !important;
+}
+
+.rendered .rowChart title {
+  max-width: 200px;
+  width: 100%;
 }
 
 .LineAreaBarChart .dc-chart g.row text.outside {
