@@ -5408,3 +5408,11 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
   margin-left: 5px !important;
   position: unset !important;
 }
+
+.CardVisualization > .p1.flex.flex-no-shrink.flex-align-right.fullscreen-normal-text.fullscreen-night-text {
+  align-items: center;
+}
+
+.CardVisualization > .p1.flex.flex-no-shrink.flex-align-right.fullscreen-normal-text.fullscreen-night-text > span {
+  font-size: 0.9em;
+}
