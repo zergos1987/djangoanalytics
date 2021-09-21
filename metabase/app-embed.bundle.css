@@ -5338,8 +5338,8 @@ html::-webkit-scrollbar {
 }
 
 .TableInteractive-headerCellData--sorted .Icon-chevrondown, .TableInteractive-headerCellData--sorted .Icon-chevronup {
-    height: 12px !important;
-    width: 12px !important;
+    height: 10px !important;
+    width: 10px !important;
 }
 
 text.value-label-outline {
