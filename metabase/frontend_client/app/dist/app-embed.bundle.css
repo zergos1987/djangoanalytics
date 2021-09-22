@@ -5130,14 +5130,16 @@ text.value-label-white {
 .tfpVo._38618._3Dqep {
   background-color: #fff !important;
   border: 1px solid rgb(147 147 147) !important;
-  margin: 0px 10px 10px;
-  padding: 10px 10px 0px;
+  margin: 0px 10px 0px;
+  /*padding: 10px 10px 0px;*/
   border-radius: 7px !important;
   cursor: pointer;
 }
-.tfpVo._38618._3Dqep legend {
-    position: absolute !important;
-    margin-bottom: 55px !important;
+.tfpVo._38618._3Dqep legend {    
+  position: relative !important;
+  margin-bottom: 0px !important;
+  color: #000;
+  background-color: #e3e3e3;
 }
 .PopoverContainer {
   top: 1px !important;
@@ -5181,9 +5183,9 @@ text.value-label-white {
   border: 1px solid rgb(0 0 0 / 10%) !important;
   border-radius: 7px !important;
 }
-.PopoverContainer.PopoverContainer--open.tether-element.tether-abutted.tether-abutted-left.tether-element-attached-top.tether-element-attached-left.tether-target-attached-bottom.tether-target-attached-left.tether-enabled .PopoverBody.PopoverBody--withBackground {
+.PopoverContainer.tether-element.tether-abutted.tether-abutted-left.tether-element-attached-top.tether-element-attached-left.tether-target-attached-bottom.tether-target-attached-left.PopoverContainer--open.tether-enabled {
   border: 1px solid rgb(0 0 0 / 10%) !important;
-  border-radius: 0px !important;
+  border-radius: 15px !important;
   box-shadow: 0px 9px 8px 0px rgb(0 0 0 / 13%) !important;
 }
 .PopoverContainer.tether-element.tether-element-attached-top.tether-target-attached-bottom.PopoverContainer--open.tether-element-attached-right.tether-target-attached-right.tether-enabled .PopoverBody.PopoverBody--withBackground {
@@ -5192,8 +5194,11 @@ text.value-label-white {
   box-shadow: 0px 10px 10px 1px rgb(0 0 0 / 9%) !important;
 }
 .PopoverParameterFieldWidgetFooter {
-    bottom: 0px !important;
-    border-radius: 0 0 15px 15px;
+  bottom: 0px !important;
+  border-radius: 0 0 15px 15px;
+}
+.full-height.full.flex-wrap.relative.sc-bwzfXH.gRDUuY .Card-title.absolute.top.right.p1.px2 {
+  margin-top: 12px;
 }
 .DashCard .Card {
   background-color: #f1f1f1b0 !important;
@@ -5216,9 +5221,6 @@ text.value-label-white {
   background: none !important;
   z-index: -1;
 }
-.hFNRPZ {
-    color: rgb(80, 158, 227) !important;
-}
 .PopoverContainer.PopoverContainer--open.tether-element.tether-element-attached-top.tether-element-attached-left.tether-target-attached-bottom.tether-target-attached-left.tether-enabled .hFNRPZ {
     color: #333 !important;
 }
@@ -5240,7 +5242,7 @@ text.value-label-white {
   width: 30px;
   height: 30px;
   overflow: hidden;
-  background-color: #0048ffa3;
+  background-color: #e5e5e5e6;
   opacity: 0.6;
   box-shadow: 0px 0px 3px 2px rgb(0 0 0 / 20%), -2px -2px 5px 0 rgb(255 255 255 / 55%);
   border: 2px #ffffff dotted;
@@ -5259,11 +5261,16 @@ text.value-label-white {
   background-color: #c685181c;
   background-color: #e3e3e3;
   opacity: 1;
-  box-shadow: 0px 10px 7px 1px rgb(0 0 0 / 20%), -2px -2px 5px 0 rgb(255 255 255 / 55%);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 5%), 0 1px 4px rgb(0 0 0 / 50%), 0 2px 8px rgb(0 0 0 / 5%);
   border: 1px solid rgb(0 0 0 / 20%) !important;
   background-image: none;
   filter: none;
-  padding: 20px 10px 10px;
+  padding: 4px;
+}
+
+.EmbedFrame-header:hover > div {
+  box-shadow: inset 10px 10px 15px -10px #c3c3c3, inset -10px -10px 15px -10px #f9f9f9;
+  border-radius: 8px;
 }
 
 .EmbedFrame-header .flex.align-end.flex-wrap.flex-row.mt1 {
@@ -5275,6 +5282,7 @@ text.value-label-white {
   grid-auto-rows: minmax(65px, auto);
   align-items: center;
   visibility: hidden;
+  margin: 15px 10px !important;
 }
 
 .EmbedFrame-header:hover .flex.align-end.flex-wrap.flex-row.mt1 {
@@ -5404,8 +5412,11 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 }
 
 .tether-target.tether-element-attached-top.tether-element-attached-center.tether-target-attached-bottom.tether-target-attached-center {
-  color: #b7b7b7 !important;
   font-size: 1em !important;
+}
+
+.hFNRPZ {
+    color: rgb(80, 158, 227) !important;
 }
 
 .CtorL th, .CtorL td {
@@ -5428,6 +5439,7 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 
 .CardVisualization > .p1.flex.flex-no-shrink.flex-align-right.fullscreen-normal-text.fullscreen-night-text {
   align-items: center;
+  margin-bottom: 8px;
 }
 
 .CardVisualization > .p1.flex.flex-no-shrink.flex-align-right.fullscreen-normal-text.fullscreen-night-text > span {
