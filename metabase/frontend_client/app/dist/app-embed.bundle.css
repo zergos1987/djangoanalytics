@@ -5433,7 +5433,7 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 
 .TableInteractive-headerCellData.cellData.text-brand-hover.text-medium > div > svg {
   margin: 0 !important;
-  margin-left: 5px !important;
+  margin-left: 10px !important;
   position: unset !important;
 }
 
@@ -5444,4 +5444,19 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 
 .CardVisualization > .p1.flex.flex-no-shrink.flex-align-right.fullscreen-normal-text.fullscreen-night-text > span {
   font-size: 0.9em;
+}
+
+.Card > div > div > ._14YpV.Card-title:not(:only-child):nth-child(1) {
+  margin-top: 0.8em;
+  margin-bottom: 1.5em;
+  margin-left: 1rem;
+}
+
+.Card > div > div > ._14YpV.Card-title:only-child {
+  margin-left: 1rem;
+}
+
+.TableInteractive-headerCellData.cellData.text-brand-hover.text-medium.text-right > div > div {
+  white-space: pre-line !important;
+  min-width: 50px;
 }
