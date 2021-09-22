@@ -82,7 +82,7 @@ role_groups = [
 	'Application_viewer', 'Application_editor', 'Application_creator', 'Application_api'
 ]
 
-default_users = ['admin', 'TEST_USER']
+default_users = ['TEST_USER']
 default_password = '368696'
 
 
@@ -247,24 +247,33 @@ def create_default_users_groups_permissions():
 				add_groups_to_users(username, groupname)
 
 
-	#create TEST_USER_default
+	#create admin & TEST_USER_default
+	def setDefaultGroups(username):
+		#default dashboards read access
+		add_groups_to_users(username=username, groupname='app_zs_admin_viewer_group')
+		add_groups_to_users(username=username, groupname='app_opensource_dashboards_viewer_group')
+		add_groups_to_users(username=username, groupname='app_zs_dashboards_viewer_group')
+		#default dashboards edit access
+		add_groups_to_users(username=username, groupname='app_opensource_dashboards_editor_group')
+		add_groups_to_users(username=username, groupname='app_zs_dashboards_editor_group')
+		#default zs_admin users edit access
+		add_groups_to_users(username=username, groupname='app_zs_admin_editor_group')
+		#default zs_admin users create access
+		add_groups_to_users(username=username, groupname='app_opensource_dashboards_creator_group')
+		add_groups_to_users(username=username, groupname='app_zs_dashboards_creator_group')
 	obj, created = User.objects.get_or_create(username='TEST_USER_default')
-	if created:
+	if created:  
 		obj.set_password(default_password)
 		obj.is_staff = False
 		obj.save()
-		#default dashboards read access
-		add_groups_to_users(username='TEST_USER_default', groupname='app_zs_admin_viewer_group')
-		add_groups_to_users(username='TEST_USER_default', groupname='app_opensource_dashboards_viewer_group')
-		add_groups_to_users(username='TEST_USER_default', groupname='app_zs_dashboards_viewer_group')
-		#default dashboards edit access
-		add_groups_to_users(username='TEST_USER_default', groupname='app_opensource_dashboards_editor_group')
-		add_groups_to_users(username='TEST_USER_default', groupname='app_zs_dashboards_editor_group')
-		#default zs_admin users edit access
-		add_groups_to_users(username='TEST_USER_default', groupname='app_zs_admin_editor_group')
-		#default zs_admin users create access
-		add_groups_to_users(username='TEST_USER_default', groupname='app_opensource_dashboards_creator_group')
-		add_groups_to_users(username='TEST_USER_default', groupname='app_zs_dashboards_creator_group')
+		setDefaultGroups(username='TEST_USER_default')
+	obj, created = User.objects.get_or_create(username='admin')
+	if created:  
+		obj.set_password(default_password)
+		obj.is_staff = True
+		obj.is_superuser = True
+		obj.save()
+		setDefaultGroups(username='admin')
 
 
 	return 'Done.'
