@@ -89,11 +89,12 @@ default_password = '368696'
 
 
 #create user if not exists
-def get_or_create_user(u, is_staff=False):
+def get_or_create_user(u, is_staff=False, is_superuser=False):
 	obj, created = User.objects.get_or_create(username=u)
 	if created:
 		obj.set_password(default_password)
 		obj.is_staff = is_staff
+		obj.is_superuser = is_superuser
 		obj.save()
 	print('STATUS. create user if not exists:', created, obj)
 
@@ -179,7 +180,7 @@ def create_default_users_groups_permissions():
 	#create user if not exists
 	for u in default_users:
 		is_staff = False
-		if u == 'admin': get_or_create_user(u=u, is_staff=True)
+		if u == 'admin': get_or_create_user(u=u, is_staff=True, is_superuser=True)
 		if u == 'TEST_USER' and u != 'TEST_USER_default':
 			for r in role_groups:
 				if 'Application' in r:
