@@ -31,6 +31,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", config('SECRET_KEY'))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG", config('DEBUG', default=False, cast=bool))
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", config('ALLOWED_HOSTS')).split(",")
+
 # django_load_once - events
 django_initialize = os.environ.get("django_initialize", config('django_initialize', default=False, cast=bool))
 django_initialize_management_commands = os.environ.get("django_initialize_management_commands", config('django_initialize_management_commands', default=False, cast=bool))
@@ -174,13 +175,14 @@ DATABASES = {
     # [H - setup] ################################
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get("default_postgres_NAME", config('default_postgres_NAME')),
-        'HOST': os.environ.get("default_postgres_HOST", config('default_postgres_HOST')),
-        'USER': os.environ.get("default_postgres_USER", config('default_postgres_USER')),
-        'PASSWORD': os.environ.get("default_postgres_PASSWORD", config('default_postgres_PASSWORD')),
-        'PORT': os.environ.get("default_postgres_PORT", config('default_postgres_PORT')),
+        'NAME': os.environ.get("Postgresql_Database_os", config('Postgresql_Database_env')),
+        'HOST': os.environ.get("Postgresql_Host_os", config('Postgresql_Host_env')),
+        'USER': os.environ.get("Postgresql_Login_os", config('Postgresql_Login_env')),
+        'PASSWORD': os.environ.get("Postgresql_Password_os", config('Postgresql_Password_env')),
+        'PORT': os.environ.get("Postgresql_Port_os", config('Postgresql_Port_env')),
         'OPTIONS': {
-            'options': '-c search_path=djangoanalytics'
+            'options': f"-c search_path={os.environ.get('Postgresql_Schema_Portal_os', config('Postgresql_Schema_Portal_env'))}" #schema
+            #Postgresql_Schema_Metabase_env
         },
     },
     # [ALL - setup] ##############################
