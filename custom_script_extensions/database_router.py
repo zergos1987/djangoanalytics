@@ -2,7 +2,7 @@ class CheckerRouter(object):
 
 	def db_for_read(self, model, **hints):
 		if model._meta.app_label == 'app_zs_examples' and model._meta.db_table == 'processing_module_pipeline_user_content_history':
-			return 'dash_sadko_postgres_db'
+			return 'default'#'dash_sadko_postgres_db'
 		if model._meta.app_label == 'database_oracle_sadko':
 			return 'oracle_sadko_db'
 		elif model._meta.app_label == 'database_sqlite_test':
@@ -11,7 +11,7 @@ class CheckerRouter(object):
 
 	def db_for_write(self, model, **hints):
 		if model._meta.app_label == 'app_zs_examples' and model._meta.db_table == 'processing_module_pipeline_user_content_history':
-			return 'dash_sadko_postgres_db'
+			return 'default'#'dash_sadko_postgres_db'
 		if model._meta.app_label == 'database_oracle_sadko':
 			return 'oracle_sadko_db'
 		elif model._meta.app_label == 'database_sqlite_test':
@@ -35,8 +35,3 @@ class CheckerRouter(object):
 		if app_label == 'database_sqlite_test':
 			return db == 'test_remote_db'
 		return None
-
-
-
-
-
