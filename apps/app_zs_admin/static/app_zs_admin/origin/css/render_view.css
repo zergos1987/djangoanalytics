@@ -1307,3 +1307,16 @@ only screen and (min-device-pixel-ratio: 1.5) {
 
 }
     
+@media print {
+	.container-main {
+		background-image: none;
+	}
+	body {
+		margin: 0;
+		-webkit-print-color-adjust: exact;
+	}
+	@page {
+		/*margin: 0;*/
+		margin: 40px 10px;
+	}
+}

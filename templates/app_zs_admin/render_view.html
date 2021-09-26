@@ -173,7 +173,7 @@
 				{% if app_view_object_settings %}
 					{% if app_view_object_settings.source_type == 'external' %}
 						{% if app_view_object and app_view_object_settings %}
-							<iframe id="external-container" class="external-container" height=100% width="calc(100% - 10px)" frameborder="0" src="{{app_view_object.object}}" allowfullscreen="true" allowtransparency="true"></iframe>
+							<iframe id="external-container" class="external-container mb" height=100% width="calc(100% - 10px)" frameborder="0" src="{{app_view_object.object}}" allowfullscreen="true" allowtransparency="true"></iframe>
 							<div class="iframe-onloading type3"></div>
 						{% else %}
 							{% if 'http' in app_view_object_settings.external_href or 'javascript' in app_view_object_settings.external_href %}
