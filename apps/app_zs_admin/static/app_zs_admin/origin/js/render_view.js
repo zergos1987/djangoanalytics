@@ -29,8 +29,8 @@ $('[data-tooltip="Поиск"]').off('click').click(function() {
 		// mb print landscape
 		if ($('.external-container.mb').length > 0) {
 			$('.render_view').css('padding-left', '0px');
-			$('.external-container.mb').css('height', 'calc(100vh + 120px)');
-			var css = '@page { size: landscape; }',
+			$('.external-container.mb').css('height', 'calc(100vh + 200px)');
+			var css = '@page { size: landscape; margin: 40px 40px; }',
 			head = document.head || document.getElementsByTagName('head')[0],
 			style = document.createElement('style');
 
