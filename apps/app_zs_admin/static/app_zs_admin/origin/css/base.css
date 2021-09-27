@@ -1517,6 +1517,7 @@ svg {
     top: 15px;
 }
 
+.container-main .print-mode,
 .container-main .full-screen-button {
     position: absolute;
     width: 0px;
@@ -1530,6 +1531,16 @@ svg {
     transition: all .5s ease-in;
 }
 
+.container-main .print-mode {
+    right: 55px;
+    top: 15px;
+}
+
+.container.container-aside-left-disabled.container-header-disabled.container-main-padding-off > .container-main .print-mode {
+    display: none !important;
+}
+
+.container-main:hover .print-mode,
 .container-main:hover .full-screen-button {
     position: absolute;
     z-index: 500;
@@ -1542,20 +1553,24 @@ svg {
     transition: all .5s ease-out;
 }
 
+.container-main:hover .print-mode:hover,
 .container-main:hover .full-screen-button:hover {
     cursor: pointer;
 }
 
+.container-main .print-mode svg,
 .container-main .full-screen-button svg {
     fill: #e4e4e4;
     transition: fill .5s ease-out;
 }
 
+.container-main:hover .print-mode:hover svg,
 .container-main:hover .full-screen-button:hover svg {
     fill: #616161;
     transition: fill .1s ease-in;
 }
 
+.container-main:hover .print-mode svg:active,
 .container-main:hover .full-screen-button svg:active {
     fill: #ccc;
     transition: fill .05s ease-out;

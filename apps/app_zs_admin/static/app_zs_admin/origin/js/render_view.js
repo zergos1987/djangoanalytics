@@ -22,9 +22,10 @@ setTimeout(removeOnloadFrame_type3, 2000);
 
 
 // load print button
-$('[data-tooltip="Поиск"]').off('click').click(function() {	
+$('.print-mode').off('click').click(function() {	
 	$('.full-screen-button').off('click').click();
 	$('.full-screen-button').hide();
+	$('.print-mode').hide();
 	function waitResizeState() {
 		// mb print landscape
 		if ($('.external-container.mb').length > 0) {
@@ -54,6 +55,7 @@ $('[data-tooltip="Поиск"]').off('click').click(function() {
 		} else {
 			$('.render_view').css('margin-left', '')
 		}
+		$('.print-mode').show();
 		$('.full-screen-button').show();
 		$('.full-screen-button').off('click').click();
 	}
