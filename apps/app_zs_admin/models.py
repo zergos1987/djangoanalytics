@@ -278,3 +278,132 @@ class user_notification_event_confirm(models.Model):
 		return (
 			str(self.user) + ' | ' + 
 			str(self.confirm_date))
+
+
+
+update_week_days_list_choices = (
+		('monday', 'monday'),
+		('tuesday', 'tuesday'),
+		('wednesday', 'wednesday'),
+		('thursday', 'thursday'),
+		('friday', 'friday'),
+	)
+class week_intervals(models.Model):
+	update_week_days_list = models.CharField(max_length=70, choices=update_week_days_list_choices, null=False, blank=False) 
+	is_actual = models.BooleanField(default=True) 
+
+	class Meta:
+		# app_label helps django to recognize your db
+		app_label = 'app_zs_admin'
+		ordering = ('is_actual',)
+		unique_together = ('update_week_days_list', )
+
+	def __str__(self):
+		return (
+			str(self.update_week_days_list))
+
+
+
+update_time_list_choices = ()
+for j in [i for i in range(0, 24)]:
+	for i in [':00', ':05', ':10', ':15', ':20', ':25', ':30', ':35', ':40', ':45', ':50', ':55']:
+		j = str(j)
+		if len(str(j)) < 2: j = '0' + j
+		update_time_list_choices = update_time_list_choices + ((j + i, j + i),)
+
+class time_intervals(models.Model):
+	update_time_list = models.CharField(max_length=70, choices=update_time_list_choices, null=False, blank=False)
+	is_actual = models.BooleanField(default=True) 
+
+	class Meta:
+		# app_label helps django to recognize your db
+		app_label = 'app_zs_admin'
+		ordering = ('is_actual',)
+		unique_together = ('update_time_list', )
+
+	def __str__(self):
+		return (
+			str(self.update_time_list))
+
+
+
+database_names_list_choices = (
+		('khd', 'khd'),
+		('sadko', 'sadko'),
+		('djangoanalytics', 'djangoanalytics'),
+	)
+database_schemas_list_choices = (
+		('dak', 'dak'),
+		('djangoanalytics', 'djangoanalytics'),
+		('djangoanalytics_dashboards', 'djangoanalytics_dashboards'),
+	)
+class etl_job_database_tables_tasks(models.Model):
+	limit_rows = models.IntegerField(null=False, blank=False, default=30000, validators=[MinValueValidator(1), MaxValueValidator(100000)])
+	update_week_days_list = models.ManyToManyField(week_intervals, blank=True, limit_choices_to = {'is_actual': True})
+	update_time_list = models.ManyToManyField(time_intervals, blank=True, limit_choices_to = {'is_actual': True}) 
+	database_name_from = models.CharField(max_length=200, choices=database_names_list_choices, null=False, blank=False)
+	database_name_to = models.CharField(max_length=200, choices=database_names_list_choices, null=False, blank=False)
+	table_schema_from = models.CharField(max_length=200, choices=database_schemas_list_choices, null=False, blank=False)
+	table_schema_to = models.CharField(max_length=200, choices=database_schemas_list_choices, null=False, blank=False)
+	table_name_prefix = models.CharField(max_length=200, null=True, blank=True, default='xxx')
+	table_name_from = models.CharField(max_length=300, null=False, blank=False)
+	create_table_if_not_exists = models.BooleanField(default=True)
+	where_condition_from = models.TextField(blank=True, null=True)
+	where_condition_to = models.TextField(blank=True, null=True)
+	columns_from = models.TextField(null=False, blank=False, default='*')
+	columns_for_unique_id = models.TextField(null=False, blank=False, default='*')
+	clear_all_data_before_insert = models.BooleanField(default=True)
+	remove_duplicates_table_to = models.BooleanField(default=False)
+	update_exists_rows = models.BooleanField(default=False)
+	insert_only_new_rows = models.BooleanField(default=False) 
+	insert_all_rows = models.BooleanField(default=True)
+	drop_table_to = models.BooleanField(default=False)
+	steps_delay_seconds = models.IntegerField(null=False, blank=False, default=5, validators=[MinValueValidator(2), MaxValueValidator(30)])
+	created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="for_etl_job_database_tables_tasks_created_by")
+	created_date = models.DateTimeField(auto_now_add=True, blank=False)
+	updated_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="for_etl_job_database_tables_tasks_updated_by")
+	updated_date = models.DateTimeField(auto_now=True, blank=False)
+	etl_error_flag = models.BooleanField(default=False)
+	is_actual = models.BooleanField(default=False)
+
+	class Meta:
+		# app_label helps django to recognize your db
+		app_label = 'app_zs_admin'
+		ordering = ('is_actual', '-created_by',)
+
+	def save(self, *args, **kwargs):
+		#self.table_name_prefix = self.database_name_from
+		super(etl_job_database_tables_tasks, self).save(*args, **kwargs)
+
+	def __str__(self):
+		return (
+			str(self.database_name_from) + ' | ' + 
+			str(self.table_schema_from) + ' | ' + 
+			str(self.table_name_prefix) + ' | ' + 
+			str(self.table_name_from) + ' | ' + 
+			str(self.is_actual))
+
+
+class etl_job_database_tables_tasks_logs(models.Model):
+	etl_job_database_tables_tasks_fk = models.ForeignKey(etl_job_database_tables_tasks, on_delete=models.CASCADE, unique=False, null=True, blank=True, related_name="for_etl_job_database_tables_tasks_logs")
+	table_rows_count = models.IntegerField(null=False, blank=False, default=0, validators=[MinValueValidator(0)])
+	error_message = models.TextField(null=True, blank=True, default='')
+	updated_at = models.DateTimeField(auto_now_add=True, blank=False)
+
+	class Meta:
+		# app_label helps django to recognize your db
+		app_label = 'app_zs_admin'
+		ordering = ('-updated_at',)
+
+	def save(self, *args, **kwargs):
+		super(etl_job_database_tables_tasks_logs, self).save(*args, **kwargs)
+
+	def __str__(self):
+		if self.updated_at:
+			updated_at = self.updated_at.strftime("%B %d %Y %I:%M %p")
+		else:
+			updated_at = self.updated_at
+		return (
+			self.etl_job_database_tables_tasks_fk.database_name_from + '.' +  self.etl_job_database_tables_tasks_fk.table_schema_from + '.' + self.etl_job_database_tables_tasks_fk.table_name_from + ' | ' + 
+			str(updated_at) + ' | ' + 
+			str(self.table_rows_count))  
