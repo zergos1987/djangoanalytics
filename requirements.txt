@@ -1,32 +1,8 @@
-openssl-0.9.8k_WIN32.zip
-openssl-0.9.8k_X64.zip
-
-@echo off
-cls
-rem openssl pkcs12 -export -out keystore.pfx -inkey development.key -in development.crt -password pass:368696
-rem keytool -importkeystore -srckeystore keystore_test.pfx -srcstoretype pkcs12 -srcalias 1 -srcstorepass pfx_password -destkeystore keystore_test.jks -deststoretype jks -deststorepass jks_password -destalias myalias
-rem set MB_SITE_NAME=DjangoAnalytics
-rem set MB_SITE_URL="https://host"
-set MB_DB_TYPE=db_type
-set MB_DB_DBNAME=db_name
-set MB_DB_HOST=host
-set MB_DB_PORT=port
-set MB_DB_USER=user
-set MB_DB_PASS=psw
-set MB_JETTY_HOST=host
-set MB_JETTY_PORT=port
-set MB_JETTY_SSL=true 
-set MB_JETTY_SSL_PORT=ssl_port
-set MB_JETTY_SSL_KEYSTORE=metabase.jks
-set MB_JETTY_SSL_KEYSTORE_PASSWORD=368696
-rem set MB_API_KEY=api_key
-set MB_EMBEDDING_APP_ORIGIN=https://host:ssl_port
-rem set MB_APPLICATION_FAVICON_URL=https://host:ssl_port/favicon.ico
-
-java -jar metabase.jar > log.txt
-rem java -jar metabase.jar
-rem java -jar metabase.jar reset-password email@mail.ru
-
+Postgresql_Schema_Portal_env=djangoanalytics
+Postgresql_Schema_Metabase_env=djangoanalytics_dashboards
+NSSM_PATH_env=
+ETL_API_KEY_env=
+ETL_API_URL_env=https://site/zs_admin/api/
 
 asgiref==3.3.4
 certifi==2021.5.30
