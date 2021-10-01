@@ -1,9 +1,10 @@
-from django.conf.urls import url
+from django.conf.urls import include, url
 from apps.app_zs_admin import views
 from django.views.generic import TemplateView
 from django.urls import path
 
 app_name = 'zs_admin'
+router = views.api_root()
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
@@ -16,4 +17,9 @@ urlpatterns = [
     url(r'^zs_admin/dashboard_creation/$', views.dashboard_creation, name='dashboard_creation'),
     url(r'^zs_admin/dashboard_publication/$', views.dashboard_publication, name='dashboard_publication'),
     url(r'^zs_admin/notification_events_confirm/(?P<user_id>\d+)/$', views.notification_events_confirm, name='notification_events_confirm'),
+    
+    url(r'^zs_admin/api/', include(router.urls)),
+    url(r'^zs_admin/api/(?P<api_key>\w+)/etl_scheduller/get/$', views.etl_scheduller_get_api.as_view(), name="etl_scheduller_get_api"),
+    url(r'^zs_admin/api/(?P<api_key>\w+)/etl_scheduller/get/(?P<id>[0-9]+)/$', views.etl_scheduller_get_api.as_view(), name="etl_scheduller_get_api"),
+    url(r'^zs_admin/api/(?P<api_key>\w+)/etl_scheduller/update/(?P<id>[0-9]+)/$', views.etl_scheduller_update_api.as_view(), name="etl_scheduller_update_api"),
 ]
