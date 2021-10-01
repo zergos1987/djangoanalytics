@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User, Group, Permission
 from django.contrib.contenttypes.models import ContentType 
 from apps.accounts.models import user_extra_details
-from apps.app_zs_admin.models import app, notification_events, user_notification_event_confirm, aside_left_menu_includes
+from apps.app_zs_admin.models import app, notification_events, user_notification_event_confirm, aside_left_menu_includes, etl_job_database_tables_tasks, etl_job_database_tables_tasks_logs
 from custom_script_extensions.dynamic_grid_tables import get_table_settings
 from custom_script_extensions.dynamic_grid_render import dynamic_datagrid
 from custom_script_extensions.custom_permissions_check import check_user_content_request_permission
@@ -29,6 +29,24 @@ import re
 
 import os
 from decouple import config
+
+
+import django_filters.rest_framework
+from rest_framework.parsers import FileUploadParser
+from rest_framework import filters
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework import permissions
+from rest_framework import generics
+from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAuthenticated
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.pagination import PageNumberPagination
+from rest_framework.exceptions import PermissionDenied as DRF_PermissionDenied
+from rest_framework import routers
+from django.utils.safestring import mark_safe
+
+from custom_script_extensions.drf_serializers import (etl_job_database_tables_tasks__Serializer, etl_job_database_tables_tasks__update_create_Serializer)
 
 
 # Create your views here.
@@ -480,3 +498,192 @@ def dashboard_publication(request):
 	}
 
 	return render(request, template, context)
+
+
+
+# ETL api #####################################
+class MyAPIRootView(routers.APIRootView):
+	"""
+	Controls appearance of the API root view
+	"""
+	def get_view_name(self) -> str:
+		return "DjangoAnalytics API v1.0.0"
+
+	def get_view_description(self, html=False) -> str:
+		header = "Api urls page"
+		body = """<ul>
+			<li><small><strong>ETL Scheduller [GET]</strong>:   /zs_admin/api/<strong style="color: blue;">API_KEY</strong>/etl_scheduller/get/</small></li>
+			<li><small><strong>ETL Scheduller [GET]</strong>:   /zs_admin/api/<strong style="color: blue;">API_KEY</strong>/etl_scheduller/get/<strong style="color: blue;">id</strong>/</small></li>
+			<li><small><strong>ETL Scheduller [POST]</strong>:   /zs_admin/api/<strong style="color: blue;">API_KEY</strong>/etl_scheduller/update/<strong style="color: blue;">id</strong>/</small></li>
+		</ul>"""
+		if html:
+			return mark_safe(f"</br><div><strong>{header}:</strong></div></br><div>{body}</div></br>")
+		else:
+			return header
+
+class api_root(routers.DefaultRouter):
+	APIRootView = MyAPIRootView
+
+class Searchpagination__1__(PageNumberPagination):
+	page_size = 1
+	page_size_query_param = 'p'
+	max_page_size = 100
+
+def GetFilterType(field, fieldType):
+	if fieldType == 'AutoField':
+		filter_type = ['exact', 'range']
+	elif fieldType == 'CharField':
+		filter_type = ['icontains']
+	elif fieldType == 'DateTimeField':
+		filter_type = ['year__gt', 'year__lt', 'range']
+	elif fieldType == 'DateField':
+		filter_type = ['year__gt', 'year__lt', 'range']
+	elif fieldType == 'IntegerField':
+		filter_type = ['gte', 'lte', 'range']
+	elif fieldType == 'BooleanField':
+		filter_type = ['exact']
+	elif fieldType == 'TextField':
+		filter_type = ['icontains']
+	elif fieldType == 'ManyToManyField':
+		filter_type = ['icontains']
+	elif fieldType == 'ForeignKey':
+		filter_type = ['icontains']
+	else:
+		filter_type = None
+	return filter_type
+
+class etl_scheduller_APIKeyPermission(permissions.BasePermission):
+	def has_permission(self, request, view):
+		Access = False
+		ETL_API_KEY = os.getenv('ETL_API_KEY_os', config('ETL_API_KEY_env'))
+		ETL_REQUEST_API_KEY = request.GET.get('api_key', False)
+		if ETL_REQUEST_API_KEY == ETL_API_KEY:
+			Access = True
+		else:
+			URL = request.get_full_path()
+			if ETL_API_KEY in URL:
+				for i in URL.split('/'):
+					if i == ETL_API_KEY:
+						Access = True
+		return Access
+
+class etl_scheduller_get_api(generics.ListAPIView):
+	permission_classes = [etl_scheduller_APIKeyPermission]
+	filter_backends = (DjangoFilterBackend, filters.OrderingFilter, filters.SearchFilter,)
+	filterset_fields = {}
+	#pagination_class = Searchpagination__1__
+	search_fields = []
+	ordering_fields = 'id'#'__all__'
+	ordering = ['id']
+
+	lookup_field = 'id'    
+	lookup_url_kwarg = 'id'
+
+
+	def options(self, request, *args, **kwargs):
+		meta = self.metadata_class()
+		data = meta.determine_metadata(request, self)
+
+		table_name = etl_job_database_tables_tasks.__name__
+
+		for key in data:
+			if key == 'name':
+				data[key] = 'DjangoAnalytics Api. v.1.0.0'
+			elif key == 'description':
+				data[key] = f'Get list or by id. Table name: {table_name}. --- Example #1: /zs_admin/api/api_key/etl_scheduller/get/ --- Example #2: /zs_admin/api/api_key/etl_scheduller/get/id/'
+
+		return Response(data=data, status=status.HTTP_200_OK)
+
+	def get(self, request, *args, **kwargs):
+		return super().get(request, *args, **kwargs)
+
+	def get_queryset(self):
+		try:
+			model = etl_job_database_tables_tasks
+			related_fields = ['update_week_days_list__update_week_days_list', 'update_time_list__update_time_list', 'created_by__username', 'updated_by__username']
+			column_names = [f.name for f in model._meta.get_fields() if GetFilterType(f, f.get_internal_type()) != None and not f.name.startswith('for_')]
+			column_names_new = []
+			for c in column_names:
+				related_c = [r for r in related_fields if c == r[:r.index('__')]]
+				if len(related_c) > 0: 
+					related_c = related_c[0]
+					c = related_c
+				column_names_new.append(c)
+			etl_scheduller_get_api.search_fields = column_names_new
+			filterset_fields_temp = {}
+			for field in model._meta.get_fields():
+				field_name = field.name
+				filter_type = GetFilterType(field, field.get_internal_type())
+				if filter_type is not None and not field_name.startswith('for_'):
+					for r in column_names_new:
+						if '__' in r:
+							if field_name == r[:r.index('__')]:
+								field_name = r
+					filterset_fields_temp[field_name] = filter_type
+			etl_scheduller_get_api.filterset_fields = filterset_fields_temp
+			if self.kwargs.get(self.lookup_url_kwarg):
+				_id = self.kwargs.get(self.lookup_url_kwarg)
+				queryset = model.objects.filter(id=_id)
+
+			else:
+				queryset = model.objects.all()#.order_by('-id')
+			return queryset
+		except Exception as e:
+			print(str(e))
+			raise Http404
+
+
+	def get_serializer_class(self):
+		etl_job_database_tables_tasks__Serializer.Meta.model = etl_job_database_tables_tasks
+		return etl_job_database_tables_tasks__Serializer
+
+
+class etl_scheduller_update_api(generics.RetrieveUpdateAPIView):
+	permission_classes = [etl_scheduller_APIKeyPermission]
+	lookup_field = 'id'
+	lookup_url_kwarg = 'id'
+
+	def options(self, request, *args, **kwargs):
+		meta = self.metadata_class()
+		data = meta.determine_metadata(request, self)
+
+		table_name = etl_job_database_tables_tasks.__name__
+
+		for key in data:
+			if key == 'name':
+				data[key] = 'DjangoAnalytics Api. v.1.0.0'
+			elif key == 'description':
+				data[key] = f'Update by id. Get updated. Table name: {table_name}. --- Example #1: /zs_admin/api/api_key/etl_scheduller/update/id/'
+
+		return Response(data=data, status=status.HTTP_200_OK)
+
+	def get_serializer_class(self):
+		etl_job_database_tables_tasks__update_create_Serializer.Meta.model = etl_job_database_tables_tasks
+		return etl_job_database_tables_tasks__update_create_Serializer
+
+	def get_queryset(self):
+		try:
+			model = etl_job_database_tables_tasks
+			return model.objects.all()
+		except Exception as e:
+			raise Http404
+
+	def put(self, request, *args, **kwargs):
+		_id = self.kwargs.get(self.lookup_url_kwarg)
+		model = etl_job_database_tables_tasks
+		if len(list(request.data)) > 10:
+			serializer = etl_job_database_tables_tasks__update_create_Serializer(model.objects.get(id=_id), data=request.data)
+		else:
+			serializer = etl_job_database_tables_tasks__update_create_Serializer(model.objects.get(id=_id), data=request.data.get('data'), partial=True)
+			
+			logs = etl_job_database_tables_tasks_logs(
+				etl_job_database_tables_tasks_fk=model.objects.get(id=_id),
+				table_rows_count=int(request.data.get('logs').get('rows_count')),
+				error_message=request.data.get('logs').get('error_message')
+				)
+			logs.save()
+
+		if serializer.is_valid():
+			serializer.save()
+			return Response(serializer.data, status=status.HTTP_200_OK)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
