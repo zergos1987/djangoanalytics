@@ -15,6 +15,10 @@ from .models import (
         aside_left_menu_includes,
         notification_events,
         user_notification_event_confirm,
+        time_intervals,
+        week_intervals,
+        etl_job_database_tables_tasks,
+        etl_job_database_tables_tasks_logs,
 	)
 
 # Register your models here.
@@ -355,3 +359,51 @@ class user_notification_event_confirmAdmin(ImportExportModelAdmin):
 
     resource_class = user_notification_event_confirmResource
 admin.site.register(user_notification_event_confirm, user_notification_event_confirmAdmin)
+
+
+
+
+class etl_job_database_tables_tasksResource(resources.ModelResource):
+    class Meta:
+        model = etl_job_database_tables_tasks
+        fields = ('is_actual',) 
+
+class etl_job_database_tables_tasksAdmin(ImportExportModelAdmin):
+    list_display = [field.name for field in etl_job_database_tables_tasks._meta.get_fields() if field.name not in ['update_week_days_list', 'update_time_list'] and not field.name.startswith('for_')]
+    readonly_fields = ["created_by", "updated_by"]
+    
+    filter_horizontal = (
+        'update_week_days_list', 
+        'update_time_list',)
+    
+    search_fields = ('created_by__username', 'updated_by__username')
+
+    list_filter = (
+        ('created_date', DateRangeFilter), 
+        ('updated_date', DateRangeFilter),
+        'is_actual',
+    )
+
+    def save_model(self, request, obj, form, change):
+        if not obj.created_by: obj.created_by = request.user
+        obj.updated_by = request.user
+        super(etl_job_database_tables_tasksAdmin, self).save_model(request, obj, form, change)
+
+    def has_import_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        else:
+            return False
+
+    def has_export_permission(self, request, obj=None):
+        return True
+        # if request.user.is_superuser:
+        #     return True
+        # else:
+        #     return False
+
+    resource_class = etl_job_database_tables_tasksResource
+admin.site.register(etl_job_database_tables_tasks, etl_job_database_tables_tasksAdmin)
+admin.site.register(week_intervals)
+admin.site.register(time_intervals)
+admin.site.register(etl_job_database_tables_tasks_logs)
