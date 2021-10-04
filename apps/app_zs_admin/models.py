@@ -399,12 +399,33 @@ class etl_job_database_tables_tasks_logs(models.Model):
 		super(etl_job_database_tables_tasks_logs, self).save(*args, **kwargs)
 
 	def __str__(self):
+		if self.etl_job_database_tables_tasks_fk.table_name_prefix:
+			table_name_prefix = self.etl_job_database_tables_tasks_fk.table_name_prefix + '_'
+		else:
+			table_name_prefix = ''
 		if self.updated_at:
 			updated_at = self.updated_at.strftime("%B %d %Y %I:%M %p")
 		else:
 			updated_at = self.updated_at
+
+		to_ = (
+			'[TO]: ' +
+			self.etl_job_database_tables_tasks_fk.database_name_to + '.' +
+			self.etl_job_database_tables_tasks_fk.table_schema_to + '.' +
+			table_name_prefix +
+			self.etl_job_database_tables_tasks_fk.table_name_from
+			)
+		from_ = (
+			'[FROM]: ' +
+			self.etl_job_database_tables_tasks_fk.database_name_from + '.' +
+			self.etl_job_database_tables_tasks_fk.table_schema_from + '.' +
+			self.etl_job_database_tables_tasks_fk.table_name_from
+			)
 		return (
-			str(self.etl_job_database_tables_tasks_fk.id) + ' | ' + 
-			self.etl_job_database_tables_tasks_fk.database_name_from + '.' +  self.etl_job_database_tables_tasks_fk.table_schema_from + '.' + self.etl_job_database_tables_tasks_fk.table_name_from + ' | ' + 
-			str(updated_at) + ' | ' + 
-			str(self.table_rows_count))  
+			'[DATE]: ' + updated_at + ' ' +
+			' [ID]: ' + str(self.etl_job_database_tables_tasks_fk.id) + ' ' +
+			from_ + 
+			' >>> ' + 
+			to_ + ' ' + 
+			' [ROWS]: ' + str(self.table_rows_count)
+			)
