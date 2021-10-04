@@ -404,7 +404,7 @@ class etl_job_database_tables_tasks_logs(models.Model):
 		else:
 			table_name_prefix = ''
 		if self.updated_at:
-			updated_at = self.updated_at.strftime("%B %d %Y %I:%M %p")
+			updated_at = self.updated_at.strftime("%m.%d.%Y, %H:%M:%S")
 		else:
 			updated_at = self.updated_at
 
