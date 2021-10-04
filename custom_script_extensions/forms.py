@@ -10,7 +10,7 @@ from apps.accounts.models import user_extra_details
 from easy_select2 import Select2Multiple, Select2
 from django.utils.safestring import mark_safe
 from ckeditor.widgets import CKEditorWidget
-
+ 
 
 # UTIL FUNCTIONS ##################################
 def user_groups_update(user, role, add=False):
@@ -184,25 +184,27 @@ class UserZsAdminForm(forms.ModelForm):
 				}
 			}
 			setTimeout(hide_submit_input_for_None_selection, 200);
-			function select2_get_formatted_choice_menu() {
-				let li_items = $('.select2-container ul li');
-				for (i=0; i < li_items.length; i++) {
-					let li_item = li_items.eq(i);
-					let count_parts = li_item.text().split('|');
-					let row_headers = ['id:', 'учётная запись:', 'ФИО:', 'Департамент:', 'Центр:', 'Должность:'];
-					let textParts = [];
-					for (var n = 0; n < count_parts.length; n++) {
-						if(count_parts[n].trim() !== "") {
-							textParts.push('<div class="row-part"><div class="row-part-header">' + row_headers[n] + '</div><div class="row-part-text">' + count_parts[n].trim() + '</div></div>')
+			function select2_get_formatted_choice_menu(is_onclick) {
+				if (!$('.select2-container ul li').eq(0).find('.row-part-header').text().includes('id')) {
+					let li_items = $('.select2-container ul li');
+					for (i=0; i < li_items.length; i++) {
+						let li_item = li_items.eq(i);
+						let count_parts = li_item.text().split('|');
+						let row_headers = ['id:', 'учётная запись:', 'ФИО:', 'Департамент:', 'Центр:', 'Должность:'];
+						let textParts = [];
+						for (var n = 0; n < count_parts.length; n++) {
+							if(count_parts[n].trim() !== "") {
+								textParts.push('<div class="row-part"><div class="row-part-header">' + row_headers[n] + '</div><div class="row-part-text">' + count_parts[n].trim() + '</div></div>')
+							}
 						}
-					}
 
-					li_items.eq(i).text('');
-					let formatted_lines = '';
-					for (var j = 0; j < textParts.length; j++) {
-						formatted_lines += textParts[j]
+						li_items.eq(i).text('');
+						let formatted_lines = '';
+						for (var j = 0; j < textParts.length; j++) {
+							formatted_lines += textParts[j]
+						}
+						li_items.eq(i).html(formatted_lines)
 					}
-					li_items.eq(i).html(formatted_lines)
 				}
 			};
 			function click_select2_choice_menu() { 
@@ -210,10 +212,12 @@ class UserZsAdminForm(forms.ModelForm):
 				selected_text = selected_text.replace('|  |', '').replace('|  |', '').replace('|  |', '').replace('|  |', '')
 				$('#select2-id_the_user-container').text(selected_text);
 				$('.select2-selection__rendered').off('click').click(function(){
+
 				select2_get_formatted_choice_menu();
 					if(('.select2-container').length > 0) {
 						$(".select2-search input[type='search']").off('change').off('keydown').off('paste').off('input').on('change keydown paste input', function(){
 							select2_get_formatted_choice_menu();
+							setTimeout(select2_get_formatted_choice_menu, 100);
 						});
 					}
 				})
@@ -360,6 +364,8 @@ class custom_ModelMultipleChoiceField(forms.ModelMultipleChoiceField):
 			if obj.menu_icon_type == 'arrow':
 				option_name = 'Раздел меню | ' + obj.name
 			return option_name
+		if model_name == 'notification_events':
+			pass
 		return obj
 
 
@@ -429,6 +435,11 @@ class notificationCreationForm(forms.ModelForm):
 		required=False,
 		widget=CKEditorWidget()
 		)
+	content_m2m = custom_ModelMultipleChoiceField(
+		queryset=User.objects.filter(is_active=True).all(),
+		label=u"Пользователи",
+		widget=FilteredSelectMultiple(u"", is_stacked=False),
+		required=False)
 	is_actual = forms.BooleanField(
 		label=u"Опубликовать",
 		required=False, 
@@ -439,7 +450,7 @@ class notificationCreationForm(forms.ModelForm):
 
 	class Meta:
 		model = notification_events
-		fields = ('title', 'event_content', 'event_content2', 'is_actual', )
+		fields = ('title', 'event_content', 'event_content2', 'content_m2m', 'is_actual', )
 	
 	class Media:
 		css = {
@@ -447,10 +458,23 @@ class notificationCreationForm(forms.ModelForm):
 		}
 		js = []
 
+
 	def __init__(self, *args, **kwargs):
 		super(notificationCreationForm, self).__init__(*args, **kwargs)
 
 	def save(self, commit=False, *args, **kwargs):
 		form_obj = super(notificationCreationForm, self).save(commit=False, *args, **kwargs)
+		print(self.cleaned_data.get('content_m2m'))
+		obj = notification_events(
+			title=form_obj.title,
+			event_content=form_obj.event_content,
+			event_content2=form_obj.event_content2,
+			is_actual=form_obj.is_actual
+			)
+		obj.save()
+		obj.users_list.clear()
+		obj.users_list.add(*self.cleaned_data.get('content_m2m'))
+		obj.save()
+
 
 		return form_obj

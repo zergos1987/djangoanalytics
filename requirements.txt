@@ -1,9 +1,3 @@
-Postgresql_Schema_Portal_env=djangoanalytics
-Postgresql_Schema_Metabase_env=djangoanalytics_dashboards
-NSSM_PATH_env=
-ETL_API_KEY_env=
-ETL_API_URL_env=https://site/zs_admin/api/
-
 asgiref==3.3.4
 certifi==2021.5.30
 chardet==4.0.0

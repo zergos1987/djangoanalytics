@@ -776,12 +776,17 @@ table.table-grid.fathgrid tfoot th:empty {
 	display: flex;
 	align-items: center;
 	padding-top: 10px;
+	width: 100%;
+}
+
+#notificationCreationForm .selector {
+	padding-top: 0px;
 }
 
 #id_content_m2m_from, #id_content_m2m_to {
 	height: 200px !important;
 	width: 100%;
-    max-width: 300px;
+    max-width: unset;
     font-size: 0.75em;
     padding: 0px 0px 0px 0px;
     border: 1px solid #cdcdcd;
@@ -821,13 +826,21 @@ table.table-grid.fathgrid tfoot th:empty {
 	margin-top: 35px;
 }
 
+#cke_id_event_content2,
+#notificationCreationForm .form-items-group textarea, 
+#notificationCreationForm .form-items-group:not([data-group-label="Пользователи"]):not(:last-child) input,
 .form_frame .selector-available, .form_frame .selector-chosen {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	box-shadow: 0px 0px 5px #dedede, -5px -5px 5px #ffffff;
 	padding: 10px;
-	border-radius: 10px;
+	border-radius: 1.5vh;
+}
+
+#notificationCreationForm .form-items-group textarea, 
+#notificationCreationForm .form-items-group:not([data-group-label="Пользователи"]):not(:last-child) input {
+	border-radius: 7px;
 }
 
 .form_frame .selector-chooser {
@@ -950,7 +963,7 @@ table.table-grid.fathgrid tfoot th:empty {
 
 #notificationCreationForm #form-app fieldset > .items-container > div:nth-child(2),
 #UserZsAdminForm #form-app fieldset > .items-container > div:nth-child(2) {
-	padding-top: 10px;
+	padding-top: 0px;
 }
 
 #UserZsAdminForm #form-app fieldset button.add-new-user-button {
@@ -998,7 +1011,7 @@ table.table-grid.fathgrid tfoot th:empty {
 	display: flex;
 	align-items: center;
 	font-size: 0.75em;
-	padding-bottom: 15px;
+	padding-bottom: 20px;
 }
 
 #notificationCreationForm .form-items-group:last-child input,
@@ -1104,7 +1117,7 @@ table.table-grid.fathgrid tfoot th:empty {
 
 /*notificationCreationForm*/
 #notificationCreationForm {
-	width: 100%;
+	margin: 0 auto;
 }
 
 #notificationCreationForm > form {
@@ -1121,14 +1134,17 @@ table.table-grid.fathgrid tfoot th:empty {
 	align-items: baseline;	
 }
 
+#notificationCreationForm .form-items-group[data-group-label="Пользователи"] {
+	flex-direction: column;
+}
+
 #notificationCreationForm .form-items-group:nth-child(2) {
 	max-height: 150px;
 }
 
 #notificationCreationForm .form-items-group textarea,
-#notificationCreationForm .form-items-group:not(:last-child) input {
+#notificationCreationForm .form-items-group:not([data-group-label="Пользователи"]):not(:last-child) input {
     width: 100%;
-    line-height: 30px;
     padding-left: 11px;
     font-size: 11px;
     border: 1px solid #d4d4d4;
@@ -1141,8 +1157,9 @@ table.table-grid.fathgrid tfoot th:empty {
 	min-width: 200px;
 }
 
-#notificationCreationForm .form-items-group:not(:last-child) label {
+#notificationCreationForm .form-items-group:not(:last-child) > label {
     padding-bottom: 5px;
+    padding-left: 7px;
 }
 
 #notificationCreationForm .form-items-group:last-child label {
@@ -1151,7 +1168,119 @@ table.table-grid.fathgrid tfoot th:empty {
 }
 
 #cke_id_event_content2 {
-	width: 100% !important;
+	width: calc(100% - 20px) !important;
+}
+
+
+
+
+/*detail form table*/
+.form-detail-table-container {
+	padding: 10px 15px 30px 20px;
+	align-self: center;
+    width: fit-content;
+    max-width: 100%;
+}
+
+.form-detail-table-container > .detail-wrapper {
+	padding: 30px 25px;
+	border: 1px solid #cdcdcd;
+	border-radius: 12px;
+	box-shadow: 0px 7px 12px 2px #dedede, 0px 6px 4px 1px #ffffff;
+	background-color: #fff;
+	position: relative;
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table {
+	height: 400px;
+	overflow: auto;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table table {
+	table-layout: fixed;
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table thead {
+	font-size: 0.8rem;
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table tbody {
+	font-size: 0.7rem;
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table tfoot {
+	font-size: 0.8rem;
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table .t-header {
+
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table .t-body {
+
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table .t-footer {
+
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table  .column  {
+
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table  .column  {
+	min-width: 130px;
+	height: 25px;
+	padding: 5px 20px;
+	background-color: #f4f4f4;
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table  th.column  {
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+	background-color: #dfdfdf;
+	height: 45px;
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table  th.column:first-child,
+.form-detail-table-container > .detail-wrapper > .detail-table  td.column:first-child {
+	position: sticky;
+	left: 0;
+	z-index: 2;
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table  td.column:first-child {
+	z-index: 1;
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table .column[data-id]  {
+	text-align: center;
+	min-width: 40px;
+}
+
+
+.form-detail-table-container > .detail-wrapper > .detail-table  .column > div  {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	max-width: 250px;
+	text-align: center;
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table  .column > div.left  {
+	text-align: left;
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table  .column > div.right  {
+	text-align: right;
+}
+
+#detail_notificationCreationForm.form-detail-table-container {
+
 }
 /*MEDIA ================================================================== */
 

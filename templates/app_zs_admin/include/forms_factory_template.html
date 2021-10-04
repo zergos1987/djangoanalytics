@@ -1,8 +1,39 @@
 {% spaceless %}
+
 {% if form_detail_view %}
-    {% for row in form_detail_view %}
-    {{ row.id }} {{ row.title }}
-    {% endfor %}
+<div class="form-detail-table-container" id="{{form_detail_view.id}}">
+    <div class="detail-wrapper">
+        <div class="detail-table">
+            <table>
+                <thead>
+                    <tr class="t-header">
+                        <th class="column" data-id="id">id</th>
+                        <th class="column" data-title="event_date">Дата</th>
+                        <th class="column" data-title="title">Заголовок</th>
+                        <th class="column" data-content="content">Контент</th>
+                        <th class="column" data-content2="content2">Контент (расширенная версия)</th>
+                        <th class="column" data-users_list="users_list">Пользователи</th>
+                        <th class="column" data-is_actual="is_actual">Опубликовано</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in form_detail_view.data %}
+                    <tr class="t-body">
+                        <td class="column" data-id="id"><div>{{ row.id }}</div></td>
+                        <td class="column" data-event_date="event_date"><div>{{ row.event_date }}</div></td>
+                        <td class="column" data-title="title"><div>{{ row.title }}</div></td>
+                        <td class="column" data-event_content="content"><div>{{ row.event_content }}</div></td>
+                        <td class="column" data-event_content2="content2"><div>{{ row.event_content2 }}</div></td>
+                        <td class="column" data-users_list="users_list"><div>{% for val in row.users_list.all %}{{val.username}}{% if forloop.last %}{% else %}, {% endif %}{% endfor %}</div></td>
+                        <td class="column" data-is_actual="is_actual"><div>{{ row.is_actual }}</div></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <tfoot class="t-footer"></tfoot>
+            </table>
+        </div>
+    </div>
+</div>
 {% endif %}
 
 <div class="form_frame" id="{% for item in form %}{% if forloop.first %}{{item.label}}{% endif %}{% endfor %}">
@@ -12,6 +43,8 @@
         <div id='form-app'>
             <fieldset>
             {% for item_1 in form %}
+
+
                 {% if item_1.label == 'ContentpublicationsForm' %}
                 <legend>публикация дашбордов</legend>      
                     <div class="items-container">
@@ -25,7 +58,7 @@
                 <legend>доступ</legend>   
                     <div class="items-container">
                     {% for item_2 in form.visible_fields %}
-                        <div class="form-items-group">
+                        <div class="form-items-group" data-group-label="{{item_2.label}}">
                             {% if item_2.label == 'UserZsAdminForm' %}
                             {{item_2}}
                             {% else %}
@@ -38,11 +71,13 @@
                 <input type="submit" class="displayNone" {%if brand_color %}style="background-color: {{brand_color}};"{% endif %} value="Сохранить">
                 {{form.onchange_the_user}}
                 {% endif %}
+
+
                 {% if item_1.label == 'notificationCreationForm' %}
                 <legend>Уведомления и события</legend>      
                     <div class="items-container">
                     {% for item_2 in form.visible_fields %}
-                        <div class="form-items-group">
+                        <div class="form-items-group" data-group-label="{{item_2.label}}">
                             {% if item_2.label == 'notificationCreationForm' %}
                             {{item_2}}
                             <label class="form-item-label" for="{{item_2.name}}">Заголовок</label>
@@ -55,6 +90,8 @@
                     </div>
                 <input type="submit" {%if brand_color %}style="background-color: {{brand_color}};"{% endif %} value="Сохранить">
                 {% endif %}
+
+
             {% endfor %}
             </fieldset>
         </div>

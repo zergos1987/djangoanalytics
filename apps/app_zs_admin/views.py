@@ -4,7 +4,7 @@ from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse, FileResponse, Http404, HttpResponseRedirect, HttpResponseForbidden, HttpResponsePermanentRedirect
 from django.urls import reverse
-
+ 
 from django.contrib.auth.models import User, Group, Permission
 from django.contrib.contenttypes.models import ContentType 
 from apps.accounts.models import user_extra_details
@@ -266,7 +266,9 @@ def notification_events_publication(request):
 		user_id=request.user.id)
 	if not user_content_has_permission: raise PermissionDenied()
 
-	form_detail_list = notification_events.objects.filter(is_actual=True).all()
+	form_detail_list = {'id': 'detail_notificationCreationForm', 'data': ''}
+	form_detail_list['data'] = notification_events.objects.filter(is_actual=True).all()
+	
 	if request.method == 'POST':
 		form = notificationCreationForm(request.POST)
 		if form.is_valid():
