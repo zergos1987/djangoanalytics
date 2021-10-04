@@ -408,6 +408,11 @@ class etl_job_database_tables_tasks_logs(models.Model):
 		else:
 			updated_at = self.updated_at
 
+		if self.error_message:
+			if len(self.error_message) > 0: error_message = 1
+		else:
+			error_message = 0
+
 		to_ = (
 			'[TO]: ' +
 			self.etl_job_database_tables_tasks_fk.database_name_to + '.' +
@@ -422,6 +427,7 @@ class etl_job_database_tables_tasks_logs(models.Model):
 			self.etl_job_database_tables_tasks_fk.table_name_from
 			)
 		return (
+			'[HAVE ERRORS]: ' + str(error_message) + ' ' +
 			'[DATE]: ' + updated_at + ' ' +
 			' [ID]: ' + str(self.etl_job_database_tables_tasks_fk.id) + ' ' +
 			from_ + 
