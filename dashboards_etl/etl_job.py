@@ -309,7 +309,7 @@ def job(
 				df1 = pd.read_sql(SQL_FROM, con=conn1)
 
 				def make_identifier(df):
-				    str_id = df.apply(lambda x: '_'.join(map(str, x)), axis=1)
+				    str_id = df.apply(lambda x: '_'.join(map(str, x))+'_'+TABLE_NAME_TO, axis=1)
 				    return str_id
 				    #return pd.factorize(str_id)[0]
 				if COLUMNS_FOR_UNIQUE_ID == '*':
