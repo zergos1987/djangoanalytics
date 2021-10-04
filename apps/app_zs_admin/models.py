@@ -404,7 +404,7 @@ class etl_job_database_tables_tasks_logs(models.Model):
 		else:
 			updated_at = self.updated_at
 		return (
-			str(self.id) + ' | ' + 
+			str(self.etl_job_database_tables_tasks_fk.id) + ' | ' + 
 			self.etl_job_database_tables_tasks_fk.database_name_from + '.' +  self.etl_job_database_tables_tasks_fk.table_schema_from + '.' + self.etl_job_database_tables_tasks_fk.table_name_from + ' | ' + 
 			str(updated_at) + ' | ' + 
 			str(self.table_rows_count))  
