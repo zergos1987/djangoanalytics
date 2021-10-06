@@ -116,7 +116,10 @@ def job(
 					#print(cx_Oracle.version)   # this returns 8.0.1 for me
 					# This fails for me at this point but will succeed after the solution described below
 					#cx_Oracle.clientversion()  
-					cx_Oracle.init_oracle_client(lib_dir=r"E:/www/dist/instantclient_19_12")
+					try:
+						cx_Oracle.init_oracle_client(lib_dir=r"E:/www/dist/instantclient_19_12")
+					except Exception as e:
+						pass
 					dsnStr = cx_Oracle.makedsn(
 						os.getenv('Sadko_Host_os', config('Sadko_Host_env')), 
 						os.getenv('Sadko_Port_os', config('Sadko_Port_env')), 
