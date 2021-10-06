@@ -286,7 +286,7 @@ def job(
 						if DATABASE_TYPE == 'SYBASE':
 							SQL_FROM = f"""select TOP 10000 {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1;"""
 						if DATABASE_TYPE == 'ORACLE':
-							SQL_FROM = f"""select {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1 and ROWNUM <= 10000;"""
+							SQL_FROM = f"""select {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1 and ROWNUM <= 10000"""
 						if DATABASE_TYPE == 'MSSQL':
 							SQL_FROM = f"""select TOP 10000 {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1;"""
 						if DATABASE_TYPE == 'SQLITE':
