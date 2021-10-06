@@ -260,6 +260,24 @@ def job(
 					db_tables = get_server_properties(conn1, 'get_table_names', TABLE_SCHEMA_FROM)
 					table_from = [t for t in db_tables if t.lower() == f'{TABLE_NAME_FROM}'.lower()]
 
+					if len(table_from) == 0:
+						DATABASE_TYPE = conn(name=DATABASE_NAME_FROM, ask='conn_type')
+						if DATABASE_TYPE == 'POSTGRES':
+							SQL_FROM = f"""select * from {FORMATTED_TABLE_NAME_FROM} where 1=1 LIMIT 3;"""
+						if DATABASE_TYPE == 'SYBASE':
+							SQL_FROM = f"""select TOP 3 * from {FORMATTED_TABLE_NAME_FROM} where 1=1;"""
+						if DATABASE_TYPE == 'ORACLE':
+							SQL_FROM = f"""select * from {FORMATTED_TABLE_NAME_FROM} where 1=1 and ROWNUM <= 3"""
+						if DATABASE_TYPE == 'MSSQL':
+							SQL_FROM = f"""select TOP 3 * from {FORMATTED_TABLE_NAME_FROM} where 1=1;"""
+						if DATABASE_TYPE == 'SQLITE':
+							SQL_FROM = f"""select TOP 3 * from {FORMATTED_TABLE_NAME_FROM} where 1=1;"""
+						x = execute_sql(conn=conn1, sql=SQL_FROM)
+						count = 0
+						for i in x:
+							count +=1
+						if count > 0: table_from = [1]
+
 					db_tables = get_server_properties(conn2, 'get_table_names', TABLE_SCHEMA_TO)
 					table_to = [t for t in db_tables if t.lower() == f'{TABLE_NAME_TO}'.lower()]
 
