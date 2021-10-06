@@ -50,8 +50,9 @@ def job(
 		from sqlalchemy.sql import func
 		from sqlalchemy.orm import sessionmaker, close_all_sessions
 		from sqlalchemy.ext.declarative import declarative_base
-
+		import cx_Oracle
 		from decouple import config
+		import random
 
 		import pandas as pd
 		# ETL METHODS #########################################################
@@ -85,7 +86,7 @@ def job(
 				etl_logs(msg, fprint=False)
 
 		def execute_sql_via_transaction(conn, sql):
-			trans = conn.begin()
+			trans = conn.begin() 
 			try:
 				results = conn.execute(sql)
 				trans.commit()
@@ -106,6 +107,31 @@ def job(
 			return data_list
 
 		def conn(name, ask):
+			if name == 'sadko':
+				if ask =='conn_type': return 'SADKO'
+				if ask =='initialieze':
+					# Test to see if it will print the version of sqlalchemy
+					#print(sqlalchemy.__version__)    # this returns 1.2.15 for me
+					# Test to see if the cx_Oracle is recognized
+					#print(cx_Oracle.version)   # this returns 8.0.1 for me
+					# This fails for me at this point but will succeed after the solution described below
+					#cx_Oracle.clientversion()  
+					cx_Oracle.init_oracle_client(lib_dir=r"E:/www/dist/instantclient_19_12")
+					dsnStr = cx_Oracle.makedsn(
+						os.getenv('Sadko_Host_os', config('Sadko_Host_env')), 
+						os.getenv('Sadko_Port_os', config('Sadko_Port_env')), 
+						os.getenv('Sadko_Database_os', config('Sadko_Database_env'))
+					)
+					engine = (
+					    "oracle+cx_oracle://{user}:{pwd}@{dsnStr}".format(
+					    	user=os.getenv('Sadko_Login_os', config('Sadko_Login_env')),
+					    	pwd=os.getenv('Sadko_Password_os', config('Sadko_Password_env')),
+					    	dsnStr=dsnStr)
+					)
+					properties = {
+						'engine': create_engine(engine, echo=False),
+					}
+					return properties
 			if name == 'khd':
 				if ask =='conn_type': return 'SYBASE'
 				if ask =='initialieze':
@@ -160,16 +186,16 @@ def job(
 		CONN_FROM = conn(name=DATABASE_NAME_FROM, ask='initialieze')
 		CONN_TO = conn(name=DATABASE_NAME_TO, ask='initialieze')
 		TABLE_NAME_TO = TABLE_NAME_FROM
-		if TABLE_NAME_PREFIX != '-' and TABLE_NAME_PREFIX is not None and len(TABLE_NAME_PREFIX) > 0:
+		if TABLE_NAME_PREFIX != '-' and TABLE_NAME_PREFIX != 'None' and TABLE_NAME_PREFIX is not None and len(TABLE_NAME_PREFIX) > 0:
 			TABLE_NAME_TO = f'{DATABASE_NAME_FROM}_' + f'{TABLE_NAME_PREFIX}_'+ TABLE_NAME_TO
 		else:
 			TABLE_NAME_TO = f'{DATABASE_NAME_FROM}_' + TABLE_NAME_TO
 		TABLE_NAME_TO = TABLE_NAME_TO.lower()
 		if not CREATE_TABLE_IF_NOT_EXISTS: CREATE_TABLE_IF_NOT_EXISTS = True
-		if WHERE_CONDITION_FROM == '-' and WHERE_CONDITION_FROM is None and len(TABLE_NAME_PREFIX) ==0: WHERE_CONDITION_FROM = 'and 2=2'
-		if WHERE_CONDITION_TO == '-' and WHERE_CONDITION_TO is None and len(TABLE_NAME_PREFIX) ==0: WHERE_CONDITION_TO = 'and 2=2'
+		if WHERE_CONDITION_FROM == '-' and WHERE_CONDITION_FROM == 'None' and WHERE_CONDITION_FROM is None: WHERE_CONDITION_FROM = 'and 2=2'
+		if WHERE_CONDITION_TO == '-' and WHERE_CONDITION_TO == 'None' and WHERE_CONDITION_TO is None: WHERE_CONDITION_TO = 'and 2=2'
 		if not COLUMNS_FROM: COLUMNS_FROM = '*'
-		COLUMNS_TO = COLUMNS_FROM
+		COLUMNS_TO = COLUMNS_FROM 
 		if not COLUMNS_FOR_UNIQUE_ID: COLUMNS_FOR_UNIQUE_ID = '*' # '*' or ['col1', 'col2', 'col3']
 		if not CLEAR_ALL_DATA_BEFORE_INSERT: CLEAR_ALL_DATA_BEFORE_INSERT = True
 		if not REMOVE_DUPLICATES_TABLE_TO: REMOVE_DUPLICATES_TABLE_TO = False
@@ -250,11 +276,29 @@ def job(
 					if len(table_to) == 0:
 						msg = f'......table {FORMATTED_TABLE_NAME_TO} not exists. creating..'
 						etl_logs(msg, fprint=False)
-						if TABLE_SCHEMA_FROM:
-							t = Table(table_from, metadata1, autoload=True, autoload_with=conn1, schema=TABLE_SCHEMA_FROM)
-							t.schema = TABLE_SCHEMA_TO
+
+						DATABASE_TYPE = conn(name=DATABASE_NAME_FROM, ask='conn_type')
+						if DATABASE_TYPE == 'POSTGRES':
+							SQL_FROM = f"""select {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1 LIMIT 10000;"""
+						if DATABASE_TYPE == 'SYBASE':
+							SQL_FROM = f"""select TOP 10000 {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1;"""
+						if DATABASE_TYPE == 'ORACLE':
+							SQL_FROM = f"""select {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1 ROWNUM <= 10000;"""
+						if DATABASE_TYPE == 'MSSQL':
+							SQL_FROM = f"""select TOP 10000 {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1;"""
+						if DATABASE_TYPE == 'SQLITE':
+							SQL_FROM = f"""select TOP 10000 {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1;"""
+
+						df1 = pd.read_sql(SQL_FROM, con=conn1)
+						tmp_id = '{:05}'.format(random.randrange(1, 10**5))
+						if TABLE_SCHEMA_TO:
+							df1.to_sql(name=TABLE_NAME_FROM+'_tmp'+tmp_id, con=conn2, schema=TABLE_SCHEMA_TO, if_exists='fail', index=False)
 						else:
-							t = Table(table_from, metadata1, autoload=True, autoload_with=conn1)
+							df1.to_sql(name=TABLE_NAME_FROM+'_tmp'+tmp_id, con=conn2, if_exists='fail', index=False)
+						if TABLE_SCHEMA_TO:
+							t = Table(TABLE_NAME_FROM+'_tmp'+tmp_id, metadata2, autoload=True, autoload_with=conn2, schema=TABLE_SCHEMA_TO)
+						else:
+							t = Table(TABLE_NAME_FROM+'_tmp'+tmp_id, metadata2, autoload=True, autoload_with=conn2)
 						t.name = TABLE_NAME_TO
 						created_at = Column('etl_created_at', DateTime(timezone=True), server_default=func.now(), nullable=True)
 						updated_at = Column('etl_updated_at', DateTime(timezone=True), onupdate=func.now(), nullable=True)
@@ -265,8 +309,10 @@ def job(
 						t.append_column(etl_id)
 						t.append_column(row_id)
 						t.create(conn2)
+
+						t.name = TABLE_NAME_FROM+'_tmp'+tmp_id
+						t.drop(conn2, checkfirst=True)
 					else:
-						table_to = table_to[0]
 						is_created = True
 						msg = f'......table {FORMATTED_TABLE_NAME_TO} exists. do nothing..'
 						etl_logs(msg, fprint=False)
@@ -309,9 +355,9 @@ def job(
 				df1 = pd.read_sql(SQL_FROM, con=conn1)
 
 				def make_identifier(df):
-				    str_id = df.apply(lambda x: '_'.join(map(str, x))+'_'+TABLE_NAME_TO, axis=1)
-				    return str_id
-				    #return pd.factorize(str_id)[0]
+					str_id = df.apply(lambda x: '_'.join(map(str, x))+'_'+TABLE_NAME_TO, axis=1)
+					return str_id
+					#return pd.factorize(str_id)[0]
 				if COLUMNS_FOR_UNIQUE_ID == '*':
 					df1['etl_id'] = make_identifier(df1[list(df1.columns.values)])  
 				else:
