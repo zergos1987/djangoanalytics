@@ -108,7 +108,7 @@ def job(
 
 		def conn(name, ask):
 			if name == 'sadko':
-				if ask =='conn_type': return 'SADKO'
+				if ask =='conn_type': return 'ORACLE'
 				if ask =='initialieze':
 					# Test to see if it will print the version of sqlalchemy
 					#print(sqlalchemy.__version__)    # this returns 1.2.15 for me
