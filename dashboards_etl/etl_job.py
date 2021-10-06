@@ -283,7 +283,7 @@ def job(
 						if DATABASE_TYPE == 'SYBASE':
 							SQL_FROM = f"""select TOP 10000 {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1;"""
 						if DATABASE_TYPE == 'ORACLE':
-							SQL_FROM = f"""select {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1 ROWNUM <= 10000;"""
+							SQL_FROM = f"""select {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1 and ROWNUM <= 10000;"""
 						if DATABASE_TYPE == 'MSSQL':
 							SQL_FROM = f"""select TOP 10000 {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1;"""
 						if DATABASE_TYPE == 'SQLITE':
@@ -346,7 +346,7 @@ def job(
 				if DATABASE_TYPE == 'SYBASE':
 					SQL_FROM = f"""select TOP {LIMIT} {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1 {WHERE_CONDITION_FROM};"""
 				if DATABASE_TYPE == 'ORACLE':
-					SQL_FROM = f"""select {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1 {WHERE_CONDITION_FROM} ROWNUM <= {LIMIT};"""
+					SQL_FROM = f"""select {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1 {WHERE_CONDITION_FROM} and ROWNUM <= {LIMIT};"""
 				if DATABASE_TYPE == 'MSSQL':
 					SQL_FROM = f"""select TOP {LIMIT} {COLUMNS_FROM} from {FORMATTED_TABLE_NAME_FROM} where 1=1 {WHERE_CONDITION_FROM};"""
 				if DATABASE_TYPE == 'SQLITE':
