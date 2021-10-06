@@ -11,49 +11,68 @@ from custom_script_extensions.djangoanalytics_initialize import get_or_create_gr
 logger = logging.getLogger(__name__)
 
 
+def add_user_to_greatings_notification_event(user):
+    from django.contrib.auth.models import User, Group
+    from apps.app_zs_admin.models import notification_events
+    u = User.objects.get(username=user)
+    n = notification_events.objects.filter(title='Новый пользователь!').first()
+    n.users_list.add(u)
+    n.save()
+
+
 def update_user_sadko_groups(user):
     from django.db import connections
     from django.contrib.auth.models import User, Group
 
-    conn_sadko = connections['dash_sadko_postgres_db']
-    if conn_sadko.connection is None:
-        cursor = conn_sadko.cursor()  
-    
-    sql=""""""
-
+    conn_sadko = connections['default']
+    conn_sadko.ensure_connection()
     cursor = conn_sadko.connection.cursor()
-    cursor.execute(sql)
-    results = cursor.fetchone()
 
-    if results is not None:
-        django_exists_sadko_roles = list(Group.objects.filter(name__startswith='SADKO_').values_list('name', flat=True))
-        sadko_roles = []
-        sadko_roles_user_text = []
-        sadko_user_is_blocked = False
 
-        for index, row in enumerate(cursor):
-            if row[4] or row[5]: sadko_user_is_blocked = True
-            if index > 200:
-                break
-            else:
-                role = row[2]
-                sadko_roles_user_text.append(role)
-                if role not in django_exists_sadko_roles:
-                    sadko_roles.append(Group(name=role))
+    sadko_tables_exists = []
+    try:
+        cursor.execute("""SELECT * FROM djangoanalytics.sadko_dba_role_privs limit 1""")
+        sadko_tables_exists = cursor.fetchone()
+    except Exception as e:
+        pass
 
-        u = User.objects.get(username=user)
-        g = Group.objects.filter(name__startswith='SADKO_').all()
-        u.groups.remove(g)
-        if sadko_user_is_blocked == False:
-            if len(sadko_roles) > 0:
-                Group.objects.bulk_create(sadko_roles)
+    if len(sadko_tables_exists) > 0:
+        sql = f""""""
 
-            for r in sadko_roles_user_text:
-                g = Group.objects.get(name=r)
-                u.groups.add(g) 
-            u.save()
+        cursor.execute(sql)
+        results = cursor.fetchone()
+
+        if results is not None: 
+            django_exists_sadko_roles = list(Group.objects.filter(name__startswith='SADKO_').values_list('name', flat=True))
+            sadko_roles = []
+            sadko_roles_user_text = []
+            sadko_user_is_blocked = False
+
+            for index, row in enumerate(cursor):
+                if row[4] or row[5]: sadko_user_is_blocked = True
+                if index > 200:
+                    break
+                else:
+                    role = row[2]
+                    sadko_roles_user_text.append(role)
+                    if role not in django_exists_sadko_roles:
+                        sadko_roles.append(Group(name=role))
+
+            u = User.objects.get(username=user)
+            g = Group.objects.filter(name__startswith='SADKO_').all()
+            u.groups.remove(*g)
+            if sadko_user_is_blocked == False:
+                if len(sadko_roles) > 0:
+                    Group.objects.bulk_create(sadko_roles)
+
+                for r in sadko_roles_user_text:
+                    g = Group.objects.get(name=r)
+                    u.groups.add(g) 
+                u.save()
 
     cursor.close()
+
+    
 
 # if user auth via LDAP - check status and update connection
 # from custom_script_extensions.ldap_auth_methods import ldap_open_connetion, ldap_check_user_is_active, ldap_check_user_exists_in_group
@@ -250,7 +269,8 @@ def custom_sync_user_relations(user, data):
         {'ldap_is_active': ldap_is_active}
     ]
     update_user_extra_data(user, extra_data)
-    #update_user_sadko_groups(user)
+    update_user_sadko_groups(user)
+    add_user_to_greatings_notification_event(user)
     
     return user, data
 
