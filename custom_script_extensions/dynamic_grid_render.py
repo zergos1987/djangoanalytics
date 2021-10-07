@@ -527,7 +527,7 @@ def dynamic_datagrid(
 							}
 							table_$$$grid_id$$$.table_caller = '';
 							table_$$$grid_id$$$.merge_item = '';
-							//console.log(new_selected_item_value, 'RRRRRRRRRRRRRRRRRRRRRRRRR', item, selected_item_key_text, selected_item_value, new_selected_item_key_text )
+							console.log(new_selected_item_value, 'RRRRRRRRRRRRRRRRRRRRRRRRR', item, selected_item_key_text, selected_item_value, new_selected_item_key_text )
 						}
 
 
