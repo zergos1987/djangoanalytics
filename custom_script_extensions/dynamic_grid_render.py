@@ -916,19 +916,35 @@ def dynamic_datagrid(
 			if len(request_filter_columns) > 0:
 				case_4 = Q()
 				for k,v in request_filter_dict.items():
+
 					kk = k
 					if '__' in kk: kk = kk[:kk.index('__')]
-					if ContentType.objects.get(model=request_table_string).model_class()._meta.get_field(kk).many_to_many:
-						case_1 = {f'{k}_toString': GroupConcat(kk, ',')}
+
+					if '__' in k:
+						if ContentType.objects.get(model=request_table_string).model_class()._meta.get_field(kk).many_to_many:
+							case_1 = {f'{k}_toString': GroupConcat(k, ',')}
+						else:
+							case_1 = {f'{k}_toString': Cast(k, CharField())}
 					else:
-						case_1 = {f'{k}_toString': Cast(k, CharField())}
-					case_2 = {f'{k}_toString_lower': Lower(f'{k}_toString')}
-					table_list = table_list.annotate(**case_1).annotate(**case_2)
-					if len(request_filter_columns) == len(request_table_columns):
-						case_4.add(Q(**{f'{k}_toString_lower__iregex': r'(' + '|'.join(v) + ')'}), Q.OR)
-					else:
-						case_3 = {f'{k}_toString_lower__iregex': r'(' + '|'.join(v) + ')'}
-						table_list = table_list.filter(**case_3)
+						if ContentType.objects.get(model=request_table_string).model_class()._meta.get_field(kk).many_to_many:
+							case_1 = {f'{k}_toString': GroupConcat(k, ',')}
+						else:
+							case_1 = {f'{k}_toString': Cast(k, CharField())}
+
+					try:
+						t = table_list
+						t = t.annotate(**case_1).first()
+					except Exception as e:
+						case_1 = ''
+
+					if case_1 != '':
+						case_2 = {f'{k}_toString_lower': Lower(f'{k}_toString')}
+						table_list = table_list.annotate(**case_1).annotate(**case_2)
+						if len(request_filter_columns) == len(request_table_columns):
+							case_4.add(Q(**{f'{k}_toString_lower__iregex': r'(' + '|'.join(v) + ')'}), Q.OR)
+						else:
+							case_3 = {f'{k}_toString_lower__iregex': r'(' + '|'.join(v) + ')'}
+							table_list = table_list.filter(**case_3)
 				if len(request_filter_columns) == len(request_table_columns):
 					table_list = table_list.filter(case_4)
 
