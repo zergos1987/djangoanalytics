@@ -58,6 +58,8 @@ for row in data:
 # URL = ETL_API_URL + ETL_API_KEY + "/etl_scheduller/update/5/"
 # requests.put(URL, data={'etl_error_flag': 'true'}, verify=False)
 
+jobs_count = len(etl_tables)
+launch_delay_intervals = [x * 30 for x in range(0, jobs_count)]
 
 
 # RUN ETL 
@@ -70,6 +72,7 @@ for idx, etl_job in enumerate(etl_tables):
 		json_put = {"data": {"etl_error_flag": "false"}, "logs": {"rows_count": "0", "error_message": ""}}
 		headers={'content-type': 'application/json'}
 		job_text = f"""def call_job_{idx} ():
+			time.spleep(launch_delay_intervals[{idx}])
 			json_put = {json_put}
 			headers = {headers}
 			URL = ETL_API_URL + ETL_API_KEY + "/etl_scheduller/get/{etl_job.get('JOB_ID')}/?format=json"
