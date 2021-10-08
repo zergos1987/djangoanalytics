@@ -16,7 +16,7 @@ os.system(service_start)
 while True:
 	if ETL_CURRENT_LOAD_DAY < datetime.today().day:
 		ETL_CURRENT_LOAD_DAY +=1
-		time.splee(68400) #19:00 restart every day
+		time.sleep(68400) #19:00 restart every day
 		msg = f'###### ETL DAILY RELOAD >>> {str(datetime.today())} <<< ######' 
 		etl_logs(msg, fprint=False)
 		os.system(service_stop)
