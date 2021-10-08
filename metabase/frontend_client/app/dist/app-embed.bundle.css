@@ -5460,3 +5460,8 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
   white-space: pre-line !important;
   min-width: 50px;
 }
+
+.EmbedFrame-header ._20z_B.pg3LL input {
+    font-size: 1.5vmin !important;
+    text-overflow: ellipsis;
+}
