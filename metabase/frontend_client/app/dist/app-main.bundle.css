@@ -5815,7 +5815,7 @@ text.value-label-white {
 
 .PopoverContainer.tether-element.tether-element-attached-top.tether-target-attached-bottom.PopoverContainer--open.tether-element-attached-right.tether-target-attached-right.tether-enabled .py1 li:nth-child(3), 
 .PopoverContainer.tether-element.tether-element-attached-top.tether-target-attached-bottom.PopoverContainer--open.tether-element-attached-right.tether-target-attached-right.tether-enabled .py1 li:nth-child(4), 
-.PopoverContainer.tether-element.tether-element-attached-top.tether-target-attached-bottom.PopoverContainer--open.tether-element-attached-right.tether-target-attached-right.tether-enabled .py1 li:nth-child(5),
+/*.PopoverContainer.tether-element.tether-element-attached-top.tether-target-attached-bottom.PopoverContainer--open.tether-element-attached-right.tether-target-attached-right.tether-enabled .py1 li:nth-child(5),*/
 .mb2.flex-no-shrink.bg-medium.flex.relative.text-bold.cursor-pointer {
   display: none;
 }
