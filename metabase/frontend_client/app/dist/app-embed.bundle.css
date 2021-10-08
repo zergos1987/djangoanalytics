@@ -5397,6 +5397,15 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
   font-size: 0.85em;
 }
 
+
+._1ABjV._2tUFa._1BBNM .LegendItem {
+  font-size: 0.85em;
+}
+
+._1ABjV._2tUFa._1BBNM .LegendItem > div.flex > div {
+  font-size: 0.7em;
+}
+
 .text-brand-hover.LegendItem > div.flex > div {
   font-size: 0.95em;
 }
