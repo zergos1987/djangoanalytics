@@ -72,7 +72,7 @@ for idx, etl_job in enumerate(etl_tables):
 		json_put = {"data": {"etl_error_flag": "false"}, "logs": {"rows_count": "0", "error_message": ""}}
 		headers={'content-type': 'application/json'}
 		job_text = f"""def call_job_{idx} ():
-			time.spleep(launch_delay_intervals[{idx}])
+			time.sleep(launch_delay_intervals[{idx}])
 			json_put = {json_put}
 			headers = {headers}
 			URL = ETL_API_URL + ETL_API_KEY + "/etl_scheduller/get/{etl_job.get('JOB_ID')}/?format=json"
