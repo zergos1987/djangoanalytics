@@ -5465,3 +5465,11 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
     font-size: 1.5vmin !important;
     text-overflow: ellipsis;
 }
+
+.LineAreaBarChart .dc-chart .x-axis-label, .LineAreaBarChart .dc-chart .y-axis-label {
+    fill: #8a8a8a !important;
+    font-size: 0.7em !important;
+    letter-spacing: 0.5px !important;
+    font-family: serif;
+    text-transform: uppercase !important;
+}
