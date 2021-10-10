@@ -956,7 +956,7 @@ table.table-grid.fathgrid tfoot th:empty {
 }
 
 #UserZsAdminForm #form-app fieldset > .items-container > div:first-child {
-	padding: 10px 0 10px;
+	padding: 10px 0 30px;
     max-width: 462px;
     position: relative;
 }
@@ -1262,13 +1262,17 @@ table.table-grid.fathgrid tfoot th:empty {
 	min-width: 40px;
 }
 
-
 .form-detail-table-container > .detail-wrapper > .detail-table  .column > div  {
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	max-width: 250px;
 	text-align: center;
+}
+
+.form-detail-table-container > .detail-wrapper > .detail-table  .column:hover > div  {
+	white-space: pre-wrap;
+	text-overflow: unset;
 }
 
 .form-detail-table-container > .detail-wrapper > .detail-table  .column > div.left  {

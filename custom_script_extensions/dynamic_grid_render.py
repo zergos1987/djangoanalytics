@@ -221,30 +221,33 @@ def dynamic_datagrid(
 					let tmp_merge_item = item;
 					let tmp_merge_item_keys = Object.keys(tmp_merge_item[0]);
 					if (tmp_merge_item.length > 0) {
-						for (h=0; h < tmp_merge_item.length; h++) {
-							let row_keys_values = []
-							let row_vals = tmp_merge_item[h]
-							for (i=0; i < tmp_merge_item_keys.length; i++) {
-								let k = tmp_merge_item_keys[i]
-								row_keys_values.push(row_vals[k])
-							}
-							
-							for (r=0; r < click_items_tbody.length; r++) {
-								let _tr = click_items_tbody.eq(r);       
-								if (row_keys_values.length === 1) {
-									if ((_tr).is(':contains(' + row_keys_values[0] +')')) {
-										(_tr).addClass('dict-selected-item');
-										//console.log('1111111111111111111')
+						if (tmp_merge_item[0]['id'] != 0) {
+						//console.log('0000000000000000', tmp_merge_item)
+							for (h=0; h < tmp_merge_item.length; h++) {
+								let row_keys_values = []
+								let row_vals = tmp_merge_item[h]
+								for (i=0; i < tmp_merge_item_keys.length; i++) {
+									let k = tmp_merge_item_keys[i]
+									row_keys_values.push(row_vals[k])
+								}
+								
+								for (r=0; r < click_items_tbody.length; r++) {
+									let _tr = click_items_tbody.eq(r);       
+									if (row_keys_values.length === 1) {
+										if ((_tr).is(':contains(' + row_keys_values[0] +')')) {
+											(_tr).addClass('dict-selected-item');
+											//console.log('1111111111111111111', row_keys_values)
+										}
+									}
+									if (row_keys_values.length === 2) {
+										if ((_tr).is(':contains(' + row_keys_values[0] +'):contains(' + row_keys_values[1] +')')) {
+											(_tr).addClass('dict-selected-item');
+											//console.log('2222222222222222222', row_keys_values)
+										}
 									}
 								}
-								if (row_keys_values.length === 2) {
-									if ((_tr).is(':contains(' + row_keys_values[0] +'):contains(' + row_keys_values[1] +')')) {
-										(_tr).addClass('dict-selected-item');
-										//console.log('1111111111111111111')
-									}
-								}
 							}
-						} 
+						}
 					}
 					if (typeof selected_item !== 'undefined') {
 						let click_item = selected_item.parent();

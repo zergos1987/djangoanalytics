@@ -5246,7 +5246,7 @@ text.value-label-white {
   opacity: 0.6;
   box-shadow: 0px 0px 3px 2px rgb(0 0 0 / 20%), -2px -2px 5px 0 rgb(255 255 255 / 55%);
   border: 2px #ffffff dotted;
-  background-image: url(/static/app_opensource_dashboards/origin/res/img/filter_icon.svg);
+  background-image: url(https://djangoanalytics.ru:8000/static/app_opensource_dashboards/origin/res/img/filter_icon.svg);
   background-repeat: no-repeat;
   background-color: transparent;
   box-shadow: none;
@@ -5399,12 +5399,12 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 
 
 ._1ABjV._2tUFa._1BBNM .LegendItem {
-  font-size: 0.85em;
+  font-size: 0.8em;
   align-self: center;
 }
 
 ._1ABjV._2tUFa._1BBNM .LegendItem > div.flex > div {
-  font-size: 0.7em;
+  font-size: 0.9em !important;
 }
 
 .text-brand-hover.LegendItem > div.flex > div {
@@ -5436,14 +5436,17 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 .TableInteractive-headerCellData.cellData.text-brand-hover.text-medium > div {
   position: relative;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
+  /*flex-direction: row-reverse;*/
   align-items: center;
   font-size: 0.9em;
+  user-select: none;
 }
 
 .TableInteractive-headerCellData.cellData.text-brand-hover.text-medium > div > svg {
   margin: 0 !important;
-  margin-left: 10px !important;
+  /*margin-left: 10px !important;*/
+  margin-right: 5px !important;
   position: unset !important;
 }
 
@@ -5468,7 +5471,7 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 
 .TableInteractive-headerCellData.cellData.text-brand-hover.text-medium.text-right > div > div {
   white-space: pre-line !important;
-  min-width: 50px;
+  /*min-width: 50px;*/
 }
 
 .EmbedFrame-header ._20z_B.pg3LL input {

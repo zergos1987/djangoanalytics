@@ -244,7 +244,7 @@ def get_table_settings(table_name, url_for_render, request):
 				'db_name': 'user__id', 
 				'grid_header_name': 'id',
 				'grid_column_props': {
-					'label': '',
+					'label': '', 
 					'class': 'text-center',
 					'disabled': 'true',
 					'pattern': '[0-9]{1,10}',

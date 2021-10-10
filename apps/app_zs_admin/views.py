@@ -267,7 +267,7 @@ def notification_events_publication(request):
 	if not user_content_has_permission: raise PermissionDenied()
 
 	form_detail_list = {'id': 'detail_notificationCreationForm', 'data': ''}
-	form_detail_list['data'] = notification_events.objects.filter(is_actual=True).all()
+	form_detail_list['data'] = notification_events.objects.all() #.filter(is_actual=True)
 	
 	if request.method == 'POST':
 		form = notificationCreationForm(request.POST)
