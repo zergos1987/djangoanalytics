@@ -312,7 +312,7 @@ span.select2-container li.select2-results__options {
     justify-content: center;
     color: #000;
     cursor: pointer;
-    z-index: 1;
+    z-index: 4;
     margin-left: -15px;
     font-family: inherit;
 }
@@ -704,6 +704,12 @@ table.table-grid.fathgrid thead tr th {
 
 table.table-grid.fathgrid thead tr.filter th {
 	padding: 4px;
+}
+
+table.table-grid.fathgrid thead tr:not(.filter) th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 table.table-grid.fathgrid thead tr.filter th:empty {
