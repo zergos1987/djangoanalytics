@@ -425,27 +425,38 @@ class notificationCreationForm(forms.ModelForm):
 	title = forms.CharField(
 		label=u"notificationCreationForm",
 		max_length=254, 
-		required=True)
+		required=True,
+		widget=forms.TextInput(attrs={
+			'data-title': 'title'
+			})
+		)
 	event_content = forms.CharField(
 		label=u"Контент",
 		required=False,
-		widget=forms.Textarea)
+		widget=forms.Textarea(attrs={
+			'data-event_content': 'event_content'
+			})
+		)
 	event_content2 = forms.CharField(
 		label=u"Контент (расширенный формат)",
 		required=False,
-		widget=CKEditorWidget()
+		widget=CKEditorWidget(attrs={
+			'data-event_content2': 'event_content2'
+			})
 		)
 	content_m2m = custom_ModelMultipleChoiceField(
 		queryset=User.objects.filter(is_active=True).all(),
+		required=False,
 		label=u"Пользователи",
-		widget=FilteredSelectMultiple(u"", is_stacked=False),
-		required=False)
+		widget=FilteredSelectMultiple(u"", is_stacked=False, attrs={
+            'data-users_list': 'users_list'
+        }),)
 	is_actual = forms.BooleanField(
 		label=u"Опубликовать",
 		required=False, 
 		initial=False,
 		widget=forms.CheckboxInput(attrs={
-            'id': 'CheckboxInput_is_actual'
+            'data-is_actual': 'is_actual'
         }),)
 
 	class Meta:

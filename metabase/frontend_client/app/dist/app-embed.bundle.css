@@ -5312,11 +5312,14 @@ table.CtorL tr[data-testid="table-row"] span {
 
 .TableInteractive-headerCellData.cellData.text-brand-hover.text-medium {
   color: #333 !important;
+  background-color: #00000012;
 }
 
 .TableInteractive-headerCellData.cellData.text-brand-hover.text-medium:hover {
   cursor: pointer;
   border-bottom: 1.5px solid rgb(0 8 255);
+  background-color: #33333321;
+  border-radius: 10px;
 }
 
 div.LineAreaBarChart  > div:nth-child(1) > .text-brand-hover.LegendItem.no-decoration.flex.align-center.fullscreen-normal-text.fullscreen-night-text.mr1.cursor-pointer {
