@@ -865,7 +865,7 @@ table.table-grid.fathgrid tfoot th:empty {
 }
 
 .form_frame .selector-available h2, .form_frame .selector-chosen h2 {
-	font-size: 0.8em;
+	font-size: 0.9em;
 	padding-bottom: 10px;
 	align-self: center;
 }
@@ -896,7 +896,7 @@ table.table-grid.fathgrid tfoot th:empty {
 
 #id_content_m2m_add_all_link, #id_content_m2m_remove_all_link {
     text-align: center;
-    font-size: 0.7em;
+    font-size: 0.9em;
 	padding: 2px 0px;
     width: 100%;
     border: 1px solid #cdcdcd;
