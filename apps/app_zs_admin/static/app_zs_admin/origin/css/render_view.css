@@ -1208,7 +1208,7 @@ table.table-grid.fathgrid tfoot th:empty {
 }
 
 .form-detail-table-container > .detail-wrapper > .detail-table {
-	height: 400px;
+	max-height: 400px;
 }
 
 .form-detail-table-container > .detail-wrapper > .detail-table table {
