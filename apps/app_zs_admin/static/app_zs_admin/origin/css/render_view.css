@@ -1193,7 +1193,7 @@ table.table-grid.fathgrid tfoot th:empty {
 	align-items: center;
 }
 
-#notificationCreationForm .form-items-group label:after {
+#notificationCreationForm .form-items-group > label:after {
 	content: ':';
 	font-size: inherit;
 }
