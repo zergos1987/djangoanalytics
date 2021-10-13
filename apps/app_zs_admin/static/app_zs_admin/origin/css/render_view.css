@@ -1031,6 +1031,10 @@ table.table-grid.fathgrid tfoot th:empty {
 	padding-bottom: 20px;
 }
 
+#notificationCreationForm .form-items-group > *:not(label) {
+	align-self: center;
+}
+
 #notificationCreationForm .form-items-group:last-child input,
 #UserZsAdminForm .form-items-group input {
 	position: absolute;
