@@ -5510,6 +5510,15 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
   background-color: #00000006;
 }
 
+.tfpVo._38618._3Dqep > div > a > div > div,
+.tfpVo._38618._3Dqep ._20z_B._38618._3Dqep.pg3LL._2YcmO > div {
+  font-weight: 600;
+  font-size: 1.4vmin !important;
+  text-overflow: ellipsis;
+  color: #565656;
+  opacity: 0.7;
+}
+
 .tether-target.tether-element-attached-center.tether-target-attached-center.tether-element-attached-bottom.tether-target-attached-top.tether-enabled {
   font-size: 0.85em;
 }
