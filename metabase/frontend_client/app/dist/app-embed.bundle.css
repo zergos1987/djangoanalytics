@@ -5482,7 +5482,8 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 
 .TableInteractive-headerCellData.cellData.text-brand-hover.text-medium.text-right > div > div {
   white-space: pre-line !important;
-  /*min-width: 50px;*/
+  min-width: 50px;
+  text-align: left;
 }
 
 .LineAreaBarChart .dc-chart .x-axis-label, .LineAreaBarChart .dc-chart .y-axis-label {
@@ -5514,4 +5515,12 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 
 .tether-target.tether-element-attached-center.tether-target-attached-center.tether-element-attached-bottom.tether-target-attached-top.tether-enabled {
   font-size: 0.85em;
+}
+
+.PopoverBody.PopoverBody--withBackground {
+  border-radius: 15px !important;
+}
+
+.PopoverBody.PopoverBody--tooltip {
+    font-size: 0.9em;
 }
