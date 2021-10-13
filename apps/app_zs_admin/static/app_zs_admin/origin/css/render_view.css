@@ -1189,6 +1189,11 @@ table.table-grid.fathgrid tfoot th:empty {
 	align-items: center;
 }
 
+#notificationCreationForm .form-items-group label:after {
+	content: ':';
+	font-size: inherit;
+}
+
 #cke_id_event_content2 {
 	width: calc(100% - 20px) !important;
 }
