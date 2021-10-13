@@ -5417,11 +5417,12 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 }
 
 ._1ABjV._2tUFa._1BBNM .LegendItem > div.flex > div {
-  font-size: 0.9em !important;
+  color: #5a5a5a;
+  font-family: "Lato", sans-serif !important;
 }
 
 .text-brand-hover.LegendItem > div.flex > div {
-  font-size: 0.95em;
+  font-size: 0.9em;
 }
 
 .dc-chart .grid-line, .dc-chart .axis .grid-line, .dc-chart .grid-line line, .dc-chart .axis .grid-line line {
