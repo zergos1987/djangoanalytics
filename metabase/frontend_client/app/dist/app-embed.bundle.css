@@ -5411,6 +5411,11 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
   font-size: 0.85em;
 }
 
+._1ABjV._2tUFa._1BBNM .LegendItem {
+  font-size: 0.8em;
+  align-self: center;
+}
+
 ._1ABjV._2tUFa._1BBNM .LegendItem > div.flex > div {
   color: #5a5a5a;
   font-family: Roboto;
@@ -5501,6 +5506,11 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 
 .CtorL > thead > tr:first-child th:hover {
   background-color: #00000006;
+}
+
+._20z_B._38618._3Dqep.pg3LL > div.flex-full {
+  display: flex;
+  opacity: 0.7;
 }
 
 ._20z_B._38618._3Dqep.pg3LL > div.flex-full > span,
