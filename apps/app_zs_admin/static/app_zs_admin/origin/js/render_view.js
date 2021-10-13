@@ -130,49 +130,52 @@ function detail_table_events (selector) {
 	$(_detail_table).find('.t-header th').each(function(index) {
 		let _k = (Object.keys($(this).data())[0])
 		let _v = _row_columns.eq(index).text()
-		_data.push({[_k]: _v});
-		let _form_field = _detail_form_id.find(`[data-${_k}]`);
-		if (_k === _form_field.data(_k)) {
-			if (_form_field.data('externalPluginResources')) {
-			} else {
-				if (_form_field.prop("tagName") === 'INPUT') {
-					if (_form_field.attr('type') === 'text') {
-						_form_field.val(_v);
-					}
-					if (_form_field.attr('type') === 'checkbox') {
-						if (_v === 'True') {
-							_form_field.prop('checked', true);
-						} else {
-							_form_field.prop('checked', false);
+		if (_v === '' || _v === null || _v === "None") {
+		} else {
+			_data.push({[_k]: _v});
+			let _form_field = _detail_form_id.find(`[data-${_k}]`);
+			if (_k === _form_field.data(_k)) {
+				if (_form_field.data('externalPluginResources')) {
+				} else {
+					if (_form_field.prop("tagName") === 'INPUT') {
+						if (_form_field.attr('type') === 'text') {
+							_form_field.val(_v);
+						}
+						if (_form_field.attr('type') === 'checkbox') {
+							if (_v === 'True') {
+								_form_field.prop('checked', true);
+							} else {
+								_form_field.prop('checked', false);
+							}
 						}
 					}
-				}
-				if (_form_field.prop("tagName") === 'TEXTAREA') {
-					_form_field.val(_v);
-				}
-				if (_form_field.prop("tagName") === 'SELECT') {
-					if (_form_field.parent().hasClass('selector-available')) {
-						// $('.selector-clearall').click(function() { console.log('AAAAAAAAAAAA') })
-						let clear_m2m_btn_id = _form_field.parent().parent().find('.selector-clearall').attr('id');
-						let append_all_m2m_btn_id = _form_field.parent().parent().find('.selector-add').attr('id');
-						//setTimeout(clear_m2m_field(clear_m2m_btn_id), 1000);
-						m2m_v = _v.split(';');
-						m2m_v.forEach(function(val, idx) {
-							val = val.trimLeft();
-							_form_field.find('option').each(function(index) {
-								if ($(this).text() === val) {
-									let m2m_selected_index = $(this)[0].index;
-									let m2m_selected_id = $(this).parent().attr('id');
-									add_m2m_field(m2m_selected_id, m2m_selected_index);
-									console.log(m2m_selected_id, $(this)[0].index, $(this).text(), _form_field.parent().parent().find('.selector-clearall'));
-									return false;
-								}
-							});
-						});
-						setTimeout(append_all_m2m_field(append_all_m2m_btn_id), 1000);
+					if (_form_field.prop("tagName") === 'TEXTAREA') {
+						_form_field.val(_v);
 					}
+					if (_form_field.prop("tagName") === 'SELECT') {
+						if (_form_field.parent().hasClass('selector-available')) {
+							// $('.selector-clearall').click(function() { console.log('AAAAAAAAAAAA') })
+							let clear_m2m_btn_id = _form_field.parent().parent().find('.selector-clearall').attr('id');
+							let append_all_m2m_btn_id = _form_field.parent().parent().find('.selector-add').attr('id');
+							//setTimeout(clear_m2m_field(clear_m2m_btn_id), 1000);
+							m2m_v = _v.split(';');
+							m2m_v.forEach(function(val, idx) {
+								val = val.trimLeft();
+								_form_field.find('option').each(function(index) {
+									if ($(this).text() === val) {
+										let m2m_selected_index = $(this)[0].index;
+										let m2m_selected_id = $(this).parent().attr('id');
+										add_m2m_field(m2m_selected_id, m2m_selected_index);
+										console.log(m2m_selected_id, $(this)[0].index, $(this).text(), _form_field.parent().parent().find('.selector-clearall'));
+										return false;
+									}
+								});
+							});
+							setTimeout(append_all_m2m_field(append_all_m2m_btn_id), 1000);
+						}
+					}
+					//console.log(_k, _form_field.data(_k), _form_field.prop("tagName"))
 				}
-				//console.log(_k, _form_field.data(_k), _form_field.prop("tagName"))
 			}
 		}
 	});
