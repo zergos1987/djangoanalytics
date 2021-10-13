@@ -1139,6 +1139,7 @@ table.table-grid.fathgrid tfoot th:empty {
 /*notificationCreationForm*/
 #notificationCreationForm {
 	margin: 0 auto;
+	max-width: 650px;
 }
 
 #notificationCreationForm > form {
