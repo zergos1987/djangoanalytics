@@ -793,6 +793,7 @@ table.table-grid.fathgrid tfoot th:empty {
 	align-items: center;
 	padding-top: 10px;
 	width: 100%;
+	min-width: 400px;
 }
 
 #notificationCreationForm .selector {
