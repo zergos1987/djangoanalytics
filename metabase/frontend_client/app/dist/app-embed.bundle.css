@@ -5509,3 +5509,7 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 .CtorL > thead > tr:first-child th:hover {
   background-color: #00000006;
 }
+
+.tether-target.tether-element-attached-center.tether-target-attached-center.tether-element-attached-bottom.tether-target-attached-top.tether-enabled {
+  font-size: 0.85em;
+}
