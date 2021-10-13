@@ -139,7 +139,7 @@ class aside_left_menu_includes(models.Model):
 			self.external_href = '#'
 
 		if self.menu_icon_type == 'folder':
-			if self.source_app_name_translate.name == 'Дашборды' and self.source_type == 'external':
+			if self.source_app_name_translate.name == 'Дашборды' and self.source_type == 'external' and 'http' not in self.external_href:
 				self.href = 'mb'
 			if not 'http' in self.external_href:
 				self.external_href = self.name
@@ -399,11 +399,39 @@ class etl_job_database_tables_tasks_logs(models.Model):
 		super(etl_job_database_tables_tasks_logs, self).save(*args, **kwargs)
 
 	def __str__(self):
+		if self.etl_job_database_tables_tasks_fk.table_name_prefix:
+			table_name_prefix = self.etl_job_database_tables_tasks_fk.table_name_prefix + '_'
+		else:
+			table_name_prefix = ''
 		if self.updated_at:
-			updated_at = self.updated_at.strftime("%B %d %Y %I:%M %p")
+			updated_at = self.updated_at.strftime("%m.%d.%Y, %H:%M:%S")
 		else:
 			updated_at = self.updated_at
+
+		if self.error_message:
+			if len(self.error_message) > 0: error_message = 1
+		else:
+			error_message = 0
+
+		to_ = (
+			'[TO]: ' +
+			self.etl_job_database_tables_tasks_fk.database_name_to + '.' +
+			self.etl_job_database_tables_tasks_fk.table_schema_to + '.' +
+			table_name_prefix +
+			self.etl_job_database_tables_tasks_fk.table_name_from
+			)
+		from_ = (
+			'[FROM]: ' +
+			self.etl_job_database_tables_tasks_fk.database_name_from + '.' +
+			self.etl_job_database_tables_tasks_fk.table_schema_from + '.' +
+			self.etl_job_database_tables_tasks_fk.table_name_from
+			)
 		return (
-			self.etl_job_database_tables_tasks_fk.database_name_from + '.' +  self.etl_job_database_tables_tasks_fk.table_schema_from + '.' + self.etl_job_database_tables_tasks_fk.table_name_from + ' | ' + 
-			str(updated_at) + ' | ' + 
-			str(self.table_rows_count))  
+			'[HAVE ERRORS]: ' + str(error_message) + ' ' +
+			'[DATE]: ' + updated_at + ' ' +
+			' [ID]: ' + str(self.etl_job_database_tables_tasks_fk.id) + ' ' +
+			from_ + 
+			' >>> ' + 
+			to_ + ' ' + 
+			' [ROWS]: ' + str(self.table_rows_count)
+			)
