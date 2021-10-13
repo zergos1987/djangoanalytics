@@ -1348,6 +1348,8 @@ table.table-grid.fathgrid tfoot th:empty {
 .extra_menu > button > svg {
 	fill: #fff;
 	padding: 3px;
+	height: calc(100% - 0px);
+	width: calc(100% - 0px);
 }
 /*MEDIA ================================================================== */
 
