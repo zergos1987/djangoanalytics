@@ -5135,12 +5135,23 @@ text.value-label-white {
   border-radius: 7px !important;
   cursor: pointer;
 }
+
 .tfpVo._38618._3Dqep legend {    
   position: relative !important;
   margin-bottom: 0px !important;
-  color: #000;
-  background-color: #e3e3e3;
+  color: rgb(0, 0, 0);
+  font-size: 0.75em;
+  background-color: #ffffff;
+  border-radius: 11px;
+  border: 1px solid rgb(147 147 147) !important;
+  padding: 0 11px;
+  height: 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
+
 .PopoverContainer {
   top: 1px !important;
 }
@@ -5487,4 +5498,13 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
     letter-spacing: 0.5px !important;
     font-family: serif;
     text-transform: uppercase !important;
+}
+
+.CtorL > thead > tr:first-child {
+  background-color: rgba(179, 179, 179, 0.12);
+  box-shadow: rgba(210, 210, 210, 0.69) 0px 1px 0px 0px inset, rgba(230, 230, 230, 0.68) -3px -2px 4px 0px inset, rgba(255, 255, 255, 0.5) -3px -3px 6px 1px inset;
+}
+
+.CtorL > thead > tr:first-child th:hover {
+  background-color: #00000006;
 }
