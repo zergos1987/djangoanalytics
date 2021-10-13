@@ -871,6 +871,10 @@ table.table-grid.fathgrid tfoot th:empty {
 	align-self: center;
 }
 
+#ContentpublicationsForm .selector-available h2, #ContentpublicationsForm .selector-chosen h2 {
+	font-size: 0.7em;
+}
+
 #id_content_m2m_filter {
 	line-height: 32px;
 	text-indent: 35px;
@@ -907,6 +911,10 @@ table.table-grid.fathgrid tfoot th:empty {
     color: #0f89d0;
     cursor: pointer;
     border-radius: 0 0 7px 7px;
+}
+
+#ContentpublicationsForm #id_content_m2m_add_all_link, #ContentpublicationsForm #id_content_m2m_remove_all_link {
+    font-size: 0.7em;
 }
 
 #id_content_m2m_add_all_link:hover, #id_content_m2m_remove_all_link:hover {
