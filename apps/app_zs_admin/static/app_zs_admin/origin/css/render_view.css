@@ -978,6 +978,10 @@ table.table-grid.fathgrid tfoot th:empty {
     position: relative;
 }
 
+#UserZsAdminForm #form-app fieldset > .items-container > div:only-child {
+	padding: 10px 0 10px;
+}
+
 #notificationCreationForm #form-app fieldset > .items-container > div:nth-child(2),
 #UserZsAdminForm #form-app fieldset > .items-container > div:nth-child(2) {
 	padding-top: 0px;
