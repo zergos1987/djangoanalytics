@@ -1263,6 +1263,7 @@ table.table-grid.fathgrid tfoot th:empty {
 .form-detail-table-container > .detail-wrapper > .detail-table  td.column:first-child {
 	z-index: 1;
 	background-color: #f7f7f7;
+	height: fit-content;
 }
 
 .form-detail-table-container > .detail-wrapper > .detail-table th.column:first-child:after,
