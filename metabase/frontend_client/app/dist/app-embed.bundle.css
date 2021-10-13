@@ -5488,11 +5488,6 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
   /*min-width: 50px;*/
 }
 
-.EmbedFrame-header ._20z_B.pg3LL input {
-    font-size: 1.5vmin !important;
-    text-overflow: ellipsis;
-}
-
 .LineAreaBarChart .dc-chart .x-axis-label, .LineAreaBarChart .dc-chart .y-axis-label {
     fill: #8a8a8a !important;
     font-size: 0.7em !important;
@@ -5510,6 +5505,7 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
   background-color: #00000006;
 }
 
+.EmbedFrame-header ._20z_B.pg3LL input,
 .tfpVo._38618._3Dqep > div > a > div > div,
 .tfpVo._38618._3Dqep ._20z_B._38618._3Dqep.pg3LL._2YcmO > div {
   font-weight: 600;
