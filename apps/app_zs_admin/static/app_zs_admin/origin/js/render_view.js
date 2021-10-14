@@ -130,7 +130,7 @@ function detail_table_events (selector) {
 	$(_detail_table).find('.t-header th').each(function(index) {
 		let _k = (Object.keys($(this).data())[0])
 		let _v = _row_columns.eq(index).text()
-		if (_v === "None") {
+		if (_v === '' || _v === null || _v === "None") {
 		} else {
 			_data.push({[_k]: _v});
 			let _form_field = _detail_form_id.find(`[data-${_k}]`);
