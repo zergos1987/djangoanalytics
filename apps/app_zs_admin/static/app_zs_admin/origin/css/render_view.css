@@ -1363,7 +1363,7 @@ table.table-grid.fathgrid tfoot th:empty {
 
 .show_edit_form {
     width: 19px;
-    height: 19px;
+    height: 100%;
     cursor: pointer;
     background-color: #2ee173;
 }
