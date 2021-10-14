@@ -162,7 +162,7 @@ span.select2-container li.select2-results__options {
 	height: 100%;
 	justify-content: center;
 	border-radius: 15px;
-	z-index: 1;
+	z-index: 4;
 }
 
 .table-grid-container:not(.grid-closed):not(:first-child) {
@@ -1363,7 +1363,7 @@ table.table-grid.fathgrid tfoot th:empty {
 
 .show_edit_form {
     width: 19px;
-    height: 19px;
+    height: 100%;
     cursor: pointer;
     background-color: #2ee173;
 }
