@@ -98,24 +98,20 @@ $('.form-detail-table-container tbody tr td:nth-child(1)').off('hover').hover(fu
 
 
 function clear_m2m_field(id) {
-	let element = document.getElementById(id);
-	console.log(element)
-	element.dispatchEvent(new Event("click"));
-}
-
-
-function append_all_m2m_field(id) {
-	let element = document.getElementById(id);
-	console.log(element)
-	element.dispatchEvent(new Event("click"));
+	let element = $('#'+id)
+	let selector_available = element.parent().parent().parent().find('.selector-available select')
+	let options_for_unselected = element.parent().find('option');
+	for (var i = 0; i < options_for_unselected.length; i++) {
+		console.log('FFFFFFF', options_for_unselected.eq(i))
+		selector_available.append(options_for_unselected.eq(i));
+	}
 }
 
 
 function add_m2m_field(id, index) {
-	let element = document.querySelectorAll(`#${id} option`)[index];
-	element.selected = true;
-	document.getElementById('id_content_m2m_add_link').dispatchEvent(new Event("click"));
-	console.log(element);
+	let element = $(`#${id} option`).eq(index);
+	let selector_available = element.parent().parent().parent().find('.selector-chosen select')
+	selector_available.append(element);
 }
 
 
@@ -130,7 +126,8 @@ function detail_table_events (selector) {
 	$(_detail_table).find('.t-header th').each(function(index) {
 		let _k = (Object.keys($(this).data())[0])
 		let _v = _row_columns.eq(index).text()
-		if (_v === '' || _v === null || _v === "None") {
+		if (_v === "None") {
+			console.log(_k, _v)
 		} else {
 			_data.push({[_k]: _v});
 			let _form_field = _detail_form_id.find(`[data-${_k}]`);
@@ -154,10 +151,8 @@ function detail_table_events (selector) {
 					}
 					if (_form_field.prop("tagName") === 'SELECT') {
 						if (_form_field.parent().hasClass('selector-available')) {
-							// $('.selector-clearall').click(function() { console.log('AAAAAAAAAAAA') })
 							let clear_m2m_btn_id = _form_field.parent().parent().find('.selector-clearall').attr('id');
-							let append_all_m2m_btn_id = _form_field.parent().parent().find('.selector-add').attr('id');
-							//setTimeout(clear_m2m_field(clear_m2m_btn_id), 1000);
+							setTimeout(clear_m2m_field(clear_m2m_btn_id), 1000);
 							m2m_v = _v.split(';');
 							m2m_v.forEach(function(val, idx) {
 								val = val.trimLeft();
@@ -166,15 +161,12 @@ function detail_table_events (selector) {
 										let m2m_selected_index = $(this)[0].index;
 										let m2m_selected_id = $(this).parent().attr('id');
 										add_m2m_field(m2m_selected_id, m2m_selected_index);
-										console.log(m2m_selected_id, $(this)[0].index, $(this).text(), _form_field.parent().parent().find('.selector-clearall'));
 										return false;
 									}
 								});
 							});
-							setTimeout(append_all_m2m_field(append_all_m2m_btn_id), 1000);
 						}
 					}
-					//console.log(_k, _form_field.data(_k), _form_field.prop("tagName"))
 				}
 			}
 		}
