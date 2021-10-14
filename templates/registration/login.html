@@ -1,117 +1,95 @@
-{% extends "base.html" %}
-
-{% block registration %}
-
-<div class="row justify-content-center align-items-center">
-  <div class="col-lg-4 col-md-6 col-sm-8">
-    <div class="card">
-      <div class="card-body">
-
-        <form method="post" action="{% url 'login' %}">
-          {% csrf_token %}
-
-          <div class="form-group">
-            {{ form.username.label_tag }}
-            <div class="input-group mb-2">
-              <span class="input-group-addon">
-                <i class="">
-                  <img draggable="false" src="/static/registration/origin/res/log.png">
-                </i>
-              </span>
-              <input class="form-control" type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="150" required="" id="id_username">
-            </div>
-          </div>
-
-          <div class="form-group">
-            {{ form.password.label_tag }}
-            <div class="input-group mb-2">
-              <span class="input-group-addon">
-                <i class="">
-                  <img draggable="false" src="/static/registration/origin/res/psw.png">
-                </i>
-              </span>
-              <input class="form-control" type="password" name="password" autocomplete="current-password" required="" id="id_password">
-            </div>
-          </div>
-
-          <input type="submit" value="Вход" class="btn btn-primary btn-block"/>
-          <input type="hidden" name="next" value="{{ next }}" />
-        </form>
-
-      </div>
-        <div class="card-footer text-muted text-center">
-          <small>Новый пользователь?
-            <a href="{% url 'signup' %}">Регистрация</a>
-          </small>
-      </div>
-    </div>
-    <div class="text-center py-2 text-white d-flex flex-column ">
-
-      {% if form.errors %}
-        <p>Имя пользователя или пароль некорректны. Пожалуйста, попробуйте еще раз.</p>
-        {# Assumes you setup the password_reset view in your URLconf #}
-        <small>
-          <a href="{% url 'password_reset' %}" class="mod1 text-important">Забыли пароль?</a>
-        </small>
-      {% else %}
-      {% endif %}
-
-    </div>
-  </div>
-</div>
+{% extends "registration\base.html" %}
 
 
+{% block header %}{{ block.super }}{% endblock header %}
+{% block login_header %}Вход{% endblock login_header %}
 
-
-
-{% if 1 == 2 %}
+{% block login_container %}
+{% csrf_token %}
 
 {% if user.is_authenticated %}
-  <p>logged in as {{ user }}</p>
-  <p><a href="{% url 'logout' %}?next=/accounts/login">logout</a></p>
+  <div class="form-controls">
+    <div class="form_notification active">
+      <div class="message-text info bgblue">ВЫ уже авторизованы.</div>
+    </div>
+  </div>
+  <button type="submit" class="submit" value="Выйти">
+    <a href="{% url 'logout' %}">выйти?</a>
+  </button>
 {% else %}
-  <p>Welcome, new user. Please log in:</p>
-{% endif %}
 
+  {% for field in form %}
+    {% if field.name == 'username' %}
+    <div class="input-container">
+      <input  id="id_username" class="input" type="text" name="username" maxlength="150" autocapitalize="none" placeholder=" " required />
+      {% if field.help_text %}
+        <div class="input_help_info">{{ field.help_text }}</div>
+      {% endif %}
+      {% for error in field.errors %}
+        <div class="input_help_info error">{{ error }}</div>
+      {% endfor %}
+      <div class="cut"></div>
+      <label for="id_username" class="placeholder">Логин</label>
+    </div>
+    {% endif %}
+  {% endfor %}
 
+  {% for field in form %}
+    {% if field.name == 'password' %}
+    <div class="input-container">
+      <input id="id_password" class="input" type="password" name="password" autocomplete="current-password" placeholder=" " required/>
+      {% if field.help_text %}
+        <div class="input_help_info">{{ field.help_text }}</div>
+      {% endif %}
+      {% for error in field.errors %}
+        <div class="input_help_info error">{{ error }}</div>
+      {% endfor %}
+      <div class="cut"></div>
+      <label for="id_password" class="placeholder">Пароль</label>
+    </div>
+    {% endif %}
+  {% endfor %}
 
-{% if form.errors %}
-  <p>Your username and password didn't match. Please try again.</p>
-  {# Assumes you setup the password_reset view in your URLconf #}
-  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-{% endif %}
+  <div class="form-controls">
+    <div class="form_notification {% if form.errors or next and not user.is_authenticated %}active{% endif %}">
+        {% spaceless %}
+        {% if form.errors %}
+        <div class="message-text">
+          {% for field, errors in form.errors.items %}
+            {% for error in errors %}
+              {{error}}
+            {% endfor %}
+          {% endfor %}
+        </div>
+        {% endif %}
 
-{% if next %}
-  {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
-  {% else %}
-    <p>Please login to see this page.</p>
+        {% if next %}
+        <div class="message-text info bgblue">
+          {% if user.is_authenticated %}
+            <p>У вашей учётной записи отстуствую права доступа к данной странице.
+          please login with an account that has access.</p>
+          {% else %}
+            <div>Необходимо выполнить авторизацию, чтобы увидеть эту странцу: <div>{{ request.scheme }}://{{ request.META.HTTP_HOST }}{{ next }}</div></div>
+          {% endif %}
+        </div>
+        {% endif %}
+        {% endspaceless %}
+    </div>
+
+    <button type="submit" class="submit" value="Вход">войти</button>
+  {% if 1 == 2 %}
+    <small class="password_reset">
+      <a href="{% url 'password_reset' %}">Забыли пароль?</a>
+    </small>
+    
+    <small class="signup">
+      <div>Ещё нет аккаунта?</div>
+      <a href="{% url 'signup' %}"><div>Зарегистрируйтесь</div></a>
+    </small>
+
+    <input type="hidden" name="next" value="{{ next }}" />
+  </div>
   {% endif %}
 {% endif %}
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-<table>
-  <tr>
-    <td>{{ form.username.label_tag }}</td>
-    <td>{{ form.username }}</td>
-  </tr>
-
-  <tr>
-    <td>{{ form.password.label_tag }}</td>
-    <td>{{ form.password }}</td>
-  </tr>
-</table>
-
-<input type="submit" value="login" />
-<input type="hidden" name="next" value="{{ next }}" />
-</form>
-
-{% endif %}
-
-
-
-
-
-{% endblock %}
+{% endblock login_container %}

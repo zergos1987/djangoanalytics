@@ -1,0 +1,9 @@
+{% spaceless %}
+<div class="items countries">
+    <div class="col">
+{% for contry in contry_data %}
+        <a href="{{contry.href}}" class="row"><span class="country {{contry.name}}"></span>{{contry.label_text}}</a>
+{% endfor %}
+    </div>
+</div>
+{% endspaceless %}

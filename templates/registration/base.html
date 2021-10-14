@@ -1,0 +1,111 @@
+{% extends "app_zs_admin\base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+{% load form_tags %}
+{% load l10n %}
+
+<!-- head -->
+	{% block head_meta_description_text %}authentification page{% endblock head_meta_description_text %}
+	
+	{% block head_title_text %}authentification page{% endblock head_title_text %}
+	
+	{% block head_link_favicon_href %}/media/img/GPB_favicon.ico{% endblock head_link_favicon_href %}
+	<!-- css -->
+		<!-- APP CSS -->
+		{% block css %}
+		<link href="{% static 'accounts/origin/css/registration_base.css' %}" rel="stylesheet">
+		{% endblock css %}
+		<!-- APP VENDOR CSS -->
+		{% block vendor_css %}
+		{% endblock vendor_css %}
+	<!-- css -->
+<!-- end head -->
+
+<!-- body -->
+	<!-- container display mode --> <!-- active --> <!-- fixed --> <!-- container-aside-left-disabled -->  <!-- container-header-disabled --> <!-- container-main-padding-off -->
+	{% block container_display_mode_classname %}container-aside-left-disabled container-header-disabled container-main-padding-off{% endblock container_display_mode_classname %}
+
+		<!-- container-header -->
+			<!-- header-section-left -->
+			{% block header_section_left %}{% endblock header_section_left %}
+			<!-- end header-section-left -->
+
+			<!-- header-section-center -->
+			{% block header_section_center %}{% endblock header_section_center %}
+			<!-- end header-section-center -->
+
+			<!-- header-section-right -->
+			{% block header_section_right %}{% endblock header_section_right %}
+			<!-- end header-section-right -->
+
+			<!-- container-aside-left -->
+			{% block container_aside_left %}{% endblock container_aside_left %}
+			<!-- end container-aside-left -->
+
+			<!-- container-main -->
+            {% block full_screen_mode %}{% endblock full_screen_mode %}
+			{% block container_main %}{{ block.super }}{% endblock container_main %}
+
+				{% block container_main_bg_color %}
+				style="background-color: #fff;"
+				{% endblock container_main_bg_color %}
+
+				{% block breadcrumb %}{% endblock breadcrumb %}
+
+				{% block container_main_content %}
+				<div class="registration-bg">
+				    <canvas id="nodes"></canvas>
+				</div>
+				<div class="registration-container">
+					<div class="wrapper">
+						<form class="form" method="post" action="">
+						{% block header %}
+						<div class="header">
+							<div class="brand-block">
+								<a href="/" class="logo" title="">
+								    <img src="/static/app_zs_admin/origin/res/img/GPB_logo.png" class="brand-logo" style="zoom: 1;">
+								    <span style="color: #162E89;">Газпромбанк</span>
+								</a>
+							</div>
+							<div class="login-header">{% block login_header %}login_header{% endblock login_header %}</div>
+						</div>
+						{% endblock header %}
+
+						{% block signup_container %}
+						{% endblock signup_container %}
+
+						{% block login_container %}
+						{% endblock login_container %}
+
+						{% block password_reset_container %}
+						{% endblock password_reset_container %}
+						</form>
+					</div>
+				</div>
+				{% endblock container_main_content %}
+			<!-- end container-main -->
+
+			<!-- container-footer -->
+			<!-- container-footer -->
+
+		<!-- end container-header -->
+
+	<!-- end container display mode --> 
+
+	<!-- block JS --> 
+    {% block head_js %}{{ block.super }}{% endblock head_js %}
+        <!-- BASE JS -->
+        <!-- APP JS -->
+		{% block js %}
+		<script src="{% static 'accounts/vendor/registration_background/js/nodes.js'%}"></script>
+		<script src="{% static 'accounts/origin/js/registration_base.js'%}"></script>
+		{% endblock js %}
+        <!-- APP VENDOR JS -->
+		{% block vendor_js %}
+		{% endblock vendor_js %}
+    <!-- end block JS --> 
+<!-- end body -->
+<!-- APP JS -->
+
+<!-- APP VENDOR JS -->
+

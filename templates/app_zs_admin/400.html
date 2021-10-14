@@ -1,0 +1,160 @@
+{% extends "app_zs_admin\base.html" %}
+{% load static %}
+{% load l10n %}
+{% load template_filters %}
+
+
+
+<!-- doctype html lang -->
+	{% block html_lang_text %}{% if app_settings.app_settings_html_lang_code %}{{ app_settings.app_settings_html_lang_code }}{% else %}{{ block.super }}{% endif %}{% endblock html_lang_text %}
+<!-- end doctype html lang -->
+
+
+<!-- head -->
+	{% block head_meta_charset_text %}{% if app_settings.app_settings_meta_charset_code %}{{ app_settings.app_settings_meta_charset_code }}{% else %}{{ block.super }}{% endif %}{% endblock head_meta_charset_text %}
+
+	{% block head_meta_viewport_block %}{{ block.super }}{% endblock head_meta_viewport_block %}
+	
+	{% block head_meta_description_text %}{% if app_settings.app_settings_meta_author_description.description %}{{ app_settings.app_settings_meta_author_description.description }}{% else %}{{ block.super }}{% endif %}{% endblock head_meta_description_text %}
+	
+	{% block head_meta_author_text %}{% if app_settings.app_settings_meta_author_description.author_name %}{{ app_settings.app_settings_meta_author_description.author_name }}{% else %}{{ block.super }}{% endif %}{% endblock head_meta_author_text %}
+	
+	{% block head_title_text %}{% if app_settings.app_brand_name %}{{ app_settings.app_brand_name }}{% else %}{{ block.super }}{% endif %}{% endblock head_title_text %}
+	
+	{% block head_link_favicon_href %}{% if app_settings.app_brand_ico %}/media/{{ app_settings.app_brand_ico }}{% else %}{{ block.super }}{% endif %}{% endblock head_link_favicon_href %}
+	<!-- css -->
+	{% block head_css %}{{ block.super }}{% endblock head_css %}
+	    <!-- APP CSS -->
+	    {% block css %}{{ block.super }}
+		<link href="{% static 'app_zs_admin/origin/css/index.css' %}" rel="stylesheet">
+		{% endblock css %}
+	    <!-- APP VENDOR CSS -->
+	    {% block vendor_css %}{{ block.super }}{% endblock vendor_css %}
+	<!-- css -->
+<!-- end head -->
+
+
+<!-- body -->
+	<!-- container display mode --> <!-- active --> <!-- fixed --> <!-- container-aside-left-disabled -->  <!-- container-header-disabled --> <!--  container-main-padding-off --> 
+	{% block container_display_mode_classname %}
+		{% spaceless %}
+		{% if app_settings.app_settings_container_display_mode.all != None %}
+			{% for container_mode in app_settings.app_settings_container_display_mode.all %}
+				{{ container_mode.name }}
+			{% endfor %}
+		{% else %}
+			active
+		{% endif %}
+		{% endspaceless %}
+    {% endblock container_display_mode_classname %}
+
+		<!-- container-header -->
+			<!-- header-section-left -->
+			{% block header_section_left %}{% if app_settings.app_settings_header_section_left_enable %}{{ block.super }}{% endif %}{% endblock header_section_left %}
+				{% block header_section_left_button_menu %}{% if app_settings.app_settings_header_section_left_button_menu_enable %}{{ block.super }}{% endif %}{% endblock header_section_left_button_menu %}
+				
+				{% block header_section_left_brand_details %}{% if app_settings.app_settings_header_section_left_brand_details_enable %}{{ block.super }}{% endif %}{% endblock header_section_left_brand_details %}
+					
+					{% block brand_details_logo_url %}{% if app_settings.app_brand_logo %}/media/{{ app_settings.app_brand_logo }}{% else %}{{ block.super }}{% endif %}{% endblock brand_details_logo_url %}
+						
+						{% block header_section_left_brand_details_logo_zoom %}{% if app_settings.app_brand_logo_zoom %}{{ app_settings.app_brand_logo_zoom|unlocalize }}{% else %}{{ block.super }}{% endif %}{% endblock header_section_left_brand_details_logo_zoom %}
+					
+					{% block header_section_left_brand_details_title_help %}{% if app_settings.app_brand_name %}{{ app_settings.app_brand_name }}{% else %}{{ block.super }}{% endif %}{% endblock header_section_left_brand_details_title_help %}
+					{% block header_section_left_brand_details_title %}{% if app_settings.app_brand_name %}{{ app_settings.app_brand_name }}{% else %}{{ block.super }}{% endif %}{% endblock header_section_left_brand_details_title %}
+						
+						{% block header_section_left_brand_details_title_color %}{% if app_settings.app_brand_color %}{{ app_settings.app_brand_color }}{% else %}{{ block.super }}{% endif %}{% endblock header_section_left_brand_details_title_color %}
+			<!-- end header-section-left -->
+
+			<!-- header-section-center -->
+			{% block header_section_center %}{% if app_settings.app_settings_header_section_center_enable %}{{ block.super }}{% endif %}{% endblock header_section_center %}
+			<!-- end header-section-center -->
+
+			<!-- header-section-right -->
+			{% block header_section_right %}{% if app_settings.app_settings_header_section_right_enable %}{{ block.super }}{% endif %}{% endblock header_section_right %}
+
+				{% block header_section_right_search_extra_button %}{% if app_settings.app_settings_header_section_right_search_extra_button_enable and app_settings.app_settings_header_section_center_enable %}{{ block.super }}{% endif %}{% endblock header_section_right_search_extra_button %}
+				
+				{% block header_section_right_notification %}{% if app_settings.app_settings_header_section_right_notification_enable %}{{ block.super }}{% endif %}{% endblock header_section_right_notification %}
+				{% block header_section_right_notification_items_count %}
+				{% if app_events and app_events.actual.count > 0 %}
+				<div class="notification-count">{% if app_events.actual.count > 9%}+9{% else %}{{app_events.actual.count}}{% endif %}</div>
+				<script type="text/javascript">setTimeout(function() {notification_event_confirm=0},1000);</script>
+				{% endif %}
+				{% endblock header_section_right_notification_items_count %}
+				{% block header_section_right_notification_items %}
+					{% if app_events %}
+						{% include "app_zs_admin/include/header_section_right_notification_includes.html" with events_actual=app_events.actual events_previews=app_events.previews %}
+					{% else %}
+	                    <div class="row divider"></div>
+	                    <div class="row">
+	                        <div class="notification_container">
+	                            <div class="block-content">Новых уведомлений нет</div>
+	                        </div>
+	                    </div>
+					{% endif %}
+				{% endblock header_section_right_notification_items %}
+
+				{% block header_section_right_user_settings %}{% if app_settings.app_settings_header_section_right_user_settings_enable %}{{ block.super }}{% endif %}{% endblock header_section_right_user_settings %}
+
+					{% block header_section_right_user_settings_locale %}
+						{% if app_settings.app_settings_header_section_right_user_settings_locale_enable %}
+					        {% if app_settings.app_settings_header_section_right_user_settings_locale_includes.all %}
+					        	{% include "app_zs_admin/include/header_section_right_user_settings_locale_includes.html" with contry_data=app_settings.app_settings_header_section_right_user_settings_locale_includes.all %}
+					        {% else %}
+					        	{{ block.super }}
+					        {% endif %}
+				        {% endif %}
+					{% endblock header_section_right_user_settings_locale %}
+
+					{% block header_section_right_user_settings_menu %}{% if app_settings.app_settings_header_section_right_user_settings_menu_enable %}{{ block.super }}{% endif %}{% endblock header_section_right_user_settings_menu %}
+
+			<!-- end header-section-right -->
+
+			<!-- container-aside-left -->
+			{% block main_site_page %}{% if app_settings.app_settings_container_aside_left_main_site_page %}/{{app_settings.app_settings_container_aside_left_main_site_page}}/{% else %}{{ block.super }}{% endif %}{% endblock main_site_page %}
+
+			{% block container_aside_left %}
+				{% if app_settings.app_settings_container_aside_left_menu_items_includes.all %}
+					{% include "app_zs_admin/include/container_aside_left_menu_includes.html" with menu_items=app_settings.app_settings_container_aside_left_menu_items_includes.all %}
+				{% else %}
+					{{ block.super }}
+				{% endif %}
+			{% endblock container_aside_left %}
+			<!-- end container-aside-left -->
+
+			<!-- container-main -->
+    		{% block full_screen_mode %}{% endblock full_screen_mode %}
+			{% block container_main %}{{ block.super }}{% endblock container_main %}
+
+				{% block container_main_bg_color %}
+					{% if app_settings.app_settings_container_main_bg_color_enable %}
+						style="background-color: {{app_settings.app_settings_container_main_bg_color}};"
+			        {% endif %}
+				{% endblock container_main_bg_color %}
+
+				{% block breadcrumb %}{{ block.super }}{% endblock breadcrumb %}
+				 	{% block breadcrumb_items %}{% endblock breadcrumb_items %}
+
+			{% block container_main_content %}
+			<div class="render_view">{% spaceless %}<h1>400. Bad Request.</h1>{% endspaceless %}</div>
+			{% endblock container_main_content %}
+			<!-- end container-main -->
+
+			<!-- container-footer -->
+			<!-- container-footer -->
+
+		<!-- end container-header -->
+
+	<!-- end container display mode --> 
+
+	<!-- block JS --> 
+    {% block head_js %}{{ block.super }}{% endblock head_js %}
+        <!-- BASE JS -->
+        <!-- APP JS -->
+        {% block js %}{{ block.super }}
+        <script src="{% static 'app_zs_admin/origin/js/index.js'%}"></script>
+        {% endblock js %}
+        <!-- APP VENDOR JS -->
+        {% block vendor_js %}{{ block.super }}{% endblock vendor_js %}
+    <!-- end block JS --> 
+<!-- end body -->

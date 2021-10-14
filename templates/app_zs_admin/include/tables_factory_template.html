@@ -1,0 +1,15 @@
+{% spaceless %}
+{% for link in media.css %}
+    <link href="{{link}}" rel="stylesheet">
+{% endfor %}
+
+{{table.html|safe}}
+
+{% for src in media.js %}
+    {% spaceless %}
+        <script src="{{src}}"></script>
+    {% endspaceless %}
+{% endfor %}
+
+{{js|safe}}
+{% endspaceless %}

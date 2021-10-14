@@ -1,0 +1,55 @@
+{% spaceless %}
+{% if events_actual %}
+<div class="notification-group-new">Новые</div>
+{% else %}
+<div class="row">
+    <div class="notification_container">
+        <div class="block-content">Новых уведомлений нет</div>
+    </div>
+</div>
+{% endif %}
+{% for item in events_actual %}
+{% if forloop.first %}
+<div class="row">
+    <div class="notification_container">
+        <div class="block-header">{{item.title}}</div>
+        <div class="block-date">{{item.event_date}}</div>
+        <div class="block-content">{%if item.event_content2%}{{item.event_content2|safe}}{% else %}{{item.event_content}}{% endif %}</div>
+    </div>
+</div>
+{% else %}
+<div class="row divider"></div>
+<div class="row">
+    <div class="notification_container">
+        <div class="block-header">{{item.title}}</div>
+        <div class="block-date">{{item.event_date}}</div>
+        <div class="block-content">{%if item.event_content2%}{{item.event_content2|safe}}{% else %}{{item.event_content}}{% endif %}</div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+
+{% if events_previews %}
+<div class="notification-group-old">Предыдушие</div>
+{% endif %}
+{% for item in events_previews %}
+{% if forloop.first %}
+<div class="row">
+    <div class="notification_container old">
+        <div class="block-header">{{item.title}}</div>
+        <div class="block-date">{{item.event_date}}</div>
+        <div class="block-content">{%if item.event_content2%}{{item.event_content2|safe}}{% else %}{{item.event_content}}{% endif %}</div>
+    </div>
+</div>
+{% else %}
+<div class="row divider"></div>
+<div class="row">
+    <div class="notification_container old">
+        <div class="block-header">{{item.title}}</div>
+        <div class="block-date">{{item.event_date}}</div>
+        <div class="block-content">{%if item.event_content2%}{{item.event_content2|safe}}{% else %}{{item.event_content}}{% endif %}</div>
+    </div>
+</div>
+{% endif %}
+{% endfor %}
+{% endspaceless %}

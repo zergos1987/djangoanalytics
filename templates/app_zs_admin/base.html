@@ -1,0 +1,465 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="{% block html_lang_text %}ru{% endblock html_lang_text %}">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset={% block head_meta_charset_text %}utf-8{% endblock head_meta_charset_text %}"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="pragma" content="no-cache" />
+        {% block head_meta_viewport_block %}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% endblock head_meta_viewport_block %}
+        <meta http-equiv="X-UA-Compatible" content="ie-edge">
+        <meta name="description" content="{% block head_meta_description_text %}ZSAdmin main page{% endblock head_meta_description_text %}">
+        <meta name="author" content="{% block head_meta_author_text %}ZSVasily{% endblock head_meta_author_text %}">
+        <title>{% block head_title_text %}Django ZS Admin{% endblock head_title_text %}</title>
+        <link rel="shortcut icon" href="{% block head_link_favicon_href %}{% static 'app_zs_admin/origin/res/img/favicon.ico' %}{% endblock head_link_favicon_href %}" type="image/x-icon">
+        <link rel="canonical" href="https://wwww.{{ request.get_host }}/">
+        <link rel="alternate" media="handheld" href="https://m.{{ request.get_host }}/">
+        <link rel="alternate" media="only screen and (max-width: 640px)" href="https://m.{{ request.get_host }}/">
+<!--         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> -->
+        <!-- BASE CSS -->
+        <link href="{% static 'app_zs_admin/origin/res/font/google_robot_fonts.css' %}" rel="stylesheet">
+        <link href="{% static 'app_zs_admin/origin/res/font/google_opensans_oswald_fonts.css' %}" rel="stylesheet">
+        <link href="{% static 'app_zs_admin/origin/css/base.css' %}" rel="stylesheet">
+        {% block head_css %}
+        {% endblock head_css %}
+            <!-- APP CSS -->
+            {% block css %}
+            {% endblock css %}
+            <!-- APP VENDOR CSS -->
+            {% block vendor_css %}
+            {% endblock vendor_css %}
+    </head>
+
+    <body>
+        <div class="container {% block container_display_mode_classname %}{% endblock container_display_mode_classname %}" id="container">
+            <header class="container-header">
+                <span class="border-shadow bottom header"></span>
+                {% block header_section_left %}
+                <div class="header-section-left">
+                    {% block header_section_left_button_menu %}
+                    <button id="button-menu" class="button-menu">
+                        <svg class="ham ham6" viewBox="0 0 100 100" width="80">
+                          <path
+                                class="line top"
+                                d="m 30,33 h 40 c 13.100415,0 14.380204,31.80258 6.899646,33.421777 -24.612039,5.327373 9.016154,-52.337577 -12.75751,-30.563913 l -28.284272,28.284272" />
+                          <path
+                                class="line middle"
+                                d="m 70,50 c 0,0 -32.213436,0 -40,0 -7.786564,0 -6.428571,-4.640244 -6.428571,-8.571429 0,-5.895471 6.073743,-11.783399 12.286435,-5.570707 6.212692,6.212692 28.284272,28.284272 28.284272,28.284272" />
+                          <path
+                                class="line bottom"
+                                d="m 69.575405,67.073826 h -40 c -13.100415,0 -14.380204,-31.80258 -6.899646,-33.421777 24.612039,-5.327373 -9.016154,52.337577 12.75751,30.563913 l 28.284272,-28.284272" />
+                        </svg>
+                    </button>
+                    {% endblock header_section_left_button_menu %}
+                    {% block header_section_left_brand_details %}
+                    <a href="/" class="logo" title="{% block header_section_left_brand_details_title_help %}DjangoAnalytics{% endblock header_section_left_brand_details_title_help %}">
+                        <img src="{% block brand_details_logo_url %}/static/app_zs_admin/origin/res/img/logo.png{% endblock brand_details_logo_url %}" class="brand-logo" style="zoom: {% block header_section_left_brand_details_logo_zoom %}1{% endblock header_section_left_brand_details_logo_zoom %}">
+                        <span style="color:{% block header_section_left_brand_details_title_color %}#333{% endblock header_section_left_brand_details_title_color %}">{% block header_section_left_brand_details_title %}DjangoAnalytics{% endblock header_section_left_brand_details_title %}</span>
+                    </a>
+                    {% endblock header_section_left_brand_details %}
+                </div>
+                {% endblock header_section_left %}
+
+                {% block header_section_center %}
+                <div class="header-section-center">
+                    <input type="text" placeholder="Поиск на сайте...">
+                    <button type="submit" data-tooltip="Поиск" data-tooltip-position="bottom">
+                        <!-- <i class="fas fa-search"></i> -->
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                            </g>
+                        </svg>
+                    </button>
+                </div>
+                {% endblock header_section_center %}
+                
+                {% block header_section_right %}
+                <div class="header-section-right">
+                    {% block header_section_right_search_extra_button %}
+                    <div class="item-group">
+                        <div class="items-header">
+                            <button id="search-extra-button" style="display: none;" data-tooltip="Поиск" data-tooltip-position="bottom">
+                                <svg viewBox="0 0 24 24">
+                                    <g>
+                                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
+                                    </g>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    {% endblock header_section_right_search_extra_button %}
+
+                    {% block header_section_right_notification %}
+                    <div class="item-group">
+                        <div class="items-header">
+                            <button id="notification" data-tooltip="Уведомления" data-tooltip-position="bottom">
+                                <svg viewBox="0 0 24 24">
+                                    <g>
+                                        <path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"></path>
+                                    </g>
+                                </svg>
+                            </button>
+                            {% block header_section_right_notification_items_count %}
+                            <div class="notification-count">3</div>
+                            {% endblock header_section_right_notification_items_count %}
+                        </div>
+                        <div class="items-frame">
+                            <div class="items">
+                                <div class="row">
+                                    <div class="notification_header">Сообщения и обновления</div>
+                                </div>
+                                {% block header_section_right_notification_items %}
+                                <div class="row">
+                                    <div class="notification_container">
+                                        <div class="block-header">Сообщение №1</div>
+                                        <div class="block-date">22.08.2021, 10:55</div>
+                                        <div class="block-content">Lorem ipsum, dolor, sit amet consectetur adipisicing elit. Cum quos adipisci facere quibusdam voluptates quia exercitationem ipsa unde architecto, placeat animi, expedita tempora porro sint natus labore optio ipsam eveniet.</div>
+                                    </div>
+                                </div>
+                                <div class="row divider"></div>
+                                <div class="row">
+                                    <div class="notification_container">
+                                        <div class="block-header">Сообщение №2</div>
+                                        <div class="block-date">18.08.2021, 18:32</div>
+                                        <div class="block-content">Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi fuga, nobis, delectus earum quia id quos harum consequuntur explicabo voluptatibus, similique laboriosam hic veritatis modi quibusdam vitae cupiditate vel possimus?</div>
+                                    </div>
+                                </div>
+                                <div class="row divider"></div>
+                                <div class="row">
+                                    <div class="notification_container">
+                                        <div class="block-content">Новых уведомлений нет</div>
+                                    </div>
+                                </div>
+                                {% endblock header_section_right_notification_items %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endblock header_section_right_notification %}
+
+                    {% block header_section_right_user_settings %}
+                    <div class="item-group user_menu">
+                        <div class="items-header">
+                            <button id="user" data-tooltip="Настройки пользователя" data-tooltip-position="bottom">
+                                <div class="avatar"></div>
+                            </button>
+                        </div>
+                        <div class="items-frame">
+                            <div class="items">
+                                <div class="row header">
+                                    <a class="row">
+                                        {% if request.user.is_authenticated %}
+                                        <p class="log">Logget in as:</p>
+                                        <p class="user">
+                                        {% if request.user.get_full_name == '' %}
+                                            {{ request.user.username }} 
+                                        {% else %}
+                                            {{request.user.get_full_name}}
+                                        {% endif %}
+                                        </p>
+                                        {% else %}
+                                        <p class="log">Logget in as:</p>
+                                        <p class="user">Anonymouse</p>
+                                        {% endif %}
+                                    </a>
+                                    <div class="item-group">
+                                        <div class="items-header">
+                                            <button id="locale" data-tooltip="Локализация" data-tooltip-position="bottom">
+                                                <div class="selected country Russia"></div>
+                                            </button>
+                                        </div>
+                                        <div class="items-frame">
+                                            {% block header_section_right_user_settings_locale %}
+                                            <div class="items countries">
+                                                <div class="col">
+                                                    <a href="#" class="row"><span class="country Russia"></span>Russia (RU)</a>
+                                                    <a href="#" class="row"><span class="country USA"></span>English (USA)</a>
+                                                    <a href="#" class="row"><span class="country UK"></span>English (UK)</a>
+                                                    <a href="#" class="row"><span class="country India"></span>English (India)</a>
+                                                    <a href="#" class="row"><span class="country Canada"></span>English (Canada)</a>
+                                                    <a href="#" class="row"><span class="country Australia"></span>English (Australia)</a>
+                                                    <a href="#" class="row"><span class="country Sweden"></span>Svenska</a>
+                                                    <a href="#" class="row"><span class="country Finland"></span>Suomi</a>
+                                                    <a href="#" class="row"><span class="country Israel"></span>עברית</</a>
+                                                    <a href="#" class="row"><span class="country Germany"></span>Deutsch</a>
+                                                    <a href="#" class="row"><span class="country Spain"></span>Español (España)</a>
+                                                    <a href="#" class="row"><span class="country Mexico"></span>Español (México)</a>
+                                                    <a href="#" class="row"><span class="country France"></span>Français</a>
+                                                    <a href="#" class="row"><span class="country Italy"></span>Italiano</a>
+                                                    <a href="#" class="row"><span class="country Netherlands"></span>Nederlands</a>
+                                                    <a href="#" class="row"><span class="country Portugal"></span>Português (Portugal)</a>
+                                                    <a href="#" class="row"><span class="country Poland"></span>Polski</a>
+                                                    <a href="#" class="row"><span class="country Brazil"></span>Português (Brasil)</a>
+                                                    <a href="#" class="row"><span class="country Turkey"></span>Türkçe</a>
+                                                    <a href="#" class="row"><span class="country Saudi_Arabia"></span>‏العربية‏</a>
+                                                    <a href="#" class="row"><span class="country Greece"></span>Ελληνικά</a>
+                                                    <a href="#" class="row"><span class="country South_Africa"></span>English (South Africa)</a>
+                                                    <a href="#" class="row"><span class="country Philippines"></span>English (Philippines)</a>
+                                                    <a href="#" class="row"><span class="country Nigeria"></span>English (Nigeria)</a>
+                                                    <a href="#" class="row"><span class="country Japan"></span>日本語</a>
+                                                    <a href="#" class="row"><span class="country South_Korea"></span>한국어</a>
+                                                    <a href="#" class="row"><span class="country China"></span>简体中文</a>
+                                                    <a href="#" class="row"><span class="country Hong_Kong"></span>繁體中文</a>
+                                                    <a href="#" class="row"><span class="country Indonesia"></span>Bahasa Indonesia</a>
+                                                    <a href="#" class="row"><span class="country Malaysia"></span>Bahasa Melayu</a>
+                                                    <a href="#" class="row"><span class="country Thailand"></span>ไทย</a>
+                                                    <a href="#" class="row"><span class="country Vietnam"></span>Tiếng Việt</a>
+                                                    <a href="#" class="row"><span class="country India"></span>हिंदी</a>
+                                                </div>
+                                            </div>
+                                            {% endblock header_section_right_user_settings_locale %}
+                                        </div>
+                                    </div>
+                                </div>
+                                {% block header_section_right_user_settings_menu %}
+                                <div class="row divider"></div>
+                                <a class="row">
+                                    <svg viewBox="0 0 24 24">
+                                        <g>
+                                            <path d="M3 5v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2H5c-1.11 0-2 .9-2 2zm12 4c0 1.66-1.34 3-3 3s-3-1.34-3-3 1.34-3 3-3 3 1.34 3 3zm-9 8c0-2 4-3.1 6-3.1s6 1.1 6 3.1v1H6v-1z"></path>
+                                            <path d="M0 0h24v24H0z" fill="none"></path>
+                                        </g>
+                                    </svg>
+                                    <span>Настройки</span>
+                                </a>
+                                {% endblock header_section_right_user_settings_menu %}
+
+                                <div class="row divider"></div>
+                                {% if request.user.is_authenticated %}
+                                <a href="{% url 'logout' %}" class="row">
+                                    <svg viewBox="0 0 24 24">
+                                        <g>
+                                            <path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path>
+                                        </g>
+                                    </svg>
+                                    <span>Выйти</span>
+                                </a>
+                                {% else %}
+                                <a href="{% url 'login' %}" class="row">
+                                    <svg viewBox="0 0 24 24">
+                                        <g>
+                                            <path d="M10.09 15.59L11.5 17l5-5-5-5-1.41 1.41L12.67 11H3v2h9.67l-2.58 2.59zM19 3H5c-1.11 0-2 .9-2 2v4h2V5h14v14H5v-4H3v4c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path>
+                                        </g>
+                                    </svg>
+                                    <span>Войти</span>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endblock header_section_right_user_settings %}
+                </div>
+                {% endblock header_section_right %}
+            </header>
+
+            <nav class="container-aside-left">
+                <!-- <span class="border-shadow right sidebarleft"></span> -->
+                <div class="item-group">
+                    <a href="{% block main_site_page %}{% url 'zs_admin:index' %}{% endblock main_site_page %}" class="items-header">
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8"></path>
+                            </g>
+                        </svg>
+                        <span>Главная</span>
+                    </a>
+                </div>
+                {% block container_aside_left %}
+                <div class="divider"></div>
+
+                <div class="item-group">
+                    <a class="items-header">
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.1-1.65c.2-.15.25-.42.13-.64l-2-3.46c-.12-.22-.4-.3-.6-.22l-2.5 1c-.52-.4-1.08-.73-1.7-.98l-.37-2.65c-.06-.24-.27-.42-.5-.42h-4c-.27 0-.48.18-.5.42l-.4 2.65c-.6.25-1.17.6-1.7.98l-2.48-1c-.23-.1-.5 0-.6.22l-2 3.46c-.14.22-.08.5.1.64l2.12 1.65c-.04.32-.07.65-.07.98s.02.66.06.98l-2.1 1.65c-.2.15-.25.42-.13.64l2 3.46c.12.22.4.3.6.22l2.5-1c.52.4 1.08.73 1.7.98l.37 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.37-2.65c.6-.25 1.17-.6 1.7-.98l2.48 1c.23.1.5 0 .6-.22l2-3.46c.13-.22.08-.5-.1-.64l-2.12-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"></path>
+                            </g>
+                        </svg>
+                        <span>Настройки</span>
+                    </a>
+                    <div class="items-frame">
+                        <div class="items">
+                            <a href="#" class="level-1"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>Приложения</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>accounts</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>app_opensource_dashboards</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>app_opensource_surveys</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>app_zs_admin</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>app_zs_dashboards</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>app_zs_examples</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>database_oracle_sadko</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>database_sqlite_test</span></div></a>
+                            <a href="#" class="level-1"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>Контент</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>Дашборды</span></div></a>
+                            <a href="#" class="level-3"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>Opensource</span></div></a>
+                            <a href="#" class="level-4"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>создание</span></div></a>
+                            <a href="#" class="level-4"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>изменение</span></div></a>
+                            <a href="#" class="level-3"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>ZS</span></div></a>
+                            <a href="#" class="level-4"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>создание</span></div></a>
+                            <a href="#" class="level-4"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>изменение</span></div></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="item-group">
+                    <a class="items-header">
+                        <svg viewBox="0 0 24 24">
+                            <g>
+                                <path d="M4 8h4V4H4v4zm6 12h4v-4h-4v4zm-6 0h4v-4H4v4zm0-6h4v-4H4v4zm6 0h4v-4h-4v4zm6-10v4h4V4h-4zm-6 4h4V4h-4v4zm6 6h4v-4h-4v4zm0 6h4v-4h-4v4z"></path>
+                            </g>
+                        </svg>
+                        <span>Дашборды</span>
+                    </a>
+                    <div class="items-frame">
+                        <div class="items">
+                            <a href="#" class="level-1"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>Департамент #1</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #1</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #2</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #3</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #4</span></div></a>
+
+                            <a href="#" class="level-1"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>Департамент #2</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>ФИО #1</span></div></a>
+                            <a href="#" class="level-3"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #1</span></div></a>
+                            <a href="#" class="level-3"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #2</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>ФИО #2</span></div></a>
+                            <a href="#" class="level-3"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #1</span></div></a>
+
+                            <a href="#" class="level-1"><div class="row"><i class="fas fa-folder fa-localy arrow"></i><span>ФИО #3</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #1</span></div></a>
+                            <a href="#" class="level-2"><div class="row"><i class="fas fa-folder fa-localy folder"></i><span>даш #2</span></div></a>
+                        </div>
+                    </div>
+                </div>
+                {% endblock container_aside_left %}
+            </nav>
+
+            <main class="container-main" {% block container_main_bg_color %}style="background-color: #f9f9f9;"{% endblock container_main_bg_color %}>
+                {% block full_screen_mode %}
+                <div class="print-mode">
+                    <svg viewBox="0 0 512 512">
+                        <g>
+                        <path d="M420.931,104.275h-44.166V0H113.236v104.275H69.069C30.982,104.275,0,136.499,0,176.104v123.732
+                        c0,39.615,30.982,71.839,69.069,71.839h33.506V490h284.839V371.675h33.516c38.089,0,69.069-32.224,69.069-71.839V176.104
+                        C490,136.499,459.02,104.275,420.931,104.275z M134.087,20.852h221.827v83.424H134.087V20.852z M366.564,469.149H123.427V290.204
+                        h243.137V469.149z M469.149,299.836c0,28.109-21.635,50.987-48.218,50.987h-33.516v-81.47H102.576v81.47H69.069
+                        c-26.583,0-48.218-22.878-48.218-50.987V176.104c0-28.11,21.635-50.978,48.218-50.978h351.862
+                        c26.583,0,48.218,22.867,48.218,50.978V299.836z"/>
+                        <rect x="173.997" y="337.975" width="141.997" height="20.852"/>
+                        <rect x="173.997" y="395.508" width="141.997" height="20.852"/>
+                        <rect x="366.34" y="173.354" width="31.124" height="20.852"/>
+                    </svg>
+                </div>
+                <div class="full-screen-button">
+                    <svg viewBox="0 0 512 512">
+                        <g><g><path d="M0,0v512h512V0H0z M477.867,477.867H34.133V34.133h443.733V477.867z"/></g></g>
+                        <g><g><polygon points="126.533,102.4 199.111,102.4 199.111,68.267 68.267,68.267 68.267,199.111 102.4,199.111 102.4,126.538 
+                                    198.422,222.558 222.556,198.423"/></g></g>
+                        <g><g><polygon points="222.557,313.581 198.422,289.445 102.4,385.467 102.4,312.889 68.267,312.889 68.267,443.733 199.111,443.733 
+                                    199.111,409.6 126.538,409.6"/></g></g>
+                        <g><g><polygon points="409.6,312.889 409.6,385.467 313.578,289.444 289.444,313.578 385.462,409.6 312.889,409.6 312.889,443.733 
+                                    443.733,443.733 443.733,312.889"/></g></g>
+                        <g><g><polygon points="312.889,68.267 312.889,102.4 385.467,102.4 289.444,198.423 313.578,222.558 409.6,126.538 409.6,199.111 
+                                    443.733,199.111 443.733,68.267"/></g></g>
+                    </svg>
+                </div>
+                {% endblock full_screen_mode %}
+
+                {% block container_main %}
+
+                {% block breadcrumb %}
+                <div class="breadcrumb">
+                    <ul>
+                        <li><a href="{% url 'zs_admin:index' %}">Главная</a></li>
+                        {% block breadcrumb_items %}
+                        <li><a href="#">Дашборды</a></li>
+                        <li><a href="#">Департамент №1</a></li>
+                        <li>Дашборд №1</li>
+                        {% endblock breadcrumb_items %}
+                    </ul>
+                </div>  
+                {% endblock breadcrumb %}
+
+                <div class="app" id="app">
+                {% block container_main_content %}
+                    <div class="wrapper">   
+                        <div class="main_text_header">Django Analytics</div>
+                        <div class="main_theme"></div>
+                    </div>
+<!--                     <div class="dashboards">
+                        <div class="grid-items-columns">
+                            <div class="grid-row type1">
+                                <img class="aspect-ratio" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="alt="placeholder via aspect-ratio" style="aspect-ratio: 25 / 8">
+                                <div class="content-block"></div>
+                            </div>
+                        </div>
+                        <div class="grid-items-columns">
+                            <div class="grid-row">
+                                <img class="aspect-ratio type2" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="alt="placeholder via aspect-ratio" style="aspect-ratio: 25 / 13">
+                                <div class="content-block"></div>
+                            </div>
+                            <div class="grid-row">
+                                <img class="aspect-ratio type2" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="alt="placeholder via aspect-ratio" style="aspect-ratio: 25 / 13">
+                                <div class="content-block"></div>
+                            </div>
+                            <div class="grid-row">
+                                <img class="aspect-ratio type2" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="alt="placeholder via aspect-ratio" style="aspect-ratio: 25 / 13">
+                                <div class="content-block"></div>
+                            </div>
+                        </div>
+                       <div class="grid-items-columns">
+                           <div class="grid-row">
+                                <img class="aspect-ratio type2" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="alt="placeholder via aspect-ratio" style="aspect-ratio: 25 / 13">
+                                <div class="content-block"></div>
+                            </div>
+                            <div class="grid-row">
+                                <img class="aspect-ratio type2" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="alt="placeholder via aspect-ratio" style="aspect-ratio: 25 / 13">
+                                <div class="content-block"></div>
+                            </div>
+                            <div class="grid-row">
+                                <img class="aspect-ratio type2" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="alt="placeholder via aspect-ratio" style="aspect-ratio: 25 / 13">
+                                <div class="content-block"></div>
+                            </div>
+                        </div>
+                       <div class="grid-items-columns">
+                           <div class="grid-row">
+                                <img class="aspect-ratio type3" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="alt="placeholder via aspect-ratio" style="aspect-ratio: 15 / 20">
+                                <div class="content-block"></div>
+                            </div>
+                            <div class="grid-row">
+                                <img class="aspect-ratio type3" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="alt="placeholder via aspect-ratio" style="aspect-ratio: 15 / 20">
+                                <div class="content-block"></div>
+                            </div>
+                        </div>
+                    </div> -->
+                {% endblock container_main_content %}
+                </div>
+                
+
+                {% endblock container_main %}
+            </main>
+        </div>
+            
+        <script src="{% static 'app_zs_admin/vendor/jquery-3.5.1/jquery-3.5.1.js'%}"></script>
+        <script type="text/javascript">
+            let request_user_id = '{{user.id}}' || '0';
+            let notification_event_confirm = 1;
+        </script>
+        {% block head_js %}
+            <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+            <!-- BASE JS -->
+            <script src="{% static 'app_zs_admin/origin/js/base.js'%}"></script>
+            <!-- APP JS -->
+            {% block js %}
+            {% endblock js %}
+            <!-- APP VENDOR JS -->
+            {% block vendor_js %}
+            {% endblock vendor_js %}
+        {% endblock head_js %}
+
+        
+    </body>
+
+</html>

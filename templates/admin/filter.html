@@ -1,0 +1,52 @@
+{% load i18n %}
+{% load i18n admin_urls static admin_list %}
+
+{{ spec.form.media }}
+
+
+{% block extrahead %}
+  <style>
+
+    .ui-datepicker-div {
+      top: 246px;
+    }
+
+    .daterange_form p {
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 5px;
+    }
+
+    .daterange_form input.grp-button-time {
+      width: 20%;
+      height: auto;
+    }
+
+    .grp-button-time {
+      float: right;
+      width: 55px !important;
+    }
+  </style>
+{% endblock %}
+
+{% block javascripts %}
+  <script type="text/javascript" charset="utf-8">
+    (function ($) {
+      $(document).ready(function () {
+        grappelli.initDateAndTimePicker();
+        setTimeout(grappelli.initDateAndTimePicker, 1000);
+      });
+    })(grp.jQuery);
+  </script>
+{% endblock %}
+
+
+<div class="grp-module">
+  <div class="grp-row">
+    <label>{% blocktrans with title|capfirst as filter_title %}{{ filter_title }}{% endblocktrans %}</label>
+      <select class="grp-filter-choice" data-field-name="{{ field_name }}">
+          {% for choice in choices %}
+      <option value="{{ choice.query_string|iriencode }}"{% if choice.selected %} selected='selected'{% endif %}>{{ choice.display }}</option>{% endfor %}
+      </select>
+  </div>
+</div>

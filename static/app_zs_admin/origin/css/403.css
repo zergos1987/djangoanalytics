@@ -1,0 +1,20 @@
+.container-main,
+.breadcrumb > ul > li {
+	background-color: #fff;
+}
+
+#app .wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#app .main_theme {
+    background-image: url(/static/app_zs_admin/origin/res/img/main_theme.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 66%;
+    height: 66%;
+}

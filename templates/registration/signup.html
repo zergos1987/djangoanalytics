@@ -1,23 +1,98 @@
-{% extends 'registration\BASE_registration.html' %}
+{% extends "registration\base.html" %}
 
-{% block registration %}
-<div class="row justify-content-center">
-	<div class="col-lg-8 col-md-10 col-sm-12">
-		<div class="card">
-			<div class="card-body">
-				<h3 class="card-title">Регистрация</h3>
-				<form method="post" novalidate>
-					{% csrf_token %}
-					{% include 'registration/form.html' %}
-					<button type="submit" class="btn btn-primary btn-block">Создать аккаунт</button>
-				</form>
-			</div>
-			<div class="card-footer text-muted text-center">
-	          	<small>Уже есть аккаунт?
-        			<a href="{% url 'login' %}">Войти</a>
-      			</small>
-			</div>
-		</div>
-	</div>
-</div>
-{% endblock %}
+
+{% block header %}{{ block.super }}{% endblock header %}
+{% block login_header %}Регистрация{% endblock login_header %}
+
+{% block signup_container %}
+{% csrf_token %}
+
+{% if user.is_authenticated %}
+  <div class="form-controls">
+    <div class="form_notification active">
+      <div class="message-text info bgblue">ВЫ уже авторизованы.</div>
+    </div>
+  </div>
+  <button type="submit" class="submit" value="Выйти">
+    <a href="{% url 'logout' %}">выйти?</a>
+  </button>
+{% else %}
+
+    {% for field in form %}
+      {% if field.name == 'email' %}
+      <div class="input-container">
+        <input id="id_email" class="input" type="email" name="email" maxlength="350" autocomplete="email" autocapitalize="none" placeholder=" " required />
+        {% if field.help_text %}
+          <div class="input_help_info">{{ field.help_text }}</div>
+        {% endif %}
+        {% for error in field.errors %}
+          <div class="input_help_info error">{{ error }}</div>
+        {% endfor %}
+        <div class="cut"></div>
+        <label for="id_email" class="placeholder">E-mail</label>
+      </div>
+      {% endif %}
+    {% endfor %}
+
+
+    {% for field in form %}
+      {% if field.name == 'username' %}
+      <div class="input-container">
+        <input  id="id_username" class="input" type="text" name="username" maxlength="150" autocapitalize="none" placeholder=" " required />
+        {% if field.help_text %}
+          <div class="input_help_info">{{ field.help_text }}</div>
+        {% endif %}
+        {% for error in field.errors %}
+          <div class="input_help_info error">{{ error }}</div>
+        {% endfor %}
+        <div class="cut width"></div>
+        <label for="id_username" class="placeholder">Имя пользователя</label>
+      </div>
+      {% endif %}
+    {% endfor %}
+
+
+    {% for field in form %}
+      {% if field.name == 'password1' %}
+      <div class="input-container">
+        <input id="id_password1" class="input" type="password" name="password1" autocomplete="new-password" placeholder=" " required/>
+        {% if field.help_text %}
+          <div class="input_help_info">{{ field.help_text }}</div>
+        {% endif %}
+        {% for error in field.errors %}
+          <div class="input_help_info error">{{ error }}</div>
+        {% endfor %}
+        <div class="cut"></div>
+        <label for="id_password1" class="placeholder">Пароль</label>
+      </div>
+      {% endif %}
+    {% endfor %}
+
+
+    {% for field in form %}
+      {% if field.name == 'password2' %}
+      <div class="input-container">
+        <input id="id_password2" class="input" type="password" name="password2" autocomplete="new-password" placeholder=" " required/>
+        {% if field.help_text %}
+          <div class="input_help_info">{{ field.help_text }}</div>
+        {% endif %}
+        {% for error in field.errors %}
+          <div class="input_help_info error">{{ error }}</div>
+        {% endfor %}
+        <div class="cut width"></div>
+        <label for="id_password2" class="placeholder">Пароль ещё раз</label>
+      </div>
+      {% endif %}
+    {% endfor %}
+
+  <button type="submit" class="submit" value="Создать аккаунт">Создать аккаунт</button>
+	<div class="registration_links">
+		<small class="password_reset">
+			<div>Уже зарегистрированы?</div>
+			<a href="{% url 'login' %}"><div>Войдите</div></a>
+		</small>
+	</div>   
+  </div>
+{% endif %}
+
+{% endblock signup_container %}

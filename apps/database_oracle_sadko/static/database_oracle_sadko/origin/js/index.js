@@ -1,1 +1,1 @@
-Скопировано файлов:         1.
+console.log('database_oracle_sadko app');
