@@ -59,3 +59,5 @@
 2021-06-08 00:59:08 [DEBUG]: [module: AUTH]: logout user: admin via ip: 127.0.0.1 [filename: settings.py: line: 402]
 2021-06-08 00:59:27 [WARNING]: [module: django_python3_ldap.ldap]: LDAP bind failed: ('unable to open socket', [(LDAPSocketOpenError('socket connection error while opening: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение'), ('fe80::817a:f1cc:e8a0:4458', 389, 0, 7)), (LDAPSocketOpenError('socket connection error while opening: [WinError 10061] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение'), ('192.168.1.7', 389))]) [filename: ldap.py: line: 184]
 2021-06-08 00:59:27 [DEBUG]: [module: AUTH]: login user: admin via ip: 127.0.0.1 [filename: settings.py: line: 393]
+2021-06-08 20:30:43 [DEBUG]: [module: asyncio]: Using proactor: IocpProactor [filename: proactor_events.py: line: 623]
+2021-06-08 20:30:44 [DEBUG]: [module: asyncio]: Using proactor: IocpProactor [filename: proactor_events.py: line: 623]
