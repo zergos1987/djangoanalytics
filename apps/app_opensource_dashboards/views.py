@@ -6,6 +6,7 @@ from django.http import HttpResponse, FileResponse, Http404, HttpResponseRedirec
 from django.urls import reverse
 import os
 from decouple import config
+from urllib.parse import unquote
 
 from django.contrib.auth.models import User
 from apps.app_zs_admin.models import app, aside_left_menu_includes, notification_events, user_notification_event_confirm
@@ -48,7 +49,7 @@ OS_DASHBOARDS_METABASE_LOGIN = os.environ.get("OS_DASHBOARDS_METABASE_LOGIN", co
 OS_DASHBOARDS_METABASE_PSW = os.environ.get("OS_DASHBOARDS_METABASE_PSW", config('OS_DASHBOARDS_METABASE_PSW'))
 
 
-def get_metabase_api(ask=None):
+def get_metabase_api(ask=None, id=None, json=None):
 	from metabase_api import Metabase_API
 	import requests
 	from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -107,14 +108,25 @@ def get_metabase_api(ask=None):
 	Metabase_API.put = put
 	Metabase_API.delete = delete
 
-	if ask == 'dashboards_list':
+	status = 500
+
+	if ask is not None:
 		mb = Metabase_API(
 			OS_DASHBOARDS_METABASE_URL, 
 			OS_DASHBOARDS_METABASE_LOGIN,
 			OS_DASHBOARDS_METABASE_PSW
 			)
-		ask = mb.get('/api/dashboard/embeddable')
-	return ask
+
+	if ask == 'dashboards_list': 
+		status = mb.get('/api/dashboard')
+
+	if ask == 'embedding_dashboards_list': 
+		status = mb.get('/api/dashboard/embeddable')
+
+	if ask == 'embedding_dashboard_put': 
+		status = mb.put(f'/api/dashboard/{id}', json=json)
+
+	return status
 
 
 def get_metabase_iframe(dashboard_id=None):
@@ -144,31 +156,57 @@ def get_metabase_iframe(dashboard_id=None):
 @login_required
 @permission_required('app_opensource_dashboards.view_app')
 def mb(request, id):
-	user_content_selected = aside_left_menu_includes.objects.filter(id=id, is_actual=True).first()
 
+	user_content_selected = aside_left_menu_includes.objects.filter(id=id, is_actual=True).first()
 	user_content_has_permission = check_user_content_request_permission(
 		content_obj='aside_left_menu_includes',
 		obj_id=user_content_selected.id,
 		user_id=request.user.id)
 	if not user_content_has_permission: raise PermissionDenied()
 
+
 	dashboards_list = []
 	try:
 		dashboards_list = get_metabase_api(ask='dashboards_list')
 	except Exception as e:
-		print('dashboards_list error: ', str(e))
-	selected_metabase_dashboard_id = [i for i in dashboards_list if i.get('name') == user_content_selected.external_href]
+		print("error. cannot get dashboards list: ", str(e))
+
+	user_selected_mb_content = {}
+	for i in dashboards_list:
+		if i.get('name') == user_content_selected.external_href:
+			user_selected_mb_content = {'id': i.get('id'), 'name': i.get('name'), 'enable_embedding': i.get('enable_embedding'), 'embedding_params': i.get('embedding_params')}
+
+	mb_content_id = user_selected_mb_content.get('id', 0)
+	mb_content_name = user_selected_mb_content.get('name', None)
+	mb_content_embedding_enable = user_selected_mb_content.get('enable_embedding', None)
+	mb_content_embedding_params = user_selected_mb_content.get('embedding_params', None)
+
+	app_mb_content_published = app.objects.filter(is_actual=True).first().app_settings_container_aside_left_menu_items_includes.filter(is_actual=True, href__exact='mb').all()
+	app_mb_content_published_list_of_names = list(app_mb_content_published.values_list('name', flat=True))
+
+	json = {}
+	if user_content_selected.external_href in app_mb_content_published_list_of_names:
+		json['enable_embedding'] = True
+		if type(mb_content_embedding_params).__name__ == 'dict':
+			for k,v in mb_content_embedding_params.items():
+				mb_content_embedding_params[k] = True
+	else:
+		json['enable_embedding'] = False
+	if mb_content_id != 0 and json.get('enable_embedding') != mb_content_embedding_enable: 
+		status = get_metabase_api(ask='embedding_dashboard_put', id=mb_content_id, json=json)
+		print(user_content_selected.external_href, status)
+
 
 	app_view_object = {}
-	if selected_metabase_dashboard_id: 
-		selected_metabase_dashboard_id = selected_metabase_dashboard_id[0].get('id')
-		app_view_object = {'object': get_metabase_iframe(dashboard_id=selected_metabase_dashboard_id)}
+	if mb_content_id !=0 and json.get('enable_embedding') == True:
+		app_view_object = {'object': get_metabase_iframe(dashboard_id=mb_content_id)}
 		app_view_object['object_html_source'] = {'css': ['/static/app_opensource_dashboards/origin/css/metabase_zs_admin.css'], 'js': []}
+
 
 	app_settings = app.objects.filter(is_actual=True).first()
 	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
 	app_events = {}
-	if confirm_events_user:
+	if confirm_events_user: 
 		app_events['actual'] = notification_events.objects.filter(Q(is_actual=True) & Q(event_date__gte=confirm_events_user.confirm_date) & Q(Q(users_list=request.user) | Q(title='Новый пользователь!'))).all()
 		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
 	else:
@@ -187,3 +225,6 @@ def mb(request, id):
 	context['app_view_object'] = app_view_object
 
 	return render(request, template, context)
+
+
+
