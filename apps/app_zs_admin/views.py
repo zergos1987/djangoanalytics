@@ -257,7 +257,20 @@ def notification_events_confirm(request, user_id):
 
 @login_required
 #@permission_required('app_zs_admin.view_app')
-def notification_events_publication(request):
+def notification_events_publication(request, notification_events_id=None, event=None):
+	if notification_events_id and event:
+		if request.method == 'POST':
+			if event == 'edit_row':
+				form = notificationCreationForm(request.POST, id=notification_events_id)
+				if form.is_valid():
+					form.save(commit=False)
+					obj = notification_events.objects.filter(id=notification_events_id).all()
+					return HttpResponse(serialize("json", obj), content_type='application/json', status = 200)
+			if event == 'delete_row':
+				notification_events.objects.filter(id=notification_events_id).delete()
+		return HttpResponse(200)
+
+
 	user_content_selected = aside_left_menu_includes.objects.filter(href='notification_events_publication', is_actual=True).first()
 
 	user_content_has_permission = check_user_content_request_permission(
@@ -270,10 +283,11 @@ def notification_events_publication(request):
 	form_detail_list['data'] = notification_events.objects.all() #.filter(is_actual=True)
 	
 	if request.method == 'POST':
-		form = notificationCreationForm(request.POST)
+		form = notificationCreationForm(request.POST, id=None)
 		if form.is_valid():
 			form.save(commit=False)
-			return HttpResponseRedirect(request.path_info)
+			return HttpResponse(200)
+			#return HttpResponseRedirect(request.path_info)
 	else:
 		form = notificationCreationForm()
 

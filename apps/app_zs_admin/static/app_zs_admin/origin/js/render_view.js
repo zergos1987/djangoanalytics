@@ -7,7 +7,7 @@ function removeOnloadFrame_type2() {
 }
 function removeOnloadFrame_type3() {
 	$(".iframe-onloading.type3").remove()
-}
+} 
 
 $('iframe').on('load', function () {
 	removeOnloadFrame();
@@ -78,6 +78,28 @@ let menu_edit_row = `<button onclick="detail_table_events(this)" class="show_edi
 			c37.576,0,68.147-30.571,68.147-68.147V153.388C318.85,145.104,312.134,138.388,303.85,138.388z"/>
 	</svg>
 </button>`
+let menu_delete_row = `<button onclick="detail_table_events(this)" class="delete_row" title="удалить запись">
+	<svg viewBox="0 0 330 330">
+		<g id="XMLID_6_">
+			<g id="XMLID_11_">
+				<path d="M240,121.076H30V275c0,8.284,6.716,15,15,15h60h37.596c19.246,24.348,49.031,40,82.404,40c57.897,0,105-47.103,105-105
+					C330,172.195,290.816,128.377,240,121.076z M225,300c-41.355,0-75-33.645-75-75s33.645-75,75-75s75,33.645,75,75
+					S266.355,300,225,300z"/>
+			</g>
+			<g id="XMLID_18_">
+				<path d="M240,90h15c8.284,0,15-6.716,15-15s-6.716-15-15-15h-30h-15V15c0-8.284-6.716-15-15-15H75c-8.284,0-15,6.716-15,15v45H45
+					H15C6.716,60,0,66.716,0,75s6.716,15,15,15h15H240z M90,30h90v30h-15h-60H90V30z"/>
+			</g>
+			<g id="XMLID_23_">
+				<path d="M256.819,193.181c-5.857-5.858-15.355-5.858-21.213,0L225,203.787l-10.606-10.606c-5.857-5.858-15.355-5.858-21.213,0
+					c-5.858,5.858-5.858,15.355,0,21.213L203.787,225l-10.606,10.606c-5.858,5.858-5.858,15.355,0,21.213
+					c2.929,2.929,6.768,4.394,10.606,4.394c3.839,0,7.678-1.465,10.607-4.394L225,246.213l10.606,10.606
+					c2.929,2.929,6.768,4.394,10.607,4.394c3.839,0,7.678-1.465,10.606-4.394c5.858-5.858,5.858-15.355,0-21.213L246.213,225
+					l10.606-10.606C262.678,208.535,262.678,199.039,256.819,193.181z"/>
+			</g>
+		</g>
+	</svg>
+</button>`
 // detail form table - row menu
 $('.detail-wrapper, .detail-wrapper tr td:not(:nth-child(1))').off('hover').hover(function() {
 	$('.extra_menu').remove();
@@ -87,6 +109,7 @@ $('.form-detail-table-container tbody tr td:nth-child(1)').off('hover').hover(fu
 	if ($('.form-detail-table-container tbody tr extra_menu').length === 0) {
 		$(this).parent().append(extra_menu);
 		$('.extra_menu').append(menu_edit_row);
+		$('.extra_menu').append(menu_delete_row);
 	}
 }, function() {
 	$('.extra_menu').off('hover').hover(function() {
@@ -98,25 +121,91 @@ $('.form-detail-table-container tbody tr td:nth-child(1)').off('hover').hover(fu
 
 
 function clear_m2m_field(id) {
-	let element = document.getElementById(id);
-	console.log(element)
-	element.dispatchEvent(new Event("click"));
-}
-
-
-function append_all_m2m_field(id) {
-	let element = document.getElementById(id);
-	console.log(element)
-	element.dispatchEvent(new Event("click"));
+	let element = $('#'+id)
+	let selector_available = element.parent().parent().parent().find('.selector-available select')
+	let options_for_unselected = element.parent().find('option');
+	for (var i = 0; i < options_for_unselected.length; i++) {
+		console.log('FFFFFFF', options_for_unselected.eq(i))
+		selector_available.append(options_for_unselected.eq(i));
+	}
 }
 
 
 function add_m2m_field(id, index) {
-	let element = document.querySelectorAll(`#${id} option`)[index];
-	element.selected = true;
-	document.getElementById('id_content_m2m_add_link').dispatchEvent(new Event("click"));
-	console.log(element);
+	let element = $(`#${id} option`).eq(index);
+	let selector_available = element.parent().parent().parent().find('.selector-chosen select')
+	selector_available.append(element);
 }
+
+
+let clone_form_props;
+$(document).on('submit', '.form_frame.edit_form', function(e){
+	var frm = $(this).find('form');
+	if ($(this).hasClass('edit_form') || $(this).hasClass('add_form')) {
+		e.preventDefault();
+	}
+	console.log(frm.serialize(), 'QQQQQQQQQ')
+	if ($(this).hasClass('edit_form')) {
+		$.ajax({ 
+		    url: `/zs_admin/notification_events_publication/${_row_id}/edit_row/`, // the endpoint
+		    type: "POST", // http method
+			headers: {
+				"X-CSRFToken": csrf_token
+			},
+		    data: {
+		    	"event" : "edit_form"
+		    }, // data sent with the post request
+		    // handle a successful response
+			headers: {
+				"X-CSRFToken": csrf_token
+			},
+			data: frm.serialize(),
+			success: function(data, status) {
+				//console.log(_row_columns)
+				console.log('success: edit_form');
+				let updated_row, columns;
+				for (var i = 0; i < data.length; i++) {
+					updated_row = data[i]['fields'];
+					columns = Object.keys(updated_row)
+					let k;
+					for (var j = 0; j < columns.length; j++) {
+						k = columns[j]
+						_row_columns.each(function() {
+							if ($(this).data(k) != undefined ) {
+								let v = updated_row[k];
+								if (typeof(v) === 'boolean') {
+									if(v) {
+										v = 'True'
+									} else {
+										v = 'False'
+									}
+								} else {
+									if (v.constructor === Array) {
+										v = v.join(", ")
+									} else {
+										$(this).find('div').text(v)
+									}
+								}
+
+								console.log(k, v, typeof(v), $(this).find('div').text());
+							}
+						})
+					}
+				}
+			},
+			// handle a non-successful response
+			error: function(xhr,errmsg,err) {
+				console.log('error: edit_form');
+			}
+		});
+	}
+	if ($(this).hasClass('add_form')) {
+		console.log('CCCCCCCCCCCCCc')
+	}
+	$(this).find('#form-app > fieldset > .items-container').remove();
+	$(this).find('#form-app > fieldset').prepend(clone_form_props);
+	$(this).removeClass('edit_form').removeClass('add_form');
+});
 
 
 function detail_table_events (selector) {
@@ -126,68 +215,107 @@ function detail_table_events (selector) {
 	_row_columns = _this.parent().parent().find('td');
 	_row_id = _this.parent().parent().find('[data-id]').text();
 
-	_data = []
-	$(_detail_table).find('.t-header th').each(function(index) {
-		let _k = (Object.keys($(this).data())[0])
-		let _v = _row_columns.eq(index).text()
-		if (_v === '' || _v === null || _v === "None") {
-		} else {
-			_data.push({[_k]: _v});
-			let _form_field = _detail_form_id.find(`[data-${_k}]`);
-			if (_k === _form_field.data(_k)) {
-				if (_form_field.data('externalPluginResources')) {
-				} else {
-					if (_form_field.prop("tagName") === 'INPUT') {
-						if (_form_field.attr('type') === 'text') {
+	
+	if (_this.hasClass('show_edit_form')) {
+		clone_form_props = _detail_form_id.find('#form-app > fieldset > .items-container').clone();
+		_data = []
+		$(_detail_table).find('.t-header th').each(function(index) {
+			let _k = (Object.keys($(this).data())[0])
+			let _v = _row_columns.eq(index).text()
+			if (_v === "None") {
+				console.log(_k, _v)
+			} else {
+				_data.push({[_k]: _v});
+				let _form_field = _detail_form_id.find(`[data-${_k}]`);
+				if (_k === _form_field.data(_k)) {
+					if (_form_field.data('externalPluginResources')) {
+					} else {
+						if (_form_field.prop("tagName") === 'INPUT') {
+							if (_form_field.attr('type') === 'text') {
+								_form_field.val(_v);
+							}
+							if (_form_field.attr('type') === 'checkbox') {
+								if (_v === 'True') {
+									_form_field.prop('checked', true);
+								} else {
+									_form_field.prop('checked', false);
+								}
+							}
+						}
+						if (_form_field.prop("tagName") === 'TEXTAREA') {
 							_form_field.val(_v);
 						}
-						if (_form_field.attr('type') === 'checkbox') {
-							if (_v === 'True') {
-								_form_field.prop('checked', true);
-							} else {
-								_form_field.prop('checked', false);
+						if (_form_field.prop("tagName") === 'SELECT') {
+							if (_form_field.parent().hasClass('selector-available')) {
+								let clear_m2m_btn_id = _form_field.parent().parent().find('.selector-clearall').attr('id');
+								setTimeout(clear_m2m_field(clear_m2m_btn_id), 1000);
+								m2m_v = _v.split(';');
+								m2m_v.forEach(function(val, idx) {
+									val = val.trimLeft();
+									_form_field.find('option').each(function(index) {
+										if ($(this).text() === val) {
+											let m2m_selected_index = $(this)[0].index;
+											let m2m_selected_id = $(this).parent().attr('id');
+											add_m2m_field(m2m_selected_id, m2m_selected_index);
+											return false;
+										}
+									});
+								});
 							}
 						}
 					}
-					if (_form_field.prop("tagName") === 'TEXTAREA') {
-						_form_field.val(_v);
-					}
-					if (_form_field.prop("tagName") === 'SELECT') {
-						if (_form_field.parent().hasClass('selector-available')) {
-							// $('.selector-clearall').click(function() { console.log('AAAAAAAAAAAA') })
-							let clear_m2m_btn_id = _form_field.parent().parent().find('.selector-clearall').attr('id');
-							let append_all_m2m_btn_id = _form_field.parent().parent().find('.selector-add').attr('id');
-							//setTimeout(clear_m2m_field(clear_m2m_btn_id), 1000);
-							m2m_v = _v.split(';');
-							m2m_v.forEach(function(val, idx) {
-								val = val.trimLeft();
-								_form_field.find('option').each(function(index) {
-									if ($(this).text() === val) {
-										let m2m_selected_index = $(this)[0].index;
-										let m2m_selected_id = $(this).parent().attr('id');
-										add_m2m_field(m2m_selected_id, m2m_selected_index);
-										console.log(m2m_selected_id, $(this)[0].index, $(this).text(), _form_field.parent().parent().find('.selector-clearall'));
-										return false;
-									}
-								});
-							});
-							setTimeout(append_all_m2m_field(append_all_m2m_btn_id), 1000);
-						}
-					}
-					//console.log(_k, _form_field.data(_k), _form_field.prop("tagName"))
 				}
 			}
-		}
-	});
-
-
-	if (_this.hasClass('show_edit_form')) {
-
+		});
+		_detail_form_id.addClass('edit_form');
 	}
 	if (_this.hasClass('show_add_form')) {
-		
+		console.log(_detail_form_id)
+		// $(document).on('submit', '.login-form', function(){
+		// 	$.ajax({ 
+		// 		url: this.action, 
+		// 		type: $(this).attr('method'), 
+		// 		headers: {
+		// 			"X-CSRFToken": csrf_token
+		// 		},
+		// 		data: $(this).serialize(),
+		// 		context: this,
+		// 		success: function(data, status) {
+		// 			console.log('success: delete_row');
+		// 		},
+		// 		// handle a non-successful response
+		// 		error: function(xhr,errmsg,err) {
+		// 			console.log('error: delete_row');
+		// 		}
+		// 	});
+		// 	return false;
+		// });
 	}
-	if (_this.hasClass('remove_row')) {
-		
+	if (_this.hasClass('delete_row')) {
+		$.ajax({
+		    url: `/zs_admin/notification_events_publication/${_row_id}/delete_row/`, // the endpoint
+		    type: "POST", // http method
+			headers: {
+				"X-CSRFToken": csrf_token
+			},
+		    data: {
+		    	"event" : "delete_row"
+		    }, // data sent with the post request
+		    // handle a successful response
+		    success: function(json) {
+		        //$('#post-text').val(''); // remove the value from the input
+		        console.log(json); // log the returned json to the console
+		        if (json === '200') {
+	    			//console.log('success: delete_row');  // another sanity check
+		        	_this.parent().parent().remove();
+		        }
+		    },
+		    // handle a non-successful response
+		    error: function(xhr,errmsg,err) {
+		    	//console.log('error: delete_row');
+		        // $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+ " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+		        // console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+		    }
+		});
 	}
 }

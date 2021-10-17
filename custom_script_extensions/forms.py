@@ -470,22 +470,29 @@ class notificationCreationForm(forms.ModelForm):
 		js = []
 
 
-	def __init__(self, *args, **kwargs):
+	def __init__(self, *args, id=None, **kwargs):
+		self.edit_id = id
 		super(notificationCreationForm, self).__init__(*args, **kwargs)
 
 	def save(self, commit=False, *args, **kwargs):
 		form_obj = super(notificationCreationForm, self).save(commit=False, *args, **kwargs)
-		print(self.cleaned_data.get('content_m2m'))
-		obj = notification_events(
-			title=form_obj.title,
-			event_content=form_obj.event_content,
-			event_content2=form_obj.event_content2,
-			is_actual=form_obj.is_actual
-			)
+		if self.edit_id:
+			obj = notification_events.objects.filter(id=self.edit_id).first()
+			if form_obj.title: obj.title = form_obj.title
+			if form_obj.event_content: obj.event_content = form_obj.event_content
+			if form_obj.event_content2: obj.event_content2 = form_obj.event_content2
+			obj.is_actual = form_obj.is_actual
+		else:
+			obj = notification_events(
+					title=form_obj.title,
+					event_content=form_obj.event_content,
+					event_content2=form_obj.event_content2,
+					is_actual=form_obj.is_actual
+				)
 		obj.save()
 		obj.users_list.clear()
 		obj.users_list.add(*self.cleaned_data.get('content_m2m'))
 		obj.save()
 
-
+		print('WWWWWWWWWWWWWWWww')
 		return form_obj

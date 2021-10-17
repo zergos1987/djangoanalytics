@@ -37,6 +37,7 @@
 	    {% block vendor_css %}{{ block.super }}
 	    <script type="text/javascript" charset="utf-8">
             // GLOBALS
+            let csrf_token = '{{ csrf_token }}';
             var grappelli = {},
                 ADMIN_URL = "/admin",
                 DATE_FORMAT = "%d.%m.%Y",
