@@ -7,7 +7,7 @@ function removeOnloadFrame_type2() {
 }
 function removeOnloadFrame_type3() {
 	$(".iframe-onloading.type3").remove()
-}
+} 
 
 $('iframe').on('load', function () {
 	removeOnloadFrame();
