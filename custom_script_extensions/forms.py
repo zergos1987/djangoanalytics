@@ -493,6 +493,5 @@ class notificationCreationForm(forms.ModelForm):
 		obj.users_list.clear()
 		obj.users_list.add(*self.cleaned_data.get('content_m2m'))
 		obj.save()
-
-		print('WWWWWWWWWWWWWWWww')
+		
 		return form_obj

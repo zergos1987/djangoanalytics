@@ -22,7 +22,7 @@ def get_table_settings(table_name, url_for_render, request):
 	request_table_secure_values_hide_FOR_ALL = [
 		"app_opensource_dashboards_viewer_group",
 		"app_zs_dashboards_viewer_group",
-		"Новая запись",
+		'admin_editor_group',
 	]
 	fathgrid_initialize_settings_FOR_ALL = {
 		'grid_properties': {
@@ -225,7 +225,7 @@ def get_table_settings(table_name, url_for_render, request):
 			'href': 'mb',
 			'external_href': 'Новая запись',
 			'source_type': 'external',
-			'url_access_via_groups': Group.objects.filter(name__in=['app_opensource_dashboards_viewer_group', 'app_zs_dashboards_viewer_group']),
+			'url_access_via_groups': Group.objects.filter(name__in=['admin_editor_group']),
 		}
 
 

@@ -5532,3 +5532,7 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 .PopoverBody.PopoverBody--tooltip {
   font-size: 0.9em;
 }
+
+body {
+  background-color: transparent !important;
+}

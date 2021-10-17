@@ -125,7 +125,6 @@ function clear_m2m_field(id) {
 	let selector_available = element.parent().parent().parent().find('.selector-available select')
 	let options_for_unselected = element.parent().find('option');
 	for (var i = 0; i < options_for_unselected.length; i++) {
-		console.log('FFFFFFF', options_for_unselected.eq(i))
 		selector_available.append(options_for_unselected.eq(i));
 	}
 }
@@ -144,7 +143,6 @@ $(document).on('submit', '.form_frame.edit_form', function(e){
 	if ($(this).hasClass('edit_form') || $(this).hasClass('add_form')) {
 		e.preventDefault();
 	}
-	console.log(frm.serialize(), 'QQQQQQQQQ')
 	if ($(this).hasClass('edit_form')) {
 		$.ajax({ 
 		    url: `/zs_admin/notification_events_publication/${_row_id}/edit_row/`, // the endpoint
@@ -200,7 +198,7 @@ $(document).on('submit', '.form_frame.edit_form', function(e){
 		});
 	}
 	if ($(this).hasClass('add_form')) {
-		console.log('CCCCCCCCCCCCCc')
+		console.log('add_form')
 	}
 	$(this).find('#form-app > fieldset > .items-container').remove();
 	$(this).find('#form-app > fieldset').prepend(clone_form_props);
@@ -223,7 +221,7 @@ function detail_table_events (selector) {
 			let _k = (Object.keys($(this).data())[0])
 			let _v = _row_columns.eq(index).text()
 			if (_v === "None") {
-				console.log(_k, _v)
+				console.log("None", _k, _v)
 			} else {
 				_data.push({[_k]: _v});
 				let _form_field = _detail_form_id.find(`[data-${_k}]`);
@@ -270,7 +268,7 @@ function detail_table_events (selector) {
 		_detail_form_id.addClass('edit_form');
 	}
 	if (_this.hasClass('show_add_form')) {
-		console.log(_detail_form_id)
+		//console.log(_detail_form_id)
 		// $(document).on('submit', '.login-form', function(){
 		// 	$.ajax({ 
 		// 		url: this.action, 
@@ -304,7 +302,7 @@ function detail_table_events (selector) {
 		    // handle a successful response
 		    success: function(json) {
 		        //$('#post-text').val(''); // remove the value from the input
-		        console.log(json); // log the returned json to the console
+		        //console.log(json); // log the returned json to the console
 		        if (json === '200') {
 	    			//console.log('success: delete_row');  // another sanity check
 		        	_this.parent().parent().remove();
