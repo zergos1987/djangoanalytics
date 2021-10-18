@@ -18,6 +18,7 @@ import logging
 from logging.handlers import RotatingFileHandler
 from django.contrib.auth.signals import user_logged_in, user_logged_out, user_login_failed
 from django.dispatch import receiver
+import cx_Oracle
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -137,6 +138,14 @@ DATABASE_APPS_MAPPING = {
     'database_oracle_sadko': 'oracle_sadko_db',
     'database_sqlite_test': 'test_remote_db',
 }
+
+
+
+# try:
+#     cx_Oracle.init_oracle_client(lib_dir=r"E:/www/dist/instantclient_19_12")
+# except Exception as e:
+#     pass
+
 DATABASES = {
     # [W - setup] ################################
 #    'default': {
