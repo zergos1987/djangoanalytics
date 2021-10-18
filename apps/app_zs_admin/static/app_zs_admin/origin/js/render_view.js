@@ -31,7 +31,7 @@ $('.print-mode').off('click').click(function() {
 		if ($('.external-container.mb').length > 0) {
 			$('.render_view').css('padding-left', '0px');
 			$('.external-container.mb').css('height', 'calc(100vh + 200px)');
-			var css = '@page { size: landscape; margin: 40px 40px; }',
+			var css = '@page { size: landscape; margin: 0 auto; }'
 			head = document.head || document.getElementsByTagName('head')[0],
 			style = document.createElement('style');
 
