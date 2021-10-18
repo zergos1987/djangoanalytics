@@ -177,6 +177,7 @@ $(document).on('submit', '.form_frame.edit_form', function(e){
 									} else {
 										v = 'False'
 									}
+									$(this).find('div').text(v)
 								} else {
 									if (v.constructor === Array) {
 										v = v.join(", ")
