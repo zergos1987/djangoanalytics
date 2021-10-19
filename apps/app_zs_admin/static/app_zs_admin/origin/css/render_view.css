@@ -1212,7 +1212,7 @@ table.table-grid.fathgrid tfoot th:empty {
 }
 
 tr.edit-row-selected {
-	background-color: #b6ffaf;
+	background-color: #b6ffaf !important
 }
 
 .btn_close_form {
