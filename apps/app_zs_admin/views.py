@@ -258,16 +258,20 @@ def notification_events_confirm(request, user_id):
 @login_required
 #@permission_required('app_zs_admin.view_app')
 def notification_events_publication(request, notification_events_id=None, event=None):
-	if notification_events_id and event:
+	if event == 'add_row' or event == 'edit_row':
 		if request.method == 'POST':
-			if event == 'edit_row':
+			form_id = 0
+			if notification_events_id:
 				form = notificationCreationForm(request.POST, id=notification_events_id)
-				if form.is_valid():
-					form.save(commit=False)
-					obj = notification_events.objects.filter(id=notification_events_id).all()
-					return HttpResponse(serialize("json", obj), content_type='application/json', status = 200)
-			if event == 'delete_row':
-				notification_events.objects.filter(id=notification_events_id).delete()
+			else:
+				form = notificationCreationForm(request.POST)
+			if form.is_valid():
+				notification_events_id = form.save(commit=False)
+				obj = notification_events.objects.filter(id=notification_events_id).all()
+				return HttpResponse(serialize("json", obj), content_type='application/json', status = 200)
+		return HttpResponse(404)
+	if event == 'delete_row':
+		notification_events.objects.filter(id=notification_events_id).delete()
 		return HttpResponse(200)
 
 
