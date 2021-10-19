@@ -1374,15 +1374,15 @@ tr.edit-row-selected {
     border: 2px solid #dcdcdc;
 }
 
-.extra_menu > button {
+.table_row_menu > button {
 	border: none;
 }
 
-.extra_menu:empty {
+.table_row_menu:empty {
 	display: none;
 }
 
-.extra_menu > button:not(:first-child) {
+.table_row_menu > button:not(:first-child) {
 	margin-left: 1px;
 }
 
@@ -1407,7 +1407,7 @@ tr.edit-row-selected {
 	text-align: center;
 }
 
-.extra_menu > button > svg {
+.table_row_menu > button > svg {
 	fill: #fff;
 	padding: 3px;
 	height: calc(100% - 0px);
