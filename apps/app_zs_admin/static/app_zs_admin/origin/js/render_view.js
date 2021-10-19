@@ -191,8 +191,6 @@ $(document).on('submit', '.form_frame.edit_form', function(e){
 										$(this).find('div').text(v)
 									}
 								}
-
-								console.log(k, v, typeof(v), $(this).find('div').text());
 							}
 						})
 					}
