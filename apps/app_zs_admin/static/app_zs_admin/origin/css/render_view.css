@@ -1386,6 +1386,7 @@ tr.edit-row-selected {
 	margin-left: 1px;
 }
 
+.add_row_form,
 .delete_row,
 .show_edit_form {
     width: 19px;
@@ -1396,6 +1397,14 @@ tr.edit-row-selected {
 
 .delete_row {
 	background-color: #f00;
+}
+
+.add_row_form {
+	background-color: #2ee173;
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 20px;
+	text-align: center;
 }
 
 .extra_menu > button > svg {
