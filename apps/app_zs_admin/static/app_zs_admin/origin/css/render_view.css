@@ -1386,20 +1386,20 @@ tr.edit-row-selected {
 	margin-left: 1px;
 }
 
-.add_row_form,
-.delete_row,
-.show_edit_form {
+.btn_row_form,
+.btn_delete_row,
+.btn_edit_form {
     width: 19px;
     height: 100%;
     cursor: pointer;
     background-color: #2ee173;
 }
 
-.delete_row {
+.btn_delete_row {
 	background-color: #f00;
 }
 
-.add_row_form {
+.btn_row_form {
 	background-color: #2ee173;
 	color: #ffffff;
 	font-weight: bold;
