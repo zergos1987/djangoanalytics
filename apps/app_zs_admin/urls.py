@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^zs_admin/users_profile/$', views.users_profile, name='users_profile'),
     url(r'^zs_admin/users_profile/create/(?P<username>[\w\-]+)/$', views.users_profile, name='users_profile'),
     url(r'^zs_admin/notification_events_publication/$', views.notification_events_publication, name='notification_events_publication'),
+    url(r'^zs_admin/notification_events_publication/(?P<event>[\w\-]+)/$', views.notification_events_publication, name='notification_events_publication'),
     url(r'^zs_admin/notification_events_publication/(?P<notification_events_id>[0-9]+)/(?P<event>[\w\-]+)/$', views.notification_events_publication, name='notification_events_publication'),
     url(r'^zs_admin/dashboard_settings/$', views.dashboard_settings, name='dashboard_settings'),
     url(r'^zs_admin/dashboard_creation/$', views.dashboard_creation, name='dashboard_creation'),
