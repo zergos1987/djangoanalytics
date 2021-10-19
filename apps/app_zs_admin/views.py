@@ -280,6 +280,7 @@ def notification_events_publication(request, notification_events_id=None, event=
 	if not user_content_has_permission: raise PermissionDenied()
 
 	form_detail_list = {'id': 'detail_notificationCreationForm', 'data': ''}
+	#form_detail_list['data'] = serialize("json", notification_events.objects.all()) #.filter(is_actual=True)
 	form_detail_list['data'] = notification_events.objects.all() #.filter(is_actual=True)
 	
 	if request.method == 'POST':

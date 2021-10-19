@@ -1210,7 +1210,9 @@ table.table-grid.fathgrid tfoot th:empty {
 	width: calc(100% - 20px) !important;
 }
 
-
+tr.edit-row-selected {
+	background-color: #b6ffaf;
+}
 
 
 /*detail form table*/

@@ -137,7 +137,7 @@ function add_m2m_field(id, index) {
 }
 
 
-let clone_form_props;
+let clone_form_props, cke_wysiwyg_frame_body;
 $(document).on('submit', '.form_frame.edit_form', function(e){
 	var frm = $(this).find('form');
 	if ($(this).hasClass('edit_form') || $(this).hasClass('add_form')) {
@@ -201,7 +201,11 @@ $(document).on('submit', '.form_frame.edit_form', function(e){
 	if ($(this).hasClass('add_form')) {
 		console.log('add_form')
 	}
+	$(this).addClass('displayNone');
+	$('.edit-row-selected').removeClass('edit-row-selected');
 	$(this).find('#form-app > fieldset > .items-container').remove();
+	$('.cke_wysiwyg_frame').contents().find('body').parent().prepend(cke_wysiwyg_frame_body)
+	console.log(clone_form_props, 'QQQQQQQQQQq')
 	$(this).find('#form-app > fieldset').prepend(clone_form_props);
 	$(this).removeClass('edit_form').removeClass('add_form');
 });
@@ -212,11 +216,15 @@ function detail_table_events (selector) {
 	_detail_table = _this.closest('.form-detail-table-container');
 	_detail_form_id = $('#'+_detail_table.attr('id').replace('detail_', ''));
 	_row_columns = _this.parent().parent().find('td');
+	_row = _this.parent().parent().find('[data-id]').parent();
 	_row_id = _this.parent().parent().find('[data-id]').text();
 
-	
 	if (_this.hasClass('show_edit_form')) {
+		_detail_table.find('.edit-row-selected').removeClass('edit-row-selected');
+		_row.addClass('edit-row-selected');
+		_detail_form_id.removeClass('displayNone');
 		clone_form_props = _detail_form_id.find('#form-app > fieldset > .items-container').clone();
+		cke_wysiwyg_frame_body = $('.cke_wysiwyg_frame').contents().find('body').clone();
 		_data = []
 		$(_detail_table).find('.t-header th').each(function(index) {
 			let _k = (Object.keys($(this).data())[0])
@@ -228,6 +236,7 @@ function detail_table_events (selector) {
 				let _form_field = _detail_form_id.find(`[data-${_k}]`);
 				if (_k === _form_field.data(_k)) {
 					if (_form_field.data('externalPluginResources')) {
+
 					} else {
 						if (_form_field.prop("tagName") === 'INPUT') {
 							if (_form_field.attr('type') === 'text') {

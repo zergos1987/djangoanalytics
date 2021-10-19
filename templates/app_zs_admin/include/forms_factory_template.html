@@ -1,6 +1,7 @@
 {% spaceless %}
 
 {% if form_detail_view %}
+<!-- <script type="text/javascript">let detail_grid_data = {{form_detail_view.data|safe}};console.log(detail_grid_data);</script> -->
 <div class="form-detail-table-container" id="{{form_detail_view.id}}">
     <div class="detail-wrapper">
         <div class="detail-table">
@@ -36,7 +37,7 @@
 </div>
 {% endif %}
 
-<div class="form_frame" id="{% for item in form %}{% if forloop.first %}{{item.label}}{% endif %}{% endfor %}">
+<div class="form_frame displayNone" id="{% for item in form %}{% if forloop.first %}{{item.label}}{% endif %}{% endfor %}">
     <form action="" method="post">
         {{ form_media }}
         {% csrf_token %}
