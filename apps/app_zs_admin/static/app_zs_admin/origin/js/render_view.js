@@ -26,28 +26,33 @@ $('.print-mode').off('click').click(function() {
 	$('.full-screen-button').off('click').click();
 	$('.full-screen-button').hide();
 	$('.print-mode').hide();
+
+
+	if ($('.external-container.mb').length > 0) {
+		$('.render_view').css('padding-left', '0px');
+		$('.external-container.mb').css('height', '800vh');
+		var css = '@page { size: landscape; margin: 0 auto; }',
+		head = document.head || document.getElementsByTagName('head')[0],
+		style = document.createElement('style');
+
+		style.type = 'text/css';
+		style.media = 'print';
+
+		if (style.styleSheet){
+		  style.styleSheet.cssText = css;
+		} else {
+		  style.appendChild(document.createTextNode(css));
+		}
+
+		head.appendChild(style);
+	} else {
+		$('.render_view').css('margin-left', '0px');
+	}
+
+
 	function waitResizeState() {
 		// mb print landscape
-		if ($('.external-container.mb').length > 0) {
-			$('.render_view').css('padding-left', '0px');
-			$('.external-container.mb').css('height', 'calc(100vh + 200px)');
-			var css = '@page { size: landscape; margin: 0 auto; }'
-			head = document.head || document.getElementsByTagName('head')[0],
-			style = document.createElement('style');
 
-			style.type = 'text/css';
-			style.media = 'print';
-
-			if (style.styleSheet){
-			  style.styleSheet.cssText = css;
-			} else {
-			  style.appendChild(document.createTextNode(css));
-			}
-
-			head.appendChild(style);
-		} else {
-			$('.render_view').css('margin-left', '0px');
-		}
 		window.print();
 		if ($('.external-container.mb').length > 0) {
 			$('.render_view').css('padding-left', '');
@@ -59,8 +64,9 @@ $('.print-mode').off('click').click(function() {
 		$('.full-screen-button').show();
 		$('.full-screen-button').off('click').click();
 	}
-	setTimeout(waitResizeState, 1000);
+	setTimeout(waitResizeState, 3000);
 })
+
 
 let extra_menu = '<div class="extra_menu"></div>'
 let menu_edit_row = `<button onclick="detail_table_events(this)" class="show_edit_form" title="редактировать запись">
