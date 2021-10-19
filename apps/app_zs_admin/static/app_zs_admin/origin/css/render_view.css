@@ -1217,7 +1217,7 @@ tr.edit-row-selected {
 
 .btn_close_form {
     position: absolute;
-    right: 0;
+    right: 5px;
     width: 24px;
     height: 24px;
     background-color: #fff;
