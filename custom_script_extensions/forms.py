@@ -478,9 +478,9 @@ class notificationCreationForm(forms.ModelForm):
 		form_obj = super(notificationCreationForm, self).save(commit=False, *args, **kwargs)
 		if self.edit_id:
 			obj = notification_events.objects.filter(id=self.edit_id).first()
-			if form_obj.title: obj.title = form_obj.title
-			if form_obj.event_content: obj.event_content = form_obj.event_content
-			if form_obj.event_content2: obj.event_content2 = form_obj.event_content2
+			obj.title = form_obj.title
+			obj.event_content = form_obj.event_content
+			obj.event_content2 = form_obj.event_content2
 			obj.is_actual = form_obj.is_actual
 		else:
 			obj = notification_events(
