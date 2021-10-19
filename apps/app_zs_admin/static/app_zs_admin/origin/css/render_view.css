@@ -1283,6 +1283,7 @@ tr.edit-row-selected {
 	position: sticky;
 	left: 0;
 	z-index: 4;
+	height: fit-content;
 }
 
 .form-detail-table-container > .detail-wrapper > .detail-table  td.column:first-child {
