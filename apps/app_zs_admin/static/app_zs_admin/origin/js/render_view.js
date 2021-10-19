@@ -68,8 +68,9 @@ $('.print-mode').off('click').click(function() {
 })
 
 
-let extra_menu = '<div class="extra_menu"></div>'
-let menu_edit_row = `<button onclick="detail_table_events(this)" class="show_edit_form" title="редактировать запись">
+let table_row_menu = '<div class="table_row_menu"></div>'
+let btn_form_add_row = `<button onclick="detail_table_events(this)" class="btn_form_add_row" title="добавить запись">+</button>`
+let btn_form_edit_row = `<button onclick="detail_table_events(this)" class="btn_form_edit_row" title="редактировать запись">  
 	<svg viewBox="0 0 348.882 348.882">
 	<g>
 		<path d="M333.988,11.758l-0.42-0.383C325.538,4.04,315.129,0,304.258,0c-12.187,0-23.888,5.159-32.104,14.153L116.803,184.231
@@ -84,7 +85,7 @@ let menu_edit_row = `<button onclick="detail_table_events(this)" class="show_edi
 			c37.576,0,68.147-30.571,68.147-68.147V153.388C318.85,145.104,312.134,138.388,303.85,138.388z"/>
 	</svg>
 </button>`
-let menu_delete_row = `<button onclick="detail_table_events(this)" class="delete_row" title="удалить запись">
+let btn_form_delete_row = `<button onclick="detail_table_events(this)" class="btn_form_delete_row" title="удалить запись">
 	<svg viewBox="0 0 330 330">
 		<g id="XMLID_6_">
 			<g id="XMLID_11_">
@@ -108,20 +109,21 @@ let menu_delete_row = `<button onclick="detail_table_events(this)" class="delete
 </button>`
 // detail form table - row menu
 $('.detail-wrapper, .detail-wrapper tr td:not(:nth-child(1))').off('hover').hover(function() {
-	$('.extra_menu').remove();
+	$('.table_row_menu').remove();
 })
 $('.form-detail-table-container tbody tr td:nth-child(1)').off('hover').hover(function() {
-	$('.extra_menu').remove();
-	if ($('.form-detail-table-container tbody tr extra_menu').length === 0) {
-		$(this).parent().append(extra_menu);
-		$('.extra_menu').append(menu_edit_row);
-		$('.extra_menu').append(menu_delete_row);
+	$('.table_row_menu').remove();
+	if ($('.form-detail-table-container tbody tr table_row_menu').length === 0) {
+		$(this).parent().append(table_row_menu);
+		$('.table_row_menu').append(btn_form_add_row);
+		$('.table_row_menu').append(btn_form_edit_row);
+		$('.table_row_menu').append(btn_form_delete_row);
 	}
 }, function() {
-	$('.extra_menu').off('hover').hover(function() {
+	$('.table_row_menu').off('hover').hover(function() {
 
 	}, function() {
-		$('.extra_menu').remove();
+		$('.table_row_menu').remove();
 	})
 })
 
@@ -144,78 +146,118 @@ function add_m2m_field(id, index) {
 
 
 let clone_form_props, cke_wysiwyg_frame_body;
-$(document).on('submit', '.form_frame.edit_form', function(e){
-	var frm = $(this).find('form');
+$(document).on('submit', '.form_frame.edit_form, .form_frame.add_form', function(e){
+	let frm = $(this).find('form');
+	let api_url = `/zs_admin/notification_events_publication/`;
+	let api_data = {}
+	let api_event = ''
 	if ($(this).hasClass('edit_form') || $(this).hasClass('add_form')) {
 		e.preventDefault();
 	}
+	console.log('BBBBBBBBBBBBBBBBBBBBBBBBBBB')
 	if ($(this).hasClass('edit_form')) {
-		$.ajax({ 
-		    url: `/zs_admin/notification_events_publication/${_row_id}/edit_row/`, // the endpoint
-		    type: "POST", // http method
-			headers: {
-				"X-CSRFToken": csrf_token
-			},
-		    data: {
-		    	"event" : "edit_form"
-		    }, // data sent with the post request
-		    // handle a successful response
-			headers: {
-				"X-CSRFToken": csrf_token
-			},
-			data: frm.serialize(),
-			success: function(data, status) {
-				//console.log(_row_columns)
-				console.log('success: edit_form');
-				let updated_row, columns;
-				for (var i = 0; i < data.length; i++) {
-					updated_row = data[i]['fields'];
-					columns = Object.keys(updated_row)
-					let k;
-					for (var j = 0; j < columns.length; j++) {
-						k = columns[j]
-						_row_columns.each(function() {
-							if ($(this).data(k) != undefined ) {
-								let v = updated_row[k];
-								if (typeof(v) === 'boolean') {
-									if(v) {
-										v = 'True'
-									} else {
-										v = 'False'
-									}
-									$(this).find('div').text(v)
-								} else {
-									if (v.constructor === Array) {
-										v = v.join(", ")
-									} else {
-										$(this).find('div').text(v)
-									}
-								}
-							}
-						})
-					}
-				}
-			},
-			// handle a non-successful response
-			error: function(xhr,errmsg,err) {
-				console.log('error: edit_form');
-			}
-		});
+		api_event = "edit_row";
+		api_url = api_url + `${_row_id}/edit_row/`;
 	}
 	if ($(this).hasClass('add_form')) {
-		console.log('add_form')
+		api_event = "add_row";
+		api_url = api_url + `add_row/`
 	}
+	api_data["event"] = api_event;
+	console.log(api_data, api_url)
+	$.ajax({ 
+	    url: api_url, // the endpoint
+	    type: "POST", // http method
+		headers: {
+			"X-CSRFToken": csrf_token
+		},
+	    data: api_data, // data sent with the post request
+	    // handle a successful response
+		headers: {
+			"X-CSRFToken": csrf_token
+		},
+		data: frm.serialize(),
+		success: function(data, status) {
+			//console.log(_row_columns)
+			console.log(`success: api_event - ${api_event}`);
+
+			let inserted_row;
+			if (api_event === 'add_row') {
+				let new_row = _detail_table.find('tbody tr:nth-child(1)').clone(true);
+				_detail_table.find('tbody').prepend(new_row)
+				_detail_table.find('tbody tr:nth-child(1) td').each(function() { console.log($(this).find('div').text(''))});
+				inserted_row = _detail_table.find('tbody tr:nth-child(1) td');
+			} else {
+				inserted_row = _row_columns;
+			}
+
+			let updated_row, columns;
+			for (var i = 0; i < data.length; i++) {
+				if (api_event === 'add_row') {data[i]['fields']['id'] = data[i]['pk']}
+				updated_row = data[i]['fields'];
+				columns = Object.keys(updated_row)
+				let k;
+				for (var j = 0; j < columns.length; j++) {
+					k = columns[j]
+					inserted_row.each(function() {
+						if ($(this).data(k) != undefined ) {
+							let v = updated_row[k];
+							if (typeof(v) === 'boolean') {
+								if(v) {
+									v = 'True'
+								} else {
+									v = 'False'
+								}
+								$(this).find('div').text(v)
+							} else {
+								if (v.constructor === Array) {
+									v = v.join(", ")
+								} else {
+									$(this).find('div').text(v)
+								}
+							}
+						}
+					})
+				}
+			}
+		},
+		// handle a non-successful response
+		error: function(xhr,errmsg,err) {
+			console.log(`error: api_event - ${api_event}`);
+		}
+	});
+
 	$(this).addClass('displayNone');
 	$('.edit-row-selected').removeClass('edit-row-selected');
 	$(this).find('#form-app > fieldset > .items-container').remove();
-	$('.cke_wysiwyg_frame').contents().find('body').parent().prepend(cke_wysiwyg_frame_body)
-	console.log(clone_form_props, 'QQQQQQQQQQq')
 	$(this).find('#form-app > fieldset').prepend(clone_form_props);
+	old_body = $('.cke_wysiwyg_frame').contents().find('body');
+	old_body.parent().prepend(cke_wysiwyg_frame_body)
+	old_body.remove();
 	$(this).removeClass('edit_form').removeClass('add_form');
 });
 
 
-function detail_table_events (selector) {
+
+$(document).on('click', '.table_row_menu > .btn_form_add_row, .table_row_menu > .btn_form_edit_row', function(e){
+	if($(this).hasClass('btn_form_add_row')) {_detail_form_id.removeClass('edit_form')}
+	if($(this).hasClass('btn_form_edit_row')) {_detail_form_id.removeClass('add_form')}
+});
+
+$(document).on('click', '.btn_close_form', function(e){
+	$(this).parent().addClass('displayNone');
+	$(this).parent().removeClass('edit_form').removeClass('add_form');
+	$('.edit-row-selected').removeClass('edit-row-selected');
+	$(this).parent().find('#form-app > fieldset > .items-container').remove();
+	$(this).parent().find('#form-app > fieldset').prepend(clone_form_props);
+	old_body = $('.cke_wysiwyg_frame').contents().find('body');
+	old_body.parent().prepend(cke_wysiwyg_frame_body)
+	old_body.remove();
+});
+
+
+let btn_close_form = `<div class="btn_close_form">x</div>`
+function detail_table_events(selector) {
 	_this = $(selector);
 	_detail_table = _this.closest('.form-detail-table-container');
 	_detail_form_id = $('#'+_detail_table.attr('id').replace('detail_', ''));
@@ -223,11 +265,16 @@ function detail_table_events (selector) {
 	_row = _this.parent().parent().find('[data-id]').parent();
 	_row_id = _this.parent().parent().find('[data-id]').text();
 
-	if (_this.hasClass('show_edit_form')) {
+	clone_form_props = _detail_form_id.find('#form-app > fieldset > .items-container').clone();
+	if (_detail_form_id.find('.btn_close_form').length === 0) {
+		_detail_form_id.prepend(btn_close_form);
+	}
+
+	if (_this.hasClass('btn_form_edit_row')) {
+		_this.removeClass('add_form')
 		_detail_table.find('.edit-row-selected').removeClass('edit-row-selected');
 		_row.addClass('edit-row-selected');
 		_detail_form_id.removeClass('displayNone');
-		clone_form_props = _detail_form_id.find('#form-app > fieldset > .items-container').clone();
 		cke_wysiwyg_frame_body = $('.cke_wysiwyg_frame').contents().find('body').clone();
 		_data = []
 		$(_detail_table).find('.t-header th').each(function(index) {
@@ -281,53 +328,40 @@ function detail_table_events (selector) {
 		});
 		_detail_form_id.addClass('edit_form');
 	}
-	if (_this.hasClass('show_add_form')) {
-		//console.log(_detail_form_id)
-		// $(document).on('submit', '.login-form', function(){
-		// 	$.ajax({ 
-		// 		url: this.action, 
-		// 		type: $(this).attr('method'), 
-		// 		headers: {
-		// 			"X-CSRFToken": csrf_token
-		// 		},
-		// 		data: $(this).serialize(),
-		// 		context: this,
-		// 		success: function(data, status) {
-		// 			console.log('success: delete_row');
-		// 		},
-		// 		// handle a non-successful response
-		// 		error: function(xhr,errmsg,err) {
-		// 			console.log('error: delete_row');
-		// 		}
-		// 	});
-		// 	return false;
-		// });
+	if (_this.hasClass('btn_form_add_row')) {
+		_this.removeClass('edit_form')
+		_detail_form_id.removeClass('displayNone');
+		_detail_form_id.addClass('add_form');
 	}
-	if (_this.hasClass('delete_row')) {
-		$.ajax({
-		    url: `/zs_admin/notification_events_publication/${_row_id}/delete_row/`, // the endpoint
-		    type: "POST", // http method
-			headers: {
-				"X-CSRFToken": csrf_token
-			},
-		    data: {
-		    	"event" : "delete_row"
-		    }, // data sent with the post request
-		    // handle a successful response
-		    success: function(json) {
-		        //$('#post-text').val(''); // remove the value from the input
-		        //console.log(json); // log the returned json to the console
-		        if (json === '200') {
-	    			//console.log('success: delete_row');  // another sanity check
-		        	_this.parent().parent().remove();
-		        }
-		    },
-		    // handle a non-successful response
-		    error: function(xhr,errmsg,err) {
-		    	//console.log('error: delete_row');
-		        // $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+ " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-		        // console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-		    }
-		});
+	if (_this.hasClass('btn_form_delete_row')) {
+		if (_row_id.length === 0) {
+			_detail_table.find('tbody tr:nth-child(1)').remove();
+		} else {
+			$.ajax({
+			    url: `/zs_admin/notification_events_publication/${_row_id}/delete_row/`, // the endpoint
+			    type: "POST", // http method
+				headers: {
+					"X-CSRFToken": csrf_token
+				},
+			    data: {
+			    	"event" : "delete_row"
+			    }, // data sent with the post request
+			    // handle a successful response
+			    success: function(json) {
+			        //$('#post-text').val(''); // remove the value from the input
+			        //console.log(json); // log the returned json to the console
+			        if (json === '200') {
+		    			//console.log('success: delete_row');  // another sanity check
+			        	_this.parent().parent().remove();
+			        }
+			    },
+			    // handle a non-successful response
+			    error: function(xhr,errmsg,err) {
+			    	//console.log('error: delete_row');
+			        // $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+ " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+			        // console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+			    }
+			});
+		}
 	}
 }
