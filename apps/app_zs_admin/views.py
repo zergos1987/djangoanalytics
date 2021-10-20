@@ -57,9 +57,9 @@ def index(request):
 	app_settings = app.objects.filter(is_actual=True).first()
 	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
 	app_events = {}
-	if confirm_events_user:
+	if confirm_events_user: 
 		app_events['actual'] = notification_events.objects.filter(Q(is_actual=True) & Q(event_date__gte=confirm_events_user.confirm_date) & Q(Q(users_list=request.user) | Q(title='Новый пользователь!'))).all()
-		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
+		app_events['previews'] = notification_events.objects.filter(Q(is_actual=True) & Q(Q(Q(users_list=request.user) & Q(event_date__lte=confirm_events_user.confirm_date)) | Q(title='Новый пользователь!'))).filter(~Q(id__in=list(app_events.get('actual').filter(title='Новый пользователь!').values_list('pk', flat=True)))).all()[:3]
 	else:
 		app_events['actual'] = notification_events.objects.filter(is_actual=True).all()[:5]
 
@@ -83,9 +83,9 @@ def settings_index(request):
 	app_settings = app.objects.filter(is_actual=True).first()
 	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
 	app_events = {}
-	if confirm_events_user:
+	if confirm_events_user: 
 		app_events['actual'] = notification_events.objects.filter(Q(is_actual=True) & Q(event_date__gte=confirm_events_user.confirm_date) & Q(Q(users_list=request.user) | Q(title='Новый пользователь!'))).all()
-		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
+		app_events['previews'] = notification_events.objects.filter(Q(is_actual=True) & Q(Q(Q(users_list=request.user) & Q(event_date__lte=confirm_events_user.confirm_date)) | Q(title='Новый пользователь!'))).filter(~Q(id__in=list(app_events.get('actual').filter(title='Новый пользователь!').values_list('pk', flat=True)))).all()[:3]
 	else:
 		app_events['actual'] = notification_events.objects.filter(is_actual=True).all()[:5]
 
@@ -131,9 +131,9 @@ def render_view(request, id):
 	app_settings = app.objects.filter(is_actual=True).first()
 	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
 	app_events = {}
-	if confirm_events_user:
+	if confirm_events_user: 
 		app_events['actual'] = notification_events.objects.filter(Q(is_actual=True) & Q(event_date__gte=confirm_events_user.confirm_date) & Q(Q(users_list=request.user) | Q(title='Новый пользователь!'))).all()
-		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
+		app_events['previews'] = notification_events.objects.filter(Q(is_actual=True) & Q(Q(Q(users_list=request.user) & Q(event_date__lte=confirm_events_user.confirm_date)) | Q(title='Новый пользователь!'))).filter(~Q(id__in=list(app_events.get('actual').filter(title='Новый пользователь!').values_list('pk', flat=True)))).all()[:3]
 	else:
 		app_events['actual'] = notification_events.objects.filter(is_actual=True).all()[:5]
 
@@ -156,9 +156,9 @@ def handler400(request, exception):
 	app_settings = app.objects.filter(is_actual=True).first()
 	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
 	app_events = {}
-	if confirm_events_user:
+	if confirm_events_user: 
 		app_events['actual'] = notification_events.objects.filter(Q(is_actual=True) & Q(event_date__gte=confirm_events_user.confirm_date) & Q(Q(users_list=request.user) | Q(title='Новый пользователь!'))).all()
-		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
+		app_events['previews'] = notification_events.objects.filter(Q(is_actual=True) & Q(Q(Q(users_list=request.user) & Q(event_date__lte=confirm_events_user.confirm_date)) | Q(title='Новый пользователь!'))).filter(~Q(id__in=list(app_events.get('actual').filter(title='Новый пользователь!').values_list('pk', flat=True)))).all()[:3]
 	else:
 		app_events['actual'] = notification_events.objects.filter(is_actual=True).all()[:5]
 
@@ -178,9 +178,9 @@ def handler403(request, exception):
 	app_settings = app.objects.filter(is_actual=True).first()
 	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
 	app_events = {}
-	if confirm_events_user:
+	if confirm_events_user: 
 		app_events['actual'] = notification_events.objects.filter(Q(is_actual=True) & Q(event_date__gte=confirm_events_user.confirm_date) & Q(Q(users_list=request.user) | Q(title='Новый пользователь!'))).all()
-		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
+		app_events['previews'] = notification_events.objects.filter(Q(is_actual=True) & Q(Q(Q(users_list=request.user) & Q(event_date__lte=confirm_events_user.confirm_date)) | Q(title='Новый пользователь!'))).filter(~Q(id__in=list(app_events.get('actual').filter(title='Новый пользователь!').values_list('pk', flat=True)))).all()[:3]
 	else:
 		app_events['actual'] = notification_events.objects.filter(is_actual=True).all()[:5]
 
@@ -200,9 +200,9 @@ def handler404(request, exception):
 	app_settings = app.objects.filter(is_actual=True).first()
 	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
 	app_events = {}
-	if confirm_events_user:
+	if confirm_events_user: 
 		app_events['actual'] = notification_events.objects.filter(Q(is_actual=True) & Q(event_date__gte=confirm_events_user.confirm_date) & Q(Q(users_list=request.user) | Q(title='Новый пользователь!'))).all()
-		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
+		app_events['previews'] = notification_events.objects.filter(Q(is_actual=True) & Q(Q(Q(users_list=request.user) & Q(event_date__lte=confirm_events_user.confirm_date)) | Q(title='Новый пользователь!'))).filter(~Q(id__in=list(app_events.get('actual').filter(title='Новый пользователь!').values_list('pk', flat=True)))).all()[:3]
 	else:
 		app_events['actual'] = notification_events.objects.filter(is_actual=True).all()[:5]
 
@@ -222,9 +222,9 @@ def handler500(request):
 	app_settings = app.objects.filter(is_actual=True).first()
 	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
 	app_events = {}
-	if confirm_events_user:
+	if confirm_events_user: 
 		app_events['actual'] = notification_events.objects.filter(Q(is_actual=True) & Q(event_date__gte=confirm_events_user.confirm_date) & Q(Q(users_list=request.user) | Q(title='Новый пользователь!'))).all()
-		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
+		app_events['previews'] = notification_events.objects.filter(Q(is_actual=True) & Q(Q(Q(users_list=request.user) & Q(event_date__lte=confirm_events_user.confirm_date)) | Q(title='Новый пользователь!'))).filter(~Q(id__in=list(app_events.get('actual').filter(title='Новый пользователь!').values_list('pk', flat=True)))).all()[:3]
 	else:
 		app_events['actual'] = notification_events.objects.filter(is_actual=True).all()[:5]
 
@@ -300,9 +300,9 @@ def notification_events_publication(request, notification_events_id=None, event=
 	app_settings = app.objects.filter(is_actual=True).first()
 	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
 	app_events = {}
-	if confirm_events_user:
+	if confirm_events_user: 
 		app_events['actual'] = notification_events.objects.filter(Q(is_actual=True) & Q(event_date__gte=confirm_events_user.confirm_date) & Q(Q(users_list=request.user) | Q(title='Новый пользователь!'))).all()
-		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
+		app_events['previews'] = notification_events.objects.filter(Q(is_actual=True) & Q(Q(Q(users_list=request.user) & Q(event_date__lte=confirm_events_user.confirm_date)) | Q(title='Новый пользователь!'))).filter(~Q(id__in=list(app_events.get('actual').filter(title='Новый пользователь!').values_list('pk', flat=True)))).all()[:3]
 	else:
 		app_events['actual'] = notification_events.objects.filter(is_actual=True).all()[:5]
 
@@ -359,9 +359,9 @@ def users_profile(request, username=None):
 	app_settings = app.objects.filter(is_actual=True).first()
 	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
 	app_events = {}
-	if confirm_events_user:
+	if confirm_events_user: 
 		app_events['actual'] = notification_events.objects.filter(Q(is_actual=True) & Q(event_date__gte=confirm_events_user.confirm_date) & Q(Q(users_list=request.user) | Q(title='Новый пользователь!'))).all()
-		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
+		app_events['previews'] = notification_events.objects.filter(Q(is_actual=True) & Q(Q(Q(users_list=request.user) & Q(event_date__lte=confirm_events_user.confirm_date)) | Q(title='Новый пользователь!'))).filter(~Q(id__in=list(app_events.get('actual').filter(title='Новый пользователь!').values_list('pk', flat=True)))).all()[:3]
 	else:
 		app_events['actual'] = notification_events.objects.filter(is_actual=True).all()[:5]
 
@@ -436,9 +436,9 @@ def dashboard_settings(request):
 	app_settings = app.objects.filter(is_actual=True).first()
 	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
 	app_events = {}
-	if confirm_events_user:
+	if confirm_events_user: 
 		app_events['actual'] = notification_events.objects.filter(Q(is_actual=True) & Q(event_date__gte=confirm_events_user.confirm_date) & Q(Q(users_list=request.user) | Q(title='Новый пользователь!'))).all()
-		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
+		app_events['previews'] = notification_events.objects.filter(Q(is_actual=True) & Q(Q(Q(users_list=request.user) & Q(event_date__lte=confirm_events_user.confirm_date)) | Q(title='Новый пользователь!'))).filter(~Q(id__in=list(app_events.get('actual').filter(title='Новый пользователь!').values_list('pk', flat=True)))).all()[:3]
 	else:
 		app_events['actual'] = notification_events.objects.filter(is_actual=True).all()[:5]
 	
@@ -501,8 +501,9 @@ def dashboard_publication(request):
 	confirm_events_user = user_notification_event_confirm.objects.filter(user=request.user).first()
 	app_events = {}
 	if confirm_events_user:
+ 
 		app_events['actual'] = notification_events.objects.filter(Q(is_actual=True) & Q(event_date__gte=confirm_events_user.confirm_date) & Q(Q(users_list=request.user) | Q(title='Новый пользователь!'))).all()
-		app_events['previews'] = notification_events.objects.filter(is_actual=True, users_list=request.user, event_date__lte=confirm_events_user.confirm_date).all()[:3]
+		app_events['previews'] = notification_events.objects.filter(Q(is_actual=True) & Q(Q(Q(users_list=request.user) & Q(event_date__lte=confirm_events_user.confirm_date)) | Q(title='Новый пользователь!'))).filter(~Q(id__in=list(app_events.get('actual').filter(title='Новый пользователь!').values_list('pk', flat=True)))).all()[:3]
 	else:
 		app_events['actual'] = notification_events.objects.filter(is_actual=True).all()[:5]
 	
