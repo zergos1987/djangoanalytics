@@ -393,6 +393,8 @@ span.select2-container li.select2-results__options {
     text-align: center;
     width: 16px;
     height: 16px;
+    /*z-index: 100;*/
+    z-index: 0;
     z-index: 100;
     border-radius: 50%;
     margin-top: -1px;
