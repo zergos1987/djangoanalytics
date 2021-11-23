@@ -194,7 +194,7 @@ class app(models.Model):
 	app_brand_logo = models.ImageField(upload_to='img', null=True)
 	app_brand_logo_zoom = models.FloatField(validators=[MinValueValidator(0.0), MaxValueValidator(3.0)], default=1)
 	app_breadcrumb_active = models.CharField(max_length=400, default='', blank=True)
-	app_settings_container_display_mode = models.ManyToManyField(container_display_mode)
+	app_settings_container_display_mode = models.ManyToManyField(container_display_mode, null=True, blank=True)
 	app_settings_html_lang_code = models.ForeignKey(html_lang_code, on_delete=models.CASCADE, unique=False, null=True, blank=True)
 	app_settings_meta_charset_code = models.ForeignKey(meta_charset_code, on_delete=models.CASCADE, null=True, blank=True)
 	app_settings_meta_author_description = models.ForeignKey(meta_author_description, on_delete=models.CASCADE, null=True, blank=True)
