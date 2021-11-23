@@ -377,6 +377,7 @@ span.select2-container li.select2-results__options {
 
 .table-grid-container.dict_table .table-grid-header .header-item.pages-limit {
     margin: 0;
+    z-index: 5;
 }
 
 .dict-selected-item td:first-child .table-tbody-td-div:before {
