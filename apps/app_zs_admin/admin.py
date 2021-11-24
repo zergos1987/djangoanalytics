@@ -19,6 +19,8 @@ from .models import (
         week_intervals,
         etl_job_database_tables_tasks,
         etl_job_database_tables_tasks_logs,
+        user_message_headers,
+        user_messages,
 	)
 
 # Register your models here.
@@ -403,6 +405,11 @@ class etl_job_database_tables_tasksAdmin(ImportExportModelAdmin):
         #     return False
 
     resource_class = etl_job_database_tables_tasksResource
+
+
+
+admin.site.register(user_message_headers)
+admin.site.register(user_messages)
 admin.site.register(etl_job_database_tables_tasks, etl_job_database_tables_tasksAdmin)
 admin.site.register(week_intervals)
 admin.site.register(time_intervals)
