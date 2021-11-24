@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^zs_admin/dashboard_creation/$', views.dashboard_creation, name='dashboard_creation'),
     url(r'^zs_admin/dashboard_publication/$', views.dashboard_publication, name='dashboard_publication'),
     url(r'^zs_admin/notification_events_confirm/(?P<user_id>\d+)/$', views.notification_events_confirm, name='notification_events_confirm'),
+    url(r'^zs_admin/get_user_message/$', views.get_user_message, name='get_user_message'),
     
     url(r'^zs_admin/api/', include(router.urls)),
     url(r'^zs_admin/api/(?P<api_key>\w+)/etl_scheduller/get/$', views.etl_scheduller_get_api.as_view(), name="etl_scheduller_get_api"),
