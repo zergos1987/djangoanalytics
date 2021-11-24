@@ -446,4 +446,58 @@ $(document).ready(function(){
 			}
 		});
 	}
+
+	let message_container = document.querySelector('.message-container');
+	let message_data;
+	function update_message_container() {
+		if(message_container.classList.contains('active')) { 
+
+			message_container.querySelector('.groups-header').remove();
+			message_container.querySelector('.groups-data > .item').remove();
+
+			async function load() {
+				let url = '/zs_admin/get_user_message/?type=registration_info';
+				let obj = await (await fetch(url)).json();
+				message_data = {}
+				if (obj.response_detais !== '200') {
+					message_data["header"] = obj.response_detais
+					message_data["items"] = []
+				} else {
+					message_data["header"] = obj.header
+					message_data["items"] = obj.items
+				}
+
+
+				let json_headers = message_data.header;
+				function render_html_message_headers(header) {
+					let html_items = []
+					const div = document.createElement('div');
+					div.className = 'groups-header';
+					div.innerText = header
+					html_items.push(div)
+					return html_items
+				}
+
+				let json_items = message_data.items;
+				function render_html_message_items(json_items) {
+					function get_html_item(name, email) {
+						const div = document.createElement('div');
+						div.className = 'item';
+						div.innerHTML = `<div class="groups-name">${name}</div><div class="groups-email">${email}</div>`
+						return div
+					}
+					let html_items = []
+					json_items.forEach((item) => html_items.push(get_html_item(item.name, item.email)))
+					return html_items
+				}
+
+				render_html_message_headers(json_headers).forEach((item, i) => message_container.querySelector('.groups').prepend(item));
+				render_html_message_items(json_items).forEach((item, i) => message_container.querySelector('.groups-data').appendChild(item));
+
+				console.log('function update_message_container');
+			}
+			load();
+		}
+	}
+	window.setTimeout(update_message_container, 500);
 });
