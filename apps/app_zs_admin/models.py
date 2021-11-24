@@ -8,7 +8,46 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 
 
+
+
 # Create your models here.
+class user_message_headers(models.Model):
+	header = models.CharField(max_length=400)
+	codename = models.CharField(max_length=400, blank=True, null=True)
+
+	class Meta:
+		# app_label helps django to recognize your db
+		app_label = 'app_zs_admin'
+
+	def __str__(self):
+		admin_text = 'id: ' + str(self.id)
+		if self.header:
+			admin_text += ', header: ' + str(self.header)
+		return admin_text
+
+
+
+message_types = (
+	("info", "info"),
+	("warning", "warning"),
+	("error", "error"),
+)
+class user_messages(models.Model):
+	user_messages = models.ForeignKey(user_message_headers, on_delete=models.CASCADE, unique=False, blank=False, null=False)
+	message_row = JSONField(default=list, null=True, blank=True)
+	message_type = models.CharField(max_length=40, choices=message_types, default='info')
+
+	class Meta:
+		# app_label helps django to recognize your db
+		app_label = 'app_zs_admin'
+
+	def __str__(self):
+		admin_text = 'id: ' + str(self.id)
+		if self.user_messages:
+			admin_text += ', user_messages: ' + str(self.user_messages.header)
+		if self.message_type:
+			admin_text += ', message_type: ' + str(self.message_type)
+		return admin_text
 
 
 
