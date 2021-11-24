@@ -8,7 +8,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User, Group, Permission
 from django.contrib.contenttypes.models import ContentType 
 from apps.accounts.models import user_extra_details
-from apps.app_zs_admin.models import app, notification_events, user_notification_event_confirm, aside_left_menu_includes, etl_job_database_tables_tasks, etl_job_database_tables_tasks_logs
+from apps.app_zs_admin.models import app, notification_events, user_notification_event_confirm, aside_left_menu_includes, etl_job_database_tables_tasks, etl_job_database_tables_tasks_logs, user_messages, user_message_headers
 from custom_script_extensions.dynamic_grid_tables import get_table_settings
 from custom_script_extensions.dynamic_grid_render import dynamic_datagrid
 from custom_script_extensions.custom_permissions_check import check_user_content_request_permission
@@ -320,6 +320,29 @@ def notification_events_publication(request, notification_events_id=None, event=
 	}
 
 	return render(request, template, context)
+
+
+#@login_required
+#@permission_required('app_zs_admin.view_app')
+def get_user_message(request):
+	request_message_type = request.GET.get("type", None)
+
+	data = {}
+	data['response_detais'] = 'no data'
+
+	if request_message_type:
+		if request_message_type == 'registration_info':
+			header = user_message_headers.objects.filter(codename='registration_info').first()
+			if header:
+				items = user_messages.objects.filter(user_messages=header).all()
+				data['response_detais'] = '200'
+				data['message_type'] = items.first().message_type
+				data['header'] = header.header
+				data['items'] = [i.message_row for i in items]
+			else:
+				data['response_detais'] = 'Data load error'
+
+	return HttpResponse(json.dumps(data, ensure_ascii=False), content_type="application/json")
 
 
 @login_required
