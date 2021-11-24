@@ -33,6 +33,20 @@
     </head>
 
     <body>
+        <div class="message-container {% block message_notification_active %}{% endblock message_notification_active %}">
+            <div class="wrapper">
+                <div class="groups">
+                    <div class="groups-header">Инф. по доступу:</div>
+                    <div class="groups-data">
+                        <div class="item">
+                            <div class="groups-name">FIO</div>
+                            <div class="groups-email">empty@email.ru</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <div class="container {% block container_display_mode_classname %}{% endblock container_display_mode_classname %}" id="container">
             <header class="container-header">
                 <span class="border-shadow bottom header"></span>
