@@ -266,6 +266,100 @@ svg {
 .breadcrumb > ul > li:last-child {
     background-color: transparent;
 }
+
+/*MESSAGE-NOTIFICATION ======================================================== */
+.message-container:not(:hover) {
+    display: none;
+    position: absolute;
+    z-index: 2000;
+    background-color: #2c26651c;
+    width: 25px;
+    height: 25px;
+    overflow: hidden;
+    border-radius: 50%;
+    right: 15px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.message-container:not(:hover):after {
+    content: 'i';
+}
+
+.message-container.active:hover {
+    width: 100%;
+    min-height: 20px;
+    position: absolute;
+    z-index: 2000;
+    background-color: #2c26651c;
+}
+
+.message-container.active {
+    display: block;
+}
+
+.message-container.active:not(:hover) {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    font-family: serif;
+    color: #fff;
+    padding-top: 2px;
+    background-color: #464cad61;
+}
+
+.message-container:not(:hover) * {
+    display: none;
+}
+
+.message-container:hover > .wrapper {
+    padding: 10px 16px;
+}
+
+.message-container:hover > .wrapper > .groups {
+    display: flex;
+    align-items: flex-start;
+    color: #737bde;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.message-container:hover > .wrapper > .groups * {
+    user-select: all;
+}
+
+.message-container:hover > .wrapper > .groups > .groups-header {
+    padding-top: 5px;
+}
+
+.message-container:hover > .wrapper > .groups > .groups-data {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 20px;
+    width: 375px;
+    color: #6760d0;
+    font-weight: normal;
+    font-size: 9px;
+    border-left: 1px solid #6760d0a1;
+    margin-left: 20px;
+}
+
+.message-container:hover > .wrapper > .groups > .groups-data > .item {
+    flex: 50%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    line-height: 12px;
+}
+
+.message-container > .wrapper > .groups > .groups-data > .item > .groups-name {
+    
+}
+
+.message-container > .wrapper > .groups > .groups-data > .item > .groups-email {
+    
+}
+
 /*CONTAINER =================================================================== */
 .container {
 	width: 100%;
