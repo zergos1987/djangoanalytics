@@ -991,7 +991,7 @@ svg {
     align-items: center;
 }
 
-.header-section-right .item-group.active .items:not(.countries) .row:first-child {
+.header-section-right .item-group.notifications.active .items:not(.countries) .row:first-child {
     position: fixed;
     background-color: #e5e5e5;
     z-index: 1;
@@ -1000,7 +1000,7 @@ svg {
     align-items: center;
 }
 
-.header-section-right .item-group.active .items:not(.countries) .row:nth-child(2) {
+.header-section-right .item-group.notifications.active .items:not(.countries) .row:nth-child(2) {
     padding-top: 30px;
 }
 
