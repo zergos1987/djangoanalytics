@@ -5231,6 +5231,7 @@ text.value-label-white {
   border: none !important;
   background: none !important;
   z-index: -1;
+  user-select: none;
 }
 .PopoverContainer.PopoverContainer--open.tether-element.tether-element-attached-top.tether-element-attached-left.tether-target-attached-bottom.tether-target-attached-left.tether-enabled .hFNRPZ {
     color: #333 !important;
