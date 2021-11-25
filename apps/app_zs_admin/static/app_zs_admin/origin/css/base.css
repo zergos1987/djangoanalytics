@@ -1335,11 +1335,11 @@ svg {
 
 .container-aside-left .fas {
     color: #606060;
-    margin-right: 15px;
+    margin-right: 18px;
     text-align: center;
     align-items: center;
     display: flex;
-    padding-left: 2px;
+    padding-left: 5px;
     max-height: inherit;
 }
 
@@ -1529,6 +1529,8 @@ svg {
     color: #606060;
     font-size: 1.2em;
     background: transparent;
+	letter-spacing: 0;
+	color: #000;
 }
 
 .container:not(.active) .container-aside-left .item-group.active > .items-frame > .items-header {
