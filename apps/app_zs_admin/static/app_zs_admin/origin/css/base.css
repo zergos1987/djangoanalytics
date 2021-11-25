@@ -994,12 +994,13 @@ svg {
 }
 
 .header-section-right .item-group.notifications.active .items:not(.countries) .row:first-child {
-    position: fixed;
-    background-color: #e5e5e5;
-    z-index: 1;
-    margin-top: -12px;
-    height: 40px;
-    align-items: center;
+	position: fixed;
+	background-color: #e5e5e5;
+	z-index: 1;
+	margin-top: -12px;
+	height: 40px;
+	align-items: center;
+	border-radius: 10px 10px 0 0;
 }
 
 .header-section-right .item-group.notifications.active .items:not(.countries) .row:nth-child(2) {
