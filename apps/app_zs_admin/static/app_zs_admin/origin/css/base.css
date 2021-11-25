@@ -991,6 +991,19 @@ svg {
     align-items: center;
 }
 
+.header-section-right .item-group.active .items:not(.countries) .row:first-child {
+    position: fixed;
+    background-color: #e5e5e5;
+    z-index: 1;
+    margin-top: -12px;
+    height: 40px;
+    align-items: center;
+}
+
+.header-section-right .item-group.active .items:not(.countries) .row:nth-child(2) {
+    padding-top: 30px;
+}
+
 .header-section-right .item-group.active .items:not(.countries) .row.header {
     align-items: unset;
     justify-content: space-between;
@@ -1051,7 +1064,7 @@ svg {
 }
 
 .header-section-right .item-group.active .items:not(.countries) .row > .notification_header {
-    padding: 0px 0px 9px;
+    padding: 0px 0px 0px;
     margin: 0 auto;
     font-weight: bold;
     letter-spacing: 0.5px;
