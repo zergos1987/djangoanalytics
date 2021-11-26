@@ -5258,7 +5258,7 @@ text.value-label-white {
   opacity: 0.6;
   box-shadow: 0px 0px 3px 2px rgb(0 0 0 / 20%), -2px -2px 5px 0 rgb(255 255 255 / 55%);
   border: 2px #ffffff dotted;
-  background-image: url(https://djangoanalytics.ru:8000/static/app_opensource_dashboards/origin/res/img/filter_icon.svg);
+  background-image: url(https://ru/static/app_opensource_dashboards/origin/res/img/filter_icon.svg);
   background-repeat: no-repeat;
   background-color: transparent;
   box-shadow: none;
@@ -5320,6 +5320,18 @@ table.CtorL tr[data-testid="table-row"] span {
   color: #555555 !important;
   font-weight: normal !important;
   font-size: 0.9em;
+}
+
+table.CtorL tr[data-testid="table-row"] span > .flex.align-center.currentcolor.justify-end.relative {
+  flex-direction: row-reverse;
+}
+
+table.CtorL tr[data-testid="table-row"] span > .flex.align-center.currentcolor.justify-end.relative > .text-ellipsis.text-bold.text-right.flex-full {
+  padding-left: 7px;
+}
+
+table.CtorL tr[data-testid="table-row"] span > .flex.align-center.currentcolor.justify-end.relative > .ml1 {
+  margin-left: 0;
 }
 
 .TableInteractive-headerCellData.cellData.text-brand-hover.text-medium {
@@ -5406,24 +5418,22 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 }
 
 .LegendItem > div.flex > div {
-  font-size: 0.85em;
+  font-size: 0.95em;
+}
+
+.LineAreaBarChart.flex.flex-column.p1.CardVisualization.flex-full.flex-basis-none .LegendItem > div.flex > div {
+  font-size: 0.8em !important;
 }
 
 ._1ABjV._2tUFa._1BBNM .LegendItem {
   font-size: 0.8em;
   align-self: center;
-  font-family: Roboto;
+  /*font-family: Roboto;*/
 }
 
 ._1ABjV._2tUFa._1BBNM .LegendItem > div.flex > div {
   color: #5a5a5a;
-  font-family: Roboto;
-}
-
-.text-brand-hover.LegendItem > div.flex > div {
-  font-size: 0.9em;
-  color: #5a5a5a;
-  font-family: Roboto;
+  /*font-family: Roboto;*/
 }
 
 .dc-chart .grid-line, .dc-chart .axis .grid-line, .dc-chart .grid-line line, .dc-chart .axis .grid-line line {
@@ -5436,8 +5446,16 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
   text-align: center;
 }
 
+/*.LegendItem.no-decoration.flex.align-center.fullscreen-normal-text.fullscreen-night-text.mr1.cursor-pointer > div.flex.align-center.overflow-hidden > div,
 .tether-target.tether-element-attached-top.tether-element-attached-center.tether-target-attached-bottom.tether-target-attached-center {
-  font-size: 1em !important;
+  font-size: 0.8em !important;
+}
+*/
+.text-brand-hover.LegendItem > div.flex > div {
+  font-size: 13px;
+  color: #5a5a5a;
+  /*font-family: Roboto;*/
+  font-family: Arial;
 }
 
 .hFNRPZ {
@@ -5446,23 +5464,35 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 
 .CtorL th, .CtorL td {
     border-bottom: 1px solid rgba(216, 216, 216, 0.30000000000000004) !important;
+    text-align: left;
 }
 
 .TableInteractive-headerCellData.cellData.text-brand-hover.text-medium > div {
   position: relative;
   display: flex;
   flex-direction: row;
-  /*flex-direction: row-reverse;*/
+  flex-direction: row-reverse;
   align-items: center;
   font-size: 0.9em;
   user-select: none;
+  justify-content: flex-end;
 }
 
 .TableInteractive-headerCellData.cellData.text-brand-hover.text-medium > div > svg {
-  margin: 0 !important;
-  /*margin-left: 10px !important;*/
-  margin-right: 5px !important;
+  margin-right: 0px !important;
   position: unset !important;
+  margin-left: auto;
+  padding-left: 10px;
+}
+
+.CtorL.ipoXK.fullscreen-normal-text.fullscreen-night-text > thead > tr > th.TableInteractive-headerCellData.cellData.text-brand-hover.text-medium:first-child,
+.CtorL.ipoXK.fullscreen-normal-text.fullscreen-night-text > tbody > tr > td.fullscreen-normal-text.fullscreen-night-text:first-child {
+  padding-left: 24px;
+}
+
+.CtorL.ipoXK.fullscreen-normal-text.fullscreen-night-text > thead > tr > th.TableInteractive-headerCellData.cellData.text-brand-hover.text-medium:last-child,
+.CtorL.ipoXK.fullscreen-normal-text.fullscreen-night-text > tbody > tr > td.fullscreen-normal-text.fullscreen-night-text:last-child {
+  padding-right: 25px;
 }
 
 .CardVisualization > .p1.flex.flex-no-shrink.flex-align-right.fullscreen-normal-text.fullscreen-night-text {
@@ -5537,3 +5567,4 @@ table.CtorL tr[data-testid="table-row"] > td:hover span {
 body {
   background-color: transparent !important;
 }
+
