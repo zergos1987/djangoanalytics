@@ -32,9 +32,13 @@ message_types = (
 	("warning", "warning"),
 	("error", "error"),
 )
+
+def default_message_row():
+	return [{"name": "name", "email": "email"}]
+
 class user_messages(models.Model):
 	user_messages = models.ForeignKey(user_message_headers, on_delete=models.CASCADE, unique=False, blank=False, null=False)
-	message_row = JSONField(default=list, null=True, blank=True)
+	message_row = JSONField(null=True, blank=True, default=default_message_row)
 	message_type = models.CharField(max_length=40, choices=message_types, default='info')
 
 	class Meta:

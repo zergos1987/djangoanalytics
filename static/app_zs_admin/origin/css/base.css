@@ -796,6 +796,7 @@ svg {
     box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 1px 4px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.05);
 }
 
+.header-section-right .item-group.active .items:not(.countries) .row > .notification_container > .block-content::-webkit-scrollbar-thumb,
 .header-section-right .item-group.active .items::-webkit-scrollbar-thumb {
     background-color: #cacacade;
     border: 2px solid transparent;
@@ -803,16 +804,19 @@ svg {
     background-clip: padding-box; 
 }
 
+.header-section-right .item-group.active .items:not(.countries) .row > .notification_container > .block-content::-webkit-scrollbar-thumb:hover,
 .header-section-right .item-group.active .items::-webkit-scrollbar-thumb:hover {
     background-color: #a4a4a4; 
 }
 
+.header-section-right .item-group.active .items:not(.countries) .row > .notification_container > .block-content::-webkit-scrollbar,
 .header-section-right .item-group.active .items::-webkit-scrollbar {
     display: none;
     width: 11px;
     height: 11px;
 }
 
+.header-section-right .item-group.active .items:not(.countries) .row > .notification_container > .block-content:hover::-webkit-scrollbar,
 .header-section-right .item-group.active .items:hover::-webkit-scrollbar {
     display: block;
 }
@@ -963,6 +967,11 @@ svg {
     display: flex;
 }
 
+.notification_container * {
+    user-select: all;
+    -webkit-user-select: all;
+}
+
 .header-section-right .item-group.active .items:not(.countries) .row > .notification_container {
     min-width: 250px;
     min-height: 50px;
@@ -996,6 +1005,7 @@ svg {
     font-size: 12px;
     color: #333;
     line-height: 18px;
+    overflow: auto;
 }
 
 .header-section-right .item-group.active .items.countries .row {
@@ -1507,6 +1517,7 @@ svg {
     top: 15px;
 }
 
+.container-main .print-mode,
 .container-main .full-screen-button {
     position: absolute;
     width: 0px;
@@ -1520,6 +1531,16 @@ svg {
     transition: all .5s ease-in;
 }
 
+.container-main .print-mode {
+    right: 55px;
+    top: 15px;
+}
+
+.container.container-aside-left-disabled.container-header-disabled.container-main-padding-off > .container-main .print-mode {
+    display: none !important;
+}
+
+.container-main:hover .print-mode,
 .container-main:hover .full-screen-button {
     position: absolute;
     z-index: 500;
@@ -1532,20 +1553,24 @@ svg {
     transition: all .5s ease-out;
 }
 
+.container-main:hover .print-mode:hover,
 .container-main:hover .full-screen-button:hover {
     cursor: pointer;
 }
 
+.container-main .print-mode svg,
 .container-main .full-screen-button svg {
     fill: #e4e4e4;
     transition: fill .5s ease-out;
 }
 
+.container-main:hover .print-mode:hover svg,
 .container-main:hover .full-screen-button:hover svg {
     fill: #616161;
     transition: fill .1s ease-in;
 }
 
+.container-main:hover .print-mode svg:active,
 .container-main:hover .full-screen-button svg:active {
     fill: #ccc;
     transition: fill .05s ease-out;
