@@ -325,10 +325,6 @@ svg {
     font-weight: 700;
 }
 
-.message-container:hover > .wrapper > .groups * {
-    user-select: all;
-}
-
 .message-container:hover > .wrapper > .groups > .groups-header {
     padding-top: 5px;
 }
