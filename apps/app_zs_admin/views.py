@@ -103,6 +103,8 @@ def settings_index(request):
 @login_required
 #@permission_required('app_zs_admin.view_app')
 def render_view(request, id):
+	if not aside_left_menu_includes.objects.filter(id=id).exists(): raise Http404
+		
 	user_content_has_permission = check_user_content_request_permission(
 		content_obj='aside_left_menu_includes',
 		obj_id=id,
