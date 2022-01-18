@@ -155,7 +155,7 @@
         <!-- BASE JS -->
         <!-- APP JS -->
         {% block js %}{{ block.super }}
-        <script src="{% static 'app_opensource_dashboards/origin/js/index.js'%}"></script>
+        <script type="javascript" src="{% static 'app_opensource_dashboards/origin/js/index.js'%}"></script>
         {% endblock js %}
         <!-- APP VENDOR JS -->
         {% block vendor_js %}{{ block.super }}{% endblock vendor_js %}
